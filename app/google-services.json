@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "525341780555",
+    "firebase_url": "https://zemedidores.firebaseio.com",
+    "project_id": "zemedidores",
+    "storage_bucket": "zemedidores.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525341780555:android:95d0b3285c95c63c",
+        "android_client_info": {
+          "package_name": "com.zecovery.android.zemedidores"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525341780555-jbmov88lntsdeujfhsgfndjtl1idi01d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zecovery.android.zemedidores",
+            "certificate_hash": "6ba92750fee9fb9b51c7b0f21a46649cad9d2599"
+          }
+        },
+        {
+          "client_id": "525341780555-p2lhun16cuvreuq6sqp5e2h3fl2l8eud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8UF9uSYURoI6muQ-9SbCS1CF6aUWBUTk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525341780555-p2lhun16cuvreuq6sqp5e2h3fl2l8eud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

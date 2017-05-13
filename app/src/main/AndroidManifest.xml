@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zecovery.android.zemedidores">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".views.LaunchScreenActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".views.login.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.Login" />
+        <activity
+            android:name=".views.MainActivity"
+            android:label="@string/title_activity_launch_screen"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".views.ShiftActivity"
+            android:label="@string/title_activity_init_shift"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".views.login.UnAuthorizedActivity"
+            android:label="@string/title_activity_un_authorized"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".views.Assignments.AssignmentDetailActivity"
+            android:label="@string/title_activity_assignment_detail"
+            android:parentActivityName=".views.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zecovery.android.zemedidores.views.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>

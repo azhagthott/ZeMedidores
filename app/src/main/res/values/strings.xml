@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Ze Medidores</string>
+
+    <string name="action_settings">Preferencias</string>
+    <string name="action_intro">Ver intro</string>
+    <string name="action_sign_out">Cerrar sesión</string>
+
+    <string name="title_activity_login">Iniciar sesión</string>
+    <string name="title_activity_launch_screen">Intro</string>
+    <string name="title_activity_un_authorized">Acceso no autorizado</string>
+    <string name="title_activity_init_shift">Empezar turno</string>
+    <string name="title_activity_assignment_detail">Detalle</string>
+
+</resources>
