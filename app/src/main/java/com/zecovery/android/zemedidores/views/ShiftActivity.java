@@ -32,7 +32,7 @@ public class ShiftActivity extends AppCompatActivity implements ShiftCallback {
             @Override
             public void onClick(View v) {
                 //new InitShift(ShiftActivity.this).init();
-                startActivity(new Intent(ShiftActivity.this, AssignmentDetailActivity.class));
+                startActivity(new Intent(ShiftActivity.this, MainActivity.class));
             }
         });
     }

@@ -22,23 +22,28 @@
         <activity
             android:name=".views.login.LoginActivity"
             android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login" />
         <activity
             android:name=".views.MainActivity"
             android:label="@string/title_activity_launch_screen"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".views.ShiftActivity"
             android:label="@string/title_activity_init_shift"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".views.login.UnAuthorizedActivity"
             android:label="@string/title_activity_un_authorized"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".views.Assignments.AssignmentDetailActivity"
             android:label="@string/title_activity_assignment_detail"
             android:parentActivityName=".views.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

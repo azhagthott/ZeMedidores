@@ -2,6 +2,10 @@ package com.zecovery.android.zemedidores.data;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by fbarrios80 on 08-05-17.
@@ -22,9 +26,10 @@ public class Nodes {
         return root().child("users");
     }
 
-    public DatabaseReference assignments() {
+    public Query assignments() {
         String uid = new CurrentUser().uid();
-        return root().child("assignments").child(uid);
+        String today = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+        return root().child("assignments").child(uid).orderByChild("visibility").equalTo(true).orderByChild("date").endAt(today);
     }
 
     public DatabaseReference forms() {
