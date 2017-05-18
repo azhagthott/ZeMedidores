@@ -29,7 +29,7 @@ public class Nodes {
     public Query assignments() {
         String uid = new CurrentUser().uid();
         String today = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-        return root().child("assignments").child(uid).orderByChild("visibility").equalTo(true).orderByChild("date").endAt(today);
+        return root().child("assignments").child(uid).orderByChild("visibility_date").endAt("true_"+today);
     }
 
     public DatabaseReference forms() {

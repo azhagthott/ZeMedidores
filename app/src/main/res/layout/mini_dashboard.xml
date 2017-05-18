@@ -72,7 +72,6 @@
 
         </LinearLayout>
 
-
         <com.hookedonplay.decoviewlib.DecoView
             android:id="@+id/mainProgress"
             android:layout_width="120dp"

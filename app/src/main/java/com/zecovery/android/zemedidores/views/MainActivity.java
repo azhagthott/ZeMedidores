@@ -1,9 +1,10 @@
 package com.zecovery.android.zemedidores.views;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,78 +17,52 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.hookedonplay.decoviewlib.DecoView;
-import com.hookedonplay.decoviewlib.charts.SeriesItem;
-import com.hookedonplay.decoviewlib.events.DecoEvent;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.adapters.AssignmentAdapter;
 import com.zecovery.android.zemedidores.adapters.AssignmentUpdater;
-import com.zecovery.android.zemedidores.data.CurrentUser;
+import com.zecovery.android.zemedidores.data.CircularGraph;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity implements AssignmentUpdater {
 
     private RecyclerView mainRecyclerView;
     private DecoView main, done, undone;
-    //private CollapsingToolbarLayout toolbarLayout;
+    private CollapsingToolbarLayout toolbarLayout;
+    private AppBarLayout appBarLayout;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         findViews();
 
+        new CircularGraph().graph(main, 56);
+        new CircularGraph().graph(done, 32);
+        new CircularGraph().graph(undone, 89);
+
         toolbar.setTitle("");
-        //toolbarLayout.setTitle("");
+        toolbarLayout.setTitle("");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mainRecyclerView.setLayoutManager(linearLayoutManager);
-        AssignmentAdapter adapter = new AssignmentAdapter(new CurrentUser().uid(), MainActivity.this);
+        AssignmentAdapter adapter = new AssignmentAdapter(MainActivity.this);
         mainRecyclerView.setAdapter(adapter);
 
-        graph();
-    }
-
-
-    private void graph() {
-        main.addSeries(new SeriesItem.Builder(Color.argb(255, 218, 218, 218))
-                .setRange(0, 100, 100)
-                .setInitialVisibility(false)
-                .setLineWidth(12f)
-                .build());
-
-        SeriesItem seriesItem1 = new SeriesItem.Builder(Color.argb(255, 64, 196, 0))
-                .setRange(0, 100, 0)
-                .setLineWidth(12f)
-                .setSpinDuration(2000)
-                .build();
-
-        int series1Index = main.addSeries(seriesItem1);
-
-        main.addEvent(new DecoEvent.Builder(DecoEvent.EventType.EVENT_SHOW, true)
-                .setDelay(500)
-                .setDuration(1000)
-                .build());
-
-        main.addEvent(new DecoEvent.Builder(25)
-                .setIndex(series1Index)
-                .setDelay(4000)
-                .build());
-
+        setSupportActionBar(toolbar);
     }
 
     private void findViews() {
-
-
-        //toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         mainRecyclerView = (RecyclerView) findViewById(R.id.mainRecyclerView);
         main = (DecoView) findViewById(R.id.mainProgress);
-        done = (DecoView) findViewById(R.id.done);
         undone = (DecoView) findViewById(R.id.undone);
+        done = (DecoView) findViewById(R.id.done);
     }
 
     @Override

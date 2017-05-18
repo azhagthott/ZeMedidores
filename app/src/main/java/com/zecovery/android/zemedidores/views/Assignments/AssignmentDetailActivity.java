@@ -14,11 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
 
-import ernestoyaquello.com.verticalstepperform.VerticalStepperFormLayout;
-
 public class AssignmentDetailActivity extends AppCompatActivity {
-
-    private VerticalStepperFormLayout verticalStepperForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +22,6 @@ public class AssignmentDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_assignment_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
     }
@@ -70,5 +63,4 @@ public class AssignmentDetailActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

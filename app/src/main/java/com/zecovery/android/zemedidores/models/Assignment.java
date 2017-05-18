@@ -6,12 +6,9 @@ package com.zecovery.android.zemedidores.models;
 
 public class Assignment {
 
-    private String name, description, origin, address;
-    private boolean status;
+    private String name, description, origin, address, date, uid;
+    private boolean visibility;
     private long lng, lat;
-
-    public Assignment() {
-    }
 
     public String getName() {
         return name;
@@ -45,12 +42,28 @@ public class Assignment {
         this.address = address;
     }
 
-    public boolean getStatus() {
-        return status;
+    public String getDate() {
+        return date;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public boolean isVisible() {
+        return visibility;
+    }
+
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
     }
 
     public long getLng() {

@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.R;
-import com.zecovery.android.zemedidores.views.Assignments.AssignmentDetailActivity;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
 
 public class ShiftActivity extends AppCompatActivity implements ShiftCallback {
@@ -31,7 +30,7 @@ public class ShiftActivity extends AppCompatActivity implements ShiftCallback {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new InitShift(ShiftActivity.this).init();
+                new InitShift(ShiftActivity.this).init();
                 startActivity(new Intent(ShiftActivity.this, MainActivity.class));
             }
         });

@@ -9,6 +9,7 @@
 
     <!-- White -->
     <color name="white">#FFFFFF</color>
+    <color name="white_google">#F1F1F1</color>
 
     <!-- Red -->
     <color name="red_50">#FFEBEE</color>

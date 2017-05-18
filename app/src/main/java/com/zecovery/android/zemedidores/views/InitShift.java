@@ -23,7 +23,8 @@ public class InitShift {
 
             CurrentUser currentUser = new CurrentUser();
             String sanitized = currentUser.sanitizedEmail(currentUser.email());
-            new Nodes().shifts(sanitized).child("start").setValue(ServerValue.TIMESTAMP);
+
+            new Nodes().shifts(sanitized).push().child("start").setValue(ServerValue.TIMESTAMP);
 
             callback.success();
         } else {
