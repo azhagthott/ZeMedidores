@@ -8,9 +8,10 @@
     tools:context="com.zecovery.android.zemedidores.views.Assignments.AssignmentDetailActivity"
     tools:showIn="@layout/activity_assignment_detail">
 
-    <me.drozdzynski.library.steppers.SteppersView
-        android:id="@+id/steppersView"
+    <ernestoyaquello.com.verticalstepperform.VerticalStepperFormLayout
+        android:id="@+id/vertical_stepper_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"/>
 
 </android.support.v4.widget.NestedScrollView>
