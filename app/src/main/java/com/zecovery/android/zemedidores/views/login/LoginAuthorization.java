@@ -10,11 +10,11 @@ import com.zecovery.android.zemedidores.data.Nodes;
  * Created by fbarrios80 on 08-05-17.
  */
 
-public class LoginAutorization implements ValueEventListener {
+public class LoginAuthorization implements ValueEventListener {
 
     private LoginAuthorizationCallback callback;
 
-    public LoginAutorization(LoginAuthorizationCallback callback) {
+    public LoginAuthorization(LoginAuthorizationCallback callback) {
         this.callback = callback;
     }
 

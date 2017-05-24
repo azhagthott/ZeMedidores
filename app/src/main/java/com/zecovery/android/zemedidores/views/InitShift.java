@@ -20,12 +20,9 @@ public class InitShift {
     public void init() {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-
             CurrentUser currentUser = new CurrentUser();
             String sanitized = currentUser.sanitizedEmail(currentUser.email());
-
             new Nodes().shifts(sanitized).push().child("start").setValue(ServerValue.TIMESTAMP);
-
             callback.success();
         } else {
             callback.error();

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="rejection_reasons">
+        <item>El lugar se encuentra desavitado</item>
+        <item>No se recibe al personal tecnico</item>
+        <item>Direccion errada</item>
+        <item>Otro (explicar)</item>
+    </array>
+</resources>

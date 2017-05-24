@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Especifique la razon del rechazo"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/reasonSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:entries="@array/rejection_reasons"
+        android:spinnerMode="dropdown"
+        android:textColor="@color/gray_800"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/reasonOther"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reasonSpinner"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:maxLines="10"
+        android:textColor="@color/gray_800" />
+
+    <LinearLayout
+        android:id="@+id/button_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reasonOther"
+        android:layout_marginBottom="8dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:text="Cancelar"
+            android:textColor="@color/gray_800"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/saveButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:text="Guardar"
+            android:textColor="@color/gray_800"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

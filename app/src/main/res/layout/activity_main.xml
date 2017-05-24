@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/water"
+    android:background="@color/white_google"
     tools:context="com.zecovery.android.zemedidores.views.MainActivity">
 
     <android.support.design.widget.AppBarLayout

@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements AssignmentUpdater
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mainRecyclerView.setLayoutManager(linearLayoutManager);
-        AssignmentAdapter adapter = new AssignmentAdapter(MainActivity.this);
+        AssignmentAdapter adapter = new AssignmentAdapter(MainActivity.this, MainActivity.this);
         mainRecyclerView.setAdapter(adapter);
 
         setSupportActionBar(toolbar);

@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     public void logged() {
-        new LoginAutorization(this).init();
+        new LoginAuthorization(this).init();
     }
 
     @Override
