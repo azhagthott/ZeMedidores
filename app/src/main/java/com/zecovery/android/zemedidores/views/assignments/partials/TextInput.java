@@ -3,7 +3,6 @@ package com.zecovery.android.zemedidores.views.assignments.partials;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.zecovery.android.zemedidores.R;

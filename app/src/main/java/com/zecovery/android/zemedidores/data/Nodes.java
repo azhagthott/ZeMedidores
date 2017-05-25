@@ -29,11 +29,15 @@ public class Nodes {
     public Query assignments() {
         String uid = new CurrentUser().uid();
         String today = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-        return root().child("assignments").child(uid).orderByChild("visibility_date").endAt("true_"+today);
+        return root().child("assignments").child(uid).orderByChild("visibility_date").endAt("true_" + today);
     }
 
     public DatabaseReference forms() {
         return root().child("forms");
+    }
+
+    public DatabaseReference currentProgress(String uid, String progress) {
+        return root().child("current_progress").child(uid).child(progress);
     }
 
     public DatabaseReference registrations(String sanitizedEmail) {

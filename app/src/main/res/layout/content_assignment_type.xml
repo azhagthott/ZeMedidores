@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.zecovery.android.zemedidores.views.assignments.AssignmentTypeActivity"
+    tools:showIn="@layout/activity_assignment_type">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar tipo de formulario"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/residentialButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Residencial" />
+
+    <Button
+        android:id="@+id/businessButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Empresa" />
+
+    <Button
+        android:id="@+id/rejectedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No se puede hacer" />
+
+</LinearLayout>

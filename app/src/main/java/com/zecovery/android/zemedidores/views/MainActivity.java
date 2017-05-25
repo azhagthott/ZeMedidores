@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements AssignmentUpdater
 
         findViews();
 
-        new CircularGraph().graph(main, 56);
+        new CircularGraph().graph(main, 12);
         new CircularGraph().graph(done, 32);
         new CircularGraph().graph(undone, 89);
 
@@ -74,20 +74,18 @@ public class MainActivity extends AppCompatActivity implements AssignmentUpdater
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                break;
+            case R.id.action_map:
+                break;
+            case R.id.action_intro:
+                break;
+            case R.id.action_sign_out:
+                signOut();
+                break;
         }
-        if (id == R.id.action_sign_out) {
-            signOut();
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

@@ -13,15 +13,15 @@ import com.zecovery.android.zemedidores.views.assignments.partials.TextInput;
 import ernestoyaquello.com.verticalstepperform.VerticalStepperFormLayout;
 import ernestoyaquello.com.verticalstepperform.interfaces.VerticalStepperForm;
 
-public class AssignmentDetailActivity extends AppCompatActivity implements VerticalStepperForm, InputListener {
+public class RejectedActivity extends AppCompatActivity implements VerticalStepperForm, InputListener {
 
-    private VerticalStepperFormLayout verticalStepperForm;
+    private VerticalStepperFormLayout rejectedVSF;
     private TextInput nameInput, emailInput, phoneNumberInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assignment_detail);
+        setContentView(R.layout.activity_rejected);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -30,19 +30,19 @@ public class AssignmentDetailActivity extends AppCompatActivity implements Verti
         int colorPrimaryDark = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
 
         // Finding the view
-        verticalStepperForm = (VerticalStepperFormLayout) findViewById(R.id.vertical_stepper_form);
+        rejectedVSF = (VerticalStepperFormLayout) findViewById(R.id.rejectedVSF);
 
-        // Setting up and initializing the form
-        VerticalStepperFormLayout.Builder.newInstance(verticalStepperForm, mySteps, this, this)
+
+        VerticalStepperFormLayout.Builder.newInstance(rejectedVSF, mySteps, this, this)
                 .primaryColor(colorPrimary)
                 .primaryDarkColor(colorPrimaryDark)
                 .showVerticalLineWhenStepsAreCollapsed(true)
                 .displayBottomNavigation(true) // It is true by default, so in this case this line is not necessary
                 .init();
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
 
     @Override
     public View createStepContentView(int stepNumber) {
@@ -72,42 +72,21 @@ public class AssignmentDetailActivity extends AppCompatActivity implements Verti
 
     @Override
     public void onStepOpening(int stepNumber) {
-        switch (stepNumber) {
-            case 0:
-                if ((boolean) nameInput.getTag()) {
-                    verticalStepperForm.setActiveStepAsCompleted();
-                } else {
-                    verticalStepperForm.setActiveStepAsUncompleted();
-                }
-                break;
-            case 1:
-                if ((boolean) emailInput.getTag()) {
-                    verticalStepperForm.setActiveStepAsCompleted();
-                } else {
-                    verticalStepperForm.setActiveStepAsUncompleted();
-                }
-                break;
-            case 2:
-                if ((boolean) phoneNumberInput.getTag()) {
-                    verticalStepperForm.setActiveStepAsCompleted();
-                } else {
-                    verticalStepperForm.setActiveStepAsUncompleted();
-                }
-                break;
-        }
+
     }
 
     @Override
     public void sendData() {
+
     }
 
     @Override
     public void isValid() {
-        verticalStepperForm.setActiveStepAsCompleted();
+
     }
 
     @Override
     public void notValid(String error) {
-        verticalStepperForm.setActiveStepAsUncompleted(error);
+
     }
 }

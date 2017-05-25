@@ -2,6 +2,7 @@
     <string name="app_name">Ze Medidores</string>
 
     <string name="action_settings">Preferencias</string>
+    <string name="action_map">Ver mapa</string>
     <string name="action_intro">Ver intro</string>
     <string name="action_sign_out">Cerrar sesión</string>
 
@@ -14,5 +15,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_intro">Intro</string>
+    <string name="title_activity_assignment_type">"Tipo de inspección "</string>
+    <string name="title_activity_rejected">RejectedActivity</string>
+    <string name="title_activity_assignment">AssignmentActivity</string>
 
 </resources>

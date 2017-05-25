@@ -15,7 +15,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.Nodes;
 import com.zecovery.android.zemedidores.models.Assignment;
-import com.zecovery.android.zemedidores.views.assignments.AssignmentDetailActivity;
+import com.zecovery.android.zemedidores.views.assignments.AssignmentTypeActivity;
 
 import static com.zecovery.android.zemedidores.data.Constant.AA;
 import static com.zecovery.android.zemedidores.data.Constant.ZE;
@@ -37,7 +37,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
 
     @Override
     protected void populateViewHolder(final AssignmentHolder holder, final Assignment assignment, final int position) {
-        holder.setAssignment(assignment.getName());
+        holder.setAssignment(assignment.getAddress());
         holder.setDescription(assignment.getDescription());
 
         if (assignment.getOrigin().equals(ZE)) {
@@ -51,7 +51,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
         holder.assignmentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.getContext().startActivity(new Intent(v.getContext(), AssignmentDetailActivity.class));
+                v.getContext().startActivity(new Intent(v.getContext(), AssignmentTypeActivity.class));
             }
         });
 
