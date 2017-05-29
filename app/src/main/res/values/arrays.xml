@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="rejection_reasons">
-        <item>El lugar se encuentra desavitado</item>
-        <item>No se recibe al personal tecnico</item>
-        <item>Direccion errada</item>
-        <item>Otro (explicar)</item>
+        <item>El lugar se encuentra deshabitado</item>
+        <item>No se recibe al personal técnico</item>
+        <item>Dirección errada</item>
+        <item>Otro (indique)</item>
     </array>
 </resources>
