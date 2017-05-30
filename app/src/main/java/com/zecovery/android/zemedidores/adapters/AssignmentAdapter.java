@@ -1,23 +1,22 @@
 package com.zecovery.android.zemedidores.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.Nodes;
 import com.zecovery.android.zemedidores.models.Assignment;
-import com.zecovery.android.zemedidores.views.assignments.AssignmentTypeActivity;
+import com.zecovery.android.zemedidores.views.assignments.AssignmentActivity;
 
 import static com.zecovery.android.zemedidores.data.Constant.AA;
+import static com.zecovery.android.zemedidores.data.Constant.BUSINESS;
+import static com.zecovery.android.zemedidores.data.Constant.COMMERCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.RESIDENTIAL;
 import static com.zecovery.android.zemedidores.data.Constant.ZE;
 
 /**
@@ -40,10 +39,11 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
         holder.setAssignment(assignment.getAddress());
         holder.setDescription(assignment.getDescription());
 
+
         if (assignment.getOrigin().equals(ZE)) {
-            holder.originColor.setBackgroundColor(Color.RED);
+            holder.originColor.setBackgroundColor(Color.BLUE);
         } else if (assignment.getOrigin().equals(AA)) {
-            holder.originColor.setBackgroundColor(Color.GREEN);
+            holder.originColor.setBackgroundColor(Color.YELLOW);
         } else {
             holder.originColor.setBackgroundColor(Color.BLACK);
         }
@@ -51,46 +51,22 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
         holder.assignmentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.getContext().startActivity(new Intent(v.getContext(), AssignmentTypeActivity.class));
+
+                Context context = v.getContext();
+
+                Intent intent = new Intent(context, AssignmentActivity.class);
+                if (assignment.getAssignment_type().equals(RESIDENTIAL)) {
+                    intent.putExtra("RESIDENTIAL", RESIDENTIAL);
+                    context.startActivity(intent);
+                } else if (assignment.getAssignment_type().equals(COMMERCIAL)) {
+                    intent.putExtra("COMMERCIAL", COMMERCIAL);
+                    context.startActivity(intent);
+                } else {
+                    intent.putExtra("BUSINESS", BUSINESS);
+                    context.startActivity(intent);
+                }
             }
         });
-
-        holder.assignmentView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                activityRejectedDialog(context);
-                return false;
-            }
-        });
-    }
-
-
-    private void activityRejectedDialog(final Context context) {
-
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_fragment);
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-
-        Button saveDialogButton = (Button) dialog.findViewById(R.id.saveButton);
-
-        saveDialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dialog.dismiss();
-            }
-        });
-
-        Button cancelDialogButton = (Button) dialog.findViewById(R.id.cancelButton);
-        cancelDialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        //adapter.notifyDataSetChanged();
-        dialog.show();
     }
 
     public static class AssignmentHolder extends RecyclerView.ViewHolder {

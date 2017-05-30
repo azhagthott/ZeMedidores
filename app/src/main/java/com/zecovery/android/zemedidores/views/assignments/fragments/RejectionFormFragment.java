@@ -15,13 +15,13 @@ import com.zecovery.android.zemedidores.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class RejectionFragment extends Fragment implements View.OnClickListener {
+public class RejectionFormFragment extends Fragment implements View.OnClickListener {
 
     private FloatingActionButton fab;
     private Spinner rejectionsSpinner;
     private EditText rejectionReasonEditText;
 
-    public RejectionFragment() {
+    public RejectionFormFragment() {
     }
 
     @Override

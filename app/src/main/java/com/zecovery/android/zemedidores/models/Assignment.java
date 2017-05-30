@@ -6,7 +6,7 @@ package com.zecovery.android.zemedidores.models;
 
 public class Assignment {
 
-    private String name, description, origin, address, date, uid, visibility_date;
+    private String name, description, origin, address, date, uid, visibility_date, assignment_type;
     private boolean visibility;
     private long lng, lat;
 
@@ -91,5 +91,13 @@ public class Assignment {
 
     public void setVisibility_date(String visibility_date) {
         this.visibility_date = visibility_date;
+    }
+
+    public String getAssignment_type() {
+        return assignment_type;
+    }
+
+    public void setAssignment_type(String assignment_type) {
+        this.assignment_type = assignment_type;
     }
 }

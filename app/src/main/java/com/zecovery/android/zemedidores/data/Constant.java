@@ -6,6 +6,10 @@ package com.zecovery.android.zemedidores.data;
 
 public class Constant {
 
-    public static final String ZE = "zecovery";
-    public static final String AA = "aguas andinas";
+    public static final String ZE = "1";
+    public static final String AA = "2";
+
+    public static final String RESIDENTIAL = "1";
+    public static final String COMMERCIAL = "2";
+    public static final String BUSINESS = "3";
 }
