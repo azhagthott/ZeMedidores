@@ -16,6 +16,8 @@ import com.zecovery.android.zemedidores.views.assignments.AssignmentActivity;
 import static com.zecovery.android.zemedidores.data.Constant.AA;
 import static com.zecovery.android.zemedidores.data.Constant.BUSINESS;
 import static com.zecovery.android.zemedidores.data.Constant.COMMERCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.EMPTY;
+import static com.zecovery.android.zemedidores.data.Constant.REJECTED;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENTIAL;
 import static com.zecovery.android.zemedidores.data.Constant.ZE;
 
@@ -53,17 +55,29 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
             public void onClick(View v) {
 
                 Context context = v.getContext();
-
                 Intent intent = new Intent(context, AssignmentActivity.class);
-                if (assignment.getAssignment_type().equals(RESIDENTIAL)) {
-                    intent.putExtra("RESIDENTIAL", RESIDENTIAL);
-                    context.startActivity(intent);
-                } else if (assignment.getAssignment_type().equals(COMMERCIAL)) {
-                    intent.putExtra("COMMERCIAL", COMMERCIAL);
-                    context.startActivity(intent);
-                } else {
-                    intent.putExtra("BUSINESS", BUSINESS);
-                    context.startActivity(intent);
+                String assignmentType = assignment.getAssignment_type();
+
+                switch (assignmentType) {
+                    case REJECTED:
+                        intent.putExtra("EXTRA", REJECTED);
+                        context.startActivity(intent);
+                    case RESIDENTIAL:
+                        intent.putExtra("EXTRA", RESIDENTIAL);
+                        context.startActivity(intent);
+                        break;
+                    case COMMERCIAL:
+                        intent.putExtra("EXTRA", COMMERCIAL);
+                        context.startActivity(intent);
+                        break;
+                    case BUSINESS:
+                        intent.putExtra("EXTRA", BUSINESS);
+                        context.startActivity(intent);
+                        break;
+                    default:
+                        intent.putExtra("EXTRA", EMPTY);
+                        context.startActivity(intent);
+                        break;
                 }
             }
         });
