@@ -1,13 +1,117 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.zecovery.android.zemedidores.views.assignments.fragments.CommercialFormFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="@string/fragment_commercial_title"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/residentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/residential_form_name"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minLines="1"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp" />
+
+        <EditText
+            android:id="@+id/residentRut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/residential_form_rut"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minLines="1"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp" />
+
+        <EditText
+            android:id="@+id/residentPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/residential_form_phone"
+            android:inputType="phone"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp" />
+
+        <EditText
+            android:id="@+id/residentEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/residential_form_email"
+            android:inputType="textEmailAddress"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:entries="@array/residential_relation"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:spinnerMode="dropdown" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minLines="1"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/residentDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/residential_form_date"
+            android:inputType="datetime"
+            android:paddingEnd="4dp"
+            android:paddingStart="4dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:gravity="end">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/residential_form_save_button" />
+    </LinearLayout>
+
+
+</LinearLayout>

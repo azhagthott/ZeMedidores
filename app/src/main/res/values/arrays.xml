@@ -6,4 +6,10 @@
         <item>Dirección errada</item>
         <item>Otro (indique)</item>
     </array>
+
+    <array name="residential_relation">
+        <item>Dueño</item>
+        <item>Arrendatario</item>
+        <item>Otro (especifique)</item>
+    </array>
 </resources>

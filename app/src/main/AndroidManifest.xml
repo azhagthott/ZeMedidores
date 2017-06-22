@@ -51,11 +51,13 @@
         <activity
             android:name=".views.intro.IntroActivity"
             android:label="@string/title_activity_intro"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".views.assignments.AssignmentTypeActivity"
             android:label="@string/title_activity_assignment_type"
             android:parentActivityName=".views.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -65,6 +67,7 @@
             android:name=".views.assignments.RejectedActivity"
             android:label="@string/title_activity_rejected"
             android:parentActivityName=".views.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -73,6 +76,16 @@
         <activity
             android:name=".views.assignments.AssignmentActivity"
             android:label="@string/title_activity_assignment"
+            android:parentActivityName=".views.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zecovery.android.zemedidores.views.MainActivity" />
+        </activity>
+        <activity
+            android:name=".views.assignments.AskActivity"
+            android:label="@string/title_activity_ask"
             android:parentActivityName=".views.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data

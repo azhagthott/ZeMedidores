@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ernestoyaquello.com.verticalstepperform.VerticalStepperFormLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rejectedVSF"
+    android:id="@+id/rejectedForm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.zecovery.android.zemedidores.views.assignments.RejectedActivity"
-    tools:showIn="@layout/activity_rejected" />
+    tools:showIn="@layout/activity_rejected">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccione el motivo por el que  no se realiza esta visita (obligatorio)" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/rejection_reasons" />
+
+    <EditText
+        android:id="@+id/otroMotivo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

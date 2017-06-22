@@ -11,9 +11,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.Nodes;
 import com.zecovery.android.zemedidores.models.Assignment;
+import com.zecovery.android.zemedidores.views.assignments.AskActivity;
 import com.zecovery.android.zemedidores.views.assignments.AssignmentActivity;
 
 import static com.zecovery.android.zemedidores.data.Constant.AA;
+import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
 import static com.zecovery.android.zemedidores.data.Constant.BUSINESS;
 import static com.zecovery.android.zemedidores.data.Constant.COMMERCIAL;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENTIAL;
@@ -38,14 +40,19 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
     protected void populateViewHolder(final AssignmentHolder holder, final Assignment assignment, final int position) {
         holder.setAssignment(assignment.getAddress());
         holder.setDescription(assignment.getDescription());
+        holder.setOrigin(assignment.getOrigin());
 
+        switch (assignment.getOrigin()) {
+            case ZE:
+                holder.originColor.setBackgroundColor(Color.BLUE);
+                break;
+            case AA:
+                holder.originColor.setBackgroundColor(Color.YELLOW);
+                break;
+            default:
+                holder.originColor.setBackgroundColor(Color.BLACK);
+                break;
 
-        if (assignment.getOrigin().equals(ZE)) {
-            holder.originColor.setBackgroundColor(Color.BLUE);
-        } else if (assignment.getOrigin().equals(AA)) {
-            holder.originColor.setBackgroundColor(Color.YELLOW);
-        } else {
-            holder.originColor.setBackgroundColor(Color.BLACK);
         }
 
         holder.assignmentView.setOnClickListener(new View.OnClickListener() {
@@ -53,17 +60,21 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
             public void onClick(View v) {
 
                 Context context = v.getContext();
+                Intent intent = new Intent(context, AskActivity.class);
 
-                Intent intent = new Intent(context, AssignmentActivity.class);
-                if (assignment.getAssignment_type().equals(RESIDENTIAL)) {
-                    intent.putExtra("RESIDENTIAL", RESIDENTIAL);
-                    context.startActivity(intent);
-                } else if (assignment.getAssignment_type().equals(COMMERCIAL)) {
-                    intent.putExtra("COMMERCIAL", COMMERCIAL);
-                    context.startActivity(intent);
-                } else {
-                    intent.putExtra("BUSINESS", BUSINESS);
-                    context.startActivity(intent);
+                switch (assignment.getAssignment_type()) {
+                    case RESIDENTIAL:
+                        intent.putExtra(ASSIGNMENT_TYPE, RESIDENTIAL);
+                        context.startActivity(intent);
+                        break;
+                    case COMMERCIAL:
+                        intent.putExtra(ASSIGNMENT_TYPE, COMMERCIAL);
+                        context.startActivity(intent);
+                        break;
+                    case BUSINESS:
+                        intent.putExtra(ASSIGNMENT_TYPE, COMMERCIAL);
+                        context.startActivity(intent);
+                        break;
                 }
             }
         });
@@ -72,7 +83,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
     public static class AssignmentHolder extends RecyclerView.ViewHolder {
 
         private View assignmentView, originColor;
-        private TextView assignmentMainTv, assignmentSubTv;
+        private TextView assignmentMainTv, assignmentSubTv, assignmentOriginTv;
 
         public AssignmentHolder(View itemView) {
             super(itemView);
@@ -80,6 +91,8 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
             originColor = itemView.findViewById(R.id.originColor);
             assignmentMainTv = (TextView) itemView.findViewById(R.id.assignmentTv);
             assignmentSubTv = (TextView) itemView.findViewById(R.id.assignmentDescriptionTv);
+            assignmentOriginTv = (TextView) itemView.findViewById(R.id.assignmentOriginTv);
+
         }
 
         private void setAssignment(String name) {
@@ -88,6 +101,10 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
 
         private void setDescription(String description) {
             assignmentSubTv.setText(description);
+        }
+
+        private void setOrigin(String origin) {
+            assignmentOriginTv.setText(origin);
         }
 
     }

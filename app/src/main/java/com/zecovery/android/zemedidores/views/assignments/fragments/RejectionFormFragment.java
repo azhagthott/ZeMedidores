@@ -12,9 +12,6 @@ import android.widget.Spinner;
 
 import com.zecovery.android.zemedidores.R;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class RejectionFormFragment extends Fragment implements View.OnClickListener {
 
     private FloatingActionButton fab;
@@ -37,9 +34,7 @@ public class RejectionFormFragment extends Fragment implements View.OnClickListe
     }
 
     private void findViews(View view) {
-        rejectionReasonEditText = (EditText) view.findViewById(R.id.rejectionReasonEditText);
-        rejectionsSpinner = (Spinner) view.findViewById(R.id.rejectionsSpinner);
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+
     }
 
     @Override

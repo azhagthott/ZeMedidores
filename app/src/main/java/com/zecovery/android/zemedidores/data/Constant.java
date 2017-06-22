@@ -12,4 +12,7 @@ public class Constant {
     public static final String RESIDENTIAL = "1";
     public static final String COMMERCIAL = "2";
     public static final String BUSINESS = "3";
+    public static final String ASSIGNMENT_TYPE = "ASSIGNMENT_TYPE";
+
+
 }

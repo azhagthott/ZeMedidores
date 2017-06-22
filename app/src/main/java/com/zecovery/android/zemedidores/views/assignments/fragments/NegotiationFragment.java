@@ -8,21 +8,20 @@ import android.view.ViewGroup;
 
 import com.zecovery.android.zemedidores.R;
 
-public class CommercialFormFragment extends Fragment {
+public class NegotiationFragment extends Fragment {
 
-
-    public CommercialFormFragment() {
-
+    public NegotiationFragment() {
     }
 
-    public CommercialFormFragment newInstance() {
-        return new CommercialFormFragment();
+    public NegotiationFragment newInstance() {
+        return new NegotiationFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_commercial_form, container, false);
+        return inflater.inflate(R.layout.fragment_negotiation, container, false);
     }
+
 }
