@@ -66,7 +66,6 @@
         <activity
             android:name=".views.assignments.RejectedActivity"
             android:label="@string/title_activity_rejected"
-            android:screenOrientation="portrait"
             android:parentActivityName=".views.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
@@ -77,7 +76,6 @@
         <activity
             android:name=".views.assignments.AssignmentActivity"
             android:label="@string/title_activity_assignment"
-            android:screenOrientation="portrait"
             android:parentActivityName=".views.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
@@ -88,6 +86,7 @@
         <activity
             android:name=".views.assignments.AskActivity"
             android:label="@string/title_activity_ask"
+            android:screenOrientation="portrait"
             android:parentActivityName=".views.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
