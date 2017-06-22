@@ -86,6 +86,7 @@
         <activity
             android:name=".views.assignments.AskActivity"
             android:label="@string/title_activity_ask"
+            android:screenOrientation="portrait"
             android:parentActivityName=".views.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
