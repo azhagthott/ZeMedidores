@@ -9,30 +9,48 @@
     <string name="title_activity_login">Iniciar sesión</string>
     <string name="title_activity_launch_screen">Intro</string>
     <string name="title_activity_un_authorized">Acceso no autorizado</string>
-    <string name="title_activity_init_shift">Empezar turno</string>
-    <string name="title_activity_assignment_detail">Detalle</string>
 
+    <string name="title_activity_assignment_detail">Detalle</string>
 
     <string name="title_activity_intro">Intro</string>
     <string name="title_activity_assignment_type">"Tipo de inspección "</string>
-    <string name="title_activity_rejected">RejectedActivity</string>
-    <string name="title_activity_assignment">AssignmentActivity</string>
+    <string name="title_activity_rejected">Inspección fallida</string>
 
+
+    <!-- UI Init Shift -->
+    <string name="title_activity_init_shift">Empezar turno</string>
+    <string name="init_shift_intro_text">Recuerde que debe empezar su turno antes de realizar cualquier inspección (solo para usuarios autorizados)</string>
+    <string name="init_shift_button">Empezar turno</string>
+
+    <!-- UI Main -->
+    <string name="title_main">Listado de inspecciones</string>
+    <string name="subtitle_main">Listado de inspecciones asignadas para hoy</string>
+
+    <!-- UI Init inspection -->
+    <string name="init_inspect_title">Ubicación</string>
+    <string name="init_inspect_sub_title">Nombre del lugar a inspeccionar</string>
+    <string name="init_inspect_ask">¿Se puede realizar inspección?</string>
+    <string name="init_inspect_affirmative">SI</string>
+    <string name="init_inspect_negative">NO</string>
 
     <!-- UI Fragments -->
-    <string name="fragment_business_title">Empresa</string>
-    <string name="fragment_residential_title">Residencial</string>
-    <string name="fragment_commercial_title">Comercial</string>
-
+    <string name="title_check_data">Realizar inspección</string>
+    <string name="fragment_business_title">Ingreso de inspección: Empresa</string>
+    <string name="fragment_residential_title">Ingreso de inspección: Residencial</string>
+    <string name="fragment_commercial_title">Ingreso de inspección: Comercial</string>
 
     <!-- UI Fragments residential form-->
+    <string name="residential_form_warning">Poligono social</string>
     <string name="residential_form_name">Nombre del residente: </string>
     <string name="residential_form_rut">RUT del residente: </string>
     <string name="residential_form_phone">Teléfono: </string>
-    <string name="residential_form_email">Email: </string>
+    <string name="residential_form_email">Email: (Opcional)</string>
     <string name="residential_form_date">Fecha desde que habita el inmueble: </string>
-    <string name="residential_form_save_button">Guardar</string>
 
+    <string name="residential_form_measurer">Ubicación del medidor: </string>
+    <string name="residential_form_measurer_status">¿El medidor está descompuesto?: </string>
+
+    <string name="residential_form_save_button">Continuar</string>
 
     <!-- UI Fragments business form-->
     <string name="business_form_business_name">Nombre de la empresa: </string>
@@ -41,8 +59,7 @@
     <string name="business_form_rol">Cargo del entrevistado: </string>
     <string name="business_form_contact">Nombre de contacto de la empresa: </string>
     <string name="business_form_phone">Teléfono empresa: </string>
-    <string name="business_form_save_button">Guardar</string>
-
+    <string name="business_form_save_button">Continuar</string>
 
     <!-- UI Fragments commercial form-->
     <string name="commercial_form_commercial_name">Nombre de la empresa: </string>
@@ -51,14 +68,97 @@
     <string name="commercial_form_rol">Cargo del entrevistado: </string>
     <string name="commercial_form_phone">Teléfono: </string>
     <string name="commercial_form_email">Email: </string>
-    <string name="commercial_form_save_button">Guardar</string>
+    <string name="commercial_form_save_button">Continuar</string>
+
+    <!-- UI Fragments execute test -->
+    <string name="execute_test_form_test_1">Ejecute prueba Nº1</string>
+    <string name="execute_test_form_test_1_result">Seleccione el resultado:</string>
+    <string name="execute_test_form_test_2">Ejecute prueba Nº2</string>
+    <string name="execute_test_form_test_2_result">Seleccione el resultado:</string>
+    <string name="execute_test_form_test_3">Ejecute prueba Nº3</string>
+    <string name="execute_test_form_test_3_result">Seleccione el resultado:</string>
+
+    <string name="test_results_save_error">Los resultados de las pruebas no pudieron ser guardados</string>
+    <string name="test_results_saved">Los resultados fueron guardados</string>
+
+    <string name="photo_test_meter_title">Compruebe accesibilidad del Medidor</string>
+    <string name="photo_test_meter_reading">Foto de la lectura Medidor</string>
+    <string name="photo_test_meter_number">Foto del número de medidor</string>
+    <string name="photo_test_meter_panoramic">Foto panorámica del medidor</string>
+    <string name="photo_test_property_reading">Foto del número de la municipalidad \nde la propiedad</string>
+    <string name="photo_test_property_frontage">Foto de la fachada de la propiedad</string>
+    <string name="photo_test_continue">Continuar inspección</string>
+
+    <string name="photo_saved">Fotografía guardada</string>
+    <string name="photo_uploaded">Fotografía enviada al servidor</string>
+
+    <string name="photo_no_saved">Error al intentar guardar fotografía</string>
+    <string name="photo_no_uploaded">Error al intentar enviar fotografía al servidor</string>
+
+    <string name="photo_test_broken_meter_reason_title">Indique el tipo de falla</string>
+    <string name="photo_test_broken_meter_reason">Ejemplo de tipo de falla</string>
+
+    <string name="radio_button_yes">SI</string>
+    <string name="radio_button_no">NO</string>
+
+    <string name="execute_test_title_1">¿Se evidencia intervención del medidor?</string>
+    <string name="execute_test_title_2">¿Se evidencia intervención de la red?</string>
+
+    <string name="execute_test_option_1">Uso imanes</string>
+    <string name="execute_test_option_2">Invertir tomas</string>
+    <string name="execute_test_option_3">Perforar cúpula</string>
+    <string name="execute_test_option_4">Cortar engranajes</string>
+    <string name="execute_test_option_5">Uso de alambre</string>
+    <string name="execute_test_option_6">Prensado</string>
+    <string name="execute_test_option_7">Otros (especificar)</string>
+
+
+    <string name="execute_test_2_option_1">Instalación paralela</string>
+    <string name="execute_test_2_option_2">Instalación bypass</string>
+    <string name="execute_test_2_option_3">Otro (especifique)</string>
+
+
+    <string name="execute_test_3_source_title">Fuente propia de abastecimiento</string>
+    <string name="execute_test_3_new_building">Construcción nueva</string>
+    <string name="execute_test_3_property_type">Tipo de propiedad</string>
+    <string name="execute_test_3_occupant">Habitantes</string>
+    <string name="execute_test_3_bathroom">Baños</string>
+    <string name="execute_test_3_building_surface">Superficie edificada</string>
+    <string name="execute_test_3_garden_surface">Superficie jardín</string>
+    <string name="execute_test_3_access">Acceso</string>
+    <string name="execute_test_3_total_surface">Superficie terreno</string>
+    <string name="execute_test_3_comment">Observaciones</string>
+
+
+    <string name="execute_test_3_type_title">Característica de la propiedad</string>
+    <string name="execute_test_3_auto_supply">Poseé Auto  abastecimiento</string>
+    <string name="execute_test_3_auto_supply_type">Tipo de fuente propia</string>
+    <string name="execute_test_3_use">Uso</string>
+    <string name="execute_test_3_active">Activo</string>
+    <string name="execute_test_3_capacity">Capacidad nominal Bomba extracción</string>
+    <string name="execute_test_3_dga">Resolución DGA Nº</string>
+    <string name="execute_test_3_caudal">Merced/Caudal</string>
+
+
+    <string name="execute_test_form_save_button">Guardar resultaods</string>
 
 
     <!-- UI Fragments rejection form-->
-    <string name="title_reason_rejected">Seleccione el motivo por el que  no se realiza esta visita (obligatorio)</string>
+    <string name="title_reason_rejected">Seleccione el motivo por el que  no se realiza la inspección (obligatorio)</string>
+    <string name="rejection_error">La razon de rechazo no ha podido ser enviada, por favor reintentar</string>
+    <string name="rejection_hint">indique por qué no se puede realizar la inspección</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_ask">AskActivity</string>
+    <!-- UI Fragments negotiation form-->
+    <string name="negotiation_form_title">Seleccione monto a pagar</string>
+    <string name="negotiation_form_vulnerable">Polígono social</string>
+    <string name="negotiation_form_mount">Monto de negociación</string>
+    <string name="negotiation_form_debt">Deuda total</string>
+    <string name="negotiation_form_comment">Comentario</string>
+    <string name="negotiation_form_agreement">¿Acepta negociación?</string>
+    <string name="negotiation_form_select_payment">Seleccione convenido de pago</string>
+    <string name="negotiation_form_take_photo">Sacar foto de CI</string>
+
+    <string name="negotiation_form_end">Finalizar inspección</string>
+
 
 </resources>

@@ -1,4 +1,4 @@
-package com.zecovery.android.zemedidores.views.assignments.fragments;
+package com.zecovery.android.zemedidores.views.assignments.fragments.forms;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,27 +10,28 @@ import android.view.ViewGroup;
 
 import com.zecovery.android.zemedidores.R;
 
-public class BusinessFormFragment extends Fragment {
+public class CommercialFormFragment extends Fragment {
 
-    public BusinessFormFragment() {
+
+    public CommercialFormFragment() {
 
     }
 
-    public BusinessFormFragment newInstance() {
-        return new BusinessFormFragment();
+    public CommercialFormFragment newInstance() {
+        return new CommercialFormFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_business_form, container, false);
+        Log.d("TAG", "CommercialFormFragment onCreateView");
+        return inflater.inflate(R.layout.fragment_commercial_form, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("TAG", "BusinessFormFragment loaded");
-
+        Log.d("TAG", "CommercialFormFragment onViewCreated");
     }
 }

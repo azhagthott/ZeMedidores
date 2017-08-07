@@ -6,11 +6,28 @@ package com.zecovery.android.zemedidores.models;
 
 public class Assignment {
 
-    private String name, description, origin, address, date, uid, visibility_date, assignment_type;
+    private String name, description, origin, address, date, uid, visibility_date, email_resident, measurer_locaction, measurer_status,
+            assignment_type, push_key, polygon, zone, sector;
     private boolean visibility;
-    private long lng, lat;
+    private double lng, lat;
 
     public Assignment() {
+    }
+
+    public String getMeasurer_locaction() {
+        return measurer_locaction;
+    }
+
+    public void setMeasurer_locaction(String measurer_locaction) {
+        this.measurer_locaction = measurer_locaction;
+    }
+
+    public String getMeasurer_status() {
+        return measurer_status;
+    }
+
+    public void setMeasurer_status(String measurer_status) {
+        this.measurer_status = measurer_status;
     }
 
     public String getName() {
@@ -69,22 +86,6 @@ public class Assignment {
         this.visibility = visibility;
     }
 
-    public long getLng() {
-        return lng;
-    }
-
-    public void setLng(long lng) {
-        this.lng = lng;
-    }
-
-    public long getLat() {
-        return lat;
-    }
-
-    public void setLat(long lat) {
-        this.lat = lat;
-    }
-
     public String getVisibility_date() {
         return visibility_date;
     }
@@ -99,5 +100,61 @@ public class Assignment {
 
     public void setAssignment_type(String assignment_type) {
         this.assignment_type = assignment_type;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public String getPush_key() {
+        return push_key;
+    }
+
+    public void setPush_key(String push_key) {
+        this.push_key = push_key;
+    }
+
+    public String getPolygon() {
+        return polygon;
+    }
+
+    public void setPolygon(String polygon) {
+        this.polygon = polygon;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
+    public String getEmail_resident() {
+        return email_resident;
+    }
+
+    public void setEmail_resident(String email_resident) {
+        this.email_resident = email_resident;
     }
 }

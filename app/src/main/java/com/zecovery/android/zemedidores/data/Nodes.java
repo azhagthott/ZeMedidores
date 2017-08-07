@@ -22,22 +22,15 @@ public class Nodes {
         return FirebaseDatabase.getInstance().getReference();
     }
 
-    public DatabaseReference users() {
-        return root().child("users");
-    }
-
     public Query assignments() {
-        String uid = new CurrentUser().uid();
         String today = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-        return root().child("assignments").child(uid).orderByChild("visibility_date").endAt("true_" + today);
+        return root().child("assignments")
+                .child(new CurrentUser().uid()).orderByChild("visibility_date").endAt("true_" + today);
     }
 
-    public DatabaseReference forms() {
-        return root().child("forms");
-    }
-
-    public DatabaseReference currentProgress(String uid, String progress) {
-        return root().child("current_progress").child(uid).child(progress);
+    public DatabaseReference preLoadedData(String token) {
+        String uid = new CurrentUser().uid();
+        return root().child("assignments").child(uid).child(token);
     }
 
     public DatabaseReference registrations(String sanitizedEmail) {
@@ -48,4 +41,23 @@ public class Nodes {
         return root().child("shifts").child(sanitizedEmail);
     }
 
+    public DatabaseReference rejections(String uid) {
+        return root().child("rejections").child(uid);
+    }
+
+    public DatabaseReference brokenMeter(String uid, String token) {
+        return root().child("broken_meter").child(uid).child(token);
+    }
+
+    public DatabaseReference meterLocation(String uid, String token) {
+        return root().child("meter_location").child(uid).child(token).child("ubicacion_medidor");
+    }
+
+    public DatabaseReference testResults(String uid) {
+        return root().child("test_results").child(uid);
+    }
+
+    public DatabaseReference negotiationForms(String uid) {
+        return root().child("negotiation_forms").child(uid);
+    }
 }

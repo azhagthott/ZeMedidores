@@ -12,13 +12,17 @@ import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.Nodes;
 import com.zecovery.android.zemedidores.models.Assignment;
 import com.zecovery.android.zemedidores.views.assignments.AskActivity;
-import com.zecovery.android.zemedidores.views.assignments.AssignmentActivity;
 
 import static com.zecovery.android.zemedidores.data.Constant.AA;
+import static com.zecovery.android.zemedidores.data.Constant.ADDRESS;
 import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
 import static com.zecovery.android.zemedidores.data.Constant.BUSINESS;
 import static com.zecovery.android.zemedidores.data.Constant.COMMERCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT;
+import static com.zecovery.android.zemedidores.data.Constant.LATITUDE;
+import static com.zecovery.android.zemedidores.data.Constant.LONGITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENTIAL;
+import static com.zecovery.android.zemedidores.data.Constant.SOCIAL_POLYGON;
 import static com.zecovery.android.zemedidores.data.Constant.ZE;
 
 /**
@@ -27,20 +31,18 @@ import static com.zecovery.android.zemedidores.data.Constant.ZE;
 
 public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, AssignmentAdapter.AssignmentHolder> {
 
-    private AssignmentUpdater updater;
     private Context context;
 
-    public AssignmentAdapter(AssignmentUpdater updater, Context context) {
+    public AssignmentAdapter(Context context) {
         super(Assignment.class, R.layout.list_item_assignment, AssignmentHolder.class, new Nodes().assignments());
-        this.updater = updater;
         this.context = context;
     }
 
     @Override
     protected void populateViewHolder(final AssignmentHolder holder, final Assignment assignment, final int position) {
+
         holder.setAssignment(assignment.getAddress());
         holder.setDescription(assignment.getDescription());
-        holder.setOrigin(assignment.getOrigin());
 
         switch (assignment.getOrigin()) {
             case ZE:
@@ -52,7 +54,25 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
             default:
                 holder.originColor.setBackgroundColor(Color.BLACK);
                 break;
+        }
 
+        switch (assignment.getAssignment_type()) {
+            case RESIDENTIAL:
+                holder.assignmentTypeColor.setBackgroundColor(Color.CYAN);
+                break;
+            case COMMERCIAL:
+                holder.assignmentTypeColor.setBackgroundColor(Color.MAGENTA);
+                break;
+            default:
+                holder.assignmentTypeColor.setBackgroundColor(Color.BLACK);
+        }
+
+        switch (assignment.getPolygon()) {
+            case SOCIAL_POLYGON:
+                holder.polygonColor.setBackgroundColor(Color.RED);
+                break;
+            default:
+                holder.polygonColor.setBackgroundColor(Color.WHITE);
         }
 
         holder.assignmentView.setOnClickListener(new View.OnClickListener() {
@@ -65,14 +85,26 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
                 switch (assignment.getAssignment_type()) {
                     case RESIDENTIAL:
                         intent.putExtra(ASSIGNMENT_TYPE, RESIDENTIAL);
+                        intent.putExtra(LATITUDE, assignment.getLat());
+                        intent.putExtra(LONGITUDE, assignment.getLng());
+                        intent.putExtra(ADDRESS, assignment.getAddress());
+                        intent.putExtra(ID_ASSIGNMENT, assignment.getPush_key());
                         context.startActivity(intent);
                         break;
                     case COMMERCIAL:
                         intent.putExtra(ASSIGNMENT_TYPE, COMMERCIAL);
+                        intent.putExtra(LATITUDE, assignment.getLat());
+                        intent.putExtra(LONGITUDE, assignment.getLng());
+                        intent.putExtra(ADDRESS, assignment.getAddress());
+                        intent.putExtra(ID_ASSIGNMENT, assignment.getPush_key());
                         context.startActivity(intent);
                         break;
                     case BUSINESS:
-                        intent.putExtra(ASSIGNMENT_TYPE, COMMERCIAL);
+                        intent.putExtra(ASSIGNMENT_TYPE, BUSINESS);
+                        intent.putExtra(LATITUDE, assignment.getLat());
+                        intent.putExtra(LONGITUDE, assignment.getLng());
+                        intent.putExtra(ADDRESS, assignment.getAddress());
+                        intent.putExtra(ID_ASSIGNMENT, assignment.getPush_key());
                         context.startActivity(intent);
                         break;
                 }
@@ -82,30 +114,30 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
 
     public static class AssignmentHolder extends RecyclerView.ViewHolder {
 
-        private View assignmentView, originColor;
-        private TextView assignmentMainTv, assignmentSubTv, assignmentOriginTv;
+        private View assignmentView, originColor, assignmentTypeColor, polygonColor;
+        private TextView assignmentAddressTextView, assignmentDescriptionTextView;
 
         public AssignmentHolder(View itemView) {
             super(itemView);
             assignmentView = itemView.findViewById(R.id.assignmentView);
+
             originColor = itemView.findViewById(R.id.originColor);
-            assignmentMainTv = (TextView) itemView.findViewById(R.id.assignmentTv);
-            assignmentSubTv = (TextView) itemView.findViewById(R.id.assignmentDescriptionTv);
-            assignmentOriginTv = (TextView) itemView.findViewById(R.id.assignmentOriginTv);
+            assignmentTypeColor = itemView.findViewById(R.id.assignmentTypeColor);
+            polygonColor = itemView.findViewById(R.id.polygonColor);
+
+            assignmentAddressTextView = (TextView) itemView.findViewById(R.id.assignmentAddressTextView);
+            assignmentDescriptionTextView = (TextView) itemView.findViewById(R.id.assignmentDescriptionTextView);
 
         }
 
         private void setAssignment(String name) {
-            assignmentMainTv.setText(name);
+            assignmentAddressTextView.setText(name);
         }
 
         private void setDescription(String description) {
-            assignmentSubTv.setText(description);
+            assignmentDescriptionTextView.setText(description);
         }
 
-        private void setOrigin(String origin) {
-            assignmentOriginTv.setText(origin);
-        }
 
     }
 }

@@ -5,6 +5,7 @@
     android:id="@+id/rejectedForm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="12dp"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.zecovery.android.zemedidores.views.assignments.RejectedActivity"
@@ -13,16 +14,38 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Seleccione el motivo por el que  no se realiza esta visita (obligatorio)" />
+        android:padding="8dp"
+        android:text="@string/title_reason_rejected"
+        android:textSize="18sp" />
 
     <Spinner
+        android:id="@+id/reasonsSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/rejection_reasons" />
+        android:entries="@array/rejection_reasons"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/hintTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/rejection_hint"
+        android:textColor="@color/gray_500" />
 
     <EditText
-        android:id="@+id/otroMotivo"
+        android:id="@+id/anotherReasonEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/saveButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="12dp"
+        android:text="@string/residential_form_save_button" />
 
 </LinearLayout>
