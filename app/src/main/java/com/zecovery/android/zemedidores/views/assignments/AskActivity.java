@@ -43,11 +43,11 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button affirmative = (Button) findViewById(R.id.affirmative);
-        Button negative = (Button) findViewById(R.id.negative);
+        Button affirmative = findViewById(R.id.affirmative);
+        Button negative = findViewById(R.id.negative);
 
         affirmative.setOnClickListener(this);
         negative.setOnClickListener(this);
@@ -58,7 +58,7 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        addressTextView = (TextView) findViewById(R.id.addressTextView);
+        addressTextView = findViewById(R.id.addressTextView);
         if (getIntent().getExtras() != null) {
             addressTextView.setText(getIntent().getStringExtra(ADDRESS));
             Log.d(TAG, "onResume: " + getIntent().getStringExtra(ID_ASSIGNMENT));

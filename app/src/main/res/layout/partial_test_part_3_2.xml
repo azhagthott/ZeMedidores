@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:padding="8dp"
         android:text="@string/execute_test_3_type_title"
@@ -26,16 +26,15 @@
             android:weightSum="2">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="@string/execute_test_3_auto_supply" />
 
             <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:orientation="horizontal"
@@ -43,24 +42,19 @@
 
                 <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
                     android:text="@string/radio_button_yes" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
                     android:text="@string/radio_button_no" />
 
             </RadioGroup>
 
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/gray_400" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,10 +65,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="@string/execute_test_3_auto_supply_type" />
@@ -82,10 +73,9 @@
             <EditText
                 android:id="@+id/sourceTypeEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="4dp" />
+                android:inputType="text" />
 
         </LinearLayout>
 
@@ -98,10 +88,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="@string/execute_test_3_use" />
@@ -109,10 +96,9 @@
             <EditText
                 android:id="@+id/useEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="4dp" />
+                android:inputType="text" />
 
         </LinearLayout>
 
@@ -120,21 +106,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="4dp"
             android:weightSum="2">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="@string/execute_test_3_active" />
 
             <RadioGroup
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:orientation="horizontal"
@@ -142,13 +126,13 @@
 
                 <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
                     android:text="@string/radio_button_yes" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
                     android:text="@string/radio_button_no" />
 
@@ -165,10 +149,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="@string/execute_test_3_capacity" />
@@ -176,27 +157,22 @@
             <EditText
                 android:id="@+id/capacityEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:inputType="date"
-                android:padding="4dp" />
+                android:inputType="number" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:padding="4dp"
             android:weightSum="2">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="@string/execute_test_3_dga" />
@@ -204,26 +180,22 @@
             <EditText
                 android:id="@+id/dgaEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:inputType="date"
-                android:padding="4dp" />
+                android:inputType="text" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:padding="4dp"
             android:weightSum="2">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="@string/execute_test_3_caudal" />
@@ -231,26 +203,22 @@
             <EditText
                 android:id="@+id/caudalEditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:inputType="date"
-                android:padding="4dp" />
+                android:inputType="text" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:padding="4dp"
             android:weightSum="2">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="4dp"
-                android:layout_marginStart="4dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="4dp"
                 android:text="@string/execute_test_3_comment" />
@@ -258,10 +226,9 @@
             <EditText
                 android:id="@+id/test3Obs2EditText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:inputType="date"
-                android:padding="4dp" />
+                android:inputType="text" />
 
         </LinearLayout>
 

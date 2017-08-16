@@ -6,7 +6,7 @@ package com.zecovery.android.zemedidores.views.assignments.fragments.executetest
 
 public interface MeterLocationCallback {
 
-    void saveLocation();
+    void saveMeterLocation();
 
-    void errorSavingLocation();
+    void errorSavingMeterLocation();
 }

@@ -18,23 +18,21 @@ public class RejectionReason {
         this.callback = callback;
     }
 
-    public void sendRejectionReason(String pushKey, String reason, @Nullable String anotherReason) {
+    public void sendRejectionReason(String token, String reason, @Nullable String anotherReason) {
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             CurrentUser currentUser = new CurrentUser();
             String uid = currentUser.sanitizedEmail(currentUser.uid());
 
             if (anotherReason == null) {
-                new Nodes().rejections(uid).child(pushKey).child("reason").setValue(reason);
+                new Nodes().rejections(uid).child(token).child("reason").setValue(reason);
             } else {
-                new Nodes().rejections(uid).child(pushKey).child("reason").setValue(reason);
-                new Nodes().rejections(uid).child(pushKey).child("reason_text").setValue(anotherReason);
+                new Nodes().rejections(uid).child(token).child("reason").setValue(reason);
+                new Nodes().rejections(uid).child(token).child("reason_text").setValue(anotherReason);
             }
             callback.send();
         } else {
             callback.error();
         }
-
     }
-
 }

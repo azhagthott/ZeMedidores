@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.CurrentUser;
 import com.zecovery.android.zemedidores.data.Nodes;
-import com.zecovery.android.zemedidores.views.assignments.fragments.PushKeyListener;
+import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT_EXECUTE_TEST_1;
 import static com.zecovery.android.zemedidores.data.Constant.TAG;
@@ -55,7 +55,7 @@ public class ExecuteTestPart1Fragment extends Fragment implements TestResultsCal
 
     private Button saveButton;
 
-    private PushKeyListener callback;
+    private TokenListener callback;
 
     public ExecuteTestPart1Fragment() {
     }
@@ -141,7 +141,7 @@ public class ExecuteTestPart1Fragment extends Fragment implements TestResultsCal
 
             try {
                 Activity activity = (Activity) context;
-                callback = (PushKeyListener) activity;
+                callback = (TokenListener) activity;
             } catch (Exception e) {
                 Log.d("TAG", e.toString());
                 throw new ClassCastException(context.toString()
@@ -153,7 +153,7 @@ public class ExecuteTestPart1Fragment extends Fragment implements TestResultsCal
     @Override
     public void resultsSaved() {
         Toast.makeText(getContext(), R.string.test_results_saved, Toast.LENGTH_SHORT).show();
-        callback.pushKeyToExecuteTestPart2(token);
+        callback.tokenToExecuteTestPart2(token);
     }
 
     @Override
@@ -270,7 +270,7 @@ public class ExecuteTestPart1Fragment extends Fragment implements TestResultsCal
                 new Nodes().testResults(new CurrentUser().uid()).child(token).child("caso_10").setValue("");
             }
 
-            callback.pushKeyToExecuteTestPart2(token);
+            callback.tokenToExecuteTestPart2(token);
         }
         //new SendTestResults(this).save(token);
     }

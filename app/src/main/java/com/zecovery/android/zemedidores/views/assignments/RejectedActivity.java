@@ -37,13 +37,13 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rejected);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        saveButton = (Button) findViewById(R.id.saveButton);
-        reasonsSpinner = (Spinner) findViewById(R.id.reasonsSpinner);
-        anotherReasonEditText = (EditText) findViewById(R.id.anotherReasonEditText);
-        hintTextView = (TextView) findViewById(R.id.hintTextView);
+        saveButton = findViewById(R.id.saveButton);
+        reasonsSpinner = findViewById(R.id.reasonsSpinner);
+        anotherReasonEditText = findViewById(R.id.anotherReasonEditText);
+        hintTextView = findViewById(R.id.hintTextView);
 
         saveButton.setOnClickListener(this);
 
@@ -102,13 +102,14 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
 
     @Override
     public void onClick(View v) {
-        String pushKey = getIntent().getStringExtra(ID_ASSIGNMENT);
+        String token = getIntent().getStringExtra(ID_ASSIGNMENT);
         String reason = reasonsSpinner.getSelectedItem().toString();
+
         if (reasonsSpinner.getSelectedItem().equals(ANOTHER_REASON)) {
             String reasonText = anotherReasonEditText.getText().toString();
-            new RejectionReason(this).sendRejectionReason(pushKey, reason, reasonText);
+            new RejectionReason(this).sendRejectionReason(token, reason, reasonText);
         } else {
-            new RejectionReason(this).sendRejectionReason(pushKey, reason, null);
+            new RejectionReason(this).sendRejectionReason(token, reason, null);
         }
     }
 }

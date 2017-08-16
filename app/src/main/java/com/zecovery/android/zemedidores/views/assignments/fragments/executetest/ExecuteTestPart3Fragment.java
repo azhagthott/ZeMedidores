@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.CurrentUser;
 import com.zecovery.android.zemedidores.data.Nodes;
-import com.zecovery.android.zemedidores.views.assignments.fragments.PushKeyListener;
+import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
 
     private String token;
 
-    private PushKeyListener callback;
+    private TokenListener callback;
 
     public ExecuteTestPart3Fragment() {
     }
@@ -132,7 +132,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
 
             try {
                 Activity activity = (Activity) context;
-                callback = (PushKeyListener) activity;
+                callback = (TokenListener) activity;
             } catch (Exception e) {
                 Log.d("TAG", e.toString());
                 throw new ClassCastException(context.toString()
@@ -169,7 +169,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
 
     @Override
     public void resultsSaved() {
-        callback.pushKeyToNegotiation(token);
+        callback.tokenToNegotiation(token);
     }
 
     @Override

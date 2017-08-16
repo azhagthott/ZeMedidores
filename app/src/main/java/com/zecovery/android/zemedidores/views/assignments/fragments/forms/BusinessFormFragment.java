@@ -23,17 +23,13 @@ public class BusinessFormFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         Log.d("TAG", "BusinessFormFragment onCreateView");
-
         return inflater.inflate(R.layout.fragment_business_form, container, false);
-
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("TAG", "BusinessFormFragment onViewCreated");
-
     }
 }

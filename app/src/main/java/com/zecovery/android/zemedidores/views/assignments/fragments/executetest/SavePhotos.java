@@ -14,22 +14,17 @@ import static com.zecovery.android.zemedidores.data.Constant.RESIZE_PHOTO_PIXELS
  * Created by fbarrios80 on 03-07-17.
  */
 
-public class SavePhotos extends Activity {
+public class SavePhotos {
 
     private SavePhotosCallback callback;
     private MagicalCamera magicalCamera;
     private MagicalPermissions magicalPermissions;
-    private String photoFolder;
-    private String photoName;
 
     public SavePhotos(SavePhotosCallback callback) {
         this.callback = callback;
     }
 
     public void save(String pushKey, String photoFolder, String photoName, Activity activity, Fragment fragment) {
-
-        this.photoFolder = photoFolder;
-        this.photoName = photoName;
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 

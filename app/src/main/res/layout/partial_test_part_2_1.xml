@@ -126,7 +126,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
 
@@ -167,24 +166,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="end"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="8dp">
 
             <RadioButton
                 android:id="@+id/position1RadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginEnd="4dp"
-                android:padding="4dp"
                 android:text="Aérea" />
 
             <RadioButton
                 android:id="@+id/position2RadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginEnd="4dp"
-                android:padding="4dp"
                 android:text="Subterránea" />
 
         </RadioGroup>
@@ -293,7 +291,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:hint="Observaciones"
+            android:hint="@string/execute_test_3_comment"
             android:inputType="text" />
 
     </LinearLayout>

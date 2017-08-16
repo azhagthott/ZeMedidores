@@ -21,14 +21,14 @@ import android.widget.RadioButton;
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.zecovery.android.zemedidores.R;
-import com.zecovery.android.zemedidores.views.assignments.fragments.PushKeyListener;
+import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import static com.zecovery.android.zemedidores.data.Constant.FOLDER_ZE_MEDIDORES;
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT_PHOTO;
 import static com.zecovery.android.zemedidores.data.Constant.RESIZE_PHOTO_PIXELS_PERCENTAGE;
 
-public class PhotosTestFragment extends Fragment implements View.OnClickListener,
-        SavePhotosCallback, UploadPhotosCallback, BrokenMeterCallback, MeterLocationCallback {
+public class PhotosTestFragment extends Fragment implements View.OnClickListener, UploadPhotosCallback,
+        BrokenMeterCallback, MeterLocationCallback {
 
     private ImageButton photoMeterReading;
     private ImageButton photoMeterNumber;
@@ -36,6 +36,8 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     private ImageButton photoPropertyNumber;
     private ImageButton photoFrontageProperty;
     private ImageButton brokenMeterPhoto;
+    private RadioButton positiveRadioButton;
+    private RadioButton negativeRadioButton;
 
     private Button continueTestButton;
     private LinearLayout brokenMeterLinearLayout;
@@ -43,15 +45,11 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
     private EditText meterLocationEditText;
     private EditText brokenMeterCommentEditText;
-    private RadioButton positiveRadioButton;
-    private RadioButton negativeRadioButton;
-
-    private PushKeyListener callback;
-
-    private String token;
 
     private MagicalCamera magicalCamera;
-    private MagicalPermissions magicalPermissions;
+
+    private TokenListener callback;
+    private String token;
 
     private String photoName = "";
     private String remoteFolder = "";
@@ -120,23 +118,19 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     }
 
     private void findViews(View view) {
-        photoMeterReading = (ImageButton) view.findViewById(R.id.photoMeterReading);
-        photoMeterNumber = (ImageButton) view.findViewById(R.id.photoMeterNumber);
-        photoMeterPanoramic = (ImageButton) view.findViewById(R.id.photoMeterPanoramic);
-        photoPropertyNumber = (ImageButton) view.findViewById(R.id.photoPropertyNumber);
-        photoFrontageProperty = (ImageButton) view.findViewById(R.id.photoFrontageProperty);
-        brokenMeterPhoto = (ImageButton) view.findViewById(R.id.brokenMeterPhoto);
-
-        brokenMeterLinearLayout = (LinearLayout) view.findViewById(R.id.brokenMeterLinearLayout);
-        mandatoryPhotosLinearLayout = (LinearLayout) view.findViewById(R.id.mandatoryPhotosLinearLayout);
-
-        meterLocationEditText = (EditText) view.findViewById(R.id.meterLocationEditText);
-        brokenMeterCommentEditText = (EditText) view.findViewById(R.id.brokenMeterCommentEditText);
-
-        positiveRadioButton = (RadioButton) view.findViewById(R.id.positiveRadioButton);
-        negativeRadioButton = (RadioButton) view.findViewById(R.id.negativeRadioButton);
-
-        continueTestButton = (Button) view.findViewById(R.id.continueTestButton);
+        photoMeterReading = view.findViewById(R.id.photoMeterReading);
+        photoMeterNumber = view.findViewById(R.id.photoMeterNumber);
+        photoMeterPanoramic = view.findViewById(R.id.photoMeterPanoramic);
+        photoPropertyNumber = view.findViewById(R.id.photoPropertyNumber);
+        photoFrontageProperty = view.findViewById(R.id.photoFrontageProperty);
+        brokenMeterPhoto = view.findViewById(R.id.brokenMeterPhoto);
+        positiveRadioButton = view.findViewById(R.id.positiveRadioButton);
+        negativeRadioButton = view.findViewById(R.id.negativeRadioButton);
+        brokenMeterLinearLayout = view.findViewById(R.id.brokenMeterLinearLayout);
+        mandatoryPhotosLinearLayout = view.findViewById(R.id.mandatoryPhotosLinearLayout);
+        meterLocationEditText = view.findViewById(R.id.meterLocationEditText);
+        brokenMeterCommentEditText = view.findViewById(R.id.brokenMeterCommentEditText);
+        continueTestButton = view.findViewById(R.id.continueTestButton);
     }
 
     @Override
@@ -147,7 +141,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
             try {
                 Activity activity = (Activity) context;
-                callback = (PushKeyListener) activity;
+                callback = (TokenListener) activity;
             } catch (Exception e) {
                 Log.d("TAG", e.toString());
                 throw new ClassCastException(context.toString()
@@ -201,7 +195,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
                         new MeterLocation(this).saveLocation(token, meterLocation);
                     }
 
-                    callback.pushKeyToExecuteTestPart1(token);
+                    callback.tokenToExecuteTestPart1(token);
                     break;
             }
         } else {
@@ -214,7 +208,6 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
                     break;
 
                 case R.id.continueTestButton:
-
                     String failureComment = brokenMeterCommentEditText.getText().toString();
                     String meterLocation = meterLocationEditText.getText().toString();
 
@@ -224,7 +217,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
                         new MeterLocation(this).saveLocation(token, meterLocation);
                     }
 
-                    callback.pushKeyToExecuteTestPart1(token);
+                    callback.tokenToExecuteTestPart1(token);
                     break;
             }
         }
@@ -240,7 +233,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
         };
 
-        magicalPermissions = new MagicalPermissions(getActivity(), permissions);
+        MagicalPermissions magicalPermissions = new MagicalPermissions(getActivity(), permissions);
         magicalCamera = new MagicalCamera(getActivity(), RESIZE_PHOTO_PIXELS_PERCENTAGE, magicalPermissions);
         magicalCamera.takeFragmentPhoto(this);
 
@@ -266,16 +259,6 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void savePhoto() {
-        //Toast.makeText(getContext(), getResources().getString(R.string.photo_saved), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void savePhotoError() {
-        //Toast.makeText(getContext(), getResources().getString(R.string.photo_no_saved), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void photoUploaded() {
         //Toast.makeText(getContext(), getResources().getString(R.string.photo_uploaded), Toast.LENGTH_SHORT).show();
     }
@@ -296,10 +279,10 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void saveLocation() {
+    public void saveMeterLocation() {
     }
 
     @Override
-    public void errorSavingLocation() {
+    public void errorSavingMeterLocation() {
     }
 }

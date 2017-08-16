@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.Nodes;
-import com.zecovery.android.zemedidores.views.assignments.fragments.PushKeyListener;
+import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT;
 import static com.zecovery.android.zemedidores.data.Constant.SOCIAL_POLYGON;
@@ -34,17 +34,17 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
     private EditText residentDate;
     private TextView polygonTextView;
 
-    private String pushKey;
-    private PushKeyListener callback;
+    private String token;
+    private TokenListener callback;
 
     public ResidentialFormFragment() {
 
     }
 
-    public ResidentialFormFragment newInstance(String pushKey) {
+    public ResidentialFormFragment newInstance(String token) {
         ResidentialFormFragment residentialFormFragment = new ResidentialFormFragment();
         Bundle args = new Bundle();
-        args.putString(ID_ASSIGNMENT, pushKey);
+        args.putString(ID_ASSIGNMENT, token);
         residentialFormFragment.setArguments(args);
         return residentialFormFragment;
     }
@@ -58,20 +58,19 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button saveButton = (Button) view.findViewById(R.id.saveButton);
 
+        Button saveButton = view.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
 
-        residentName = (EditText) view.findViewById(R.id.residentName);
-        residentRut = (EditText) view.findViewById(R.id.residentRut);
-        residentPhone = (EditText) view.findViewById(R.id.residentPhone);
-        residentEmail = (EditText) view.findViewById(R.id.residentEmail);
-        residentDate = (EditText) view.findViewById(R.id.residentDate);
-        polygonTextView = (TextView) view.findViewById(R.id.polygonTextView);
+        residentName = view.findViewById(R.id.residentName);
+        residentRut = view.findViewById(R.id.residentRut);
+        residentPhone = view.findViewById(R.id.residentPhone);
+        residentEmail = view.findViewById(R.id.residentEmail);
+        residentDate = view.findViewById(R.id.residentDate);
+        polygonTextView = view.findViewById(R.id.polygonTextView);
 
-        pushKey = getArguments().getString(ID_ASSIGNMENT);
-
-        new Nodes().preLoadedData(pushKey).addValueEventListener(this);
+        token = getArguments().getString(ID_ASSIGNMENT);
+        new Nodes().preLoadedData(token).addValueEventListener(this);
     }
 
     @Override
@@ -100,7 +99,7 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
 
             try {
                 Activity activity = (Activity) context;
-                callback = (PushKeyListener) activity;
+                callback = (TokenListener) activity;
             } catch (Exception e) {
                 Log.d("TAG", e.toString());
                 throw new ClassCastException(context.toString()
@@ -116,6 +115,6 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        callback.pushKeyToPhotoTest(pushKey);
+        callback.tokenToPhotoTest(token);
     }
 }

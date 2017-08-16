@@ -57,7 +57,7 @@ public class Nodes {
         return root().child("test_results").child(uid);
     }
 
-    public DatabaseReference negotiationForms(String uid) {
-        return root().child("negotiation_forms").child(uid);
+    public DatabaseReference negotiationForms(String uid, String token) {
+        return root().child("negotiation_forms").child(uid).child(token);
     }
 }

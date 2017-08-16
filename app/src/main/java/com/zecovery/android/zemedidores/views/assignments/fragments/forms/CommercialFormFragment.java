@@ -12,7 +12,6 @@ import com.zecovery.android.zemedidores.R;
 
 public class CommercialFormFragment extends Fragment {
 
-
     public CommercialFormFragment() {
 
     }
@@ -24,7 +23,6 @@ public class CommercialFormFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         Log.d("TAG", "CommercialFormFragment onCreateView");
         return inflater.inflate(R.layout.fragment_commercial_form, container, false);
     }

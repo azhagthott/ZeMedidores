@@ -18,6 +18,9 @@
 
 
     <!-- UI Init Shift -->
+    <string name="unauthorized">Acceso no autorizado</string>
+
+    <!-- UI Init Shift -->
     <string name="title_activity_init_shift">Empezar turno</string>
     <string name="init_shift_intro_text">Recuerde que debe empezar su turno antes de realizar cualquier inspección (solo para usuarios autorizados)</string>
     <string name="init_shift_button">Empezar turno</string>

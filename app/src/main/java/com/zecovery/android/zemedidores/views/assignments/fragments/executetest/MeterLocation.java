@@ -21,9 +21,9 @@ public class MeterLocation {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             if (token != null && location != null) {
                 new Nodes().meterLocation(new CurrentUser().uid(), token).setValue(location);
-                callback.saveLocation();
+                callback.saveMeterLocation();
             } else {
-                callback.errorSavingLocation();
+                callback.errorSavingMeterLocation();
             }
         }
     }

@@ -9,5 +9,4 @@ public interface RejectionCallback {
     void send();
 
     void error();
-
 }
