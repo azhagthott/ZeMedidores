@@ -14,25 +14,24 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.zecovery.android.zemedidores.R;
-import com.zecovery.android.zemedidores.adapters.AssignmentAdapter;
+import com.zecovery.android.zemedidores.adapters.InspectionAdapter;
+import com.zecovery.android.zemedidores.models.Inspection;
+import com.zecovery.android.zemedidores.network.InspectionList;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private RecyclerView mainRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        RecyclerView mainRecyclerView = (RecyclerView) findViewById(R.id.mainRecyclerView);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mainRecyclerView.setLayoutManager(linearLayoutManager);
-        AssignmentAdapter adapter = new AssignmentAdapter(MainActivity.this);
-        mainRecyclerView.setAdapter(adapter);
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        mainRecyclerView = findViewById(R.id.mainRecyclerView);
+        new GetInspections().execute();
         setSupportActionBar(toolbar);
     }
 
@@ -62,5 +61,18 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+    }
+
+    public class GetInspections extends InspectionList {
+
+        @Override
+        protected void onPostExecute(List<Inspection> inspections) {
+            super.onPostExecute(inspections);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            mainRecyclerView.setLayoutManager(linearLayoutManager);
+            InspectionAdapter adapter = new InspectionAdapter(MainActivity.this, inspections);
+            mainRecyclerView.setAdapter(adapter);
+        }
     }
 }

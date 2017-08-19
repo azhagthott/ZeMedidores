@@ -67,11 +67,18 @@ public class Constant {
     public static final String URL_BASE = "http://medidores.desa.zecovery.com";
 
     /* local db */
+    public static final int DB_VERSION = 69;
     public static final String DB_MANE = "zemedidores.db";
     public static final String TABLE_ASSIGNMENT = "assignment";
 
+    //SQL comandos
+    public static final String DB_CREATE_TABLE = "CREATE TABLE ";
+    public static final String DB_DROP_TABLE = "DROP TABLE IF EXISTS ";
+    public static final String SELECT_ALL = "SELECT * FROM ";
+
     /* assignment table */
     public static final String ASSIGNMENT_ID_KEY = "id";
+    public static final String ASSIGNMENT_ID_INSPECTION = "id_inspection";
     public static final String ASSIGNMENT_NAME = "name";
     public static final String ASSIGNMENT_DESCRIPTION = "description";
     public static final String ASSIGNMENT_ORIGIN = "origin";
@@ -88,4 +95,9 @@ public class Constant {
     public static final boolean ASSIGNMENT_VISIBIITY = true;
     public static final double ASSIGNMENT_LAT = 0;
     public static final double ASSIGNMENT_LNG = 0;
+
+    /* network*/
+    public static final int TIME_OUT = 60;
+    public static final int READ_TIME_OUT = 60;
+    public static final int WRITE_TIME_OUT = 60;
 }

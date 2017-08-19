@@ -6,7 +6,7 @@ package com.zecovery.android.zemedidores.models;
 
 public class Assignment {
 
-    private String name, description, origin, address, date, uid, visibility_date, email_resident, measurer_locaction, measurer_status,
+    private String name, description, origin, address, date, uid, visibility_date, email_resident, meter_location, meter_status,
             assignment_type, push_key, polygon, zone, sector;
     private boolean visibility;
     private double lng, lat;
@@ -14,20 +14,49 @@ public class Assignment {
     public Assignment() {
     }
 
-    public String getMeasurer_locaction() {
-        return measurer_locaction;
+    public Assignment(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
-    public void setMeasurer_locaction(String measurer_locaction) {
-        this.measurer_locaction = measurer_locaction;
+    public Assignment(String name, String description, String origin, String address, String date, String uid,
+                      String visibility_date, String email_resident, String meter_location,
+                      String meter_status, String assignment_type, String push_key, String polygon,
+                      String zone, String sector, boolean visibility, double lng, double lat) {
+        this.name = name;
+        this.description = description;
+        this.origin = origin;
+        this.address = address;
+        this.date = date;
+        this.uid = uid;
+        this.visibility_date = visibility_date;
+        this.email_resident = email_resident;
+        this.meter_location = meter_location;
+        this.meter_status = meter_status;
+        this.assignment_type = assignment_type;
+        this.push_key = push_key;
+        this.polygon = polygon;
+        this.zone = zone;
+        this.sector = sector;
+        this.visibility = visibility;
+        this.lng = lng;
+        this.lat = lat;
     }
 
-    public String getMeasurer_status() {
-        return measurer_status;
+    public String getMeter_location() {
+        return meter_location;
     }
 
-    public void setMeasurer_status(String measurer_status) {
-        this.measurer_status = measurer_status;
+    public void setMeter_location(String meter_location) {
+        this.meter_location = meter_location;
+    }
+
+    public String getMeter_status() {
+        return meter_status;
+    }
+
+    public void setMeter_status(String meter_status) {
+        this.meter_status = meter_status;
     }
 
     public String getName() {

@@ -2,18 +2,20 @@ package com.zecovery.android.zemedidores.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.zecovery.android.zemedidores.R;
-import com.zecovery.android.zemedidores.data.Nodes;
-import com.zecovery.android.zemedidores.models.Assignment;
+import com.zecovery.android.zemedidores.models.Inspection;
 import com.zecovery.android.zemedidores.views.assignments.AskActivity;
 
-import static com.zecovery.android.zemedidores.data.Constant.AA;
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.zecovery.android.zemedidores.data.Constant.ADDRESS;
 import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
 import static com.zecovery.android.zemedidores.data.Constant.BUSINESS;
@@ -22,28 +24,73 @@ import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT;
 import static com.zecovery.android.zemedidores.data.Constant.LATITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.LONGITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENTIAL;
-import static com.zecovery.android.zemedidores.data.Constant.SOCIAL_POLYGON;
-import static com.zecovery.android.zemedidores.data.Constant.ZE;
 
 /**
  * Created by fbarrios80 on 08-05-17.
  */
 
-public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, AssignmentAdapter.AssignmentHolder> {
+public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.InspectionViewHolder> {
 
     private Context context;
+    private List<Inspection> inspections = new ArrayList<>();
 
-    public AssignmentAdapter(Context context) {
-        super(Assignment.class, R.layout.list_item_assignment, AssignmentHolder.class, new Nodes().assignments());
+    public InspectionAdapter(Context context, List<Inspection> inspections) {
         this.context = context;
+        this.inspections = inspections;
     }
 
     @Override
-    protected void populateViewHolder(final AssignmentHolder holder, final Assignment assignment, final int position) {
+    public InspectionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_inspection, parent, false);
+        return new InspectionViewHolder(view);
+    }
 
-        holder.setAssignment(assignment.getAddress());
-        holder.setDescription(assignment.getDescription());
+    @Override
+    public void onBindViewHolder(InspectionViewHolder holder, int position) {
 
+        final Inspection inspection = inspections.get(position);
+
+        holder.setOrder(inspection.getOrden());
+
+        holder.inspectionLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, AskActivity.class);
+
+                switch (inspection.getAssigment_type()) {
+                    case 1:
+                        intent.putExtra(ASSIGNMENT_TYPE, RESIDENTIAL);
+                        intent.putExtra(LATITUDE, inspection.getLat());
+                        intent.putExtra(LONGITUDE, inspection.getLng());
+                        intent.putExtra(ADDRESS, inspection.getAddress());
+                        intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
+                        context.startActivity(intent);
+                        break;
+                    case 2:
+                        intent.putExtra(ASSIGNMENT_TYPE, COMMERCIAL);
+                        intent.putExtra(LATITUDE, inspection.getLat());
+                        intent.putExtra(LONGITUDE, inspection.getLng());
+                        intent.putExtra(ADDRESS, inspection.getAddress());
+                        intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
+                        context.startActivity(intent);
+                        break;
+                    case 3:
+                        intent.putExtra(ASSIGNMENT_TYPE, BUSINESS);
+                        intent.putExtra(LATITUDE, inspection.getLat());
+                        intent.putExtra(LONGITUDE, inspection.getLng());
+                        intent.putExtra(ADDRESS, inspection.getAddress());
+                        intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
+                        context.startActivity(intent);
+                        break;
+                }
+            }
+        });
+
+        //holder.setInspection(inspection.getAddress());
+        //holder.setDescription(inspection.getOrden());
+
+        /*
         switch (assignment.getOrigin()) {
             case ZE:
                 holder.originColor.setBackgroundColor(Color.BLUE);
@@ -75,7 +122,7 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
                 holder.polygonColor.setBackgroundColor(Color.WHITE);
         }
 
-        holder.assignmentView.setOnClickListener(new View.OnClickListener() {
+       /* holder.assignmentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -109,35 +156,29 @@ public class AssignmentAdapter extends FirebaseRecyclerAdapter<Assignment, Assig
                         break;
                 }
             }
-        });
+        });*/
     }
 
-    public static class AssignmentHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemCount() {
+        return inspections.size();
+    }
 
-        private View assignmentView, originColor, assignmentTypeColor, polygonColor;
-        private TextView assignmentAddressTextView, assignmentDescriptionTextView;
+    static class InspectionViewHolder extends RecyclerView.ViewHolder {
 
-        public AssignmentHolder(View itemView) {
-            super(itemView);
-            assignmentView = itemView.findViewById(R.id.assignmentView);
+        private LinearLayout inspectionLinearLayout;
+        private TextView inspectionOrderTextView;
 
-            originColor = itemView.findViewById(R.id.originColor);
-            assignmentTypeColor = itemView.findViewById(R.id.assignmentTypeColor);
-            polygonColor = itemView.findViewById(R.id.polygonColor);
-
-            assignmentAddressTextView = (TextView) itemView.findViewById(R.id.assignmentAddressTextView);
-            assignmentDescriptionTextView = (TextView) itemView.findViewById(R.id.assignmentDescriptionTextView);
-
+        public InspectionViewHolder(View view) {
+            super(view);
+            inspectionLinearLayout = view.findViewById(R.id.inspectionLinearLayout);
+            inspectionOrderTextView = view.findViewById(R.id.inspectionOrderTextView);
         }
 
-        private void setAssignment(String name) {
-            assignmentAddressTextView.setText(name);
-        }
 
-        private void setDescription(String description) {
-            assignmentDescriptionTextView.setText(description);
+        private void setOrder(String order) {
+            inspectionOrderTextView.setText(order);
         }
-
 
     }
 }

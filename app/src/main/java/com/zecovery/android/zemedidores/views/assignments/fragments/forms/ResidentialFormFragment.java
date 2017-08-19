@@ -70,7 +70,7 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
         polygonTextView = view.findViewById(R.id.polygonTextView);
 
         token = getArguments().getString(ID_ASSIGNMENT);
-        new Nodes().preLoadedData(token).addValueEventListener(this);
+        //new Nodes().preLoadedData(token).addValueEventListener(this);
     }
 
     @Override
