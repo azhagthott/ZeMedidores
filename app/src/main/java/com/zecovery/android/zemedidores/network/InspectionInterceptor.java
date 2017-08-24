@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.zecovery.android.zemedidores.data.Constant.READ_TIME_OUT;
 import static com.zecovery.android.zemedidores.data.Constant.TIME_OUT;
-import static com.zecovery.android.zemedidores.data.Constant.URL_BASE;
+import static com.zecovery.android.zemedidores.data.Constant.URL_BASE_DESA;
 
 /**
  * Created by moe on 19-08-17.
@@ -30,7 +30,7 @@ public class InspectionInterceptor {
         Gson gson = new GsonBuilder().setLenient().create();
 
         Retrofit interceptor = new Retrofit.Builder()
-                .baseUrl(URL_BASE)
+                .baseUrl(URL_BASE_DESA)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

@@ -3,8 +3,8 @@ package com.zecovery.android.zemedidores.network;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.zecovery.android.zemedidores.models.Inspect;
 import com.zecovery.android.zemedidores.models.Inspection;
-import com.zecovery.android.zemedidores.models.Inspector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +21,21 @@ public class InspectionList extends AsyncTask<String, Integer, List<Inspection>>
     protected List<Inspection> doInBackground(String... strings) {
 
         InspectionInterface request = InspectionInterceptor.get();
-        Call<Inspector> call = request.get(123, "inspector8@zecovery.com");
+        Call<Inspect> call = request.get(123, "inspector4@zecovery.com");
 
         List<Inspection> inspectionsList = new ArrayList<>();
 
         try {
-            Response<Inspector> response = call.execute();
-            for (Inspection inspections : response.body().getInspections()) {
-                inspectionsList.add(inspections);
+            Response<Inspect> response = call.execute();
+            Log.d("InspectionList", "response: " + response);
+            Log.d("InspectionList", "body: " + response.body());
+
+            for (Inspection inspection: response.body().getInspecciones()) {
+                inspectionsList.add(inspection);
             }
+
         } catch (Exception e) {
-            Log.d("LOG_TAG", "Exception: " + e);
+            Log.d("InspectionList", "Exception: " + e);
         }
         return inspectionsList;
     }

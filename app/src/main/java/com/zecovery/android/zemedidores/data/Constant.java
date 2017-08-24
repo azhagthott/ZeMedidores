@@ -64,7 +64,7 @@ public class Constant {
 
 
     /* Retrofit */
-    public static final String URL_BASE = "http://medidores.desa.zecovery.com";
+    public static final String URL_BASE_DESA = "http://medidores.desa.zecovery.com";
 
     /* local db */
     public static final int DB_VERSION = 69;

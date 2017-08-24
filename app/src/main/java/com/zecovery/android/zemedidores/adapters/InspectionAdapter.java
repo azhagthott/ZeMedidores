@@ -64,7 +64,7 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
                         intent.putExtra(LATITUDE, inspection.getLat());
                         intent.putExtra(LONGITUDE, inspection.getLng());
                         intent.putExtra(ADDRESS, inspection.getAddress());
-                        intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
+                        //intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
                         context.startActivity(intent);
                         break;
                     case 2:
@@ -72,7 +72,7 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
                         intent.putExtra(LATITUDE, inspection.getLat());
                         intent.putExtra(LONGITUDE, inspection.getLng());
                         intent.putExtra(ADDRESS, inspection.getAddress());
-                        intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
+                        //intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
                         context.startActivity(intent);
                         break;
                     case 3:
@@ -80,7 +80,7 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
                         intent.putExtra(LATITUDE, inspection.getLat());
                         intent.putExtra(LONGITUDE, inspection.getLng());
                         intent.putExtra(ADDRESS, inspection.getAddress());
-                        intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
+                        //intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
                         context.startActivity(intent);
                         break;
                 }

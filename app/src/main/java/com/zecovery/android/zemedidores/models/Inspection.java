@@ -1,6 +1,6 @@
 package com.zecovery.android.zemedidores.models;
 
-public class ListInspection {
+public class Inspection {
 
     private String date;
     private String address;

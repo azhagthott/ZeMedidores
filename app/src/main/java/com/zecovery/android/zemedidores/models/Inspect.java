@@ -1,14 +1,14 @@
 package com.zecovery.android.zemedidores.models;
 
-public class Inspection {
+public class Inspect {
 
-    private ListInspection[] inspecciones;
+    private Inspection[] inspecciones;
 
-    public ListInspection[] getInspecciones() {
+    public Inspection[] getInspecciones() {
         return this.inspecciones;
     }
 
-    public void setInspecciones(ListInspection[] inspecciones) {
+    public void setInspecciones(Inspection[] inspecciones) {
         this.inspecciones = inspecciones;
     }
 }
