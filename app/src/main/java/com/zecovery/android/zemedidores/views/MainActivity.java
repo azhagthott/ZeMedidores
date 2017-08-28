@@ -15,8 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.adapters.InspectionAdapter;
+import com.zecovery.android.zemedidores.background.InspectionParams;
+import com.zecovery.android.zemedidores.background.InspectionList;
 import com.zecovery.android.zemedidores.models.Inspection;
-import com.zecovery.android.zemedidores.network.InspectionList;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         mainRecyclerView = findViewById(R.id.mainRecyclerView);
-        new GetInspections().execute();
+        new GetInspections(new InspectionParams(123, "")).execute();
         setSupportActionBar(toolbar);
     }
 
@@ -64,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class GetInspections extends InspectionList {
+
+
+        public GetInspections(InspectionParams params) {
+            super(params);
+        }
 
         @Override
         protected void onPostExecute(List<Inspection> inspections) {
