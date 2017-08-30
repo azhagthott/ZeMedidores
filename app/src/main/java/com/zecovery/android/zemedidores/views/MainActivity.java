@@ -15,8 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.adapters.InspectionAdapter;
-import com.zecovery.android.zemedidores.background.InspectionParams;
 import com.zecovery.android.zemedidores.background.InspectionList;
+import com.zecovery.android.zemedidores.background.InspectionParams;
 import com.zecovery.android.zemedidores.models.Inspection;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             mainRecyclerView.setLayoutManager(linearLayoutManager);
-            InspectionAdapter adapter = new InspectionAdapter(MainActivity.this, inspections);
+            InspectionAdapter adapter = new InspectionAdapter(inspections);
             mainRecyclerView.setAdapter(adapter);
         }
     }

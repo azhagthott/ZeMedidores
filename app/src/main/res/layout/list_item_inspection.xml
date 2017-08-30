@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="102dp"
+    android:layout_height="wrap_content"
     android:id="@+id/inspectionLinearLayout"
     android:orientation="vertical">
 
@@ -21,9 +21,17 @@
         android:textColor="@color/gray_600"
         android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/inspectionEmailTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:textColor="@color/gray_600"
+        android:textSize="18sp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
-        android:background="@color/gray_200" />
+        android:background="@color/black" />
 
 </LinearLayout>

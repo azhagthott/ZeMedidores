@@ -11,9 +11,6 @@
     <color name="white">#FFFFFF</color>
     <color name="white_google">#F1F1F1</color>
 
-    <!-- White -->
-    <color name="alpha">#00000000</color>
-
     <!-- Red -->
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>

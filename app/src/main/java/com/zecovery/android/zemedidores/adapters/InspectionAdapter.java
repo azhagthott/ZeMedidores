@@ -3,6 +3,7 @@ package com.zecovery.android.zemedidores.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +32,9 @@ import static com.zecovery.android.zemedidores.data.Constant.RESIDENTIAL;
 
 public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.InspectionViewHolder> {
 
-    private Context context;
     private List<Inspection> inspections = new ArrayList<>();
 
-    public InspectionAdapter(Context context, List<Inspection> inspections) {
-        this.context = context;
+    public InspectionAdapter(List<Inspection> inspections) {
         this.inspections = inspections;
     }
 
@@ -50,7 +49,14 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
 
         final Inspection inspection = inspections.get(position);
 
+        Log.d("inspection", "getAssigment_type: " + inspection.getAssigment_type());
+        Log.d("inspection", "getAddress: " + inspection.getAddress());
+        Log.d("inspection", "getInspector: " + inspection.getInspector());
+        Log.d("inspection", "getId_inspeccion: " + inspection.getId_inspeccion());
+
         holder.setOrder(inspection.getOrden());
+        holder.setAddress(inspection.getAddress());
+        holder.setEmail(inspection.getInspector());
 
         holder.inspectionLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +70,7 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
                         intent.putExtra(LATITUDE, inspection.getLat());
                         intent.putExtra(LONGITUDE, inspection.getLng());
                         intent.putExtra(ADDRESS, inspection.getAddress());
-                        //intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
+                        intent.putExtra(ID_ASSIGNMENT, inspection.getId_inspeccion());
                         context.startActivity(intent);
                         break;
                     case 2:
@@ -72,7 +78,7 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
                         intent.putExtra(LATITUDE, inspection.getLat());
                         intent.putExtra(LONGITUDE, inspection.getLng());
                         intent.putExtra(ADDRESS, inspection.getAddress());
-                        //intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
+                        intent.putExtra(ID_ASSIGNMENT, inspection.getId_inspeccion());
                         context.startActivity(intent);
                         break;
                     case 3:
@@ -80,7 +86,7 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
                         intent.putExtra(LATITUDE, inspection.getLat());
                         intent.putExtra(LONGITUDE, inspection.getLng());
                         intent.putExtra(ADDRESS, inspection.getAddress());
-                        //intent.putExtra(ID_ASSIGNMENT, inspection.getInspectionId());
+                        intent.putExtra(ID_ASSIGNMENT, inspection.getId_inspeccion());
                         context.startActivity(intent);
                         break;
                 }
@@ -168,17 +174,27 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
 
         private LinearLayout inspectionLinearLayout;
         private TextView inspectionOrderTextView;
+        private TextView inspectionAddressTextView;
+        private TextView inspectionEmailTextView;
 
         public InspectionViewHolder(View view) {
             super(view);
             inspectionLinearLayout = view.findViewById(R.id.inspectionLinearLayout);
             inspectionOrderTextView = view.findViewById(R.id.inspectionOrderTextView);
+            inspectionAddressTextView = view.findViewById(R.id.inspectionAddressTextView);
+            inspectionEmailTextView = view.findViewById(R.id.inspectionEmailTextView);
         }
-
 
         private void setOrder(String order) {
             inspectionOrderTextView.setText(order);
         }
 
+        private void setAddress(String address) {
+            inspectionAddressTextView.setText(address);
+        }
+
+        private void setEmail(String email) {
+            inspectionEmailTextView.setText(email);
+        }
     }
 }

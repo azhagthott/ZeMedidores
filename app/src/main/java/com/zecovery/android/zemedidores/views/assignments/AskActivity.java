@@ -25,14 +25,11 @@ import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT;
 import static com.zecovery.android.zemedidores.data.Constant.LATITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.LONGITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENTIAL;
-import static com.zecovery.android.zemedidores.data.Constant.TAG;
 
 public class AskActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     private static final int LOCATION_REQUEST_CODE = 999;
     private GoogleMap map;
-
-    private TextView addressTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +55,11 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        addressTextView = findViewById(R.id.addressTextView);
+        TextView addressTextView = findViewById(R.id.addressTextView);
+
         if (getIntent().getExtras() != null) {
             addressTextView.setText(getIntent().getStringExtra(ADDRESS));
-            Log.d(TAG, "onResume: " + getIntent().getStringExtra(ID_ASSIGNMENT));
+            Log.d("AskActivity", "onResume: " + getIntent().getIntExtra(ID_ASSIGNMENT, 0));
         }
     }
 
@@ -89,17 +87,17 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
 
                 case RESIDENTIAL:
                     intent.putExtra(ASSIGNMENT_TYPE, RESIDENTIAL);
-                    intent.putExtra(ID_ASSIGNMENT, getIntent().getStringExtra(ID_ASSIGNMENT));
+                    intent.putExtra(ID_ASSIGNMENT, getIntent().getIntExtra(ID_ASSIGNMENT, 0));
                     startActivity(intent);
                     break;
                 case COMMERCIAL:
                     intent.putExtra(ASSIGNMENT_TYPE, COMMERCIAL);
-                    intent.putExtra(ID_ASSIGNMENT, getIntent().getStringExtra(ID_ASSIGNMENT));
+                    intent.putExtra(ID_ASSIGNMENT, getIntent().getIntExtra(ID_ASSIGNMENT, 0));
                     startActivity(intent);
                     break;
                 case BUSINESS:
                     intent.putExtra(ASSIGNMENT_TYPE, BUSINESS);
-                    intent.putExtra(ID_ASSIGNMENT, getIntent().getStringExtra(ID_ASSIGNMENT));
+                    intent.putExtra(ID_ASSIGNMENT, getIntent().getIntExtra(ID_ASSIGNMENT, 0));
                     startActivity(intent);
                     break;
             }

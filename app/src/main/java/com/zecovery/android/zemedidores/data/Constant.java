@@ -41,7 +41,7 @@ public class Constant {
     public static final String TEST_RESULT_OK_6 = "Prensado";
     public static final String TEST_RESULT_OK_7 = "Otro (especificar)";
 */
-    public static final int RESIZE_PHOTO_PIXELS_PERCENTAGE = 30;
+    public static final int RESIZE_PHOTO_PIXELS_PERCENTAGE = 20;
     public static final String FOLDER_ZE_MEDIDORES = "ZE_MEDIDORES";
     public static final String FIREBASE_STORAGE_BASE_URL = "gs://zemedidores.appspot.com/";
 

@@ -39,6 +39,14 @@
         android:layout_height="wrap_content"
         android:padding="8dp" />
 
+    <ImageButton
+        android:id="@+id/rejectionPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:src="@drawable/ic_photo_camera_black_24" />
+
     <Button
         android:id="@+id/saveButton"
         style="@style/Widget.AppCompat.Button.Colored"

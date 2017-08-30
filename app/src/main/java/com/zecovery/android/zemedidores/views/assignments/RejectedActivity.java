@@ -9,15 +9,27 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.network.PostResult;
+import com.zecovery.android.zemedidores.network.PostResultInterceptor;
+import com.zecovery.android.zemedidores.network.RejectionCallback;
 import com.zecovery.android.zemedidores.views.MainActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.zecovery.android.zemedidores.data.Constant.ANOTHER_REASON;
 import static com.zecovery.android.zemedidores.data.Constant.EMPTY_PLACE;
@@ -32,6 +44,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
     private Button saveButton;
     private EditText anotherReasonEditText;
     private TextView hintTextView;
+    private ImageButton rejectionPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +57,11 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         reasonsSpinner = findViewById(R.id.reasonsSpinner);
         anotherReasonEditText = findViewById(R.id.anotherReasonEditText);
         hintTextView = findViewById(R.id.hintTextView);
+        rejectionPhoto = findViewById(R.id.rejectionPhoto);
 
         saveButton.setOnClickListener(this);
 
         List<String> reasons = new ArrayList<>();
-
         reasons.add(SELECT_OPTION);
         reasons.add(EMPTY_PLACE);
         reasons.add(UNWELCOME);
@@ -68,14 +81,19 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
                     saveButton.setVisibility(View.GONE);
                     anotherReasonEditText.setVisibility(View.GONE);
                     hintTextView.setVisibility(View.GONE);
+                    rejectionPhoto.setVisibility(View.GONE);
                 } else {
                     saveButton.setVisibility(View.VISIBLE);
+                    rejectionPhoto.setVisibility(View.VISIBLE);
                     if (reasonsSpinner.getSelectedItem().equals(ANOTHER_REASON)) {
                         anotherReasonEditText.setVisibility(View.VISIBLE);
                         hintTextView.setVisibility(View.VISIBLE);
+                        rejectionPhoto.setVisibility(View.VISIBLE);
                     } else {
                         anotherReasonEditText.setVisibility(View.GONE);
                         hintTextView.setVisibility(View.GONE);
+                        rejectionPhoto.setVisibility(View.GONE);
+                        rejectionPhoto.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -86,7 +104,6 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override
@@ -102,14 +119,37 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
 
     @Override
     public void onClick(View v) {
-        String token = getIntent().getStringExtra(ID_ASSIGNMENT);
+        int token = getIntent().getIntExtra(ID_ASSIGNMENT, 0);
         String reason = reasonsSpinner.getSelectedItem().toString();
 
         if (reasonsSpinner.getSelectedItem().equals(ANOTHER_REASON)) {
             String reasonText = anotherReasonEditText.getText().toString();
-            new RejectionReason(this).sendRejectionReason(token, reason, reasonText);
+
+            JSONArray array = new JSONArray();
+            JSONObject values = new JSONObject();
+            try {
+                values.put("razon", reasonText);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            PostResult postResult = new PostResultInterceptor().post();
+            Call<JSONArray> call = postResult.post(array);
+            call.enqueue(new Callback<JSONArray>() {
+                @Override
+                public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
+                    Toast.makeText(RejectedActivity.this, "asdf", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Call<JSONArray> call, Throwable t) {
+
+                }
+            });
+
+
         } else {
-            new RejectionReason(this).sendRejectionReason(token, reason, null);
+
         }
     }
 }

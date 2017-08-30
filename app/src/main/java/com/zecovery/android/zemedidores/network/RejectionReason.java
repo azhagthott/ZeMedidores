@@ -1,10 +1,11 @@
-package com.zecovery.android.zemedidores.views.assignments;
+package com.zecovery.android.zemedidores.network;
 
 import android.support.annotation.Nullable;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.zecovery.android.zemedidores.data.CurrentUser;
 import com.zecovery.android.zemedidores.data.Nodes;
+import com.zecovery.android.zemedidores.network.RejectionCallback;
 
 /**
  * Created by fbarrios80 on 02-07-17.
