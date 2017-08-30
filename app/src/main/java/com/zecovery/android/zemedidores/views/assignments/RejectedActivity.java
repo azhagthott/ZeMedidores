@@ -1,5 +1,6 @@
 package com.zecovery.android.zemedidores.views.assignments;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.frosquivel.magicalcamera.MagicalCamera;
+import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.network.PostResult;
 import com.zecovery.android.zemedidores.network.PostResultInterceptor;
@@ -35,18 +38,27 @@ import retrofit2.Response;
 
 import static com.zecovery.android.zemedidores.data.Constant.ANOTHER_REASON;
 import static com.zecovery.android.zemedidores.data.Constant.EMPTY_PLACE;
+import static com.zecovery.android.zemedidores.data.Constant.FOLDER_ZE_MEDIDORES;
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT;
+import static com.zecovery.android.zemedidores.data.Constant.RESIZE_PHOTO_PIXELS_PERCENTAGE;
 import static com.zecovery.android.zemedidores.data.Constant.SELECT_OPTION;
 import static com.zecovery.android.zemedidores.data.Constant.UNWELCOME;
 import static com.zecovery.android.zemedidores.data.Constant.WRONG_DIRECTION;
 
 public class RejectedActivity extends AppCompatActivity implements RejectionCallback, View.OnClickListener {
 
-    private Spinner reasonsSpinner;
+
     private Button saveButton;
+    private Spinner reasonsSpinner;
     private EditText anotherReasonEditText;
     private TextView hintTextView;
     private ImageButton rejectionPhoto;
+
+    private MagicalCamera magicalCamera;
+    private MagicalPermissions magicalPermissions;
+
+    private int token;
+    private String localPhotoName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +74,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         rejectionPhoto = findViewById(R.id.rejectionPhoto);
 
         saveButton.setOnClickListener(this);
+        rejectionPhoto.setOnClickListener(this);
 
         List<String> reasons = new ArrayList<>();
         reasons.add(SELECT_OPTION);
@@ -69,12 +82,9 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         reasons.add(UNWELCOME);
         reasons.add(WRONG_DIRECTION);
         reasons.add(ANOTHER_REASON);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, reasons);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         reasonsSpinner.setAdapter(adapter);
-
         reasonsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -105,6 +115,11 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
             }
         });
 
+        if (getIntent().getExtras() != null) {
+            token = getIntent().getIntExtra(ID_ASSIGNMENT, 0);
+        }
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -119,18 +134,42 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         Toast.makeText(this, R.string.rejection_error, Toast.LENGTH_SHORT).show();
     }
 
+    private Intent callCamera() {
+        String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        magicalPermissions = new MagicalPermissions(RejectedActivity.this, permissions);
+        magicalCamera = new MagicalCamera(RejectedActivity.this, RESIZE_PHOTO_PIXELS_PERCENTAGE, magicalPermissions);
+        magicalCamera.takePhoto();
+        return new Intent();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        magicalCamera.resultPhoto(requestCode, resultCode, data);
+
+        try {
+            String localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), "inspeccion_fallida", token + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
+            String localPathParts[] = localPath.split("/");
+            localPhotoName = localPathParts[7];
+            Log.d("TAG", "localPath: " + localPath);
+            Log.d("TAG", "localPhotoName: " + localPhotoName);
+
+        } catch (Exception e) {
+            Log.d("TAG", "onActivityResult: " + e);
+        }
+    }
+
     private void post(int token, String reason, @Nullable String reasonText) {
 
         JSONArray array = new JSONArray();
         JSONObject values = new JSONObject();
 
-
         if (reasonText == null) {
 
-        }else {
+        } else {
 
             try {
-
                 values.put("id_inspeccion", token);
                 values.put("razon", reason);
                 values.put("razon_texto", reasonText);
@@ -148,75 +187,37 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
                 @Override
                 public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
                     Toast.makeText(RejectedActivity.this, "asdf", Toast.LENGTH_SHORT).show();
-
                     Log.d("RejectedActivity", "call: " + call);
                     Log.d("RejectedActivity", "response: " + response);
                     Log.d("RejectedActivity", "code: " + response.code());
                 }
-
                 @Override
                 public void onFailure(Call<JSONArray> call, Throwable t) {
-
                     Log.d("RejectedActivity", "call: " + call);
                     Log.d("RejectedActivity", "Throwable: " + t);
-
                 }
             });
-
         }
-
-
     }
+
 
     @Override
     public void onClick(View v) {
 
-        int token = getIntent().getIntExtra(ID_ASSIGNMENT, 0);
-        String reason = reasonsSpinner.getSelectedItem().toString();
-
-        if (reasonsSpinner.getSelectedItem().equals(ANOTHER_REASON)) {
-            String reasonText = anotherReasonEditText.getText().toString();
-
-            JSONArray array = new JSONArray();
-            JSONObject values = new JSONObject();
-
-            try {
-
-                values.put("id_inspeccion", token);
-                values.put("razon", reason);
-                values.put("razon_texto", reasonText);
-                array.put(values);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Log.d("RejectedActivity", "post: " + array);
-
-            PostResult postResult = new PostResultInterceptor().post();
-            Call<JSONArray> call = postResult.post(array);
-            call.enqueue(new Callback<JSONArray>() {
-                @Override
-                public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
-                    Toast.makeText(RejectedActivity.this, "asdf", Toast.LENGTH_SHORT).show();
-
-                    Log.d("RejectedActivity", "call: " + call);
-                    Log.d("RejectedActivity", "response: " + response);
-                    Log.d("RejectedActivity", "code: " + response.code());
+        switch (v.getId()) {
+            case R.id.rejectionPhoto:
+                callCamera();
+                break;
+            case R.id.saveButton:
+                //token = getIntent().getIntExtra(ID_ASSIGNMENT, 0);
+                String reason = reasonsSpinner.getSelectedItem().toString();
+                if (reasonsSpinner.getSelectedItem().equals(ANOTHER_REASON)) {
+                    String reasonText = anotherReasonEditText.getText().toString();
+                    post(token, reason, reasonText);
+                } else {
+                    post(token, reason, null);
                 }
-
-                @Override
-                public void onFailure(Call<JSONArray> call, Throwable t) {
-
-                    Log.d("RejectedActivity", "call: " + call);
-                    Log.d("RejectedActivity", "Throwable: " + t);
-
-                }
-            });
-
-
-        } else {
-
+                break;
         }
     }
 }

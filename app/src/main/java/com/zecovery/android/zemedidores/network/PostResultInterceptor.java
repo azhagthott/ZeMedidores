@@ -12,7 +12,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class PostResultInterceptor {
+
     public PostResult post() {
+        Gson gson = new GsonBuilder().setLenient().create();
+        Retrofit interceptor = new Retrofit.Builder()
+                .baseUrl(Constant.URL_BASE_DESA)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        return interceptor.create(PostResult.class);
+    }
+
+    public PostResult uploadFile() {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit interceptor = new Retrofit.Builder()
                 .baseUrl(Constant.URL_BASE_DESA)
