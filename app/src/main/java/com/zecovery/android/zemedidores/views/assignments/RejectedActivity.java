@@ -2,8 +2,10 @@ package com.zecovery.android.zemedidores.views.assignments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -117,8 +119,58 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         Toast.makeText(this, R.string.rejection_error, Toast.LENGTH_SHORT).show();
     }
 
+    private void post(int token, String reason, @Nullable String reasonText) {
+
+        JSONArray array = new JSONArray();
+        JSONObject values = new JSONObject();
+
+
+        if (reasonText == null) {
+
+        }else {
+
+            try {
+
+                values.put("id_inspeccion", token);
+                values.put("razon", reason);
+                values.put("razon_texto", reasonText);
+                array.put(values);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Log.d("RejectedActivity", "post: " + array);
+
+            PostResult postResult = new PostResultInterceptor().post();
+            Call<JSONArray> call = postResult.post(array);
+            call.enqueue(new Callback<JSONArray>() {
+                @Override
+                public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
+                    Toast.makeText(RejectedActivity.this, "asdf", Toast.LENGTH_SHORT).show();
+
+                    Log.d("RejectedActivity", "call: " + call);
+                    Log.d("RejectedActivity", "response: " + response);
+                    Log.d("RejectedActivity", "code: " + response.code());
+                }
+
+                @Override
+                public void onFailure(Call<JSONArray> call, Throwable t) {
+
+                    Log.d("RejectedActivity", "call: " + call);
+                    Log.d("RejectedActivity", "Throwable: " + t);
+
+                }
+            });
+
+        }
+
+
+    }
+
     @Override
     public void onClick(View v) {
+
         int token = getIntent().getIntExtra(ID_ASSIGNMENT, 0);
         String reason = reasonsSpinner.getSelectedItem().toString();
 
@@ -127,11 +179,19 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
 
             JSONArray array = new JSONArray();
             JSONObject values = new JSONObject();
+
             try {
-                values.put("razon", reasonText);
+
+                values.put("id_inspeccion", token);
+                values.put("razon", reason);
+                values.put("razon_texto", reasonText);
+                array.put(values);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            Log.d("RejectedActivity", "post: " + array);
 
             PostResult postResult = new PostResultInterceptor().post();
             Call<JSONArray> call = postResult.post(array);
@@ -139,10 +199,17 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
                 @Override
                 public void onResponse(Call<JSONArray> call, Response<JSONArray> response) {
                     Toast.makeText(RejectedActivity.this, "asdf", Toast.LENGTH_SHORT).show();
+
+                    Log.d("RejectedActivity", "call: " + call);
+                    Log.d("RejectedActivity", "response: " + response);
+                    Log.d("RejectedActivity", "code: " + response.code());
                 }
 
                 @Override
                 public void onFailure(Call<JSONArray> call, Throwable t) {
+
+                    Log.d("RejectedActivity", "call: " + call);
+                    Log.d("RejectedActivity", "Throwable: " + t);
 
                 }
             });

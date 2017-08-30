@@ -71,7 +71,7 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.negative:
                 Intent intent = new Intent(AskActivity.this, RejectedActivity.class);
-                intent.putExtra(ID_ASSIGNMENT, getIntent().getStringExtra(ID_ASSIGNMENT));
+                intent.putExtra(ID_ASSIGNMENT, getIntent().getIntExtra(ID_ASSIGNMENT, 0));
                 startActivity(intent);
                 break;
         }
