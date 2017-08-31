@@ -23,6 +23,7 @@ import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.network.PostResult;
 import com.zecovery.android.zemedidores.network.PostResultInterceptor;
 import com.zecovery.android.zemedidores.network.RejectionCallback;
+import com.zecovery.android.zemedidores.network.ServicesGenerator;
 import com.zecovery.android.zemedidores.views.MainActivity;
 
 import org.json.JSONArray;
@@ -32,6 +33,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +52,6 @@ import static com.zecovery.android.zemedidores.data.Constant.WRONG_DIRECTION;
 
 public class RejectedActivity extends AppCompatActivity implements RejectionCallback, View.OnClickListener {
 
-
     private Button saveButton;
     private Spinner reasonsSpinner;
     private EditText anotherReasonEditText;
@@ -58,7 +62,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
     private MagicalPermissions magicalPermissions;
 
     private int token;
-    private String localPhotoName;
+    private String photoName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,12 +155,42 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         try {
             String localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), "inspeccion_fallida", token + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
             String localPathParts[] = localPath.split("/");
-            localPhotoName = localPathParts[7];
-            Log.d("TAG", "localPath: " + localPath);
-            Log.d("TAG", "localPhotoName: " + localPhotoName);
+            photoName = localPathParts[7];
+            Log.d("onActivityResult", "localPath: " + localPath);
+            Log.d("onActivityResult", "photoName: " + photoName);
+
+
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), localPath);
+
+            Log.d("onActivityResult", "requestFile: " + requestFile.contentType());
+
+            MultipartBody.Part body = MultipartBody.Part.createFormData("picture", localPath, requestFile);
+
+            Log.d("onActivityResult", "body: " + body);
+
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"), photoName);
+
+
+            //PostResult service = ServicesGenerator.createService(PostResult.class);
+            PostResult service = new PostResultInterceptor().post();
+
+            Call<ResponseBody> fileCall = service.uploadFile(body, name);
+
+            fileCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d("onActivityResult", "success");
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e("onActivityResult error:", t.getMessage());
+                }
+            });
+
 
         } catch (Exception e) {
-            Log.d("TAG", "onActivityResult: " + e);
+            Log.d("onActivityResult", "Exception: " + e);
         }
     }
 
@@ -191,12 +225,36 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
                     Log.d("RejectedActivity", "response: " + response);
                     Log.d("RejectedActivity", "code: " + response.code());
                 }
+
                 @Override
                 public void onFailure(Call<JSONArray> call, Throwable t) {
                     Log.d("RejectedActivity", "call: " + call);
                     Log.d("RejectedActivity", "Throwable: " + t);
                 }
             });
+
+
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), photoName);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("picture", photoName, requestFile);
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
+
+            PostResult services = ServicesGenerator.createService(PostResult.class);
+
+            Call<ResponseBody> fileCall = services.uploadFile(body, name);
+
+            fileCall.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Log.d("Upload", "success");
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.e("Upload error:", t.getMessage());
+                }
+            });
+
+
         }
     }
 
@@ -209,7 +267,6 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
                 callCamera();
                 break;
             case R.id.saveButton:
-                //token = getIntent().getIntExtra(ID_ASSIGNMENT, 0);
                 String reason = reasonsSpinner.getSelectedItem().toString();
                 if (reasonsSpinner.getSelectedItem().equals(ANOTHER_REASON)) {
                     String reasonText = anotherReasonEditText.getText().toString();
