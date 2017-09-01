@@ -50,11 +50,11 @@ public class NegotiationFragment extends Fragment implements NegotiationCallback
     public NegotiationFragment() {
     }
 
-    public NegotiationFragment newInstance(String token) {
+    public NegotiationFragment newInstance(int token) {
 
         NegotiationFragment negotiationFragment = new NegotiationFragment();
         Bundle args = new Bundle();
-        args.putString(ID_ASSIGNMENT_NEGOTIATION, token);
+        args.putInt(ID_ASSIGNMENT_NEGOTIATION, token);
         negotiationFragment.setArguments(args);
         return negotiationFragment;
     }

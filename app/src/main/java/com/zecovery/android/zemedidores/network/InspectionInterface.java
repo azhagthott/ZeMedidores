@@ -12,5 +12,8 @@ import retrofit2.http.Query;
 
 public interface InspectionInterface {
     @GET("wsMovil/wsgetRealizarInspecciones.php")
-    Call<Inspect> get(@Query("key") int key, @Query("inspector") String inspector);
+    Call<Inspect> get(
+            @Query("key") int key,
+            @Query("inspector") String inspector
+    );
 }

@@ -36,7 +36,7 @@ public class AssignmentActivity extends AppCompatActivity implements TokenListen
 
         if (extra != null) {
 
-            String token = getIntent().getStringExtra(ID_ASSIGNMENT);
+            int token = getIntent().getIntExtra(ID_ASSIGNMENT, 0);
 
             switch (getIntent().getStringExtra(ASSIGNMENT_TYPE)) {
 
@@ -60,27 +60,27 @@ public class AssignmentActivity extends AppCompatActivity implements TokenListen
     }
 
     @Override
-    public void tokenToPhotoTest(String token) {
+    public void tokenToPhotoTest(int token) {
         callFragment(new PhotosTestFragment().newInstance(token));
     }
 
     @Override
-    public void tokenToExecuteTestPart1(String token) {
+    public void tokenToExecuteTestPart1(int token) {
         callFragment(new ExecuteTestPart1Fragment().newInstance(token));
     }
 
     @Override
-    public void tokenToExecuteTestPart2(String token) {
+    public void tokenToExecuteTestPart2(int token) {
         callFragment(new ExecuteTestPart2Fragment().newInstance(token));
     }
 
     @Override
-    public void tokenToExecuteTestPart3(String token) {
+    public void tokenToExecuteTestPart3(int token) {
         callFragment(new ExecuteTestPart3Fragment().newInstance(token));
     }
 
     @Override
-    public void tokenToNegotiation(String token) {
+    public void tokenToNegotiation(int token) {
         callFragment(new NegotiationFragment().newInstance(token));
     }
 }

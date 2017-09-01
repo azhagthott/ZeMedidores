@@ -24,7 +24,7 @@ import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_SECTOR;
 import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_SOCIAL_RISK;
 import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
 import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_UID;
-import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_VISIBIITY;
+import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_VISIBILITY;
 import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_ZONE;
 import static com.zecovery.android.zemedidores.data.Constant.DB_CREATE_TABLE;
 import static com.zecovery.android.zemedidores.data.Constant.DB_DROP_TABLE;
@@ -61,7 +61,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + ASSIGNMENT_SOCIAL_RISK + "TEXT, "
                 + ASSIGNMENT_ZONE + "TEXT, "
                 + ASSIGNMENT_SECTOR + "TEXT, "
-                + ASSIGNMENT_VISIBIITY + "TEXT, "
+                + ASSIGNMENT_VISIBILITY + "TEXT, "
                 + ASSIGNMENT_LAT + "TEXT, "
                 + ASSIGNMENT_LNG + "TEXT);";
         db.execSQL(CREATE_TABLE_ASSIGNMENT);

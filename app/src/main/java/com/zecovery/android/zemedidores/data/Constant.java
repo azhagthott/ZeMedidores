@@ -27,20 +27,6 @@ public class Constant {
 
     public static final String SOCIAL_POLYGON = "si";
 
-    /* test, options and results
-    public static final String TEST_RESULT_SELECT = "Seleccione opción";
-    public static final String TEST_RESULT_OK = "SI";
-    public static final String TEST_RESULT_NOK = "NO";
-
-    public static final String TEST_RESULT_OK_0 = "Seleccione opción";
-    public static final String TEST_RESULT_OK_1 = "Uso imanes";
-    public static final String TEST_RESULT_OK_2 = "Invertir tomas";
-    public static final String TEST_RESULT_OK_3 = "Perforar cúpula";
-    public static final String TEST_RESULT_OK_4 = "Cortar engranajes";
-    public static final String TEST_RESULT_OK_5 = "Uso de alabre";
-    public static final String TEST_RESULT_OK_6 = "Prensado";
-    public static final String TEST_RESULT_OK_7 = "Otro (especificar)";
-*/
     public static final int RESIZE_PHOTO_PIXELS_PERCENTAGE = 20;
     public static final String FOLDER_ZE_MEDIDORES = "ZE_MEDIDORES";
     public static final String FIREBASE_STORAGE_BASE_URL = "gs://zemedidores.appspot.com/";
@@ -92,7 +78,7 @@ public class Constant {
     public static final String ASSIGNMENT_SOCIAL_RISK = "social_risk";
     public static final String ASSIGNMENT_ZONE = "zone";
     public static final String ASSIGNMENT_SECTOR = "sector";
-    public static final boolean ASSIGNMENT_VISIBIITY = true;
+    public static final boolean ASSIGNMENT_VISIBILITY = true;
     public static final double ASSIGNMENT_LAT = 0;
     public static final double ASSIGNMENT_LNG = 0;
 

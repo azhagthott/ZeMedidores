@@ -6,13 +6,13 @@ package com.zecovery.android.zemedidores.views.assignments.fragments;
 
 public interface TokenListener {
 
-    void tokenToPhotoTest(String token);
+    void tokenToPhotoTest(int token);
 
-    void tokenToExecuteTestPart1(String token);
+    void tokenToExecuteTestPart1(int token);
 
-    void tokenToExecuteTestPart2(String token);
+    void tokenToExecuteTestPart2(int token);
 
-    void tokenToExecuteTestPart3(String token);
+    void tokenToExecuteTestPart3(int token);
 
-    void tokenToNegotiation(String token);
+    void tokenToNegotiation(int token);
 }

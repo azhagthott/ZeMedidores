@@ -17,8 +17,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.zecovery.android.zemedidores.R;
-import com.zecovery.android.zemedidores.data.CurrentUser;
-import com.zecovery.android.zemedidores.data.Nodes;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import java.util.ArrayList;
@@ -53,17 +51,17 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
     private EditText caudalEditText;
     private EditText test3Obs2EditText;
 
-    private String token;
+    private int token;
 
     private TokenListener callback;
 
     public ExecuteTestPart3Fragment() {
     }
 
-    public ExecuteTestPart3Fragment newInstance(String pushKey) {
+    public ExecuteTestPart3Fragment newInstance(int token) {
         ExecuteTestPart3Fragment executeTestFragment = new ExecuteTestPart3Fragment();
         Bundle args = new Bundle();
-        args.putString(ID_ASSIGNMENT_EXECUTE_TEST_3, pushKey);
+        args.putInt(ID_ASSIGNMENT_EXECUTE_TEST_3, token);
         executeTestFragment.setArguments(args);
         return executeTestFragment;
     }
@@ -78,12 +76,12 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        token = getArguments().getString(ID_ASSIGNMENT_EXECUTE_TEST_3);
+        token = getArguments().getInt(ID_ASSIGNMENT_EXECUTE_TEST_3);
 
         findViews(view);
 
         Log.d(TAG, "ExecuteTestPart3Fragment");
-        Log.d(TAG, "pushKey: " + token);
+        Log.d(TAG, "token: " + token);
 
         List<String> propertyType = new ArrayList<>();
 
@@ -145,26 +143,11 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
     public void onClick(View v) {
 
         if (newBuildingYesRadioButton.isChecked()) {
-            new Nodes().testResults(new CurrentUser().uid()).child(token).child("construccion_nueva").setValue("SI");
+
         } else {
-            new Nodes().testResults(new CurrentUser().uid()).child(token).child("construccion_nueva").setValue("NO");
+
         }
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("habitantes").setValue(occupantEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("banos").setValue(bathRoomsEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("superficie_construida").setValue(surfaceEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("superficie_jardin").setValue(surfaceGardenEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("accesos").setValue(accessEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("superficie_terreno").setValue(totalSurfaceEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("observaciones_3_1").setValue(test3Obs1EditText.getText().toString());
 
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("tipo_fuente_propia").setValue(sourceTypeEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("uso").setValue(useEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("capacidad").setValue(capacityEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("dga").setValue(dgaEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("caudal").setValue(caudalEditText.getText().toString());
-        new Nodes().testResults(new CurrentUser().uid()).child(token).child("observaciones_3_2").setValue(test3Obs2EditText.getText().toString());
-
-        new SendTestResults(this).save(token);
     }
 
     @Override

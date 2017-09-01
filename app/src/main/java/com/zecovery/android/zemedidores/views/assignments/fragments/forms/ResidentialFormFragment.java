@@ -18,7 +18,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.zecovery.android.zemedidores.R;
-import com.zecovery.android.zemedidores.data.Nodes;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT;
@@ -34,17 +33,17 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
     private EditText residentDate;
     private TextView polygonTextView;
 
-    private String token;
+    private int token;
     private TokenListener callback;
 
     public ResidentialFormFragment() {
 
     }
 
-    public ResidentialFormFragment newInstance(String token) {
+    public ResidentialFormFragment newInstance(int token) {
         ResidentialFormFragment residentialFormFragment = new ResidentialFormFragment();
         Bundle args = new Bundle();
-        args.putString(ID_ASSIGNMENT, token);
+        args.putInt(ID_ASSIGNMENT, token);
         residentialFormFragment.setArguments(args);
         return residentialFormFragment;
     }
@@ -69,7 +68,7 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
         residentDate = view.findViewById(R.id.residentDate);
         polygonTextView = view.findViewById(R.id.polygonTextView);
 
-        token = getArguments().getString(ID_ASSIGNMENT);
+        token = getArguments().getInt(ID_ASSIGNMENT, 0);
         //new Nodes().preLoadedData(token).addValueEventListener(this);
     }
 

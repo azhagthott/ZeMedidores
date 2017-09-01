@@ -21,14 +21,27 @@ import android.widget.RadioButton;
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.network.PostResult;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static com.zecovery.android.zemedidores.data.Constant.FOLDER_ZE_MEDIDORES;
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT_PHOTO;
 import static com.zecovery.android.zemedidores.data.Constant.RESIZE_PHOTO_PIXELS_PERCENTAGE;
+import static com.zecovery.android.zemedidores.data.Constant.URL_BASE_DESA;
 
-public class PhotosTestFragment extends Fragment implements View.OnClickListener, UploadPhotosCallback,
-        BrokenMeterCallback, MeterLocationCallback {
+public class PhotosTestFragment extends Fragment implements View.OnClickListener {
 
     private ImageButton photoMeterReading;
     private ImageButton photoMeterNumber;
@@ -49,21 +62,20 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     private MagicalCamera magicalCamera;
 
     private TokenListener callback;
-    private String token;
+    private int token;
 
-    private String photoName = "";
-    private String remoteFolder = "";
-    private String localPhotoName = "";
-
+    private String photoName;
+    private String localPhotoName;
+    private String localPath;
 
     public PhotosTestFragment() {
     }
 
-    public PhotosTestFragment newInstance(String pushKey) {
+    public PhotosTestFragment newInstance(int token) {
 
         PhotosTestFragment photosTestFragment = new PhotosTestFragment();
         Bundle args = new Bundle();
-        args.putString(ID_ASSIGNMENT_PHOTO, pushKey);
+        args.putInt(ID_ASSIGNMENT_PHOTO, token);
         photosTestFragment.setArguments(args);
         return photosTestFragment;
     }
@@ -77,7 +89,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        token = getArguments().getString(ID_ASSIGNMENT_PHOTO);
+        token = getArguments().getInt(ID_ASSIGNMENT_PHOTO);
         findViews(view);
 
         continueTestButton.setOnClickListener(this);
@@ -156,31 +168,27 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         int id = v.getId();
 
         if (negativeRadioButton.isChecked()) {
+
             switch (id) {
 
                 case R.id.photoMeterReading:
                     photoName = "lectura_medidor";
-                    remoteFolder = "lectura_medidor";
                     callCamera(photoName);
                     break;
                 case R.id.photoMeterNumber:
                     photoName = "numero_medidor";
-                    remoteFolder = "numero_medidor";
                     callCamera(photoName);
                     break;
                 case R.id.photoMeterPanoramic:
                     photoName = "panoramica_medidor";
-                    remoteFolder = "panoramica_medidor";
                     callCamera(photoName);
                     break;
                 case R.id.photoPropertyNumber:
                     photoName = "numero_propiedad";
-                    remoteFolder = "numero_propiedad";
                     callCamera(photoName);
                     break;
                 case R.id.photoFrontageProperty:
                     photoName = "fachada_propiedad";
-                    remoteFolder = "fachada_propiedad";
                     callCamera(photoName);
                     break;
 
@@ -189,21 +197,25 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
                     String failureComment = brokenMeterCommentEditText.getText().toString();
                     String meterLocation = meterLocationEditText.getText().toString();
 
+
                     if (positiveRadioButton.isChecked() && !failureComment.equals("")) {
-                        new BrokenMeter(this).inform(token, failureComment, meterLocation, localPhotoName);
+
+
                     } else {
-                        new MeterLocation(this).saveLocation(token, meterLocation);
+
+
                     }
 
                     callback.tokenToExecuteTestPart1(token);
                     break;
             }
         } else {
+
             switch (id) {
+
 
                 case R.id.brokenMeterPhoto:
                     photoName = "medidor_descompuesto";
-                    remoteFolder = "medidor_descompuesto";
                     callCamera(photoName);
                     break;
 
@@ -212,9 +224,14 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
                     String meterLocation = meterLocationEditText.getText().toString();
 
                     if (positiveRadioButton.isChecked() && !failureComment.equals("")) {
-                        new BrokenMeter(this).inform(token, failureComment, meterLocation, localPhotoName);
+
+
+                        post(meterLocation, failureComment, localPath);
+
+
                     } else {
-                        new MeterLocation(this).saveLocation(token, meterLocation);
+
+
                     }
 
                     callback.tokenToExecuteTestPart1(token);
@@ -247,42 +264,41 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         magicalCamera.resultPhoto(requestCode, resultCode, data);
 
         try {
-            String localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), photoName, token + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
+            localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), "medidor_descompuesto", token + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
             String localPathParts[] = localPath.split("/");
             localPhotoName = localPathParts[7];
-
-            new UploadPhotos(this).upload(localPhotoName, localPath, remoteFolder);
-
         } catch (Exception e) {
             Log.d("TAG", "onActivityResult: " + e);
         }
     }
 
-    @Override
-    public void photoUploaded() {
-        //Toast.makeText(getContext(), getResources().getString(R.string.photo_uploaded), Toast.LENGTH_SHORT).show();
-    }
+    private void post(String meterLocation, String failureComment, String localPath) {
 
-    @Override
-    public void uploadingPhotoError() {
-        //Toast.makeText(getContext(), getResources().getString(R.string.photo_no_uploaded), Toast.LENGTH_SHORT).show();
-    }
+        RequestBody status = RequestBody.create(MediaType.parse("multipart/form-data"), "medidor_descompuesto");
+        RequestBody idInspeccionBody = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        RequestBody obs = RequestBody.create(MediaType.parse("multipart/form-data"), failureComment);
+        RequestBody meterLocationBody = RequestBody.create(MediaType.parse("multipart/form-data"), meterLocation);
 
-    @Override
-    public void informBrokenMeter() {
-        //Toast.makeText(getContext(), getResources().getString(R.string.photo_uploaded), Toast.LENGTH_SHORT).show();
-    }
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), localPath);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("foto_rechazo", photoName, requestFile);
 
-    @Override
-    public void informBrokenMeterError() {
-        //Toast.makeText(getContext(), getResources().getString(R.string.photo_no_uploaded), Toast.LENGTH_SHORT).show();
-    }
+        List<MultipartBody.Part> bodies = new ArrayList<>();
+        bodies.add(body);
 
-    @Override
-    public void saveMeterLocation() {
-    }
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
+        PostResult service = retrofit.create(PostResult.class);
 
-    @Override
-    public void errorSavingMeterLocation() {
+        Call<ResponseBody> call = service.postMeterStatus(status, idInspeccionBody, meterLocationBody, obs, bodies);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.i("LOG_TAG", "success");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("LOG_TAG", t.getMessage());
+            }
+        });
     }
 }
