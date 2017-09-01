@@ -23,7 +23,7 @@ public interface PostResult {
             @Part("id_inspeccion") RequestBody idInspeccion,
             @Part("razon") RequestBody reason,
             @Part("razon_texto") RequestBody reasonText,
-            @Part List<MultipartBody.Part> files
+            @Part MultipartBody.Part file
     );
 
 

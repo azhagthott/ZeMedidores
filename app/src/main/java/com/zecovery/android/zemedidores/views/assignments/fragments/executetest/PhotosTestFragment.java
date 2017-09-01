@@ -24,6 +24,7 @@ import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.network.PostResult;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -274,12 +275,14 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
     private void post(String meterLocation, String failureComment, String localPath) {
 
+        File file = new File(localPath);
+
         RequestBody status = RequestBody.create(MediaType.parse("multipart/form-data"), "medidor_descompuesto");
-        RequestBody idInspeccionBody = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
-        RequestBody obs = RequestBody.create(MediaType.parse("multipart/form-data"), failureComment);
+        RequestBody idInspeccionBody = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(token));
+        RequestBody comment = RequestBody.create(MediaType.parse("multipart/form-data"), failureComment);
         RequestBody meterLocationBody = RequestBody.create(MediaType.parse("multipart/form-data"), meterLocation);
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), localPath);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("foto_rechazo", photoName, requestFile);
 
         List<MultipartBody.Part> bodies = new ArrayList<>();
@@ -288,7 +291,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
         PostResult service = retrofit.create(PostResult.class);
 
-        Call<ResponseBody> call = service.postMeterStatus(status, idInspeccionBody, meterLocationBody, obs, bodies);
+        Call<ResponseBody> call = service.postMeterStatus(status, idInspeccionBody, meterLocationBody, comment, bodies);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

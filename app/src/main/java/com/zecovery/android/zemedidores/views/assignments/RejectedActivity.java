@@ -24,6 +24,7 @@ import com.zecovery.android.zemedidores.network.PostResult;
 import com.zecovery.android.zemedidores.network.RejectionCallback;
 import com.zecovery.android.zemedidores.views.MainActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -177,14 +178,13 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
 
     private void post(int token, String reason, @Nullable String reasonText, String localPath) {
 
+        File file = new File(localPath);
+
         String status = "rechazo";
         RequestBody description = RequestBody.create(MediaType.parse("multipart/form-data"), status);
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), localPath);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("foto_rechazo", photoName, requestFile);
-
-        List<MultipartBody.Part> bodies = new ArrayList<>();
-        bodies.add(body);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
         PostResult service = retrofit.create(PostResult.class);
@@ -194,7 +194,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
 
         if (reasonText == null) {
 
-            Call<ResponseBody> call = service.postInspectionRejected(description, idInspeccionBody, reasonBody, null, bodies);
+            Call<ResponseBody> call = service.postInspectionRejected(description, idInspeccionBody, reasonBody, null, body);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -211,7 +211,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         } else {
             RequestBody reasonTextBody = RequestBody.create(MediaType.parse("multipart/form-data"), reasonText);
 
-            Call<ResponseBody> call = service.postInspectionRejected(description, idInspeccionBody, reasonBody, reasonTextBody, bodies);
+            Call<ResponseBody> call = service.postInspectionRejected(description, idInspeccionBody, reasonBody, reasonTextBody, body);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
