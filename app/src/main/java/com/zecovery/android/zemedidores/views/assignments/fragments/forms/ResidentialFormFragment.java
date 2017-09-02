@@ -14,17 +14,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.models.Resident;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT;
-import static com.zecovery.android.zemedidores.data.Constant.SOCIAL_POLYGON;
 
-public class ResidentialFormFragment extends Fragment implements View.OnClickListener,
-        ValueEventListener {
+public class ResidentialFormFragment extends Fragment implements View.OnClickListener, SaveResidentialForm {
 
     private EditText residentName;
     private EditText residentRut;
@@ -34,7 +30,7 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
     private TextView polygonTextView;
 
     private int token;
-    private TokenListener callback;
+    private TokenListener tokenCallback;
 
     public ResidentialFormFragment() {
 
@@ -69,25 +65,6 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
         polygonTextView = view.findViewById(R.id.polygonTextView);
 
         token = getArguments().getInt(ID_ASSIGNMENT, 0);
-        //new Nodes().preLoadedData(token).addValueEventListener(this);
-    }
-
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-
-        residentName.setText(dataSnapshot.child("name_resident").getValue().toString());
-        residentRut.setText(dataSnapshot.child("rut").getValue().toString());
-        residentPhone.setText(dataSnapshot.child("telephone").getValue().toString());
-        residentEmail.setText(dataSnapshot.child("email_resident").getValue().toString());
-        residentDate.setText(dataSnapshot.child("date_resident").getValue().toString());
-
-        String polygon = dataSnapshot.child("polygon").getValue().toString();
-
-        if (polygon.equals(SOCIAL_POLYGON)) {
-            polygonTextView.setVisibility(View.VISIBLE);
-        } else {
-            polygonTextView.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -98,7 +75,7 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
 
             try {
                 Activity activity = (Activity) context;
-                callback = (TokenListener) activity;
+                tokenCallback = (TokenListener) activity;
             } catch (Exception e) {
                 Log.d("TAG", e.toString());
                 throw new ClassCastException(context.toString()
@@ -108,12 +85,25 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
     }
 
     @Override
-    public void onCancelled(DatabaseError databaseError) {
-        Toast.makeText(getContext(), R.string.rejection_error, Toast.LENGTH_SHORT).show();
+    public void onClick(View v) {
+
+        Resident resident = new Resident();
+        resident.setNombre(residentName.getText().toString());
+        resident.setRut(residentRut.getText().toString());
+        resident.setTelefono(residentPhone.getText().toString());
+        resident.setEmail(residentEmail.getText().toString());
+        resident.setFecha(residentDate.getText().toString());
+
+        new SaveResidentData(this, getContext()).save(resident, token);
     }
 
     @Override
-    public void onClick(View v) {
-        callback.tokenToPhotoTest(token);
+    public void save() {
+        tokenCallback.tokenToPhotoTest(token);
+    }
+
+    @Override
+    public void error() {
+        Toast.makeText(getContext(), "No se pudo guardar la informacion", Toast.LENGTH_SHORT).show();
     }
 }

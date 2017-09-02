@@ -17,6 +17,8 @@ import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.adapters.InspectionAdapter;
 import com.zecovery.android.zemedidores.background.InspectionList;
 import com.zecovery.android.zemedidores.background.InspectionParams;
+import com.zecovery.android.zemedidores.data.CurrentUser;
+import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.models.Inspection;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
 
@@ -25,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mainRecyclerView;
+    private LocalDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         mainRecyclerView = findViewById(R.id.mainRecyclerView);
-        new GetInspections(new InspectionParams(123, "")).execute();
+
+        db = new LocalDatabase(this);
+
+        new GetInspections(new InspectionParams(123, new CurrentUser().email())).execute();
         setSupportActionBar(toolbar);
     }
 
@@ -74,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<Inspection> inspections) {
             super.onPostExecute(inspections);
+
+            db.saveDownloadedInspection(inspections);
+
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             mainRecyclerView.setLayoutManager(linearLayoutManager);

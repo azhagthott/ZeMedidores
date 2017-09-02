@@ -11,9 +11,13 @@ import android.view.MenuItem;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.data.CurrentUser;
 
 public class UnAuthorizedActivity extends AppCompatActivity {
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,14 @@ public class UnAuthorizedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_un_authorized);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        String email = new CurrentUser().email();
+
+        Bundle params = new Bundle();
+        params.putString("UNAUTHORIZED_EMAIL", email);
+        mFirebaseAnalytics.logEvent("UNAUTHORIZED", params);
     }
 
     @Override
@@ -32,12 +44,10 @@ public class UnAuthorizedActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_sign_out) {
             signOut();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

@@ -20,12 +20,14 @@ import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.network.PostResult;
 import com.zecovery.android.zemedidores.network.RejectionCallback;
 import com.zecovery.android.zemedidores.views.MainActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -61,6 +63,8 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
     private String photoName;
     private String localPath;
 
+    private LocalDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +80,8 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
 
         saveButton.setOnClickListener(this);
         rejectionPhoto.setOnClickListener(this);
+
+        db = new LocalDatabase(this);
 
         List<String> reasons = new ArrayList<>();
         reasons.add(SELECT_OPTION);
@@ -180,8 +186,18 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
 
         File file = new File(localPath);
 
+
         String status = "rechazo";
         RequestBody description = RequestBody.create(MediaType.parse("multipart/form-data"), status);
+
+        RequestBody lat = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().latitude));
+        RequestBody lng = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().longitude));
+
+
+        Calendar rightNow = Calendar.getInstance();
+        int fechaAcutal = (int) (rightNow.getTimeInMillis() / 1000);
+        RequestBody fecha = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fechaAcutal));
+
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("foto_rechazo", photoName, requestFile);
@@ -194,7 +210,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
 
         if (reasonText == null) {
 
-            Call<ResponseBody> call = service.postInspectionRejected(description, idInspeccionBody, reasonBody, null, body);
+            Call<ResponseBody> call = service.postInspectionRejected(description, idInspeccionBody, reasonBody, null, lat, lng, fecha, body);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -211,7 +227,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         } else {
             RequestBody reasonTextBody = RequestBody.create(MediaType.parse("multipart/form-data"), reasonText);
 
-            Call<ResponseBody> call = service.postInspectionRejected(description, idInspeccionBody, reasonBody, reasonTextBody, body);
+            Call<ResponseBody> call = service.postInspectionRejected(description, idInspeccionBody, reasonBody, reasonTextBody, lat, lng, fecha, body);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

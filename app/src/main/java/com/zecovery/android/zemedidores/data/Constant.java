@@ -15,6 +15,8 @@ public class Constant {
     public static final String COMMERCIAL = "2";
     public static final String BUSINESS = "3";
 
+    public static final String UNAUTHORIZED = "No autorizado";
+
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
     public static final String ADDRESS = "ADDRESS";
@@ -24,6 +26,8 @@ public class Constant {
     public static final String ID_ASSIGNMENT_EXECUTE_TEST_3 = "ID_ASSIGNMENT_EXECUTE_TEST_3";
     public static final String ID_ASSIGNMENT_NEGOTIATION = "ID_ASSIGNMENT_NEGOTIATION";
     public static final String ID_ASSIGNMENT_PHOTO = "ID_ASSIGNMENT_PHOTO";
+
+    public static final String ASSIGNMENT_TYPE = "assignment_type";
 
     public static final String SOCIAL_POLYGON = "si";
 
@@ -52,38 +56,12 @@ public class Constant {
     /* Retrofit */
     public static final String URL_BASE_DESA = "http://medidores.desa.zecovery.com";
 
-    /* local db */
-    public static final int DB_VERSION = 69;
-    public static final String DB_MANE = "zemedidores.db";
-    public static final String TABLE_ASSIGNMENT = "assignment";
-
-    //SQL comandos
-    public static final String DB_CREATE_TABLE = "CREATE TABLE ";
-    public static final String DB_DROP_TABLE = "DROP TABLE IF EXISTS ";
-    public static final String SELECT_ALL = "SELECT * FROM ";
-
-    /* assignment table */
-    public static final String ASSIGNMENT_ID_KEY = "id";
-    public static final String ASSIGNMENT_ID_INSPECTION = "id_inspection";
-    public static final String ASSIGNMENT_NAME = "name";
-    public static final String ASSIGNMENT_DESCRIPTION = "description";
-    public static final String ASSIGNMENT_ORIGIN = "origin";
-    public static final String ASSIGNMENT_ADDRESS = "address";
-    public static final String ASSIGNMENT_DATE = "date";
-    public static final String ASSIGNMENT_UID = "uid";
-    public static final String ASSIGNMENT_EMAIL = "email";
-    public static final String ASSIGNMENT_METER_LOCATION = "meter_location";
-    public static final String ASSIGNMENT_METER_STATUS = "meter_status";
-    public static final String ASSIGNMENT_TYPE = "assignment_type";
-    public static final String ASSIGNMENT_SOCIAL_RISK = "social_risk";
-    public static final String ASSIGNMENT_ZONE = "zone";
-    public static final String ASSIGNMENT_SECTOR = "sector";
-    public static final boolean ASSIGNMENT_VISIBILITY = true;
-    public static final double ASSIGNMENT_LAT = 0;
-    public static final double ASSIGNMENT_LNG = 0;
 
     /* network*/
     public static final int TIME_OUT = 60;
     public static final int READ_TIME_OUT = 60;
     public static final int WRITE_TIME_OUT = 60;
+
+
+
 }

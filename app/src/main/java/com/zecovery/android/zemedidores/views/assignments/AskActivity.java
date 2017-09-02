@@ -1,9 +1,12 @@
 package com.zecovery.android.zemedidores.views.assignments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,8 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -22,12 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.R;
-
-import java.util.List;
-
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.AppSettingsDialog;
-import pub.devrel.easypermissions.EasyPermissions;
+import com.zecovery.android.zemedidores.data.LocalDatabase;
 
 import static com.zecovery.android.zemedidores.data.Constant.ADDRESS;
 import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
@@ -38,8 +34,7 @@ import static com.zecovery.android.zemedidores.data.Constant.LATITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.LONGITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENTIAL;
 
-public class AskActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback,
-        EasyPermissions.PermissionCallbacks {
+public class AskActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, LocationListener {
 
     private static final int LOCATION_REQUEST_CODE = 999;
 
@@ -48,10 +43,12 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
             Manifest.permission.ACCESS_FINE_LOCATION};
 
     private static final int RC_LOCATION = 124;
-
     private GoogleMap map;
-    private FusedLocationProviderClient mFusedLocationClient;
 
+    private LatLng mLatLng;
+    private LocationManager mLocationManager;
+
+    private LocalDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,68 +68,11 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
         affirmative.setOnClickListener(this);
         negative.setOnClickListener(this);
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        gerCurrentLocation();
 
-
-    }
-
-    private boolean hasLocationPermissions() {
-        return EasyPermissions.hasPermissions(this, LOCATION);
-    }
-
-    @AfterPermissionGranted(RC_LOCATION)
-    public void locationTask() {
-        if (hasLocationPermissions()) {
-            // Have permissions, do the thing!
-            Toast.makeText(this, "TODO: Location and Contacts things", Toast.LENGTH_LONG).show();
-
-            mFusedLocationClient.getLastLocation()
-
-        } else {
-            // Ask for both permissions
-            EasyPermissions.requestPermissions(
-                    this,
-                    getString(R.string.permissions_location),
-                    RC_LOCATION_PERM,
-                    LOCATION_AND_CAMERA);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    @Override
-    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        db = new LocalDatabase(this);
 
     }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, List<String> perms) {
-        FirebaseCrash.log("onPermissionsDenied: " + requestCode + ":" + perms.size());
-        Log.d("LOG", "onPermissionsDenied:" + requestCode + ":" + perms.size());
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            new AppSettingsDialog.Builder(this).build().show();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
-            String yes = getString(R.string.permissions_yes);
-            String no = getString(R.string.permissions_no);
-
-            // Do something after user returned from app settings screen, like showing a Toast.
-            Toast.makeText(this, "asdf", Toast.LENGTH_SHORT).show();
-        }
-    }
-
 
     @Override
     protected void onResume() {
@@ -143,6 +83,12 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
             addressTextView.setText(getIntent().getStringExtra(ADDRESS));
             Log.d("AskActivity", "onResume: " + getIntent().getIntExtra(ID_ASSIGNMENT, 0));
         }
+    }
+
+    @SuppressWarnings({"MissingPermission"})
+    private void gerCurrentLocation() {
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 5, this);
     }
 
     @Override
@@ -173,12 +119,12 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
                     startActivity(intent);
                     break;
                 case COMMERCIAL:
-                    intent.putExtra(ASSIGNMENT_TYPE, COMMERCIAL);
+                    intent.putExtra(ASSIGNMENT_TYPE, RESIDENTIAL); //FIXME: lleva siempre a residencial
                     intent.putExtra(ID_ASSIGNMENT, getIntent().getIntExtra(ID_ASSIGNMENT, 0));
                     startActivity(intent);
                     break;
                 case BUSINESS:
-                    intent.putExtra(ASSIGNMENT_TYPE, BUSINESS);
+                    intent.putExtra(ASSIGNMENT_TYPE, RESIDENTIAL);//FIXME: lleva siempre a residencial
                     intent.putExtra(ID_ASSIGNMENT, getIntent().getIntExtra(ID_ASSIGNMENT, 0));
                     startActivity(intent);
                     break;
@@ -187,21 +133,58 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
+    @SuppressWarnings({"MissingPermission"})
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
+        map.setMyLocationEnabled(true);
         map.setMinZoomPreference(17.0f);
         map.getUiSettings().setZoomControlsEnabled(true);
 
         if (getIntent().getExtras() != null) {
 
-            LatLng assignmentLocation = new LatLng(
-                    getIntent().getDoubleExtra(LATITUDE, 0),
-                    getIntent().getDoubleExtra(LONGITUDE, 0));
+            LatLng assignmentLocation;
 
+            if (getIntent().getDoubleExtra(LATITUDE, 0) == 0 && getIntent().getDoubleExtra(LONGITUDE, 0) == 0) {
+                assignmentLocation = new LatLng(0, 0);
+            } else {
+                assignmentLocation = mLatLng;
+            }
             map.addMarker(
                     new MarkerOptions().position(assignmentLocation));
             map.moveCamera(CameraUpdateFactory.newLatLng(assignmentLocation));
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        if (location != null) {
+
+            /*Log.d("LOG_TAG", "lat: " + location.getLatitude());
+            Log.d("LOG_TAG", "lng: " + location.getLongitude());*/
+
+            db.saveDbCurrentLocation(location.getLatitude(), location.getLongitude());
+
+            if (location.getLatitude() != 0 && location.getLongitude() != 0) {
+                mLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+            }
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+        Toast.makeText(this, R.string.permissions_location, Toast.LENGTH_SHORT).show();
+        FirebaseCrash.log("onProviderDisabled: " + s);
     }
 }

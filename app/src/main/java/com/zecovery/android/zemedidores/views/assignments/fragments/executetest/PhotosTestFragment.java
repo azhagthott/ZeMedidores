@@ -21,11 +21,13 @@ import android.widget.RadioButton;
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.network.PostResult;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -69,6 +71,8 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     private String localPhotoName;
     private String localPath;
 
+    private LocalDatabase db;
+
     public PhotosTestFragment() {
     }
 
@@ -94,6 +98,8 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         findViews(view);
 
         continueTestButton.setOnClickListener(this);
+
+        db = new LocalDatabase(getContext());
 
         brokenMeterLinearLayout.setVisibility(View.GONE);
         mandatoryPhotosLinearLayout.setVisibility(View.GONE);
@@ -277,6 +283,13 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
         File file = new File(localPath);
 
+        RequestBody lat = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().latitude));
+        RequestBody lng = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().longitude));
+
+        Calendar rightNow = Calendar.getInstance();
+        int fechaAcutal = (int) (rightNow.getTimeInMillis() / 1000);
+        RequestBody fecha = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fechaAcutal));
+
         RequestBody status = RequestBody.create(MediaType.parse("multipart/form-data"), "medidor_descompuesto");
         RequestBody idInspeccionBody = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(token));
         RequestBody comment = RequestBody.create(MediaType.parse("multipart/form-data"), failureComment);
@@ -291,7 +304,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
         PostResult service = retrofit.create(PostResult.class);
 
-        Call<ResponseBody> call = service.postMeterStatus(status, idInspeccionBody, meterLocationBody, comment, bodies);
+        Call<ResponseBody> call = service.postMeterStatus(status, idInspeccionBody, meterLocationBody, comment, lat, lng, fecha, bodies);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

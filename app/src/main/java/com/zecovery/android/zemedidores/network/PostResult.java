@@ -23,6 +23,9 @@ public interface PostResult {
             @Part("id_inspeccion") RequestBody idInspeccion,
             @Part("razon") RequestBody reason,
             @Part("razon_texto") RequestBody reasonText,
+            @Part("lat") RequestBody lat,
+            @Part("lng") RequestBody lng,
+            @Part("fecha_inspeccion") RequestBody fecha,
             @Part MultipartBody.Part file
     );
 
@@ -34,6 +37,9 @@ public interface PostResult {
             @Part("id_inspeccion") RequestBody idInspeccion,
             @Part("ubicacion_medidor") RequestBody ubicacionMedidor,
             @Part("comentario") RequestBody comment,
+            @Part("lat") RequestBody lat,
+            @Part("lng") RequestBody lng,
+            @Part("fecha_inspeccion") RequestBody fecha,
             @Part List<MultipartBody.Part> files
     );
 
