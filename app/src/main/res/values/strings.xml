@@ -36,6 +36,13 @@
     <string name="init_inspect_affirmative">SI</string>
     <string name="init_inspect_negative">NO</string>
 
+    <!-- UI Map activity -->
+    <string name="permissions_location">Para poder ocupar la aplicación se requieren permisos de Ubicación y uso de Camara</string>
+    <string name="permissions_result">Puede empezar su turno</string>
+    <string name="permissions_check">Revisando permisos</string>
+    <string name="permissions_yes">si</string>
+    <string name="permissions_no">no</string>
+
     <!-- UI Fragments -->
     <string name="title_check_data">Realizar inspección</string>
     <string name="fragment_business_title">Ingreso de inspección: Empresa</string>
