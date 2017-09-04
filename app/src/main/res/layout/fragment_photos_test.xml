@@ -102,7 +102,6 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:padding="12dp"
                     android:id="@+id/brokenMeterCommentEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -111,26 +110,27 @@
                     android:hint="@string/photo_test_broken_meter_reason"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:minLines="1" />
+                    android:minLines="1"
+                    android:padding="12dp" />
 
                 <ImageButton
                     android:id="@+id/brokenMeterPhoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@+id/imageView"
                     android:background="@android:color/transparent"
                     android:padding="12dp"
-                    android:src="@drawable/ic_photo_camera_black_24"
-                    android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/imageView" />
+                    android:src="@drawable/ic_photo_camera_black_24" />
 
                 <ImageView
-                    android:src="@drawable/ic_photo_camera_black_24"
-                    android:padding="12dp"
+                    android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:id="@+id/imageView" />
+                    android:layout_alignParentTop="true"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_photo_camera_black_24" />
 
             </RelativeLayout>
 
