@@ -11,15 +11,15 @@ import com.zecovery.android.zemedidores.data.Nodes;
  * Created by fbarrios80 on 03-07-17.
  */
 
-public class GuardaNegociacion {
+public class FormularioNegociacion {
 
     private NegociacionCallback callback;
 
-    public GuardaNegociacion(NegociacionCallback callback) {
+    public FormularioNegociacion(NegociacionCallback callback) {
         this.callback = callback;
     }
 
-    public void guarda(Context context, int token, String accepted, String paymenMethod) {
+    public void guardaFormulario(Context context, int token, String accepted, String paymenMethod) {
 
         LocalDatabase db = new LocalDatabase(context);
 

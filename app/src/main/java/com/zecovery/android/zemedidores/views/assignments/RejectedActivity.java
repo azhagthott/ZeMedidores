@@ -22,7 +22,7 @@ import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.network.PostResult;
-import com.zecovery.android.zemedidores.network.RejectionCallback;
+import com.zecovery.android.zemedidores.network.RechazoCallback;
 import com.zecovery.android.zemedidores.views.MainActivity;
 
 import java.io.File;
@@ -49,7 +49,7 @@ import static com.zecovery.android.zemedidores.data.Constant.UNWELCOME;
 import static com.zecovery.android.zemedidores.data.Constant.URL_BASE_DESA;
 import static com.zecovery.android.zemedidores.data.Constant.WRONG_DIRECTION;
 
-public class RejectedActivity extends AppCompatActivity implements RejectionCallback, View.OnClickListener {
+public class RejectedActivity extends AppCompatActivity implements RechazoCallback, View.OnClickListener {
 
     private Button saveButton;
     private Spinner reasonsSpinner;
@@ -130,7 +130,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
     }
 
     @Override
-    public void send() {
+    public void envia() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
@@ -185,8 +185,6 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
     private void post(int token, String reason, @Nullable String reasonText, String localPath) {
 
         File file = new File(localPath);
-
-
         String status = "rechazo";
         RequestBody description = RequestBody.create(MediaType.parse("multipart/form-data"), status);
 
@@ -213,7 +211,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    send();
+                    envia();
                 }
 
                 @Override
@@ -230,7 +228,7 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    send();
+                    envia();
                 }
 
                 @Override

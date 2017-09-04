@@ -168,7 +168,6 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
                 test.setTest1("No envia respuesta");
             }
 
-
             if (test2YesRadioButton.isChecked()) {
                 test.setTest2("SI");
             } else if (test2NoRadioButton.isChecked()) {
@@ -176,7 +175,6 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
             } else {
                 test.setTest2("No envia respuesta");
             }
-
 
             if (test3YesRadioButton.isChecked()) {
                 test.setTest3("SI");
@@ -186,7 +184,6 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
                 test.setTest2("No envia respuesta");
             }
 
-
             if (case1PositiveRadioButton.isChecked()) {
                 test.setUsoImanes("SI");
             } else if (case1NegativeRadioButton.isChecked()) {
@@ -194,7 +191,6 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
             } else {
                 test.setUsoImanes("No envia respuesta");
             }
-
 
             if (case2PositiveRadioButton.isChecked()) {
                 test.setInvertirTomas("SI");
@@ -204,7 +200,6 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
                 test.setInvertirTomas("No envia respuesta");
             }
 
-
             if (case3PositiveRadioButton.isChecked()) {
                 test.setPerforaCupula("SI");
             } else if (case3NegativeRadioButton.isChecked()) {
@@ -212,7 +207,6 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
             } else {
                 test.setPerforaCupula("No envia respuesta");
             }
-
 
             if (case4PositiveRadioButton.isChecked()) {
                 test.setCortaEngranaje("SI");
@@ -222,7 +216,6 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
                 test.setCortaEngranaje("No envia respuesta");
             }
 
-
             if (case5PositiveRadioButton.isChecked()) {
                 test.setUsoAlambres("SI");
             } else if (case5NegativeRadioButton.isChecked()) {
@@ -231,7 +224,6 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
                 test.setUsoAlambres("No envia respuestaO");
             }
 
-
             if (case6PositiveRadioButton.isChecked()) {
                 test.setPrensado("SI");
             } else if (case6NegativeRadioButton.isChecked()) {
@@ -239,7 +231,6 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
             } else {
                 test.setPrensado("No envia respuesta");
             }
-
 
             if (case7PositiveRadioButton.isChecked()) {
                 test.setOtro("SI");

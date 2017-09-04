@@ -6,7 +6,7 @@ package com.zecovery.android.zemedidores.network;
 
 public interface NegociacionCallback {
 
-    void saveNegotiationForm();
+    void guardaFormularioNegociacion();
 
-    void negotiationFormError();
+    void errorFormularioNegociacion();
 }

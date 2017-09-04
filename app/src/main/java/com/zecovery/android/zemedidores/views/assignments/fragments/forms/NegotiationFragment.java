@@ -68,6 +68,14 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
 
     private int token;
 
+    private MultipartBody.Part foto_rechazo_inspeccion;
+    private MultipartBody.Part foto_falla_medidor;
+    private MultipartBody.Part foto_lectura_medidor;
+    private MultipartBody.Part foto_numero_medidor;
+    private MultipartBody.Part foto_panoramica_medidor;
+    private MultipartBody.Part foto_numero_propiedad;
+    private MultipartBody.Part foto_fechada_propiedad;
+
     public NegotiationFragment() {
     }
 
@@ -92,9 +100,7 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
 
         token = getArguments().getInt(ID_ASSIGNMENT_NEGOTIATION);
         findViews(view);
-
         db = new LocalDatabase(getContext());
-
 
         Log.d("TAG", "NegotiationFragment");
 
@@ -126,14 +132,12 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
     }
 
     @Override
-    public void saveNegotiationForm() {
-
-
+    public void guardaFormularioNegociacion() {
         startActivity(new Intent(getContext(), MainActivity.class));
     }
 
     @Override
-    public void negotiationFormError() {
+    public void errorFormularioNegociacion() {
         Toast.makeText(getContext(), "No se pudo guarda la informacion", Toast.LENGTH_SHORT).show();
     }
 
@@ -218,7 +222,6 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
         String caudal = resultado.getTestParte3().getCaudal();
         String observacion_4 = resultado.getTestParte3().getObservaciones2();
 
-
         RequestBody test1_body = RequestBody.create(MediaType.parse("multipart/form-data"), test1);
         RequestBody test2_body = RequestBody.create(MediaType.parse("multipart/form-data"), test2);
         RequestBody test3_body = RequestBody.create(MediaType.parse("multipart/form-data"), test3);
@@ -264,43 +267,73 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
         RequestBody caudal_body = RequestBody.create(MediaType.parse("multipart/form-data"), caudal);
         RequestBody observacion_4_body = RequestBody.create(MediaType.parse("multipart/form-data"), observacion_4);
 
+        if (resultado.getFotos().getRechazoInspeccion() != null) {
+            File file_foto_rechazo = new File(resultado.getFotos().getRechazoInspeccion());
+            RequestBody requestFileRechazo = RequestBody.create(MediaType.parse("image/*"), file_foto_rechazo);
+            foto_rechazo_inspeccion = MultipartBody.Part.createFormData("foto_rechazo_inspeccion", "foto_rechazo_inspeccion", requestFileRechazo);
+        } else {
+            foto_rechazo_inspeccion = null;
+        }
 
-        File file_foto_rechazo = new File(resultado.getFotos().getRechazoInspeccion());
-        File file_foto_falla = new File(resultado.getFotos().getFallaMedidor());
-        File file_foto_lectura_medidor = new File(resultado.getFotos().getLecturaMedidor());
-        File file_foto_numero_medidor = new File(resultado.getFotos().getNumeroMedidor());
-        File file_foto_panoramica_medidor = new File(resultado.getFotos().getPanoramicaMedidor());
-        File file_foto_numero_propiedad = new File(resultado.getFotos().getNumeroPropiedad());
-        File file_foto_fachada_propiedad = new File(resultado.getFotos().getFachadaPropiedad());
+        if (resultado.getFotos().getFallaMedidor() != null) {
+            File file_foto_falla = new File(resultado.getFotos().getFallaMedidor());
+            RequestBody requestFileFalla = RequestBody.create(MediaType.parse("image/*"), file_foto_falla);
+            foto_falla_medidor = MultipartBody.Part.createFormData("foto_falla_medidor", "", requestFileFalla);
+        } else {
+            foto_falla_medidor = null;
+        }
 
+        if (resultado.getFotos().getLecturaMedidor() != null) {
+            File file_foto_lectura_medidor = new File(resultado.getFotos().getLecturaMedidor());
+            RequestBody requestFileLectura = RequestBody.create(MediaType.parse("image/*"), file_foto_lectura_medidor);
+            foto_lectura_medidor = MultipartBody.Part.createFormData("foto_lectura_medidor", "", requestFileLectura);
+        } else {
+            foto_lectura_medidor = null;
+        }
 
-        /*
-         File file = new File(localPath);
-                RequestBody requestFileRechazo = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("foto_rechazo_inspeccion", photoName, requestFile);
+        if (resultado.getFotos().getNumeroMedidor() != null) {
+            File file_foto_numero_medidor = new File(resultado.getFotos().getNumeroMedidor());
+            RequestBody requestFileNumeroMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_medidor);
+            foto_numero_medidor = MultipartBody.Part.createFormData("foto_numero_medidor", "", requestFileNumeroMedidor);
+        } else {
+            foto_numero_medidor = null;
+        }
 
-        * */
+        if (resultado.getFotos().getPanoramicaMedidor() != null) {
+            File file_foto_panoramica_medidor = new File(resultado.getFotos().getPanoramicaMedidor());
+            RequestBody requestFilePanoMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_panoramica_medidor);
+            foto_panoramica_medidor = MultipartBody.Part.createFormData("foto_panoramica_medidor", "", requestFilePanoMedidor);
+        } else {
+            foto_panoramica_medidor = null;
+        }
 
-        RequestBody requestFileRechazo = RequestBody.create(MediaType.parse("image/*"), file_foto_rechazo);
-        MultipartBody.Part foto_rechazo_inspeccion = MultipartBody.Part.createFormData("foto_rechazo_inspeccion", "foto_rechazo_inspeccion", requestFileRechazo);
+        if (resultado.getFotos().getNumeroPropiedad() != null) {
+            File file_foto_numero_propiedad = new File(resultado.getFotos().getNumeroPropiedad());
+            RequestBody requestFileNumeroPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_propiedad);
+            foto_numero_propiedad = MultipartBody.Part.createFormData("foto_numero_propiedad", "", requestFileNumeroPorpiedad);
+        } else {
+            foto_numero_propiedad = null;
+        }
 
-        RequestBody requestFileFalla = RequestBody.create(MediaType.parse("image/*"), file_foto_falla);
-        MultipartBody.Part foto_falla_medidor = MultipartBody.Part.createFormData("foto_falla_medidor", "", requestFileFalla);
+        if (resultado.getFotos().getFachadaPropiedad() != null) {
+            File file_foto_fachada_propiedad = new File(resultado.getFotos().getFachadaPropiedad());
+            RequestBody requestFileFachadaPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_fachada_propiedad);
+            foto_fechada_propiedad = MultipartBody.Part.createFormData("foto_fechada_propiedad", "", requestFileFachadaPorpiedad);
+        } else {
+            foto_fechada_propiedad = null;
+        }
 
-        RequestBody requestFileLectura = RequestBody.create(MediaType.parse("image/*"), file_foto_lectura_medidor);
-        MultipartBody.Part foto_lectura_medidor = MultipartBody.Part.createFormData("foto_lectura_medidor", "", requestFileLectura);
+        String nombre_residente = String.valueOf(resultado.getResidente().getNombre());
+        String rut_residente = String.valueOf(resultado.getResidente().getRut());
+        String telefono_residente = String.valueOf(resultado.getResidente().getTelefono());
+        String email_residente = String.valueOf(resultado.getResidente().getEmail());
+        String fecha_residente = String.valueOf(resultado.getResidente().getFecha());
 
-        RequestBody requestFileNumeroMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_medidor);
-        MultipartBody.Part foto_numero_medidor = MultipartBody.Part.createFormData("foto_numero_medidor", "", requestFileNumeroMedidor);
-
-        RequestBody requestFilePanoMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_panoramica_medidor);
-        MultipartBody.Part foto_panoramica_medidor = MultipartBody.Part.createFormData("foto_panoramica_medidor", "", requestFilePanoMedidor);
-
-        RequestBody requestFileNumeroPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_propiedad);
-        MultipartBody.Part foto_numero_propiedad = MultipartBody.Part.createFormData("foto_numero_propiedad", "", requestFileNumeroPorpiedad);
-
-        RequestBody requestFileFachadaPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_fachada_propiedad);
-        MultipartBody.Part foto_fechada_propiedad = MultipartBody.Part.createFormData("foto_fechada_propiedad", "", requestFileFachadaPorpiedad);
+        RequestBody nombre_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), nombre_residente);
+        RequestBody rut_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), rut_residente);
+        RequestBody telefono_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), telefono_residente);
+        RequestBody email_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), email_residente);
+        RequestBody fecha_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), fecha_residente);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
         PostResult service = retrofit.create(PostResult.class);
@@ -354,12 +387,19 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
                 resolucion_dga_body,
                 caudal_body,
                 observacion_4_body,
-                null,
-                null,
-                null,
-                null,null,null,null
+                nombre_residente_body,
+                rut_residente_body,
+                telefono_residente_body,
+                email_residente_body,
+                fecha_residente_body,
+                foto_rechazo_inspeccion,
+                foto_falla_medidor,
+                foto_lectura_medidor,
+                foto_numero_medidor,
+                foto_panoramica_medidor,
+                foto_numero_propiedad,
+                foto_fechada_propiedad
         );
-
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -373,9 +413,5 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
 
             }
         });
-
-
     }
-
-
 }

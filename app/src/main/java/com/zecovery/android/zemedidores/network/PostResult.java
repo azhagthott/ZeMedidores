@@ -1,7 +1,5 @@
 package com.zecovery.android.zemedidores.network;
 
-import android.support.annotation.Nullable;
-
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -31,7 +29,6 @@ public interface PostResult {
             @Part MultipartBody.Part file
     );
 
-
     @Multipart
     @POST("/wsMovil/wsputInspeccion.php")
     Call<ResponseBody> postMeterStatus(
@@ -44,7 +41,6 @@ public interface PostResult {
             @Part("fecha_inspeccion") RequestBody fecha,
             @Part List<MultipartBody.Part> files
     );
-
 
     @Multipart
     @POST("/wsMovil/wsputInspeccion.php")
@@ -97,11 +93,16 @@ public interface PostResult {
             @Part("resolucion_dga") RequestBody resolucion_dga_body,
             @Part("caudal") RequestBody caudal_body,
             @Part("observacion_4") RequestBody observacion_4_body,
-            @Nullable @Part("foto_rechazo_inspeccion") MultipartBody.Part foto_rechazo_inspeccion,
-            @Nullable @Part("foto_falla_medidor") MultipartBody.Part foto_falla_medidor,
-            @Nullable @Part("foto_lectura_medidor") MultipartBody.Part foto_lectura_medidor,
-            @Nullable @Part("foto_numero_medidor") MultipartBody.Part foto_numero_medidor,
-            @Nullable @Part("foto_panoramica_medidor") MultipartBody.Part foto_panoramica_medidor,
-            @Nullable @Part("foto_numero_propiedad") MultipartBody.Part foto_numero_propiedad,
-            @Nullable @Part("foto_fechada_propiedad") MultipartBody.Part foto_fechada_propiedad);
+            @Part("nombre_residente") RequestBody nombre_residente_body,
+            @Part("rut_residente") RequestBody rut_residente_body,
+            @Part("telefono_residente") RequestBody telefono_residente_body,
+            @Part("email_residente") RequestBody email_residente_body,
+            @Part("fecha_residente") RequestBody fecha_residente_body,
+            @Part MultipartBody.Part foto_rechazo_inspeccion,
+            @Part MultipartBody.Part foto_falla_medidor,
+            @Part MultipartBody.Part foto_lectura_medidor,
+            @Part MultipartBody.Part foto_numero_medidor,
+            @Part MultipartBody.Part foto_panoramica_medidor,
+            @Part MultipartBody.Part foto_numero_propiedad,
+            @Part MultipartBody.Part foto_fechada_propiedad);
 }

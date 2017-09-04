@@ -56,7 +56,6 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
         super.onViewCreated(view, savedInstanceState);
 
         saveButton = view.findViewById(R.id.saveButton);
-
         saveButton.setOnClickListener(this);
 
         residentName = view.findViewById(R.id.residentName);
@@ -111,7 +110,7 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
         resident.setEmail(residentEmail.getText().toString());
         resident.setFecha(residentDate.getText().toString());
 
-        new SaveResidentData(this, getContext()).save(resident, token);
+        new GuardaDatosResidente(this, getContext()).guardaDatos(resident, token);
     }
 
     @Override

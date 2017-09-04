@@ -25,7 +25,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 111;
+    private static final int DB_VERSION = 113;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -59,15 +59,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String CURRENT_LOCATION_LAT = "lat";
     private static final String CURRENT_LOCATION_LNG = "lng";
 
-
     /* meter, resident, tests table */
     private static final String RESULT_ID_KEY = "id";
     private static final String RESULT_ID_INSPECCION = "id_inspeccion";
-    private static final String RESULT_NAME = "name";
-    private static final String RESULT_RUT = "rut";
-    private static final String RESULT_PHONE = "phone";
-    private static final String RESULT_EMAIL = "email";
-    private static final String RESULT_DATE_RES = "date_res";
     private static final String RESULT_METER_LOCATION = "meter_location";
     private static final String RESULT_METER_STATUS = "meter_status";
     private static final String RESULT_METER_OBS = "meter_obs";
@@ -127,6 +121,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_FOTO_PANO_MEDIDOR = "foto_pano_medidor";
     private static final String RESULT_TEST_FOTO_NUMERO_PROPIEDAD = "foto_numero_propiedad";
     private static final String RESULT_TEST_FOTO_FACHADA_PROPIEDAD = "foto_fachada_propiedad";
+    private static final String RESULT_TEST_NOMBRE_RESIDENTE = "nombre_residente";
+    private static final String RESULT_TEST_RUT_RESIDENTE = "rut_residente";
+    private static final String RESULT_TEST_TELEFONO_RESIDENTE = "telefono_residente";
+    private static final String RESULT_TEST_EMAIL_RESIDENTE = "email_residente";
+    private static final String RESULT_TEST_FECHA_RESIDENTE = "fecha_residente";
 
     public LocalDatabase(Context context) {
         super(context, DB_MANE, null, DB_VERSION);
@@ -163,11 +162,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
         String CREATE_TABLE_INSPECTION_RESULT = DB_CREATE_TABLE + TABLE_INSPECTION_RESULT + "("
                 + RESULT_ID_KEY + " INTEGER PRIMARY_KEY, "
                 + RESULT_ID_INSPECCION + " TEXT, "
-                + RESULT_NAME + " TEXT, "
-                + RESULT_RUT + " TEXT, "
-                + RESULT_PHONE + " TEXT, "
-                + RESULT_EMAIL + " TEXT, "
-                + RESULT_DATE_RES + " TEXT, "
                 + RESULT_METER_LOCATION + " TEXT, "
                 + RESULT_METER_STATUS + " TEXT, "
                 + RESULT_METER_OBS + " TEXT, "
@@ -226,15 +220,18 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_FOTO_NUMERO_MEDIDOR + " TEXT, "
                 + RESULT_TEST_FOTO_PANO_MEDIDOR + " TEXT, "
                 + RESULT_TEST_FOTO_NUMERO_PROPIEDAD + " TEXT, "
-                + RESULT_TEST_FOTO_FACHADA_PROPIEDAD + " TEXT) "
+                + RESULT_TEST_FOTO_FACHADA_PROPIEDAD + " TEXT, "
+                + RESULT_TEST_NOMBRE_RESIDENTE + " TEXT, "
+                + RESULT_TEST_RUT_RESIDENTE + " TEXT, "
+                + RESULT_TEST_TELEFONO_RESIDENTE + " TEXT, "
+                + RESULT_TEST_EMAIL_RESIDENTE + " TEXT, "
+                + RESULT_TEST_FECHA_RESIDENTE + " TEXT)"
                 + ";";
 
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
         db.execSQL(CREATE_TABLE_CURRENT_LOCATION);
         db.execSQL(CREATE_TABLE_INSPECTION_RESULT);
-
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -316,22 +313,20 @@ public class LocalDatabase extends SQLiteOpenHelper {
         }
     }
 
-
     public void guardaDatosResidente(Residente residente, int idInspeccion) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
-        values.put(RESULT_NAME, String.valueOf(residente.getNombre()));
-        values.put(RESULT_RUT, String.valueOf(residente.getRut()));
-        values.put(RESULT_PHONE, String.valueOf(residente.getTelefono()));
-        values.put(RESULT_EMAIL, String.valueOf(residente.getEmail()));
-        values.put(RESULT_DATE_RES, String.valueOf(residente.getFecha()));
+        values.put(RESULT_TEST_NOMBRE_RESIDENTE, String.valueOf(residente.getNombre()));
+        values.put(RESULT_TEST_RUT_RESIDENTE, String.valueOf(residente.getRut()));
+        values.put(RESULT_TEST_TELEFONO_RESIDENTE, String.valueOf(residente.getTelefono()));
+        values.put(RESULT_TEST_EMAIL_RESIDENTE, String.valueOf(residente.getEmail()));
+        values.put(RESULT_TEST_FECHA_RESIDENTE, String.valueOf(residente.getFecha()));
 
         db.insert(TABLE_INSPECTION_RESULT, null, values);
         db.close();
-
     }
 
     public void guardaDatosMedidor(Medidor medidor, int idInspeccion) {
@@ -446,6 +441,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         TestParte2 testParte2 = new TestParte2();
         TestParte3 testParte3 = new TestParte3();
         Foto fotos = new Foto();
+        Residente residente = new Residente();
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -500,7 +496,13 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_FOTO_NUMERO_MEDIDOR,
                                 RESULT_TEST_FOTO_PANO_MEDIDOR,
                                 RESULT_TEST_FOTO_NUMERO_PROPIEDAD,
-                                RESULT_TEST_FOTO_FACHADA_PROPIEDAD}
+                                RESULT_TEST_FOTO_FACHADA_PROPIEDAD,
+                                RESULT_TEST_NOMBRE_RESIDENTE,
+                                RESULT_TEST_RUT_RESIDENTE,
+                                RESULT_TEST_TELEFONO_RESIDENTE,
+                                RESULT_TEST_EMAIL_RESIDENTE,
+                                RESULT_TEST_FECHA_RESIDENTE
+                        }
                 , RESULT_ID_INSPECCION + "=?",
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
         if (cursor != null) {
@@ -560,19 +562,22 @@ public class LocalDatabase extends SQLiteOpenHelper {
         fotos.setNumeroPropiedad(cursor.getString(47));
         fotos.setFachadaPropiedad(cursor.getString(48));
 
+        residente.setNombre(cursor.getString(49));
+        residente.setRut(cursor.getString(50));
+        residente.setTelefono(cursor.getString(51));
+        residente.setEmail(cursor.getString(52));
+        residente.setFecha(cursor.getString(53));
+
         resultado.setTestParte1(testParte1);
         resultado.setTestParte2(testParte2);
         resultado.setTestParte3(testParte3);
         resultado.setFotos(fotos);
+        resultado.setResidente(residente);
 
         return resultado;
 
     }
 
-
     public void guardaFormularioNegociacion(int idInspeccion) {
-
     }
-
-
 }

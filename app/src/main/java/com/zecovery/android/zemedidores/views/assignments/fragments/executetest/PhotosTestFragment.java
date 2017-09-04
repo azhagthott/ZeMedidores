@@ -56,24 +56,21 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     private ImageButton brokenMeterPhoto;
     private RadioButton positiveRadioButton;
     private RadioButton negativeRadioButton;
-
     private Button continueTestButton;
     private LinearLayout brokenMeterLinearLayout;
     private LinearLayout mandatoryPhotosLinearLayout;
-
     private EditText meterLocationEditText;
     private EditText brokenMeterCommentEditText;
 
     private MagicalCamera magicalCamera;
 
     private TokenListener callback;
-    private int token;
+    private LocalDatabase db;
 
+    private int token;
     private String photoName;
     private String localPhotoName;
     private String localPath;
-
-    private LocalDatabase db;
 
     public PhotosTestFragment() {
     }
@@ -99,6 +96,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         token = getArguments().getInt(ID_ASSIGNMENT_PHOTO);
         findViews(view);
 
+        continueTestButton.setVisibility(View.GONE);
         continueTestButton.setOnClickListener(this);
 
         db = new LocalDatabase(getContext());
@@ -160,7 +158,6 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         if (brokenMeterCommentEditText.getVisibility() == View.VISIBLE && brokenMeterCommentEditText.getText().length() == 0) {
             brokenMeterCommentEditText.setError("Debe especificar la falla");
         }
-
     }
 
     @Override
@@ -236,7 +233,6 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
                     String failureComment = brokenMeterCommentEditText.getText().toString();
                     String meterLocation = meterLocationEditText.getText().toString();
 
-                    ///post(meterLocation, failureComment, localPath);
                     Medidor medidor = new Medidor();
                     medidor.setUbicacion(meterLocation);
                     medidor.setEstado("si");
@@ -255,6 +251,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
     private Intent callCamera(String photoName) {
 
+        //continueTestButton.setVisibility(View.VISIBLE);
         this.photoName = photoName;
 
         String[] permissions = new String[]{

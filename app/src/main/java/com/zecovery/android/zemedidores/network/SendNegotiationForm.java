@@ -1,7 +1,6 @@
 package com.zecovery.android.zemedidores.network;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.zecovery.android.zemedidores.network.NegociacionCallback;
 
 /**
  * Created by fbarrios80 on 03-07-17.
@@ -20,9 +19,9 @@ public class SendNegotiationForm {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
 
             if (token != null) {
-                callback.saveNegotiationForm();
+                callback.guardaFormularioNegociacion();
             } else {
-                callback.negotiationFormError();
+                callback.errorFormularioNegociacion();
             }
         }
     }

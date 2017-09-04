@@ -10,6 +10,7 @@ public class ResultadoInspeccion {
     private TestParte2 testParte2;
     private TestParte3 testParte3;
     private Foto fotos;
+    private Residente residente;
 
     public ResultadoInspeccion() {
     }
@@ -44,5 +45,13 @@ public class ResultadoInspeccion {
 
     public void setFotos(Foto fotos) {
         this.fotos = fotos;
+    }
+
+    public Residente getResidente() {
+        return residente;
+    }
+
+    public void setResidente(Residente residente) {
+        this.residente = residente;
     }
 }
