@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.zecovery.android.zemedidores.models.Foto;
 import com.zecovery.android.zemedidores.models.Inspection;
 import com.zecovery.android.zemedidores.models.Medidor;
 import com.zecovery.android.zemedidores.models.Residente;
@@ -24,7 +25,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 109;
+    private static final int DB_VERSION = 111;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -119,7 +120,13 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_RESOLUCION = "resolucion";
     private static final String RESULT_TEST_CAUDAL = "caudal";
     private static final String RESULT_TEST_OBS_4 = "observaciones_4";
-
+    private static final String RESULT_TEST_FOTO_RECHAZO = "foto_rechazo_inspeccion";
+    private static final String RESULT_TEST_FOTO_FALLA_MEDIDOR = "foto_falla_medidor";
+    private static final String RESULT_TEST_FOTO_LECTURA_MEDIDOR = "foto_lectura_medidor";
+    private static final String RESULT_TEST_FOTO_NUMERO_MEDIDOR = "foto_numero_medidor";
+    private static final String RESULT_TEST_FOTO_PANO_MEDIDOR = "foto_pano_medidor";
+    private static final String RESULT_TEST_FOTO_NUMERO_PROPIEDAD = "foto_numero_propiedad";
+    private static final String RESULT_TEST_FOTO_FACHADA_PROPIEDAD = "foto_fachada_propiedad";
 
     public LocalDatabase(Context context) {
         super(context, DB_MANE, null, DB_VERSION);
@@ -212,7 +219,14 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_CAPACIDAD_BOMBA + " TEXT, "
                 + RESULT_TEST_RESOLUCION + " TEXT, "
                 + RESULT_TEST_CAUDAL + " TEXT, "
-                + RESULT_TEST_OBS_4 + " TEXT) "
+                + RESULT_TEST_OBS_4 + " TEXT, "
+                + RESULT_TEST_FOTO_RECHAZO + " TEXT, "
+                + RESULT_TEST_FOTO_FALLA_MEDIDOR + " TEXT, "
+                + RESULT_TEST_FOTO_LECTURA_MEDIDOR + " TEXT, "
+                + RESULT_TEST_FOTO_NUMERO_MEDIDOR + " TEXT, "
+                + RESULT_TEST_FOTO_PANO_MEDIDOR + " TEXT, "
+                + RESULT_TEST_FOTO_NUMERO_PROPIEDAD + " TEXT, "
+                + RESULT_TEST_FOTO_FACHADA_PROPIEDAD + " TEXT) "
                 + ";";
 
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
@@ -273,13 +287,14 @@ public class LocalDatabase extends SQLiteOpenHelper {
     }
 
     /* Current location*/
-    public void saveDbCurrentLocation(double lat, double lng) {
+    public void guardaUbicacionActual(double lat, double lng) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(CURRENT_LOCATION_LAT, String.valueOf(lat));
         values.put(CURRENT_LOCATION_LNG, String.valueOf(lng));
         db.insert(TABLE_CURRENT_LOCATION, null, values);
+
         db.close();
     }
 
@@ -411,12 +426,26 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void guardaFotos(Foto foto, int idInspeccion) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(RESULT_TEST_FOTO_FALLA_MEDIDOR, String.valueOf(foto.getFallaMedidor()));
+        values.put(RESULT_TEST_FOTO_LECTURA_MEDIDOR, String.valueOf(foto.getLecturaMedidor()));
+        values.put(RESULT_TEST_FOTO_NUMERO_MEDIDOR, String.valueOf(foto.getNumeroMedidor()));
+        values.put(RESULT_TEST_FOTO_PANO_MEDIDOR, String.valueOf(foto.getPanoramicaMedidor()));
+        values.put(RESULT_TEST_FOTO_NUMERO_PROPIEDAD, String.valueOf(foto.getNumeroPropiedad()));
+        values.put(RESULT_TEST_FOTO_FACHADA_PROPIEDAD, String.valueOf(foto.getFachadaPropiedad()));
+        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.close();
+    }
+
     public ResultadoInspeccion getResultadoInspeccion(int idInspeccion) {
 
         ResultadoInspeccion resultado = new ResultadoInspeccion();
         TestParte1 testParte1 = new TestParte1();
         TestParte2 testParte2 = new TestParte2();
         TestParte3 testParte3 = new TestParte3();
+        Foto fotos = new Foto();
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -464,7 +493,14 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_CAPACIDAD_BOMBA,
                                 RESULT_TEST_RESOLUCION,
                                 RESULT_TEST_CAUDAL,
-                                RESULT_TEST_OBS_4}
+                                RESULT_TEST_OBS_4,
+                                RESULT_TEST_FOTO_RECHAZO,
+                                RESULT_TEST_FOTO_FALLA_MEDIDOR,
+                                RESULT_TEST_FOTO_LECTURA_MEDIDOR,
+                                RESULT_TEST_FOTO_NUMERO_MEDIDOR,
+                                RESULT_TEST_FOTO_PANO_MEDIDOR,
+                                RESULT_TEST_FOTO_NUMERO_PROPIEDAD,
+                                RESULT_TEST_FOTO_FACHADA_PROPIEDAD}
                 , RESULT_ID_INSPECCION + "=?",
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
         if (cursor != null) {
@@ -474,7 +510,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
         testParte1.setTest1(cursor.getString(0));
         testParte1.setTest2(cursor.getString(1));
         testParte1.setTest3(cursor.getString(2));
-
         testParte1.setUsoImanes(cursor.getString(3));
         testParte1.setInvertirTomas(cursor.getString(4));
         testParte1.setPerforaCupula(cursor.getString(5));
@@ -482,19 +517,58 @@ public class LocalDatabase extends SQLiteOpenHelper {
         testParte1.setUsoAlambres(cursor.getString(7));
         testParte1.setPrensado(cursor.getString(8));
         testParte1.setOtro(cursor.getString(9));
-
         testParte1.setInstalacionParalela(cursor.getString(10));
         testParte1.setBypass(cursor.getString(11));
         testParte1.setOtro2(cursor.getString(12));
 
+        testParte2.setClaseMedidor(cursor.getString(13));
+        testParte2.setAnoMedidor(cursor.getString(14));
+        testParte2.setMarca(cursor.getString(15));
+        testParte2.setRegistrador(cursor.getString(16));
+        testParte2.setInstalacion(cursor.getString(17));
+        testParte2.setTramoAntes(cursor.getString(18));
+        testParte2.setTramoDespues(cursor.getString(19));
+        testParte2.setObservaciones(cursor.getString(20));
+        testParte2.setEstadoVerticales(cursor.getString(21));
+        testParte2.setEstadoCortes(cursor.getString(22));
+        testParte2.setSuministroAlternativo(cursor.getString(23));
+        testParte2.setCumplePlano(cursor.getString(24));
+        testParte2.setObservaciones2(cursor.getString(25));
+
+        testParte3.setConstruccionNueva(cursor.getString(26));
+        testParte3.setTipoPropiedad(cursor.getString(27));
+        testParte3.setHabitantes(cursor.getString(28));
+        testParte3.setBanos(cursor.getString(29));
+        testParte3.setSuperficieEdificada(cursor.getString(30));
+        testParte3.setSuperficieJardin(cursor.getString(31));
+        testParte3.setAcceso(cursor.getString(32));
+        testParte3.setSuperficieTerreno(cursor.getString(33));
+        testParte3.setObservaciones1(cursor.getString(34));
+        testParte3.setAutoAbastecimiento(cursor.getString(35));
+        testParte3.setTipoFuente(cursor.getString(36));
+        testParte3.setUso(cursor.getString(37));
+        testParte3.setActivo(cursor.getString(38));
+        testParte3.setCapacidadBomba(cursor.getString(39));
+        testParte3.setResolucion(cursor.getString(40));
+        testParte3.setCaudal(cursor.getString(41));
+        testParte3.setObservaciones2(cursor.getString(42));
+
+        fotos.setFallaMedidor(cursor.getString(43));
+        fotos.setLecturaMedidor(cursor.getString(44));
+        fotos.setNumeroMedidor(cursor.getString(45));
+        fotos.setPanoramicaMedidor(cursor.getString(46));
+        fotos.setNumeroPropiedad(cursor.getString(47));
+        fotos.setFachadaPropiedad(cursor.getString(48));
 
         resultado.setTestParte1(testParte1);
         resultado.setTestParte2(testParte2);
         resultado.setTestParte3(testParte3);
+        resultado.setFotos(fotos);
 
         return resultado;
 
     }
+
 
     public void guardaFormularioNegociacion(int idInspeccion) {
 

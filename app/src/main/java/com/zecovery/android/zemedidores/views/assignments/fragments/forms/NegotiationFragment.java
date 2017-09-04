@@ -105,14 +105,11 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
         paymentMethod.add(PAYMENT_METHOD_2);
         paymentMethod.add(PAYMENT_METHOD_3);
         paymentMethod.add(PAYMENT_METHOD_4);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, paymentMethod);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         paymentMethodSpinner.setAdapter(adapter);
 
         endInspectionButton.setOnClickListener(this);
-
     }
 
     private void findViews(View view) {
@@ -159,7 +156,6 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
         paymentMethod = paymentMethodSpinner.getSelectedItem().toString();
 
 
-
     }
 
 
@@ -167,58 +163,204 @@ public class NegotiationFragment extends Fragment implements NegociacionCallback
 
         ResultadoInspeccion resultado = db.getResultadoInspeccion(token);
 
-        //File file = new File("");
-
-        RequestBody lat = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().latitude));
-        RequestBody lng = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().longitude));
+        RequestBody id_inspeccion_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(token));
+        RequestBody lat_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().latitude));
+        RequestBody lng_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().longitude));
+        RequestBody estado_body = RequestBody.create(MediaType.parse("multipart/form-data"), "realizada");
 
         Calendar rightNow = Calendar.getInstance();
         int fechaAcutal = (int) (rightNow.getTimeInMillis() / 1000);
-        RequestBody fecha = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fechaAcutal));
+        RequestBody fecha_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fechaAcutal));
 
         String test1 = resultado.getTestParte1().getTest1();
         String test2 = resultado.getTestParte1().getTest2();
         String test3 = resultado.getTestParte1().getTest3();
-        String usoImanes = resultado.getTestParte1().getUsoImanes();
-        String invertirTomas = resultado.getTestParte1().getInvertirTomas();
-        String perforaCupula = resultado.getTestParte1().getPerforaCupula();
-        String cortaEngranaje = resultado.getTestParte1().getCortaEngranaje();
-        String usoAlambres = resultado.getTestParte1().getUsoAlambres();
+        String uso_imanes = resultado.getTestParte1().getUsoImanes();
+        String invertir_tomas = resultado.getTestParte1().getInvertirTomas();
+        String perfora_cupula = resultado.getTestParte1().getPerforaCupula();
+        String corta_engranaje = resultado.getTestParte1().getCortaEngranaje();
+        String uso_alambres = resultado.getTestParte1().getUsoAlambres();
         String prensado = resultado.getTestParte1().getPrensado();
-        String otro = resultado.getTestParte1().getOtro();
-        String instalacionParalela = resultado.getTestParte1().getInstalacionParalela();
+        String otro_1 = resultado.getTestParte1().getOtro();
+        String instalacion_paralela = resultado.getTestParte1().getInstalacionParalela();
         String bypass = resultado.getTestParte1().getBypass();
-        String otro2 = resultado.getTestParte1().getOtro2();
+        String otro_2 = resultado.getTestParte1().getOtro2();
 
-        RequestBody test1Body = RequestBody.create(MediaType.parse("multipart/form-data"), test1);
-        RequestBody test2Body = RequestBody.create(MediaType.parse("multipart/form-data"), test2);
-        RequestBody test3Body = RequestBody.create(MediaType.parse("multipart/form-data"), test3);
-        RequestBody usoImanesBody = RequestBody.create(MediaType.parse("multipart/form-data"), usoImanes);
-        RequestBody invertirTomasBody = RequestBody.create(MediaType.parse("multipart/form-data"), invertirTomas);
-        RequestBody perforaCupulaBody = RequestBody.create(MediaType.parse("multipart/form-data"), perforaCupula);
-        RequestBody cortaEngranajeBody = RequestBody.create(MediaType.parse("multipart/form-data"), cortaEngranaje);
-        RequestBody usoAlambresBody = RequestBody.create(MediaType.parse("multipart/form-data"), usoAlambres);
-        RequestBody prensadoBody = RequestBody.create(MediaType.parse("multipart/form-data"), prensado);
-        RequestBody otroBody = RequestBody.create(MediaType.parse("multipart/form-data"), otro);
-        RequestBody instalacionParalelaBody = RequestBody.create(MediaType.parse("multipart/form-data"), instalacionParalela);
-        RequestBody bypassBody = RequestBody.create(MediaType.parse("multipart/form-data"), bypass);
-        RequestBody otro2Body = RequestBody.create(MediaType.parse("multipart/form-data"), otro2);
+        String clase = resultado.getTestParte2().getClaseMedidor();
+        String ano_medidor = resultado.getTestParte2().getAnoMedidor();
+        String marca = resultado.getTestParte2().getMarca();
+        String registrador = resultado.getTestParte2().getRegistrador();
+        String instalacion = resultado.getTestParte2().getInstalacion();
+        String tramo_antes = resultado.getTestParte2().getTramoAntes();
+        String tramo_despues = resultado.getTestParte2().getTramoDespues();
+        String observacion_1 = resultado.getTestParte2().getObservaciones();
+        String verticales = resultado.getTestParte2().getEstadoVerticales();
+        String cortes = resultado.getTestParte2().getEstadoCortes();
+        String suministro_alternativo = resultado.getTestParte2().getSuministroAlternativo();
+        String cumple_plano = resultado.getTestParte2().getCumplePlano();
+        String observacion_2 = resultado.getTestParte2().getObservaciones2();
 
-        /*RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part fotoBody = MultipartBody.Part.createFormData("foto_rechazo", "", requestFile);*/
+        String construccion_nueva = resultado.getTestParte3().getConstruccionNueva();
+        String tipo_propiedad = resultado.getTestParte3().getTipoPropiedad();
+        String habitantes = resultado.getTestParte3().getHabitantes();
+        String banos = resultado.getTestParte3().getBanos();
+        String sup_edificada = resultado.getTestParte3().getSuperficieEdificada();
+        String sup_jardin = resultado.getTestParte3().getSuperficieJardin();
+        String accesos = resultado.getTestParte3().getAcceso();
+        String sup_terreno = resultado.getTestParte3().getSuperficieTerreno();
+        String observacion_3 = resultado.getTestParte3().getObservaciones1();
+        String auto_abastecimiento = resultado.getTestParte3().getAutoAbastecimiento();
+        String tipo_fuente = resultado.getTestParte3().getTipoFuente();
+        String uso = resultado.getTestParte3().getUso();
+        String activo = resultado.getTestParte3().getActivo();
+        String capacidad_bomba = resultado.getTestParte3().getCapacidadBomba();
+        String resolucion_dga = resultado.getTestParte3().getResolucion();
+        String caudal = resultado.getTestParte3().getCaudal();
+        String observacion_4 = resultado.getTestParte3().getObservaciones2();
+
+
+        RequestBody test1_body = RequestBody.create(MediaType.parse("multipart/form-data"), test1);
+        RequestBody test2_body = RequestBody.create(MediaType.parse("multipart/form-data"), test2);
+        RequestBody test3_body = RequestBody.create(MediaType.parse("multipart/form-data"), test3);
+        RequestBody uso_imanes_body = RequestBody.create(MediaType.parse("multipart/form-data"), uso_imanes);
+        RequestBody invertir_tomas_body = RequestBody.create(MediaType.parse("multipart/form-data"), invertir_tomas);
+        RequestBody perfora_cupula_body = RequestBody.create(MediaType.parse("multipart/form-data"), perfora_cupula);
+        RequestBody corta_engranaje_body = RequestBody.create(MediaType.parse("multipart/form-data"), corta_engranaje);
+        RequestBody uso_alambres_body = RequestBody.create(MediaType.parse("multipart/form-data"), uso_alambres);
+        RequestBody prensado_body = RequestBody.create(MediaType.parse("multipart/form-data"), prensado);
+        RequestBody otro_body = RequestBody.create(MediaType.parse("multipart/form-data"), otro_1);
+        RequestBody instalacion_paralela_body = RequestBody.create(MediaType.parse("multipart/form-data"), instalacion_paralela);
+        RequestBody bypass_body = RequestBody.create(MediaType.parse("multipart/form-data"), bypass);
+        RequestBody otro_2_body = RequestBody.create(MediaType.parse("multipart/form-data"), otro_2);
+
+        RequestBody clase_body = RequestBody.create(MediaType.parse("multipart/form-data"), clase);
+        RequestBody ano_medidor_body = RequestBody.create(MediaType.parse("multipart/form-data"), ano_medidor);
+        RequestBody marca_body = RequestBody.create(MediaType.parse("multipart/form-data"), marca);
+        RequestBody registrador_body = RequestBody.create(MediaType.parse("multipart/form-data"), registrador);
+        RequestBody instalacion_body = RequestBody.create(MediaType.parse("multipart/form-data"), instalacion);
+        RequestBody tramo_antes_body = RequestBody.create(MediaType.parse("multipart/form-data"), tramo_antes);
+        RequestBody tramo_despues_body = RequestBody.create(MediaType.parse("multipart/form-data"), tramo_despues);
+        RequestBody observacion_1_body = RequestBody.create(MediaType.parse("multipart/form-data"), observacion_1);
+        RequestBody verticales_body = RequestBody.create(MediaType.parse("multipart/form-data"), verticales);
+        RequestBody cortes_body = RequestBody.create(MediaType.parse("multipart/form-data"), cortes);
+        RequestBody suministro_alternativo_body = RequestBody.create(MediaType.parse("multipart/form-data"), suministro_alternativo);
+        RequestBody cumple_plano_body = RequestBody.create(MediaType.parse("multipart/form-data"), cumple_plano);
+        RequestBody observacion_2_body = RequestBody.create(MediaType.parse("multipart/form-data"), observacion_2);
+        RequestBody construccion_nueva_body = RequestBody.create(MediaType.parse("multipart/form-data"), construccion_nueva);
+        RequestBody tipo_propiedad_body = RequestBody.create(MediaType.parse("multipart/form-data"), tipo_propiedad);
+        RequestBody habitantes_body = RequestBody.create(MediaType.parse("multipart/form-data"), habitantes);
+        RequestBody banos_body = RequestBody.create(MediaType.parse("multipart/form-data"), banos);
+        RequestBody sup_edificada_body = RequestBody.create(MediaType.parse("multipart/form-data"), sup_edificada);
+        RequestBody sup_jardin_body = RequestBody.create(MediaType.parse("multipart/form-data"), sup_jardin);
+        RequestBody accesos_body = RequestBody.create(MediaType.parse("multipart/form-data"), accesos);
+        RequestBody sup_terreno_body = RequestBody.create(MediaType.parse("multipart/form-data"), sup_terreno);
+        RequestBody observacion_3_body = RequestBody.create(MediaType.parse("multipart/form-data"), observacion_3);
+        RequestBody auto_abastecimiento_body = RequestBody.create(MediaType.parse("multipart/form-data"), auto_abastecimiento);
+        RequestBody tipo_fuente_body = RequestBody.create(MediaType.parse("multipart/form-data"), tipo_fuente);
+        RequestBody uso_body = RequestBody.create(MediaType.parse("multipart/form-data"), uso);
+        RequestBody activo_body = RequestBody.create(MediaType.parse("multipart/form-data"), activo);
+        RequestBody capacidad_bomba_body = RequestBody.create(MediaType.parse("multipart/form-data"), capacidad_bomba);
+        RequestBody resolucion_dga_body = RequestBody.create(MediaType.parse("multipart/form-data"), resolucion_dga);
+        RequestBody caudal_body = RequestBody.create(MediaType.parse("multipart/form-data"), caudal);
+        RequestBody observacion_4_body = RequestBody.create(MediaType.parse("multipart/form-data"), observacion_4);
+
+
+        File file_foto_rechazo = new File(resultado.getFotos().getRechazoInspeccion());
+        File file_foto_falla = new File(resultado.getFotos().getFallaMedidor());
+        File file_foto_lectura_medidor = new File(resultado.getFotos().getLecturaMedidor());
+        File file_foto_numero_medidor = new File(resultado.getFotos().getNumeroMedidor());
+        File file_foto_panoramica_medidor = new File(resultado.getFotos().getPanoramicaMedidor());
+        File file_foto_numero_propiedad = new File(resultado.getFotos().getNumeroPropiedad());
+        File file_foto_fachada_propiedad = new File(resultado.getFotos().getFachadaPropiedad());
+
+
+        /*
+         File file = new File(localPath);
+                RequestBody requestFileRechazo = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("foto_rechazo_inspeccion", photoName, requestFile);
+
+        * */
+
+        RequestBody requestFileRechazo = RequestBody.create(MediaType.parse("image/*"), file_foto_rechazo);
+        MultipartBody.Part foto_rechazo_inspeccion = MultipartBody.Part.createFormData("foto_rechazo_inspeccion", "foto_rechazo_inspeccion", requestFileRechazo);
+
+        RequestBody requestFileFalla = RequestBody.create(MediaType.parse("image/*"), file_foto_falla);
+        MultipartBody.Part foto_falla_medidor = MultipartBody.Part.createFormData("foto_falla_medidor", "", requestFileFalla);
+
+        RequestBody requestFileLectura = RequestBody.create(MediaType.parse("image/*"), file_foto_lectura_medidor);
+        MultipartBody.Part foto_lectura_medidor = MultipartBody.Part.createFormData("foto_lectura_medidor", "", requestFileLectura);
+
+        RequestBody requestFileNumeroMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_medidor);
+        MultipartBody.Part foto_numero_medidor = MultipartBody.Part.createFormData("foto_numero_medidor", "", requestFileNumeroMedidor);
+
+        RequestBody requestFilePanoMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_panoramica_medidor);
+        MultipartBody.Part foto_panoramica_medidor = MultipartBody.Part.createFormData("foto_panoramica_medidor", "", requestFilePanoMedidor);
+
+        RequestBody requestFileNumeroPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_propiedad);
+        MultipartBody.Part foto_numero_propiedad = MultipartBody.Part.createFormData("foto_numero_propiedad", "", requestFileNumeroPorpiedad);
+
+        RequestBody requestFileFachadaPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_fachada_propiedad);
+        MultipartBody.Part foto_fechada_propiedad = MultipartBody.Part.createFormData("foto_fechada_propiedad", "", requestFileFachadaPorpiedad);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
         PostResult service = retrofit.create(PostResult.class);
 
         Call<ResponseBody> call = service.postResultadoTest(
-                lat, lng, fecha,
-                test1Body, test2Body, test3Body,
-                usoImanesBody,
-                invertirTomasBody,
-                perforaCupulaBody,
-                cortaEngranajeBody,
-                usoAlambresBody,
-                prensadoBody, otroBody, instalacionParalelaBody, bypassBody, otro2Body);
+                id_inspeccion_body,
+                lat_body,
+                lng_body,
+                estado_body,
+                fecha_body,
+                test1_body,
+                test2_body,
+                test3_body,
+                uso_imanes_body,
+                invertir_tomas_body,
+                perfora_cupula_body,
+                corta_engranaje_body,
+                uso_alambres_body,
+                prensado_body,
+                otro_body,
+                instalacion_paralela_body,
+                bypass_body,
+                otro_2_body,
+                clase_body,
+                ano_medidor_body,
+                marca_body,
+                registrador_body,
+                instalacion_body,
+                tramo_antes_body,
+                tramo_despues_body,
+                observacion_1_body,
+                verticales_body,
+                cortes_body,
+                suministro_alternativo_body,
+                cumple_plano_body,
+                observacion_2_body,
+                construccion_nueva_body,
+                tipo_propiedad_body,
+                habitantes_body,
+                banos_body,
+                sup_edificada_body,
+                sup_jardin_body,
+                accesos_body,
+                sup_terreno_body,
+                observacion_3_body,
+                auto_abastecimiento_body,
+                tipo_fuente_body,
+                uso_body,
+                activo_body,
+                capacidad_bomba_body,
+                resolucion_dga_body,
+                caudal_body,
+                observacion_4_body,
+                null,
+                null,
+                null,
+                null,null,null,null
+        );
+
+
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

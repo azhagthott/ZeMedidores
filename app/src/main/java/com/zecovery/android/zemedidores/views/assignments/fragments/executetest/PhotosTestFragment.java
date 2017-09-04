@@ -22,6 +22,7 @@ import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
+import com.zecovery.android.zemedidores.models.Foto;
 import com.zecovery.android.zemedidores.models.Medidor;
 import com.zecovery.android.zemedidores.network.PostResult;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
@@ -281,26 +282,42 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
             localPhotoName = localPathParts[7];
 
             Medidor medidor = new Medidor();
+            Foto foto = new Foto();
 
             switch (photoName) {
                 case "lectura_medidor":
                     medidor.setFotoLectura(localPhotoName);
+                    foto.setLecturaMedidor(localPath);
+                    db.guardaFotos(foto, token);
+                    Log.d("TAG", "localPath: " + localPath);
                     Log.d("TAG", "onActivityResult: " + localPhotoName);
                     break;
                 case "numero_medidor":
                     medidor.setFotoNumeroMedidor(localPhotoName);
+                    foto.setNumeroMedidor(localPath);
+                    db.guardaFotos(foto, token);
+                    Log.d("TAG", "localPath: " + localPath);
                     Log.d("TAG", "onActivityResult: " + localPhotoName);
                     break;
                 case "panoramica_medidor":
                     medidor.setFotoPanoramica(localPhotoName);
+                    foto.setPanoramicaMedidor(localPath);
+                    db.guardaFotos(foto, token);
+                    Log.d("TAG", "localPath: " + localPath);
                     Log.d("TAG", "onActivityResult: " + localPhotoName);
                     break;
                 case "numero_propiedad":
                     medidor.setFotoNumeroPropiedad(localPhotoName);
+                    foto.setNumeroPropiedad(localPath);
+                    db.guardaFotos(foto, token);
+                    Log.d("TAG", "localPath: " + localPath);
                     Log.d("TAG", "onActivityResult: " + localPhotoName);
                     break;
                 case "fachada_propiedad":
                     medidor.setFotoFachada(localPhotoName);
+                    foto.setFachadaPropiedad(localPath);
+                    db.guardaFotos(foto, token);
+                    Log.d("TAG", "localPath: " + localPath);
                     Log.d("TAG", "onActivityResult: " + localPhotoName);
                     break;
             }

@@ -9,14 +9,9 @@ public class ResultadoInspeccion {
     private TestParte1 testParte1;
     private TestParte2 testParte2;
     private TestParte3 testParte3;
+    private Foto fotos;
 
     public ResultadoInspeccion() {
-    }
-
-    public ResultadoInspeccion(TestParte1 testParte1, TestParte2 testParte2, TestParte3 testParte3) {
-        this.testParte1 = testParte1;
-        this.testParte2 = testParte2;
-        this.testParte3 = testParte3;
     }
 
     public TestParte1 getTestParte1() {
@@ -41,5 +36,13 @@ public class ResultadoInspeccion {
 
     public void setTestParte3(TestParte3 testParte3) {
         this.testParte3 = testParte3;
+    }
+
+    public Foto getFotos() {
+        return fotos;
+    }
+
+    public void setFotos(Foto fotos) {
+        this.fotos = fotos;
     }
 }

@@ -164,7 +164,7 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
             /*Log.d("LOG_TAG", "lat: " + location.getLatitude());
             Log.d("LOG_TAG", "lng: " + location.getLongitude());*/
 
-            db.saveDbCurrentLocation(location.getLatitude(), location.getLongitude());
+            db.guardaUbicacionActual(location.getLatitude(), location.getLongitude());
 
             if (location.getLatitude() != 0 && location.getLongitude() != 0) {
                 mLatLng = new LatLng(location.getLatitude(), location.getLongitude());
