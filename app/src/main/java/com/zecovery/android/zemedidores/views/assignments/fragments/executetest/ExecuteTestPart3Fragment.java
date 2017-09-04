@@ -14,9 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.data.LocalDatabase;
+import com.zecovery.android.zemedidores.models.TestParte3;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import java.util.ArrayList;
@@ -28,12 +29,16 @@ import static com.zecovery.android.zemedidores.data.Constant.TAG;
 import static com.zecovery.android.zemedidores.data.Constant.TYPE_1;
 import static com.zecovery.android.zemedidores.data.Constant.TYPE_2;
 
-public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCallback, View.OnClickListener {
+public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickListener {
 
     private Button saveButton;
 
     private RadioButton newBuildingYesRadioButton;
     private RadioButton newBuildingNoRadioButton;
+    private RadioButton autoAbastecimientoSi;
+    private RadioButton autoAbastecimientoNo;
+    private RadioButton activoSi;
+    private RadioButton activoNo;
 
     private Spinner propertyTypeSpinner;
 
@@ -52,6 +57,8 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
     private EditText test3Obs2EditText;
 
     private int token;
+
+    private LocalDatabase db;
 
     private TokenListener callback;
 
@@ -78,6 +85,8 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
 
         token = getArguments().getInt(ID_ASSIGNMENT_EXECUTE_TEST_3);
 
+        db = new LocalDatabase(getContext());
+
         findViews(view);
 
         Log.d(TAG, "ExecuteTestPart3Fragment");
@@ -94,32 +103,36 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
 
         propertyTypeSpinner.setAdapter(adapter);
 
-        saveButton = (Button) view.findViewById(R.id.saveButton);
+        saveButton = view.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
     }
 
     private void findViews(View view) {
 
-        newBuildingYesRadioButton = (RadioButton) view.findViewById(R.id.newBuildingYesRadioButton);
-        newBuildingNoRadioButton = (RadioButton) view.findViewById(R.id.newBuildingNoRadioButton);
+        newBuildingYesRadioButton = view.findViewById(R.id.newBuildingYesRadioButton);
+        newBuildingNoRadioButton = view.findViewById(R.id.newBuildingNoRadioButton);
+        autoAbastecimientoSi = view.findViewById(R.id.autoAbastecimientoSi);
+        autoAbastecimientoNo = view.findViewById(R.id.autoAbastecimientoNo);
+        activoSi = view.findViewById(R.id.activoSi);
+        activoNo = view.findViewById(R.id.activoNo);
 
-        propertyTypeSpinner = (Spinner) view.findViewById(R.id.propertyTypeSpinner); //FIXME: falta definir
+        propertyTypeSpinner = view.findViewById(R.id.propertyTypeSpinner); //FIXME: falta definir
 
-        occupantEditText = (EditText) view.findViewById(R.id.occupantEditText);
-        bathRoomsEditText = (EditText) view.findViewById(R.id.bathRoomsEditText);
-        surfaceEditText = (EditText) view.findViewById(R.id.surfaceEditText);
-        surfaceGardenEditText = (EditText) view.findViewById(R.id.surfaceGardenEditText);
-        accessEditText = (EditText) view.findViewById(R.id.accessEditText);
-        totalSurfaceEditText = (EditText) view.findViewById(R.id.totalSurfaceEditText);
+        occupantEditText = view.findViewById(R.id.occupantEditText);
+        bathRoomsEditText = view.findViewById(R.id.bathRoomsEditText);
+        surfaceEditText = view.findViewById(R.id.surfaceEditText);
+        surfaceGardenEditText = view.findViewById(R.id.surfaceGardenEditText);
+        accessEditText = view.findViewById(R.id.accessEditText);
+        totalSurfaceEditText = view.findViewById(R.id.totalSurfaceEditText);
 
-        sourceTypeEditText = (EditText) view.findViewById(R.id.sourceTypeEditText);
-        useEditText = (EditText) view.findViewById(R.id.useEditText);
-        capacityEditText = (EditText) view.findViewById(R.id.capacityEditText);
-        dgaEditText = (EditText) view.findViewById(R.id.dgaEditText);
-        caudalEditText = (EditText) view.findViewById(R.id.caudalEditText);
+        sourceTypeEditText = view.findViewById(R.id.sourceTypeEditText);
+        useEditText = view.findViewById(R.id.useEditText);
+        capacityEditText = view.findViewById(R.id.capacityEditText);
+        dgaEditText = view.findViewById(R.id.dgaEditText);
+        caudalEditText = view.findViewById(R.id.caudalEditText);
 
-        test3Obs1EditText = (EditText) view.findViewById(R.id.test3Obs1EditText);
-        test3Obs2EditText = (EditText) view.findViewById(R.id.test3Obs2EditText);
+        test3Obs1EditText = view.findViewById(R.id.test3Obs1EditText);
+        test3Obs2EditText = view.findViewById(R.id.test3Obs2EditText);
     }
 
     @Override
@@ -142,21 +155,74 @@ public class ExecuteTestPart3Fragment extends Fragment implements TestResultsCal
     @Override
     public void onClick(View v) {
 
+        TestParte3 test = new TestParte3();
+
         if (newBuildingYesRadioButton.isChecked()) {
-
+            test.setConstruccionNueva("SI");
+        } else if (newBuildingNoRadioButton.isChecked()) {
+            test.setConstruccionNueva("NO");
         } else {
-
+            test.setConstruccionNueva("No envia informacion");
         }
 
-    }
+        String habitantes = occupantEditText.getText().toString();
+        test.setHabitantes(habitantes);
 
-    @Override
-    public void resultsSaved() {
+        String banos = bathRoomsEditText.getText().toString();
+        test.setBanos(banos);
+
+        String sup = surfaceEditText.getText().toString();
+        test.setSuperficieEdificada(sup);
+
+        String supJardin = surfaceGardenEditText.getText().toString();
+        test.setSuperficieJardin(supJardin);
+
+        String acceso = accessEditText.getText().toString();
+        test.setAcceso(acceso);
+
+        String supTerreno = totalSurfaceEditText.getText().toString();
+        test.setSuperficieTerreno(supTerreno);
+
+        String obs1 = test3Obs1EditText.getText().toString();
+        test.setObservaciones1(obs1);
+
+        if (autoAbastecimientoSi.isChecked()) {
+            test.setAutoAbastecimiento("SI");
+        } else if (autoAbastecimientoNo.isChecked()) {
+            test.setAutoAbastecimiento("NO");
+        } else {
+            test.setAutoAbastecimiento("No envia informacion");
+        }
+
+        if (activoSi.isChecked()) {
+            test.setActivo("SI");
+        } else if (activoNo.isChecked()) {
+            test.setActivo("NO");
+        } else {
+            test.setActivo("No envia informacion");
+        }
+
+        String fuentePropia = sourceTypeEditText.getText().toString();
+        test.setTipoFuente(fuentePropia);
+
+        String uso = useEditText.getText().toString();
+        test.setUso(uso);
+
+        String capacidad = capacityEditText.getText().toString();
+        test.setCapacidadBomba(capacidad);
+
+        String dga = dgaEditText.getText().toString();
+        test.setResolucion(dga);
+
+        String caudal = caudalEditText.getText().toString();
+        test.setCaudal(caudal);
+
+        String obs2 = test3Obs2EditText.getText().toString();
+        test.setObservaciones2(obs2);
+
+        db.guardaDatosTestParte3(test, token);
+
         callback.tokenToNegotiation(token);
-    }
 
-    @Override
-    public void resultsNotSaved() {
-        Toast.makeText(getContext(), R.string.test_results_save_error, Toast.LENGTH_SHORT).show();
     }
 }

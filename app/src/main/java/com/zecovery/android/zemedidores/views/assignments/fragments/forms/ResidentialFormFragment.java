@@ -15,13 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zecovery.android.zemedidores.R;
-import com.zecovery.android.zemedidores.models.Resident;
+import com.zecovery.android.zemedidores.models.Residente;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT;
 
 public class ResidentialFormFragment extends Fragment implements View.OnClickListener, SaveResidentialForm {
 
+    private Button saveButton;
     private EditText residentName;
     private EditText residentRut;
     private EditText residentPhone;
@@ -54,7 +55,8 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button saveButton = view.findViewById(R.id.saveButton);
+        saveButton = view.findViewById(R.id.saveButton);
+
         saveButton.setOnClickListener(this);
 
         residentName = view.findViewById(R.id.residentName);
@@ -63,6 +65,21 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
         residentEmail = view.findViewById(R.id.residentEmail);
         residentDate = view.findViewById(R.id.residentDate);
         polygonTextView = view.findViewById(R.id.polygonTextView);
+
+        if (residentName.getText().length() == 0) {
+            residentName.setError("Debe ingresar el nombre del residente");
+        }
+        if (residentRut.getText().length() == 0) {
+            residentRut.setError("Debe ingresar el RUT del residente");
+        }
+
+        if (residentPhone.getText().length() == 0) {
+            residentPhone.setError("Debe ingresar telefono de contacto del residente");
+        }
+
+        if (residentDate.getText().length() == 0) {
+            residentDate.setError("Debe ingresar fecha desde que habita la propiedad");
+        }
 
         token = getArguments().getInt(ID_ASSIGNMENT, 0);
     }
@@ -87,7 +104,7 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-        Resident resident = new Resident();
+        Residente resident = new Residente();
         resident.setNombre(residentName.getText().toString());
         resident.setRut(residentRut.getText().toString());
         resident.setTelefono(residentPhone.getText().toString());

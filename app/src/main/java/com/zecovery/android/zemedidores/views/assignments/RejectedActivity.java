@@ -193,7 +193,6 @@ public class RejectedActivity extends AppCompatActivity implements RejectionCall
         RequestBody lat = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().latitude));
         RequestBody lng = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().longitude));
 
-
         Calendar rightNow = Calendar.getInstance();
         int fechaAcutal = (int) (rightNow.getTimeInMillis() / 1000);
         RequestBody fecha = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fechaAcutal));

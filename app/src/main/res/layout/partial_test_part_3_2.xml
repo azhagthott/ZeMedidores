@@ -41,12 +41,14 @@
                 android:padding="4dp">
 
                 <RadioButton
+                    android:id="@+id/autoAbastecimientoSi"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
                     android:text="@string/radio_button_yes" />
 
                 <RadioButton
+                    android:id="@+id/autoAbastecimientoNo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
@@ -125,12 +127,14 @@
                 android:padding="4dp">
 
                 <RadioButton
+                    android:id="@+id/activoSi"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"
                     android:text="@string/radio_button_yes" />
 
                 <RadioButton
+                    android:id="@+id/activoNo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="4dp"

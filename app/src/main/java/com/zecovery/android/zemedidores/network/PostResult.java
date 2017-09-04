@@ -43,4 +43,27 @@ public interface PostResult {
             @Part List<MultipartBody.Part> files
     );
 
+
+    @Multipart
+    @POST("/wsMovil/wsputInspeccion.php")
+    Call<ResponseBody> postResultadoTest(
+            @Part("lat") RequestBody lat,
+            @Part("lng") RequestBody lng,
+            @Part("fecha_inspeccion") RequestBody fecha,
+            @Part("test1") RequestBody test1,
+            @Part("test2") RequestBody test2,
+            @Part("test3") RequestBody test3,
+            @Part("uso_imanes") RequestBody usoImanes,
+            @Part("inv_tomas") RequestBody invertirTomas,
+            @Part("perf_cupula") RequestBody perforaCupula,
+            @Part("corta_eng") RequestBody cortaEnganaje,
+            @Part("uso_alambre") RequestBody usoAlambres,
+            @Part("prensado") RequestBody prensado,
+            @Part("otro_1") RequestBody otro1,
+            @Part("inst_paralela") RequestBody instalacionParalela,
+            @Part("bypass") RequestBody bypass,
+            @Part("otro_2") RequestBody otro2
+    );
+
+
 }

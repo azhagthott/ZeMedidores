@@ -22,6 +22,7 @@ import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
+import com.zecovery.android.zemedidores.models.Medidor;
 import com.zecovery.android.zemedidores.network.PostResult;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
@@ -150,6 +151,15 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         meterLocationEditText = view.findViewById(R.id.meterLocationEditText);
         brokenMeterCommentEditText = view.findViewById(R.id.brokenMeterCommentEditText);
         continueTestButton = view.findViewById(R.id.continueTestButton);
+
+        if (meterLocationEditText.getText().length() == 0) {
+            meterLocationEditText.setError("Debe especificar laubicacion del medidor");
+        }
+
+        if (brokenMeterCommentEditText.getVisibility() == View.VISIBLE && brokenMeterCommentEditText.getText().length() == 0) {
+            brokenMeterCommentEditText.setError("Debe especificar la falla");
+        }
+
     }
 
     @Override
@@ -176,6 +186,8 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
         if (negativeRadioButton.isChecked()) {
 
+            Medidor medidor = new Medidor();
+
             switch (id) {
 
                 case R.id.photoMeterReading:
@@ -201,25 +213,17 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
                 case R.id.continueTestButton:
 
-                    String failureComment = brokenMeterCommentEditText.getText().toString();
                     String meterLocation = meterLocationEditText.getText().toString();
+                    medidor.setUbicacion(meterLocation);
 
-
-                    if (positiveRadioButton.isChecked() && !failureComment.equals("")) {
-
-
-                    } else {
-
-
-                    }
+                    db.guardaDatosMedidor(medidor, token);
 
                     callback.tokenToExecuteTestPart1(token);
                     break;
             }
-        } else {
+        } else if (positiveRadioButton.isChecked()) {
 
             switch (id) {
-
 
                 case R.id.brokenMeterPhoto:
                     photoName = "medidor_descompuesto";
@@ -227,23 +231,24 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
                     break;
 
                 case R.id.continueTestButton:
+
                     String failureComment = brokenMeterCommentEditText.getText().toString();
                     String meterLocation = meterLocationEditText.getText().toString();
 
-                    if (positiveRadioButton.isChecked() && !failureComment.equals("")) {
+                    ///post(meterLocation, failureComment, localPath);
+                    Medidor medidor = new Medidor();
+                    medidor.setUbicacion(meterLocation);
+                    medidor.setEstado("si");
+                    medidor.setDescripcionFalla(failureComment);
+                    medidor.setFotoFalla(localPhotoName);
 
-
-                        post(meterLocation, failureComment, localPath);
-
-
-                    } else {
-
-
-                    }
+                    db.guardaDatosMedidor(medidor, token);
 
                     callback.tokenToExecuteTestPart1(token);
                     break;
             }
+        } else {
+            continueTestButton.setVisibility(View.GONE);
         }
     }
 
@@ -271,9 +276,37 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         magicalCamera.resultPhoto(requestCode, resultCode, data);
 
         try {
-            localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), "medidor_descompuesto", token + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
+            localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), photoName, token + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
             String localPathParts[] = localPath.split("/");
             localPhotoName = localPathParts[7];
+
+            Medidor medidor = new Medidor();
+
+            switch (photoName) {
+                case "lectura_medidor":
+                    medidor.setFotoLectura(localPhotoName);
+                    Log.d("TAG", "onActivityResult: " + localPhotoName);
+                    break;
+                case "numero_medidor":
+                    medidor.setFotoNumeroMedidor(localPhotoName);
+                    Log.d("TAG", "onActivityResult: " + localPhotoName);
+                    break;
+                case "panoramica_medidor":
+                    medidor.setFotoPanoramica(localPhotoName);
+                    Log.d("TAG", "onActivityResult: " + localPhotoName);
+                    break;
+                case "numero_propiedad":
+                    medidor.setFotoNumeroPropiedad(localPhotoName);
+                    Log.d("TAG", "onActivityResult: " + localPhotoName);
+                    break;
+                case "fachada_propiedad":
+                    medidor.setFotoFachada(localPhotoName);
+                    Log.d("TAG", "onActivityResult: " + localPhotoName);
+                    break;
+            }
+
+            db.guardaDatosMedidor(medidor, token);
+
         } catch (Exception e) {
             Log.d("TAG", "onActivityResult: " + e);
         }

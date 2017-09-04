@@ -1,6 +1,7 @@
-package com.zecovery.android.zemedidores.views.assignments.fragments.forms;
+package com.zecovery.android.zemedidores.network;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.zecovery.android.zemedidores.network.NegociacionCallback;
 
 /**
  * Created by fbarrios80 on 03-07-17.
@@ -8,9 +9,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SendNegotiationForm {
 
-    private NegotiationCallback callback;
+    private NegociacionCallback callback;
 
-    public SendNegotiationForm(NegotiationCallback callback) {
+    public SendNegotiationForm(NegociacionCallback callback) {
         this.callback = callback;
     }
 

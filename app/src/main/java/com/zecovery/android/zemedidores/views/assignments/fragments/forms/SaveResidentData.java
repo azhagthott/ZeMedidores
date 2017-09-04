@@ -3,7 +3,7 @@ package com.zecovery.android.zemedidores.views.assignments.fragments.forms;
 import android.content.Context;
 
 import com.zecovery.android.zemedidores.data.LocalDatabase;
-import com.zecovery.android.zemedidores.models.Resident;
+import com.zecovery.android.zemedidores.models.Residente;
 
 /**
  * Created by moe on 02-09-17.
@@ -19,10 +19,10 @@ public class SaveResidentData {
         this.context = context;
     }
 
-    public void save(Resident resident, int token) {
+    public void save(Residente resident, int token) {
         if (resident != null) {
             LocalDatabase db = new LocalDatabase(context);
-            db.saveResidentData(resident, token);
+            db.guardaDatosResidente(resident, token);
             callback.save();
         } else {
             callback.error();

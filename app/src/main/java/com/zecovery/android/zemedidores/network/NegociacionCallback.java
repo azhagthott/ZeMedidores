@@ -1,10 +1,10 @@
-package com.zecovery.android.zemedidores.views.assignments.fragments.forms;
+package com.zecovery.android.zemedidores.network;
 
 /**
  * Created by fbarrios80 on 03-07-17.
  */
 
-public interface NegotiationCallback {
+public interface NegociacionCallback {
 
     void saveNegotiationForm();
 

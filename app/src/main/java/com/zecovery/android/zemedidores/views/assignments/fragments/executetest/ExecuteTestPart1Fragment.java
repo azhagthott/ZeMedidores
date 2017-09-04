@@ -11,15 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.data.LocalDatabase;
+import com.zecovery.android.zemedidores.models.TestParte1;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT_EXECUTE_TEST_1;
 import static com.zecovery.android.zemedidores.data.Constant.TAG;
 
-public class ExecuteTestPart1Fragment extends Fragment implements TestResultsCallback, View.OnClickListener {
+public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickListener {
 
     private int token;
 
@@ -53,6 +54,8 @@ public class ExecuteTestPart1Fragment extends Fragment implements TestResultsCal
 
     private Button saveButton;
 
+    private LocalDatabase db;
+
     private TokenListener callback;
 
     public ExecuteTestPart1Fragment() {
@@ -82,6 +85,8 @@ public class ExecuteTestPart1Fragment extends Fragment implements TestResultsCal
 
         Log.d(TAG, "ExecuteTestPart1Fragment");
         Log.d(TAG, "token: " + token);
+
+        db = new LocalDatabase(getContext());
 
         saveButton.setOnClickListener(this);
     }
@@ -149,100 +154,126 @@ public class ExecuteTestPart1Fragment extends Fragment implements TestResultsCal
     }
 
     @Override
-    public void resultsSaved() {
-        Toast.makeText(getContext(), R.string.test_results_saved, Toast.LENGTH_SHORT).show();
-        callback.tokenToExecuteTestPart2(token);
-    }
-
-    @Override
-    public void resultsNotSaved() {
-        Toast.makeText(getContext(), R.string.test_results_save_error, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onClick(View v) {
 
         if (v.getId() == R.id.saveButton) {
 
+            TestParte1 test = new TestParte1();
+
             if (test1YesRadioButton.isChecked()) {
-
+                test.setTest1("SI");
+            } else if (test1NoRadioButton.isChecked()) {
+                test.setTest1("NO");
             } else {
-
+                test.setTest1("No envia respuesta");
             }
 
 
             if (test2YesRadioButton.isChecked()) {
-
+                test.setTest2("SI");
+            } else if (test2NoRadioButton.isChecked()) {
+                test.setTest2("NO");
             } else {
-
+                test.setTest2("No envia respuesta");
             }
 
+
             if (test3YesRadioButton.isChecked()) {
-
+                test.setTest3("SI");
+            } else if (test3NoRadioButton.isChecked()) {
+                test.setTest3("NO");
             } else {
-
-
+                test.setTest2("No envia respuesta");
             }
 
 
             if (case1PositiveRadioButton.isChecked()) {
+                test.setUsoImanes("SI");
+            } else if (case1NegativeRadioButton.isChecked()) {
+                test.setUsoImanes("NO");
             } else {
-
+                test.setUsoImanes("No envia respuesta");
             }
+
 
             if (case2PositiveRadioButton.isChecked()) {
-
+                test.setInvertirTomas("SI");
+            } else if (case2NegativeRadioButton.isChecked()) {
+                test.setInvertirTomas("NO");
             } else {
-
+                test.setInvertirTomas("No envia respuesta");
             }
+
 
             if (case3PositiveRadioButton.isChecked()) {
-
+                test.setPerforaCupula("SI");
+            } else if (case3NegativeRadioButton.isChecked()) {
+                test.setPerforaCupula("NO");
             } else {
-
+                test.setPerforaCupula("No envia respuesta");
             }
+
 
             if (case4PositiveRadioButton.isChecked()) {
-
+                test.setCortaEngranaje("SI");
+            } else if (case4NegativeRadioButton.isChecked()) {
+                test.setCortaEngranaje("NO");
             } else {
-
+                test.setCortaEngranaje("No envia respuesta");
             }
+
 
             if (case5PositiveRadioButton.isChecked()) {
-
+                test.setUsoAlambres("SI");
+            } else if (case5NegativeRadioButton.isChecked()) {
+                test.setUsoAlambres("NO");
             } else {
-
+                test.setUsoAlambres("No envia respuestaO");
             }
+
 
             if (case6PositiveRadioButton.isChecked()) {
-
+                test.setPrensado("SI");
+            } else if (case6NegativeRadioButton.isChecked()) {
+                test.setPrensado("NO");
             } else {
-
+                test.setPrensado("No envia respuesta");
             }
 
+
             if (case7PositiveRadioButton.isChecked()) {
-
+                test.setOtro("SI");
+            } else if (case7NegativeRadioButton.isChecked()) {
+                test.setOtro("NO");
             } else {
-
+                test.setOtro("No envia respuesta");
             }
 
             if (case8PositiveRadioButton.isChecked()) {
-
+                test.setInstalacionParalela("SI");
+            } else if (case8NegativeRadioButton.isChecked()) {
+                test.setInstalacionParalela("NO");
             } else {
-
+                test.setInstalacionParalela("No envia respuesta");
             }
 
             if (case9PositiveRadioButton.isChecked()) {
-
+                test.setBypass("SI");
+            } else if (case9NegativeRadioButton.isChecked()) {
+                test.setBypass("NO");
             } else {
-
+                test.setBypass("No envia respuesta");
             }
 
             if (case10PositiveRadioButton.isChecked()) {
-
+                test.setOtro2("SI");
+            } else if (case10NegativeRadioButton.isChecked()) {
+                test.setOtro2("NO");
             } else {
-
+                test.setOtro2("No envia respuesta");
             }
+
+            db.guardaDatosTestParte1(test, token);
 
             callback.tokenToExecuteTestPart2(token);
         }

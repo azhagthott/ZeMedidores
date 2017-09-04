@@ -5,12 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.zecovery.android.zemedidores.models.Assignment;
 import com.zecovery.android.zemedidores.models.Inspection;
-import com.zecovery.android.zemedidores.models.Resident;
+import com.zecovery.android.zemedidores.models.Medidor;
+import com.zecovery.android.zemedidores.models.Residente;
+import com.zecovery.android.zemedidores.models.ResultadoInspeccion;
+import com.zecovery.android.zemedidores.models.TestParte1;
+import com.zecovery.android.zemedidores.models.TestParte2;
+import com.zecovery.android.zemedidores.models.TestParte3;
 
 import java.util.List;
 
@@ -21,7 +24,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 104;
+    private static final int DB_VERSION = 109;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -56,8 +59,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String CURRENT_LOCATION_LNG = "lng";
 
 
+    /* meter, resident, tests table */
     private static final String RESULT_ID_KEY = "id";
-    private static final String RESULT_ID_INSPECCION = "id_isnpeccion";
+    private static final String RESULT_ID_INSPECCION = "id_inspeccion";
     private static final String RESULT_NAME = "name";
     private static final String RESULT_RUT = "rut";
     private static final String RESULT_PHONE = "phone";
@@ -66,7 +70,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_METER_LOCATION = "meter_location";
     private static final String RESULT_METER_STATUS = "meter_status";
     private static final String RESULT_METER_OBS = "meter_obs";
-    private static final String RESULT_METER_PHOTO = "meter_photo_local_path";
+    private static final String RESULT_BROKEN_METER_PHOTO = "photo_broken_meter";
+    private static final String RESULT_METER_LECTURE_PHOTO = "photo_lecture_meter";
+    private static final String RESULT_METER_NUMBER_PHOTO = "photo_number_meter";
+    private static final String RESULT_METER_PANO_PHOTO = "photo_pano_meter";
+    private static final String RESULT_METER_NUMBER_PROP_PHOTO = "photo_number_prop_meter";
+    private static final String RESULT_FACE_PHOTO = "photo_face";
     private static final String RESULT_TEST_1 = "test_1";
     private static final String RESULT_TEST_2 = "test_2";
     private static final String RESULT_TEST_3 = "test_3";
@@ -80,7 +89,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_INST_PAR = "inst_par";
     private static final String RESULT_TEST_BYPASS = "bypass";
     private static final String RESULT_TEST_OTRO_2 = "otro_2";
-    private static final String RESULT_TEST_CAT = "categoria";
+    private static final String RESULT_TEST_CLASS = "clase";
     private static final String RESULT_TEST_YEAR = "year";
     private static final String RESULT_TEST_MARCA = "marca";
     private static final String RESULT_TEST_REG = "registrador";
@@ -155,7 +164,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_METER_LOCATION + " TEXT, "
                 + RESULT_METER_STATUS + " TEXT, "
                 + RESULT_METER_OBS + " TEXT, "
-                + RESULT_METER_PHOTO + " TEXT, "
+                + RESULT_BROKEN_METER_PHOTO + " TEXT, "
+                + RESULT_METER_LECTURE_PHOTO + " TEXT, "
+                + RESULT_METER_NUMBER_PHOTO + " TEXT, "
+                + RESULT_METER_PANO_PHOTO + " TEXT, "
+                + RESULT_METER_NUMBER_PROP_PHOTO + " TEXT, "
+                + RESULT_FACE_PHOTO + " TEXT, "
                 + RESULT_TEST_1 + " TEXT, "
                 + RESULT_TEST_2 + " TEXT, "
                 + RESULT_TEST_3 + " TEXT, "
@@ -169,7 +183,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_INST_PAR + " TEXT, "
                 + RESULT_TEST_BYPASS + " TEXT, "
                 + RESULT_TEST_OTRO_2 + " TEXT, "
-                + RESULT_TEST_CAT + " TEXT, "
+                + RESULT_TEST_CLASS + " TEXT, "
                 + RESULT_TEST_YEAR + " TEXT, "
                 + RESULT_TEST_MARCA + " TEXT, "
                 + RESULT_TEST_REG + " TEXT, "
@@ -255,10 +269,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
     public void updateAssignment() {
     }
 
-    public List<Assignment> getAllAssignment() {
-        return null;
-    }
-
     public void getAssignment(int idAssignment) {
     }
 
@@ -292,26 +302,203 @@ public class LocalDatabase extends SQLiteOpenHelper {
     }
 
 
-    public void saveResidentData(Resident resident, int idInspeccion) {
+    public void guardaDatosResidente(Residente residente, int idInspeccion) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        Log.d("LOG_TAG", "nombre: " + resident.getNombre());
-        Log.d("LOG_TAG", "rut: " + resident.getRut());
-        Log.d("LOG_TAG", "fono: " + resident.getTelefono());
-        Log.d("LOG_TAG", "email: " + resident.getEmail());
-        Log.d("LOG_TAG", "data: " + resident.getFecha());
-
-        values.put(RESULT_NAME, String.valueOf(resident.getNombre()));
-        values.put(RESULT_RUT, String.valueOf(resident.getRut()));
-        values.put(RESULT_PHONE, String.valueOf(resident.getTelefono()));
-        values.put(RESULT_EMAIL, String.valueOf(resident.getEmail()));
-        values.put(RESULT_DATE_RES, String.valueOf(resident.getFecha()));
+        values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
+        values.put(RESULT_NAME, String.valueOf(residente.getNombre()));
+        values.put(RESULT_RUT, String.valueOf(residente.getRut()));
+        values.put(RESULT_PHONE, String.valueOf(residente.getTelefono()));
+        values.put(RESULT_EMAIL, String.valueOf(residente.getEmail()));
+        values.put(RESULT_DATE_RES, String.valueOf(residente.getFecha()));
 
         db.insert(TABLE_INSPECTION_RESULT, null, values);
         db.close();
 
     }
+
+    public void guardaDatosMedidor(Medidor medidor, int idInspeccion) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(RESULT_METER_LOCATION, String.valueOf(medidor.getUbicacion()));
+        values.put(RESULT_METER_STATUS, String.valueOf(medidor.getEstado()));
+        values.put(RESULT_METER_OBS, String.valueOf(medidor.getDescripcionFalla()));
+        values.put(RESULT_BROKEN_METER_PHOTO, String.valueOf(medidor.getFotoFalla()));
+        values.put(RESULT_METER_LECTURE_PHOTO, String.valueOf(medidor.getFotoLectura()));
+        values.put(RESULT_METER_NUMBER_PHOTO, String.valueOf(medidor.getFotoNumeroMedidor()));
+        values.put(RESULT_METER_PANO_PHOTO, String.valueOf(medidor.getFotoPanoramica()));
+        values.put(RESULT_METER_NUMBER_PROP_PHOTO, String.valueOf(medidor.getFotoNumeroPropiedad()));
+        values.put(RESULT_FACE_PHOTO, String.valueOf(medidor.getFotoFachada()));
+
+        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.close();
+    }
+
+    public void guardaDatosTestParte1(TestParte1 test, int idInspeccion) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(RESULT_TEST_1, String.valueOf(test.getTest1()));
+        values.put(RESULT_TEST_2, String.valueOf(test.getTest2()));
+        values.put(RESULT_TEST_3, String.valueOf(test.getTest3()));
+        values.put(RESULT_TEST_USO_IMANES, String.valueOf(test.getUsoImanes()));
+        values.put(RESULT_TEST_INV_TOMAS, String.valueOf(test.getInvertirTomas()));
+        values.put(RESULT_TEST_PERF_CUP, String.valueOf(test.getPerforaCupula()));
+        values.put(RESULT_TEST_CORTAR_ENG, String.valueOf(test.getCortaEngranaje()));
+        values.put(RESULT_TEST_USO_ALAM, String.valueOf(test.getUsoAlambres()));
+        values.put(RESULT_TEST_PRENSADO, String.valueOf(test.getPrensado()));
+        values.put(RESULT_TEST_OTRO_1, String.valueOf(test.getOtro()));
+        values.put(RESULT_TEST_INST_PAR, String.valueOf(test.getInstalacionParalela()));
+        values.put(RESULT_TEST_BYPASS, String.valueOf(test.getBypass()));
+        values.put(RESULT_TEST_OTRO_2, String.valueOf(test.getOtro2()));
+
+        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.close();
+    }
+
+    public void guardaDatosTestParte2(TestParte2 test, int idInspeccion) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(RESULT_TEST_CLASS, String.valueOf(test.getClaseMedidor()));
+        values.put(RESULT_TEST_YEAR, String.valueOf(test.getAnoMedidor()));
+        values.put(RESULT_TEST_MARCA, String.valueOf(test.getMarca()));
+        values.put(RESULT_TEST_REG, String.valueOf(test.getRegistrador()));
+        values.put(RESULT_TEST_INST, String.valueOf(test.getInstalacion()));
+        values.put(RESULT_TEST_TRAMOS_RECTOS_ANTES, String.valueOf(test.getTramoAntes()));
+        values.put(RESULT_TEST_TRAMOS_RECTOS_DESPUES, String.valueOf(test.getTramoDespues()));
+        values.put(RESULT_TEST_OBS_1, String.valueOf(test.getObservaciones()));
+        values.put(RESULT_TEST_VERTICALES, String.valueOf(test.getEstadoVerticales()));
+        values.put(RESULT_TEST_CORTES, String.valueOf(test.getEstadoCortes()));
+        values.put(RESULT_TEST_ALTER, String.valueOf(test.getSuministroAlternativo()));
+        values.put(RESULT_TEST_TIPO, String.valueOf(test.getCumplePlano()));
+        values.put(RESULT_TEST_OBS_2, String.valueOf(test.getObservaciones2()));
+
+        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.close();
+    }
+
+    public void guardaDatosTestParte3(TestParte3 test, int idInspeccion) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(RESULT_TEST_CONST, String.valueOf(test.getConstruccionNueva()));
+        values.put(RESULT_TEST_TIPO_PROP, String.valueOf(test.getTipoPropiedad()));
+        values.put(RESULT_TEST_HABITANTES, String.valueOf(test.getHabitantes()));
+        values.put(RESULT_TEST_BANOS, String.valueOf(test.getBanos()));
+        values.put(RESULT_TEST_SUP, String.valueOf(test.getSuperficieEdificada()));
+        values.put(RESULT_TEST_SUP_JARDIN, String.valueOf(test.getSuperficieJardin()));
+        values.put(RESULT_TEST_ACCESO, String.valueOf(test.getAcceso()));
+        values.put(RESULT_TEST_SUP_TERRENO, String.valueOf(test.getSuperficieTerreno()));
+        values.put(RESULT_TEST_OBS_3, String.valueOf(test.getObservaciones1()));
+        values.put(RESULT_TEST_AUTO_AB, String.valueOf(test.getAutoAbastecimiento()));
+        values.put(RESULT_TEST_TIPO_FUENTE, String.valueOf(test.getTipoFuente()));
+        values.put(RESULT_TEST_USO, String.valueOf(test.getUso()));
+        values.put(RESULT_TEST_ACTIVO, String.valueOf(test.getActivo()));
+        values.put(RESULT_TEST_CAPACIDAD_BOMBA, String.valueOf(test.getCapacidadBomba()));
+        values.put(RESULT_TEST_RESOLUCION, String.valueOf(test.getResolucion()));
+        values.put(RESULT_TEST_CAUDAL, String.valueOf(test.getCaudal()));
+        values.put(RESULT_TEST_OBS_4, String.valueOf(test.getObservaciones2()));
+
+        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.close();
+    }
+
+    public ResultadoInspeccion getResultadoInspeccion(int idInspeccion) {
+
+        ResultadoInspeccion resultado = new ResultadoInspeccion();
+        TestParte1 testParte1 = new TestParte1();
+        TestParte2 testParte2 = new TestParte2();
+        TestParte3 testParte3 = new TestParte3();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+                        {
+                                RESULT_TEST_1,
+                                RESULT_TEST_2,
+                                RESULT_TEST_3,
+                                RESULT_TEST_USO_IMANES,
+                                RESULT_TEST_INV_TOMAS,
+                                RESULT_TEST_PERF_CUP,
+                                RESULT_TEST_CORTAR_ENG,
+                                RESULT_TEST_USO_ALAM,
+                                RESULT_TEST_PRENSADO,
+                                RESULT_TEST_OTRO_1,
+                                RESULT_TEST_INST_PAR,
+                                RESULT_TEST_BYPASS,
+                                RESULT_TEST_OTRO_2,
+                                RESULT_TEST_CLASS,
+                                RESULT_TEST_YEAR,
+                                RESULT_TEST_MARCA,
+                                RESULT_TEST_REG,
+                                RESULT_TEST_INST,
+                                RESULT_TEST_TRAMOS_RECTOS_ANTES,
+                                RESULT_TEST_TRAMOS_RECTOS_DESPUES,
+                                RESULT_TEST_OBS_1,
+                                RESULT_TEST_VERTICALES,
+                                RESULT_TEST_CORTES,
+                                RESULT_TEST_ALTER,
+                                RESULT_TEST_TIPO,
+                                RESULT_TEST_OBS_2,
+                                RESULT_TEST_CONST,
+                                RESULT_TEST_TIPO_PROP,
+                                RESULT_TEST_HABITANTES,
+                                RESULT_TEST_BANOS,
+                                RESULT_TEST_SUP,
+                                RESULT_TEST_SUP_JARDIN,
+                                RESULT_TEST_ACCESO,
+                                RESULT_TEST_SUP_TERRENO,
+                                RESULT_TEST_OBS_3,
+                                RESULT_TEST_AUTO_AB,
+                                RESULT_TEST_TIPO_FUENTE,
+                                RESULT_TEST_USO,
+                                RESULT_TEST_ACTIVO,
+                                RESULT_TEST_CAPACIDAD_BOMBA,
+                                RESULT_TEST_RESOLUCION,
+                                RESULT_TEST_CAUDAL,
+                                RESULT_TEST_OBS_4}
+                , RESULT_ID_INSPECCION + "=?",
+                new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        testParte1.setTest1(cursor.getString(0));
+        testParte1.setTest2(cursor.getString(1));
+        testParte1.setTest3(cursor.getString(2));
+
+        testParte1.setUsoImanes(cursor.getString(3));
+        testParte1.setInvertirTomas(cursor.getString(4));
+        testParte1.setPerforaCupula(cursor.getString(5));
+        testParte1.setCortaEngranaje(cursor.getString(6));
+        testParte1.setUsoAlambres(cursor.getString(7));
+        testParte1.setPrensado(cursor.getString(8));
+        testParte1.setOtro(cursor.getString(9));
+
+        testParte1.setInstalacionParalela(cursor.getString(10));
+        testParte1.setBypass(cursor.getString(11));
+        testParte1.setOtro2(cursor.getString(12));
+
+
+        resultado.setTestParte1(testParte1);
+        resultado.setTestParte2(testParte2);
+        resultado.setTestParte3(testParte3);
+
+        return resultado;
+
+    }
+
+    public void guardaFormularioNegociacion(int idInspeccion) {
+
+    }
+
 
 }

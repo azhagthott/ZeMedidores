@@ -3,6 +3,7 @@ package com.zecovery.android.zemedidores.background;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.models.Inspect;
 import com.zecovery.android.zemedidores.models.Inspection;
 import com.zecovery.android.zemedidores.network.InspectionInterceptor;
@@ -31,22 +32,16 @@ public class InspectionList extends AsyncTask<InspectionParams, Integer, List<In
     protected List<Inspection> doInBackground(InspectionParams... inspections) {
 
         InspectionInterface request = InspectionInterceptor.get();
-        Call<Inspect> call = request.get(params.getKey(),params.getInspectorEmail());
+        Call<Inspect> call = request.get(params.getKey(), params.getInspectorEmail());
 
         List<Inspection> inspectionsList = new ArrayList<>();
 
         try {
             Response<Inspect> response = call.execute();
-            Log.d("InspectionList", "response: " + response);
-            Log.d("InspectionList", "body: " + response.body());
-
             Collections.addAll(inspectionsList, response.body().getInspecciones());
 
-            /*for (Inspection inspection : response.body().getInspecciones()) {
-                inspectionsList.add(inspection);
-            }*/
-
         } catch (Exception e) {
+            FirebaseCrash.log("ERROR: " + e);
             Log.d("InspectionList", "Exception: " + e);
         }
         return inspectionsList;

@@ -4,7 +4,7 @@ package com.zecovery.android.zemedidores.models;
  * Created by moe on 02-09-17.
  */
 
-public class Resident {
+public class Residente {
 
     private String nombre;
     private String rut;
@@ -12,17 +12,17 @@ public class Resident {
     private String email;
     private String fecha;
 
-    public Resident() {
+    public Residente() {
     }
 
-    public Resident(String nombreResidente, String rut, String telefono, String fecha) {
+    public Residente(String nombreResidente, String rut, String telefono, String fecha) {
         this.nombre = nombreResidente;
         this.rut = rut;
         this.telefono = telefono;
         this.fecha = fecha;
     }
 
-    public Resident(String nombreResidente, String rut, String telefono, String email, String fecha) {
+    public Residente(String nombreResidente, String rut, String telefono, String email, String fecha) {
         this.nombre = nombreResidente;
         this.rut = rut;
         this.telefono = telefono;

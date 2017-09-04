@@ -12,15 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.data.LocalDatabase;
+import com.zecovery.android.zemedidores.models.TestParte2;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT_EXECUTE_TEST_2;
 import static com.zecovery.android.zemedidores.data.Constant.TAG;
 
-public class ExecuteTestPart2Fragment extends Fragment implements TestResultsCallback, View.OnClickListener {
+public class ExecuteTestPart2Fragment extends Fragment implements View.OnClickListener {
 
     private RadioButton classARadioButton;
     private RadioButton classBRadioButton;
@@ -54,6 +55,8 @@ public class ExecuteTestPart2Fragment extends Fragment implements TestResultsCal
 
     private TokenListener callback;
 
+    private LocalDatabase db;
+
     public ExecuteTestPart2Fragment() {
     }
 
@@ -78,6 +81,9 @@ public class ExecuteTestPart2Fragment extends Fragment implements TestResultsCal
         findViews(view);
         Log.d(TAG, "ExecuteTestPart2Fragment");
         Log.d(TAG, "token: " + token);
+
+        db = new LocalDatabase(getContext());
+
         saveButton.setOnClickListener(this);
     }
 
@@ -133,66 +139,89 @@ public class ExecuteTestPart2Fragment extends Fragment implements TestResultsCal
     @Override
     public void onClick(View v) {
 
+        TestParte2 test = new TestParte2();
+
         if (classARadioButton.isChecked()) {
-
+            test.setClaseMedidor("A");
         } else if (classBRadioButton.isChecked()) {
-
+            test.setClaseMedidor("B");
+        } else if (classCRadioButton.isChecked()) {
+            test.setClaseMedidor("C");
         } else {
-
+            test.setClaseMedidor("No envia informacion");
         }
 
         String year = yearEditText.getText().toString();
-        String model = modelEditText.getText().toString();
+        test.setAnoMedidor(year);
 
+        String marca = modelEditText.getText().toString();
+        test.setMarca(marca);
 
         if (registerType1RadioButton.isChecked()) {
-
+            test.setRegistrador("CuVi");
+        } else if (registerType2RadioButton.isChecked()) {
+            test.setRegistrador("Plastico");
         } else {
-
+            test.setRegistrador("No envia informacion");
         }
 
         if (position1RadioButton.isChecked()) {
-
+            test.setInstalacion("Aerea");
+        } else if (position2RadioButton.isChecked()) {
+            test.setInstalacion("Subterranea");
         } else {
-
+            test.setInstalacion("No envia informacion");
         }
 
         if (beforeYesRadioButton.isChecked()) {
-
+            test.setTramoAntes("SI");
+        } else if (beforeNoRadioButton.isChecked()) {
+            test.setTramoAntes("NO");
         } else {
-
+            test.setTramoAntes("No envia informacion");
         }
 
 
         if (afterYesRadioButton.isChecked()) {
-
+            test.setTramoDespues("SI");
+        } else if (afterNoRadioButton.isChecked()) {
+            test.setTramoDespues("NO");
         } else {
-
+            test.setTramoDespues("No envia informacion");
         }
 
+        String obs1 = obs1EditText.getText().toString();
+        test.setObservaciones(obs1);
+
+
+        String verticales = verticalStatusEditText.getText().toString();
+        test.setEstadoVerticales(verticales);
+
+        String cortes = cutStatusEditText.getText().toString();
+        test.setEstadoCortes(cortes);
+
+
         if (alternativeYesRadioButton.isChecked()) {
-
+            test.setSuministroAlternativo("SI");
+        } else if (alternativeNoRadioButton.isChecked()) {
+            test.setSuministroAlternativo("NO");
         } else {
-
+            test.setSuministroAlternativo("No envia informacion");
         }
 
         if (typeYesRadioButton.isChecked()) {
-
+            test.setCumplePlano("SI");
+        } else if (typeNoRadioButton.isChecked()) {
+            test.setCumplePlano("NO");
         } else {
-
+            test.setCumplePlano("No envia informacion");
         }
 
-        callback.tokenToExecuteTestPart3(token);
-        //new SendTestResults(this).save(token);
-    }
+        String obs2 = obs2EditText.getText().toString();
+        test.setObservaciones2(obs2);
 
-    @Override
-    public void resultsSaved() {
-        callback.tokenToExecuteTestPart3(token);
-    }
+        db.guardaDatosTestParte2(test, token);
 
-    @Override
-    public void resultsNotSaved() {
-        Toast.makeText(getContext(), R.string.test_results_save_error, Toast.LENGTH_SHORT).show();
+        callback.tokenToExecuteTestPart3(token);
     }
 }
