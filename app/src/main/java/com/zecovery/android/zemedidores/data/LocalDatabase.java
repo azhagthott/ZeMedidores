@@ -268,21 +268,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void createAssignmnet() {
-    }
-
-    public void insertAssignment() {
-    }
-
-    public void deleteAssignment() {
-    }
-
-    public void updateAssignment() {
-    }
-
-    public void getAssignment(int idAssignment) {
-    }
-
     /* Current location*/
     public void guardaUbicacionActual(double lat, double lng) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -433,6 +418,41 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
+
+
+    public Foto getFotos(int idInspeccion) {
+
+        Foto fotos = new Foto();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+                        {
+                                RESULT_TEST_FOTO_RECHAZO,
+                                RESULT_TEST_FOTO_FALLA_MEDIDOR,
+                                RESULT_TEST_FOTO_LECTURA_MEDIDOR,
+                                RESULT_TEST_FOTO_NUMERO_MEDIDOR,
+                                RESULT_TEST_FOTO_PANO_MEDIDOR,
+                                RESULT_TEST_FOTO_NUMERO_PROPIEDAD,
+                                RESULT_TEST_FOTO_FACHADA_PROPIEDAD,
+                        }
+                , RESULT_ID_INSPECCION + "=?",
+                new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        fotos.setRechazoInspeccion(cursor.getString(0));
+        fotos.setFallaMedidor(cursor.getString(1));
+        fotos.setLecturaMedidor(cursor.getString(2));
+        fotos.setNumeroMedidor(cursor.getString(3));
+        fotos.setPanoramicaMedidor(cursor.getString(4));
+        fotos.setNumeroPropiedad(cursor.getString(5));
+        fotos.setFachadaPropiedad(cursor.getString(6));
+
+        return fotos;
+
+    }
+
 
     public ResultadoInspeccion getResultadoInspeccion(int idInspeccion) {
 

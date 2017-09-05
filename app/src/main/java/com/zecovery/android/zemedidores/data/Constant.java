@@ -52,16 +52,11 @@ public class Constant {
     public static final String PAYMENT_METHOD_3 = "TC";
     public static final String PAYMENT_METHOD_4 = "TRANS";
 
-
     /* Retrofit */
-    public static final String URL_BASE_DESA = "http://medidores.desa.zecovery.com";
-
+    public static final String URL_BASE_DESA = "http://medidores.demo.zecovery.com";
 
     /* network*/
     public static final int TIME_OUT = 60;
     public static final int READ_TIME_OUT = 60;
     public static final int WRITE_TIME_OUT = 60;
-
-
-
 }

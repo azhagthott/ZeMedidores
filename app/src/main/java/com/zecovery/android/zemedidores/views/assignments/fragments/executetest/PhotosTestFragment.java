@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
@@ -71,6 +72,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     private String photoName;
     private String localPhotoName;
     private String localPath;
+    private boolean medidorDescompuesto = true;
 
     public PhotosTestFragment() {
     }
@@ -184,6 +186,8 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
         if (negativeRadioButton.isChecked()) {
 
+            medidorDescompuesto = false;
+
             Medidor medidor = new Medidor();
 
             switch (id) {
@@ -224,6 +228,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
             switch (id) {
 
                 case R.id.brokenMeterPhoto:
+                    medidorDescompuesto = true;
                     photoName = "medidor_descompuesto";
                     callCamera(photoName);
                     break;
@@ -251,7 +256,6 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
     private Intent callCamera(String photoName) {
 
-        //continueTestButton.setVisibility(View.VISIBLE);
         this.photoName = photoName;
 
         String[] permissions = new String[]{
@@ -274,6 +278,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         magicalCamera.resultPhoto(requestCode, resultCode, data);
 
         try {
+
             localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), photoName, token + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
             String localPathParts[] = localPath.split("/");
             localPhotoName = localPathParts[7];
@@ -282,6 +287,14 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
             Foto foto = new Foto();
 
             switch (photoName) {
+
+                case "medidor_descompuesto":
+                    medidor.setFotoFalla(localPhotoName);
+                    foto.setFallaMedidor(localPath);
+                    db.guardaFotos(foto, token);
+                    Log.d("TAG", "localPath: " + localPath);
+                    Log.d("TAG", "onActivityResult: " + localPhotoName);
+                    break;
                 case "lectura_medidor":
                     medidor.setFotoLectura(localPhotoName);
                     foto.setLecturaMedidor(localPath);
@@ -324,44 +337,18 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         } catch (Exception e) {
             Log.d("TAG", "onActivityResult: " + e);
         }
-    }
 
-    private void post(String meterLocation, String failureComment, String localPath) {
-
-        File file = new File(localPath);
-
-        RequestBody lat = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().latitude));
-        RequestBody lng = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().longitude));
-
-        Calendar rightNow = Calendar.getInstance();
-        int fechaAcutal = (int) (rightNow.getTimeInMillis() / 1000);
-        RequestBody fecha = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fechaAcutal));
-
-        RequestBody status = RequestBody.create(MediaType.parse("multipart/form-data"), "medidor_descompuesto");
-        RequestBody idInspeccionBody = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(token));
-        RequestBody comment = RequestBody.create(MediaType.parse("multipart/form-data"), failureComment);
-        RequestBody meterLocationBody = RequestBody.create(MediaType.parse("multipart/form-data"), meterLocation);
-
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("foto_rechazo", photoName, requestFile);
-
-        List<MultipartBody.Part> bodies = new ArrayList<>();
-        bodies.add(body);
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
-        PostResult service = retrofit.create(PostResult.class);
-
-        Call<ResponseBody> call = service.postMeterStatus(status, idInspeccionBody, meterLocationBody, comment, lat, lng, fecha, bodies);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.i("LOG_TAG", "success");
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("LOG_TAG", t.getMessage());
-            }
-        });
+        if (positiveRadioButton.isChecked() && db.getFotos(token).getFallaMedidor().length() > 0) {
+            continueTestButton.setVisibility(View.VISIBLE);
+        } else if (negativeRadioButton.isChecked() &&
+                db.getFotos(token).getLecturaMedidor().length() > 0 &&
+                db.getFotos(token).getNumeroMedidor().length() > 0 &&
+                db.getFotos(token).getPanoramicaMedidor().length() > 0 &&
+                db.getFotos(token).getNumeroPropiedad().length() > 0 &&
+                db.getFotos(token).getFachadaPropiedad().length() > 0) {
+            continueTestButton.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(getContext(), "Asegurese de sacar las fotos que corresponden", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -98,7 +98,6 @@ public interface PostResult {
             @Part("telefono_residente") RequestBody telefono_residente_body,
             @Part("email_residente") RequestBody email_residente_body,
             @Part("fecha_residente") RequestBody fecha_residente_body,
-            @Part MultipartBody.Part foto_rechazo_inspeccion,
             @Part MultipartBody.Part foto_falla_medidor,
             @Part MultipartBody.Part foto_lectura_medidor,
             @Part MultipartBody.Part foto_numero_medidor,
