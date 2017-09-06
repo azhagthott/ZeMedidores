@@ -23,12 +23,12 @@ import static com.zecovery.android.zemedidores.data.Constant.ID_ASSIGNMENT;
 public class ResidentialFormFragment extends Fragment implements View.OnClickListener, SaveResidentialForm {
 
     private Button saveButton;
-    private EditText residentName;
-    private EditText residentRut;
-    private EditText residentPhone;
-    private EditText residentEmail;
-    private EditText residentDate;
-    private TextView polygonTextView;
+    private EditText nombreResidente;
+    private EditText rutResidente;
+    private EditText telefonoResidente;
+    private EditText emailResidente;
+    private EditText fechaResidente;
+    private TextView poligonoSocialResidente;
 
     private int token;
     private TokenListener tokenCallback;
@@ -58,28 +58,12 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
         saveButton = view.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
 
-        residentName = view.findViewById(R.id.residentName);
-        residentRut = view.findViewById(R.id.residentRut);
-        residentPhone = view.findViewById(R.id.residentPhone);
-        residentEmail = view.findViewById(R.id.residentEmail);
-        residentDate = view.findViewById(R.id.residentDate);
-        polygonTextView = view.findViewById(R.id.polygonTextView);
-
-        if (residentName.getText().length() == 0) {
-            residentName.setError("Debe ingresar el nombre del residente");
-        }
-        if (residentRut.getText().length() == 0) {
-            residentRut.setError("Debe ingresar el RUT del residente");
-        }
-
-        if (residentPhone.getText().length() == 0) {
-            residentPhone.setError("Debe ingresar telefono de contacto del residente");
-        }
-
-        if (residentDate.getText().length() == 0) {
-            residentDate.setError("Debe ingresar fecha desde que habita la propiedad");
-        }
-
+        nombreResidente = view.findViewById(R.id.nombreResidente);
+        rutResidente = view.findViewById(R.id.rutResidente);
+        telefonoResidente = view.findViewById(R.id.telefonoResidente);
+        emailResidente = view.findViewById(R.id.emailResidente);
+        fechaResidente = view.findViewById(R.id.fechaResidente);
+        poligonoSocialResidente = view.findViewById(R.id.poligonoSocialResidente);
         token = getArguments().getInt(ID_ASSIGNMENT, 0);
     }
 
@@ -103,14 +87,49 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-        Residente resident = new Residente();
-        resident.setNombre(residentName.getText().toString());
-        resident.setRut(residentRut.getText().toString());
-        resident.setTelefono(residentPhone.getText().toString());
-        resident.setEmail(residentEmail.getText().toString());
-        resident.setFecha(residentDate.getText().toString());
+        boolean errorNombre;
+        boolean errorRut;
+        boolean errorTelefono;
+        boolean errorFecha;
 
-        new GuardaDatosResidente(this, getContext()).guardaDatos(resident, token);
+        if (nombreResidente.getText().length() == 0) {
+            errorNombre = true;
+            nombreResidente.setError("Debe ingresar el nombre del residente");
+        } else {
+            errorNombre = false;
+        }
+        if (rutResidente.getText().length() == 0) {
+            errorRut = true;
+            rutResidente.setError("Debe ingresar el RUT del residente");
+        } else {
+            errorRut = false;
+        }
+
+        if (telefonoResidente.getText().length() == 0) {
+            errorTelefono = true;
+            telefonoResidente.setError("Debe ingresar telefono de contacto del residente");
+        } else {
+            errorTelefono = false;
+        }
+
+        if (fechaResidente.getText().length() == 0) {
+            errorFecha = true;
+            fechaResidente.setError("Debe ingresar fecha desde que habita la propiedad");
+        } else {
+            errorFecha = false;
+        }
+
+        if (!errorNombre && !errorRut && !errorTelefono && !errorFecha) {
+            Residente resident = new Residente();
+            resident.setNombreResidente(nombreResidente.getText().toString());
+            resident.setRutResidente(rutResidente.getText().toString());
+            resident.setTelefonoResidente(telefonoResidente.getText().toString());
+            resident.setEmailResidente(emailResidente.getText().toString());
+            resident.setFechaResidente(fechaResidente.getText().toString());
+            new GuardaDatosResidente(this, getContext()).guardaDatos(resident, token);
+        } else {
+            Toast.makeText(getContext(), "Complete los campos obligatorios", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

@@ -26,7 +26,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/residentName"
+            android:id="@+id/nombreResidente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -38,7 +38,7 @@
             android:paddingStart="4dp" />
 
         <EditText
-            android:id="@+id/residentRut"
+            android:id="@+id/rutResidente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -50,7 +50,7 @@
             android:paddingStart="4dp" />
 
         <EditText
-            android:id="@+id/residentPhone"
+            android:id="@+id/telefonoResidente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -60,7 +60,7 @@
             android:paddingStart="4dp" />
 
         <EditText
-            android:id="@+id/residentEmail"
+            android:id="@+id/emailResidente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -90,7 +90,7 @@
             android:visibility="gone" />
 
         <EditText
-            android:id="@+id/residentDate"
+            android:id="@+id/fechaResidente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

@@ -6,67 +6,52 @@ package com.zecovery.android.zemedidores.models;
 
 public class Residente {
 
-    private String nombre;
-    private String rut;
-    private String telefono;
-    private String email;
-    private String fecha;
+    private String nombreResidente;
+    private String rutResidente;
+    private String telefonoResidente;
+    private String emailResidente;
+    private String fechaResidente;
 
     public Residente() {
     }
 
-    public Residente(String nombreResidente, String rut, String telefono, String fecha) {
-        this.nombre = nombreResidente;
-        this.rut = rut;
-        this.telefono = telefono;
-        this.fecha = fecha;
+    public String getNombreResidente() {
+        return nombreResidente;
     }
 
-    public Residente(String nombreResidente, String rut, String telefono, String email, String fecha) {
-        this.nombre = nombreResidente;
-        this.rut = rut;
-        this.telefono = telefono;
-        this.email = email;
-        this.fecha = fecha;
+    public void setNombreResidente(String nombreResidente) {
+        this.nombreResidente = nombreResidente;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getRutResidente() {
+        return rutResidente;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setRutResidente(String rutResidente) {
+        this.rutResidente = rutResidente;
     }
 
-    public String getRut() {
-        return rut;
+    public String getTelefonoResidente() {
+        return telefonoResidente;
     }
 
-    public void setRut(String rut) {
-        this.rut = rut;
+    public void setTelefonoResidente(String telefonoResidente) {
+        this.telefonoResidente = telefonoResidente;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getEmailResidente() {
+        return emailResidente;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setEmailResidente(String emailResidente) {
+        this.emailResidente = emailResidente;
     }
 
-    public String getEmail() {
-        return email;
+    public String getFechaResidente() {
+        return fechaResidente;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFechaResidente(String fechaResidente) {
+        this.fechaResidente = fechaResidente;
     }
 }

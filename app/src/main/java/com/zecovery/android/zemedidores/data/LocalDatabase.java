@@ -25,7 +25,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 113;
+    private static final int DB_VERSION = 122;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -126,6 +126,10 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_TELEFONO_RESIDENTE = "telefono_residente";
     private static final String RESULT_TEST_EMAIL_RESIDENTE = "email_residente";
     private static final String RESULT_TEST_FECHA_RESIDENTE = "fecha_residente";
+    private static final String RESULT_TEST_FOTO_INTERVENCION_RED = "foto_intervencion_red";
+    private static final String RESULT_TEST_FOTO_BYPASS = "foto_bypass";
+    private static final String RESULT_TEST_OTRO = "foto_otro";
+
 
     public LocalDatabase(Context context) {
         super(context, DB_MANE, null, DB_VERSION);
@@ -225,7 +229,10 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_RUT_RESIDENTE + " TEXT, "
                 + RESULT_TEST_TELEFONO_RESIDENTE + " TEXT, "
                 + RESULT_TEST_EMAIL_RESIDENTE + " TEXT, "
-                + RESULT_TEST_FECHA_RESIDENTE + " TEXT)"
+                + RESULT_TEST_FECHA_RESIDENTE + " TEXT, "
+                + RESULT_TEST_FOTO_INTERVENCION_RED + " TEXT, "
+                + RESULT_TEST_FOTO_BYPASS + " TEXT, "
+                + RESULT_TEST_OTRO + " TEXT)"
                 + ";";
 
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
@@ -304,11 +311,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
-        values.put(RESULT_TEST_NOMBRE_RESIDENTE, String.valueOf(residente.getNombre()));
-        values.put(RESULT_TEST_RUT_RESIDENTE, String.valueOf(residente.getRut()));
-        values.put(RESULT_TEST_TELEFONO_RESIDENTE, String.valueOf(residente.getTelefono()));
-        values.put(RESULT_TEST_EMAIL_RESIDENTE, String.valueOf(residente.getEmail()));
-        values.put(RESULT_TEST_FECHA_RESIDENTE, String.valueOf(residente.getFecha()));
+        values.put(RESULT_TEST_NOMBRE_RESIDENTE, String.valueOf(residente.getNombreResidente()));
+        values.put(RESULT_TEST_RUT_RESIDENTE, String.valueOf(residente.getRutResidente()));
+        values.put(RESULT_TEST_TELEFONO_RESIDENTE, String.valueOf(residente.getTelefonoResidente()));
+        values.put(RESULT_TEST_EMAIL_RESIDENTE, String.valueOf(residente.getEmailResidente()));
+        values.put(RESULT_TEST_FECHA_RESIDENTE, String.valueOf(residente.getFechaResidente()));
 
         db.insert(TABLE_INSPECTION_RESULT, null, values);
         db.close();
@@ -322,12 +329,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_METER_LOCATION, String.valueOf(medidor.getUbicacion()));
         values.put(RESULT_METER_STATUS, String.valueOf(medidor.getEstado()));
         values.put(RESULT_METER_OBS, String.valueOf(medidor.getDescripcionFalla()));
-        values.put(RESULT_BROKEN_METER_PHOTO, String.valueOf(medidor.getFotoFalla()));
-        values.put(RESULT_METER_LECTURE_PHOTO, String.valueOf(medidor.getFotoLectura()));
-        values.put(RESULT_METER_NUMBER_PHOTO, String.valueOf(medidor.getFotoNumeroMedidor()));
-        values.put(RESULT_METER_PANO_PHOTO, String.valueOf(medidor.getFotoPanoramica()));
-        values.put(RESULT_METER_NUMBER_PROP_PHOTO, String.valueOf(medidor.getFotoNumeroPropiedad()));
-        values.put(RESULT_FACE_PHOTO, String.valueOf(medidor.getFotoFachada()));
 
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
@@ -406,19 +407,53 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void guardaFotos(Foto foto, int idInspeccion) {
+    public void guardaFoto(Foto foto, int idInspeccion) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(RESULT_TEST_FOTO_FALLA_MEDIDOR, String.valueOf(foto.getFallaMedidor()));
-        values.put(RESULT_TEST_FOTO_LECTURA_MEDIDOR, String.valueOf(foto.getLecturaMedidor()));
-        values.put(RESULT_TEST_FOTO_NUMERO_MEDIDOR, String.valueOf(foto.getNumeroMedidor()));
-        values.put(RESULT_TEST_FOTO_PANO_MEDIDOR, String.valueOf(foto.getPanoramicaMedidor()));
-        values.put(RESULT_TEST_FOTO_NUMERO_PROPIEDAD, String.valueOf(foto.getNumeroPropiedad()));
-        values.put(RESULT_TEST_FOTO_FACHADA_PROPIEDAD, String.valueOf(foto.getFachadaPropiedad()));
+
+        if (String.valueOf(foto.getRechazoInspeccion()).length()>10) {
+            values.put(RESULT_TEST_FOTO_RECHAZO, String.valueOf(foto.getRechazoInspeccion()));
+        }
+
+        if (String.valueOf(foto.getFallaMedidor()).length()>10) {
+            values.put(RESULT_TEST_FOTO_FALLA_MEDIDOR, String.valueOf(foto.getFallaMedidor()));
+        }
+
+        if (String.valueOf(foto.getLecturaMedidor()).length()>10) {
+            values.put(RESULT_TEST_FOTO_LECTURA_MEDIDOR, String.valueOf(foto.getLecturaMedidor()));
+        }
+
+        if (String.valueOf(foto.getNumeroMedidor()).length()>10) {
+            values.put(RESULT_TEST_FOTO_NUMERO_MEDIDOR, String.valueOf(foto.getNumeroMedidor()));
+        }
+
+        if (String.valueOf(foto.getPanoramicaMedidor()).length()>10) {
+            values.put(RESULT_TEST_FOTO_PANO_MEDIDOR, String.valueOf(foto.getPanoramicaMedidor()));
+        }
+
+        if (String.valueOf(foto.getNumeroPropiedad()).length()>10) {
+            values.put(RESULT_TEST_FOTO_NUMERO_PROPIEDAD, String.valueOf(foto.getNumeroPropiedad()));
+        }
+
+        if (String.valueOf(foto.getFachadaPropiedad()).length()>10) {
+            values.put(RESULT_TEST_FOTO_FACHADA_PROPIEDAD, String.valueOf(foto.getFachadaPropiedad()));
+        }
+
+        if (String.valueOf(foto.getIntervencionRed()).length()>10) {
+            values.put(RESULT_TEST_FOTO_INTERVENCION_RED, String.valueOf(foto.getIntervencionRed()));
+        }
+
+        if (String.valueOf(foto.getBypass()).length()>10) {
+            values.put(RESULT_TEST_FOTO_BYPASS, String.valueOf(foto.getBypass()));
+        }
+
+        if (String.valueOf(foto.getOtro()).length()>10) {
+            values.put(RESULT_TEST_OTRO, String.valueOf(foto.getOtro()));
+        }
+
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
-
 
     public Foto getFotos(int idInspeccion) {
 
@@ -434,6 +469,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_FOTO_PANO_MEDIDOR,
                                 RESULT_TEST_FOTO_NUMERO_PROPIEDAD,
                                 RESULT_TEST_FOTO_FACHADA_PROPIEDAD,
+                                RESULT_TEST_FOTO_INTERVENCION_RED,
+                                RESULT_TEST_FOTO_BYPASS,
+                                RESULT_TEST_OTRO
                         }
                 , RESULT_ID_INSPECCION + "=?",
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
@@ -448,25 +486,44 @@ public class LocalDatabase extends SQLiteOpenHelper {
         fotos.setPanoramicaMedidor(cursor.getString(4));
         fotos.setNumeroPropiedad(cursor.getString(5));
         fotos.setFachadaPropiedad(cursor.getString(6));
-
+        fotos.setIntervencionRed(cursor.getString(7));
+        fotos.setBypass(cursor.getString(8));
+        fotos.setOtro(cursor.getString(9));
         return fotos;
 
     }
 
-
     public ResultadoInspeccion getResultadoInspeccion(int idInspeccion) {
 
         ResultadoInspeccion resultado = new ResultadoInspeccion();
+        Residente residente = new Residente();
+        Foto fotos = new Foto();
         TestParte1 testParte1 = new TestParte1();
         TestParte2 testParte2 = new TestParte2();
         TestParte3 testParte3 = new TestParte3();
-        Foto fotos = new Foto();
-        Residente residente = new Residente();
+
 
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
                         {
+                                RESULT_TEST_NOMBRE_RESIDENTE,
+                                RESULT_TEST_RUT_RESIDENTE,
+                                RESULT_TEST_TELEFONO_RESIDENTE,
+                                RESULT_TEST_EMAIL_RESIDENTE,
+                                RESULT_TEST_FECHA_RESIDENTE,
+
+                                RESULT_TEST_FOTO_RECHAZO,
+                                RESULT_TEST_FOTO_FALLA_MEDIDOR,
+                                RESULT_TEST_FOTO_LECTURA_MEDIDOR,
+                                RESULT_TEST_FOTO_NUMERO_MEDIDOR,
+                                RESULT_TEST_FOTO_PANO_MEDIDOR,
+                                RESULT_TEST_FOTO_NUMERO_PROPIEDAD,
+                                RESULT_TEST_FOTO_FACHADA_PROPIEDAD,
+                                RESULT_TEST_FOTO_INTERVENCION_RED,
+                                RESULT_TEST_FOTO_BYPASS,
+                                RESULT_TEST_OTRO,
+
                                 RESULT_TEST_1,
                                 RESULT_TEST_2,
                                 RESULT_TEST_3,
@@ -509,19 +566,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_CAPACIDAD_BOMBA,
                                 RESULT_TEST_RESOLUCION,
                                 RESULT_TEST_CAUDAL,
-                                RESULT_TEST_OBS_4,
-                                RESULT_TEST_FOTO_RECHAZO,
-                                RESULT_TEST_FOTO_FALLA_MEDIDOR,
-                                RESULT_TEST_FOTO_LECTURA_MEDIDOR,
-                                RESULT_TEST_FOTO_NUMERO_MEDIDOR,
-                                RESULT_TEST_FOTO_PANO_MEDIDOR,
-                                RESULT_TEST_FOTO_NUMERO_PROPIEDAD,
-                                RESULT_TEST_FOTO_FACHADA_PROPIEDAD,
-                                RESULT_TEST_NOMBRE_RESIDENTE,
-                                RESULT_TEST_RUT_RESIDENTE,
-                                RESULT_TEST_TELEFONO_RESIDENTE,
-                                RESULT_TEST_EMAIL_RESIDENTE,
-                                RESULT_TEST_FECHA_RESIDENTE
+                                RESULT_TEST_OBS_4
+
                         }
                 , RESULT_ID_INSPECCION + "=?",
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
@@ -529,73 +575,75 @@ public class LocalDatabase extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
-        testParte1.setTest1(cursor.getString(0));
-        testParte1.setTest2(cursor.getString(1));
-        testParte1.setTest3(cursor.getString(2));
-        testParte1.setUsoImanes(cursor.getString(3));
-        testParte1.setInvertirTomas(cursor.getString(4));
-        testParte1.setPerforaCupula(cursor.getString(5));
-        testParte1.setCortaEngranaje(cursor.getString(6));
-        testParte1.setUsoAlambres(cursor.getString(7));
-        testParte1.setPrensado(cursor.getString(8));
-        testParte1.setOtro(cursor.getString(9));
-        testParte1.setInstalacionParalela(cursor.getString(10));
-        testParte1.setBypass(cursor.getString(11));
-        testParte1.setOtro2(cursor.getString(12));
+        residente.setNombreResidente(cursor.getString(0));
+        residente.setRutResidente(cursor.getString(1));
+        residente.setTelefonoResidente(cursor.getString(2));
+        residente.setEmailResidente(cursor.getString(3));
+        residente.setFechaResidente(cursor.getString(4));
 
-        testParte2.setClaseMedidor(cursor.getString(13));
-        testParte2.setAnoMedidor(cursor.getString(14));
-        testParte2.setMarca(cursor.getString(15));
-        testParte2.setRegistrador(cursor.getString(16));
-        testParte2.setInstalacion(cursor.getString(17));
-        testParte2.setTramoAntes(cursor.getString(18));
-        testParte2.setTramoDespues(cursor.getString(19));
-        testParte2.setObservaciones(cursor.getString(20));
-        testParte2.setEstadoVerticales(cursor.getString(21));
-        testParte2.setEstadoCortes(cursor.getString(22));
-        testParte2.setSuministroAlternativo(cursor.getString(23));
-        testParte2.setCumplePlano(cursor.getString(24));
-        testParte2.setObservaciones2(cursor.getString(25));
+        fotos.setRechazoInspeccion(cursor.getString(5));
+        fotos.setFallaMedidor(cursor.getString(6));
+        fotos.setLecturaMedidor(cursor.getString(7));
+        fotos.setNumeroMedidor(cursor.getString(8));
+        fotos.setPanoramicaMedidor(cursor.getString(9));
+        fotos.setNumeroPropiedad(cursor.getString(10));
+        fotos.setFachadaPropiedad(cursor.getString(11));
+        fotos.setIntervencionRed(cursor.getString(12));
+        fotos.setBypass(cursor.getString(13));
+        fotos.setOtro(cursor.getString(14));
 
-        testParte3.setConstruccionNueva(cursor.getString(26));
-        testParte3.setTipoPropiedad(cursor.getString(27));
-        testParte3.setHabitantes(cursor.getString(28));
-        testParte3.setBanos(cursor.getString(29));
-        testParte3.setSuperficieEdificada(cursor.getString(30));
-        testParte3.setSuperficieJardin(cursor.getString(31));
-        testParte3.setAcceso(cursor.getString(32));
-        testParte3.setSuperficieTerreno(cursor.getString(33));
-        testParte3.setObservaciones1(cursor.getString(34));
-        testParte3.setAutoAbastecimiento(cursor.getString(35));
-        testParte3.setTipoFuente(cursor.getString(36));
-        testParte3.setUso(cursor.getString(37));
-        testParte3.setActivo(cursor.getString(38));
-        testParte3.setCapacidadBomba(cursor.getString(39));
-        testParte3.setResolucion(cursor.getString(40));
-        testParte3.setCaudal(cursor.getString(41));
-        testParte3.setObservaciones2(cursor.getString(42));
+        testParte1.setTest1(cursor.getString(15));
+        testParte1.setTest2(cursor.getString(16));
+        testParte1.setTest3(cursor.getString(17));
+        testParte1.setUsoImanes(cursor.getString(18));
+        testParte1.setInvertirTomas(cursor.getString(19));
+        testParte1.setPerforaCupula(cursor.getString(20));
+        testParte1.setCortaEngranaje(cursor.getString(21));
+        testParte1.setUsoAlambres(cursor.getString(22));
+        testParte1.setPrensado(cursor.getString(23));
+        testParte1.setOtro(cursor.getString(24));
+        testParte1.setInstalacionParalela(cursor.getString(25));
+        testParte1.setBypass(cursor.getString(26));
+        testParte1.setOtro2(cursor.getString(27));
 
-        fotos.setFallaMedidor(cursor.getString(43));
-        fotos.setLecturaMedidor(cursor.getString(44));
-        fotos.setNumeroMedidor(cursor.getString(45));
-        fotos.setPanoramicaMedidor(cursor.getString(46));
-        fotos.setNumeroPropiedad(cursor.getString(47));
-        fotos.setFachadaPropiedad(cursor.getString(48));
+        testParte2.setClaseMedidor(cursor.getString(28));
+        testParte2.setAnoMedidor(cursor.getString(29));
+        testParte2.setMarca(cursor.getString(30));
+        testParte2.setRegistrador(cursor.getString(31));
+        testParte2.setInstalacion(cursor.getString(32));
+        testParte2.setTramoAntes(cursor.getString(33));
+        testParte2.setTramoDespues(cursor.getString(34));
+        testParte2.setObservaciones(cursor.getString(35));
+        testParte2.setEstadoVerticales(cursor.getString(36));
+        testParte2.setEstadoCortes(cursor.getString(37));
+        testParte2.setSuministroAlternativo(cursor.getString(38));
+        testParte2.setCumplePlano(cursor.getString(39));
+        testParte2.setObservaciones2(cursor.getString(40));
 
-        residente.setNombre(cursor.getString(49));
-        residente.setRut(cursor.getString(50));
-        residente.setTelefono(cursor.getString(51));
-        residente.setEmail(cursor.getString(52));
-        residente.setFecha(cursor.getString(53));
+        testParte3.setConstruccionNueva(cursor.getString(41));
+        testParte3.setTipoPropiedad(cursor.getString(42));
+        testParte3.setHabitantes(cursor.getString(43));
+        testParte3.setBanos(cursor.getString(44));
+        testParte3.setSuperficieEdificada(cursor.getString(45));
+        testParte3.setSuperficieJardin(cursor.getString(46));
+        testParte3.setAcceso(cursor.getString(47));
+        testParte3.setSuperficieTerreno(cursor.getString(48));
+        testParte3.setObservaciones1(cursor.getString(49));
+        testParte3.setAutoAbastecimiento(cursor.getString(50));
+        testParte3.setTipoFuente(cursor.getString(51));
+        testParte3.setUso(cursor.getString(52));
+        testParte3.setActivo(cursor.getString(53));
+        testParte3.setCapacidadBomba(cursor.getString(54));
+        testParte3.setResolucion(cursor.getString(55));
+        testParte3.setCaudal(cursor.getString(56));
+        testParte3.setObservaciones2(cursor.getString(57));
 
+        resultado.setResidente(residente);
+        resultado.setFotos(fotos);
         resultado.setTestParte1(testParte1);
         resultado.setTestParte2(testParte2);
         resultado.setTestParte3(testParte3);
-        resultado.setFotos(fotos);
-        resultado.setResidente(residente);
-
         return resultado;
-
     }
 
     public void guardaFormularioNegociacion(int idInspeccion) {

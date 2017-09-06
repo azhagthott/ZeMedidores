@@ -6,7 +6,7 @@ package com.zecovery.android.zemedidores.network;
 
 public interface RechazoCallback {
 
-    void envia();
+    void enviar();
 
     void error();
 }

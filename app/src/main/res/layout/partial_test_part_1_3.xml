@@ -12,23 +12,28 @@
         android:text="@string/execute_test_title_2"
         android:textSize="18sp" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:layout_toStartOf="@+id/radioGroup"
             android:padding="8dp"
             android:text="@string/execute_test_2_option_1"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/intervensionRedFoto"
             android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -49,25 +54,42 @@
 
         </RadioGroup>
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/intervensionRedFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/ic_photo_camera_black_24"
+            android:visibility="visible" />
 
-    <LinearLayout
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:layout_toStartOf="@+id/radioGroup2"
             android:padding="8dp"
             android:text="@string/execute_test_2_option_2"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:id="@+id/radioGroup2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bypassFoto"
+            android:layout_toStartOf="@+id/bypassFoto"
             android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -88,9 +110,20 @@
 
         </RadioGroup>
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/bypassFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/ic_photo_camera_black_24"
+            android:visibility="visible" />
 
-    <LinearLayout
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -99,14 +132,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:layout_toStartOf="@+id/radioGroup3"
             android:padding="8dp"
             android:text="@string/execute_test_2_option_3"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:id="@+id/radioGroup3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/otroFoto"
             android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -127,6 +166,17 @@
 
         </RadioGroup>
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/otroFoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/ic_photo_camera_black_24"
+            android:visibility="visible" />
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -13,8 +13,12 @@ public class Foto {
     private String panoramicaMedidor;
     private String numeroPropiedad;
     private String fachadaPropiedad;
+    private String intervencionRed;
+    private String bypass;
+    private String otro;
 
     public Foto() {
+
     }
 
     public String getRechazoInspeccion() {
@@ -71,5 +75,29 @@ public class Foto {
 
     public void setFachadaPropiedad(String fachadaPropiedad) {
         this.fachadaPropiedad = fachadaPropiedad;
+    }
+
+    public String getIntervencionRed() {
+        return intervencionRed;
+    }
+
+    public void setIntervencionRed(String intervencionRed) {
+        this.intervencionRed = intervencionRed;
+    }
+
+    public String getBypass() {
+        return bypass;
+    }
+
+    public void setBypass(String bypass) {
+        this.bypass = bypass;
+    }
+
+    public String getOtro() {
+        return otro;
+    }
+
+    public void setOtro(String otro) {
+        this.otro = otro;
     }
 }

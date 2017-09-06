@@ -148,7 +148,7 @@ public class ExecuteTestPart2Fragment extends Fragment implements View.OnClickLi
         } else if (classCRadioButton.isChecked()) {
             test.setClaseMedidor("C");
         } else {
-            test.setClaseMedidor("No envia informacion");
+            test.setClaseMedidor("No enviar informacion");
         }
 
         String year = yearEditText.getText().toString();
@@ -162,7 +162,7 @@ public class ExecuteTestPart2Fragment extends Fragment implements View.OnClickLi
         } else if (registerType2RadioButton.isChecked()) {
             test.setRegistrador("Plastico");
         } else {
-            test.setRegistrador("No envia informacion");
+            test.setRegistrador("No enviar informacion");
         }
 
         if (position1RadioButton.isChecked()) {
@@ -170,7 +170,7 @@ public class ExecuteTestPart2Fragment extends Fragment implements View.OnClickLi
         } else if (position2RadioButton.isChecked()) {
             test.setInstalacion("Subterranea");
         } else {
-            test.setInstalacion("No envia informacion");
+            test.setInstalacion("No enviar informacion");
         }
 
         if (beforeYesRadioButton.isChecked()) {
@@ -178,7 +178,7 @@ public class ExecuteTestPart2Fragment extends Fragment implements View.OnClickLi
         } else if (beforeNoRadioButton.isChecked()) {
             test.setTramoAntes("NO");
         } else {
-            test.setTramoAntes("No envia informacion");
+            test.setTramoAntes("No enviar informacion");
         }
 
 
@@ -187,7 +187,7 @@ public class ExecuteTestPart2Fragment extends Fragment implements View.OnClickLi
         } else if (afterNoRadioButton.isChecked()) {
             test.setTramoDespues("NO");
         } else {
-            test.setTramoDespues("No envia informacion");
+            test.setTramoDespues("No enviar informacion");
         }
 
         String obs1 = obs1EditText.getText().toString();
@@ -206,7 +206,7 @@ public class ExecuteTestPart2Fragment extends Fragment implements View.OnClickLi
         } else if (alternativeNoRadioButton.isChecked()) {
             test.setSuministroAlternativo("NO");
         } else {
-            test.setSuministroAlternativo("No envia informacion");
+            test.setSuministroAlternativo("No enviar informacion");
         }
 
         if (typeYesRadioButton.isChecked()) {
@@ -214,7 +214,7 @@ public class ExecuteTestPart2Fragment extends Fragment implements View.OnClickLi
         } else if (typeNoRadioButton.isChecked()) {
             test.setCumplePlano("NO");
         } else {
-            test.setCumplePlano("No envia informacion");
+            test.setCumplePlano("No enviar informacion");
         }
 
         String obs2 = obs2EditText.getText().toString();

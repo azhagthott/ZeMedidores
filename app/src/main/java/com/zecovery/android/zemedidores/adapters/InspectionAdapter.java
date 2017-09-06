@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.models.Inspection;
-import com.zecovery.android.zemedidores.views.assignments.AskActivity;
+import com.zecovery.android.zemedidores.views.assignments.MapActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +49,6 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
 
         final Inspection inspection = inspections.get(position);
 
-        Log.d("inspection", "getAssigment_type: " + inspection.getAssigment_type());
-        Log.d("inspection", "getAddress: " + inspection.getAddress());
-        Log.d("inspection", "getInspector: " + inspection.getInspector());
-        Log.d("inspection", "getId_inspeccion: " + inspection.getId_inspeccion());
-
         holder.setOrder(inspection.getOrden());
         holder.setAddress(inspection.getAddress());
         holder.setEmail(inspection.getInspector());
@@ -62,7 +57,7 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
-                Intent intent = new Intent(context, AskActivity.class);
+                Intent intent = new Intent(context, MapActivity.class);
 
                 switch (inspection.getAssigment_type()) {
                     case 1:
@@ -133,7 +128,7 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
             public void onClick(View v) {
 
                 Context context = v.getContext();
-                Intent intent = new Intent(context, AskActivity.class);
+                Intent intent = new Intent(context, MapActivity.class);
 
                 switch (assignment.getAssignment_type()) {
                     case RESIDENTIAL:

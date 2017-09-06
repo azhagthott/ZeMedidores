@@ -34,15 +34,12 @@ import static com.zecovery.android.zemedidores.data.Constant.LATITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.LONGITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENTIAL;
 
-public class AskActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, LocationListener {
-
-    private static final int LOCATION_REQUEST_CODE = 999;
+public class MapActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, LocationListener {
 
     private static final String[] LOCATION = new String[]{
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION};
 
-    private static final int RC_LOCATION = 124;
     private GoogleMap map;
 
     private LatLng mLatLng;
@@ -53,7 +50,7 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ask);
+        setContentView(R.layout.activity_map);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -81,7 +78,7 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
 
         if (getIntent().getExtras() != null) {
             addressTextView.setText(getIntent().getStringExtra(ADDRESS));
-            Log.d("AskActivity", "onResume: " + getIntent().getIntExtra(ID_ASSIGNMENT, 0));
+            Log.d("MapActivity", "onResume: " + getIntent().getIntExtra(ID_ASSIGNMENT, 0));
         }
     }
 
@@ -98,7 +95,7 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
                 assignmentType();
                 break;
             case R.id.negative:
-                Intent intent = new Intent(AskActivity.this, RejectedActivity.class);
+                Intent intent = new Intent(MapActivity.this, RejectedActivity.class);
                 intent.putExtra(ID_ASSIGNMENT, getIntent().getIntExtra(ID_ASSIGNMENT, 0));
                 startActivity(intent);
                 break;
@@ -109,7 +106,7 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
 
         if (getIntent().getExtras() != null) {
 
-            Intent intent = new Intent(AskActivity.this, AssignmentActivity.class);
+            Intent intent = new Intent(MapActivity.this, AssignmentActivity.class);
 
             switch (getIntent().getStringExtra(ASSIGNMENT_TYPE)) {
 
@@ -158,14 +155,8 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onLocationChanged(Location location) {
-
         if (location != null) {
-
-            /*Log.d("LOG_TAG", "lat: " + location.getLatitude());
-            Log.d("LOG_TAG", "lng: " + location.getLongitude());*/
-
             db.guardaUbicacionActual(location.getLatitude(), location.getLongitude());
-
             if (location.getLatitude() != 0 && location.getLongitude() != 0) {
                 mLatLng = new LatLng(location.getLatitude(), location.getLongitude());
             }
@@ -174,12 +165,10 @@ public class AskActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onStatusChanged(String s, int i, Bundle bundle) {
-
     }
 
     @Override
     public void onProviderEnabled(String s) {
-
     }
 
     @Override

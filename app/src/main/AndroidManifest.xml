@@ -50,7 +50,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".views.assignments.AskActivity"
+            android:name=".views.assignments.MapActivity"
             android:label="@string/init_inspect_title"
             android:parentActivityName=".views.MainActivity"
             android:screenOrientation="portrait"

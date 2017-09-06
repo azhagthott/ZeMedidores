@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/photoTestFragment"
     android:layout_width="match_parent"
@@ -117,20 +118,24 @@
                     android:id="@+id/brokenMeterPhoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/imageView"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/imagePreviewMedidorRoto"
                     android:background="@android:color/transparent"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_photo_camera_black_24" />
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="visible" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagePreviewMedidorRoto"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_photo_camera_black_24" />
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="invisible"
+                    app:civ_border_color="@color/gray_500"
+                    app:civ_border_width="0.5dp" />
+
 
             </RelativeLayout>
 
@@ -145,116 +150,197 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/photoMeterReading"
+                    android:padding="12dp"
                     android:text="@string/photo_test_meter_reading"
-                    android:textColor="@color/gray_500" />
+                    android:textColor="@color/gray_500"
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/photoMeterReading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/imagePreviewLecturaMedidor"
+                    android:layout_toStartOf="@+id/imagePreviewLecturaMedidor"
                     android:background="@android:color/transparent"
+                    android:padding="12dp"
                     android:src="@drawable/ic_photo_camera_black_24" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagePreviewLecturaMedidor"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="invisible"
+                    app:civ_border_color="@color/gray_500"
+                    app:civ_border_width="0.5dp" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
+                android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/photoMeterNumber"
+                    android:padding="12dp"
                     android:text="@string/photo_test_meter_number"
-                    android:textColor="@color/gray_500" />
+                    android:textColor="@color/gray_500"
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/photoMeterNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/imagePreviewNumeroMedidor"
                     android:background="@android:color/transparent"
+                    android:padding="12dp"
                     android:src="@drawable/ic_photo_camera_black_24" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagePreviewNumeroMedidor"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="invisible"
+                    app:civ_border_color="@color/gray_500"
+                    app:civ_border_width="0.5dp" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
+                android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/photoMeterPanoramic"
+                    android:padding="12dp"
                     android:text="@string/photo_test_meter_panoramic"
-                    android:textColor="@color/gray_500" />
+                    android:textColor="@color/gray_500"
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/photoMeterPanoramic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/textView3"
+                    android:layout_toStartOf="@+id/imagePreviewPanoMedidor"
                     android:background="@android:color/transparent"
+                    android:padding="12dp"
                     android:src="@drawable/ic_photo_camera_black_24" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagePreviewPanoMedidor"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="invisible"
+                    app:civ_border_color="@color/gray_500"
+                    app:civ_border_width="0.5dp" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/photoPropertyNumber"
                     android:minLines="2"
+                    android:padding="12dp"
                     android:text="@string/photo_test_property_reading"
-                    android:textColor="@color/gray_500" />
+                    android:textColor="@color/gray_500"
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/photoPropertyNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/imagePreviewNumeroPropiedad"
                     android:background="@android:color/transparent"
+                    android:padding="12dp"
                     android:src="@drawable/ic_photo_camera_black_24" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagePreviewNumeroPropiedad"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="invisible"
+                    app:civ_border_color="@color/gray_500"
+                    app:civ_border_width="0.5dp" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
+                android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/photoFrontageProperty"
+                    android:padding="12dp"
                     android:text="@string/photo_test_property_frontage"
-                    android:textColor="@color/gray_500" />
+                    android:textColor="@color/gray_500"
+                    android:textSize="18sp" />
 
                 <ImageButton
                     android:id="@+id/photoFrontageProperty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/imagePreviewFachadaPropiedad"
                     android:background="@android:color/transparent"
+                    android:padding="12dp"
                     android:src="@drawable/ic_photo_camera_black_24" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imagePreviewFachadaPropiedad"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="invisible"
+                    app:civ_border_color="@color/gray_500"
+                    app:civ_border_width="0.5dp" />
 
             </RelativeLayout>
 

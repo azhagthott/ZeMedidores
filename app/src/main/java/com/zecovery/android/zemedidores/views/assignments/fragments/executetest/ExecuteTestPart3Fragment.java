@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
@@ -69,6 +71,8 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
     private EditText dgaEditText;
     private EditText caudalEditText;
     private EditText test3Obs2EditText;
+
+    private LinearLayout abastecimientoLayout;
 
     private int token;
 
@@ -145,6 +149,30 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
 
         test3Obs1EditText = view.findViewById(R.id.test3Obs1EditText);
         test3Obs2EditText = view.findViewById(R.id.test3Obs2EditText);
+
+        abastecimientoLayout = view.findViewById(R.id.abastecimientoLayout);
+
+        autoAbastecimientoNo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    abastecimientoLayout.setVisibility(View.GONE);
+                } else {
+                    abastecimientoLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        autoAbastecimientoSi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    abastecimientoLayout.setVisibility(View.VISIBLE);
+                } else {
+                    abastecimientoLayout.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
@@ -157,7 +185,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         } else if (newBuildingNoRadioButton.isChecked()) {
             test.setConstruccionNueva("NO");
         } else {
-            test.setConstruccionNueva("No envia informacion");
+            test.setConstruccionNueva("No enviar informacion");
         }
 
         String habitantes = occupantEditText.getText().toString();
@@ -186,7 +214,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         } else if (autoAbastecimientoNo.isChecked()) {
             test.setAutoAbastecimiento("NO");
         } else {
-            test.setAutoAbastecimiento("No envia informacion");
+            test.setAutoAbastecimiento("No enviar informacion");
         }
 
         if (activoSi.isChecked()) {
@@ -194,7 +222,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         } else if (activoNo.isChecked()) {
             test.setActivo("NO");
         } else {
-            test.setActivo("No envia informacion");
+            test.setActivo("No enviar informacion");
         }
 
         String fuentePropia = sourceTypeEditText.getText().toString();
@@ -327,11 +355,11 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         RequestBody caudal_body = RequestBody.create(MediaType.parse("multipart/form-data"), caudal);
         RequestBody observacion_4_body = RequestBody.create(MediaType.parse("multipart/form-data"), observacion_4);
 
-        String nombre_residente = String.valueOf(resultado.getResidente().getNombre());
-        String rut_residente = String.valueOf(resultado.getResidente().getRut());
-        String telefono_residente = String.valueOf(resultado.getResidente().getTelefono());
-        String email_residente = String.valueOf(resultado.getResidente().getEmail());
-        String fecha_residente = String.valueOf(resultado.getResidente().getFecha());
+        String nombre_residente = String.valueOf(resultado.getResidente().getNombreResidente());
+        String rut_residente = String.valueOf(resultado.getResidente().getRutResidente());
+        String telefono_residente = String.valueOf(resultado.getResidente().getTelefonoResidente());
+        String email_residente = String.valueOf(resultado.getResidente().getEmailResidente());
+        String fecha_residente = String.valueOf(resultado.getResidente().getFechaResidente());
 
         RequestBody nombre_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), nombre_residente);
         RequestBody rut_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), rut_residente);
@@ -345,11 +373,14 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         MultipartBody.Part foto_panoramica_medidor;
         MultipartBody.Part foto_numero_propiedad;
         MultipartBody.Part foto_fechada_propiedad;
+        MultipartBody.Part foto_intervension_red;
+        MultipartBody.Part foto_bypass;
+        MultipartBody.Part foto_otro;
 
         if (resultado.getFotos().getFallaMedidor() != null) {
             File file_foto_falla = new File(resultado.getFotos().getFallaMedidor());
             RequestBody requestFileFalla = RequestBody.create(MediaType.parse("image/*"), file_foto_falla);
-            foto_falla_medidor = MultipartBody.Part.createFormData("foto_falla_medidor", "", requestFileFalla);
+            foto_falla_medidor = MultipartBody.Part.createFormData("foto_falla_medidor", "foto_falla_medidor", requestFileFalla);
         } else {
             foto_falla_medidor = null;
         }
@@ -357,7 +388,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         if (resultado.getFotos().getLecturaMedidor() != null) {
             File file_foto_lectura_medidor = new File(resultado.getFotos().getLecturaMedidor());
             RequestBody requestFileLectura = RequestBody.create(MediaType.parse("image/*"), file_foto_lectura_medidor);
-            foto_lectura_medidor = MultipartBody.Part.createFormData("foto_lectura_medidor", "", requestFileLectura);
+            foto_lectura_medidor = MultipartBody.Part.createFormData("foto_lectura_medidor", "foto_lectura_medidor", requestFileLectura);
         } else {
             foto_lectura_medidor = null;
         }
@@ -365,7 +396,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         if (resultado.getFotos().getNumeroMedidor() != null) {
             File file_foto_numero_medidor = new File(resultado.getFotos().getNumeroMedidor());
             RequestBody requestFileNumeroMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_medidor);
-            foto_numero_medidor = MultipartBody.Part.createFormData("foto_numero_medidor", "", requestFileNumeroMedidor);
+            foto_numero_medidor = MultipartBody.Part.createFormData("foto_numero_medidor", "foto_numero_medidor", requestFileNumeroMedidor);
         } else {
             foto_numero_medidor = null;
         }
@@ -373,7 +404,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         if (resultado.getFotos().getPanoramicaMedidor() != null) {
             File file_foto_panoramica_medidor = new File(resultado.getFotos().getPanoramicaMedidor());
             RequestBody requestFilePanoMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_panoramica_medidor);
-            foto_panoramica_medidor = MultipartBody.Part.createFormData("foto_panoramica_medidor", "", requestFilePanoMedidor);
+            foto_panoramica_medidor = MultipartBody.Part.createFormData("foto_panoramica_medidor", "foto_panoramica_medidor", requestFilePanoMedidor);
         } else {
             foto_panoramica_medidor = null;
         }
@@ -381,7 +412,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         if (resultado.getFotos().getNumeroPropiedad() != null) {
             File file_foto_numero_propiedad = new File(resultado.getFotos().getNumeroPropiedad());
             RequestBody requestFileNumeroPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_propiedad);
-            foto_numero_propiedad = MultipartBody.Part.createFormData("foto_numero_propiedad", "", requestFileNumeroPorpiedad);
+            foto_numero_propiedad = MultipartBody.Part.createFormData("foto_numero_propiedad", "foto_numero_propiedad", requestFileNumeroPorpiedad);
         } else {
             foto_numero_propiedad = null;
         }
@@ -389,11 +420,35 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         if (resultado.getFotos().getFachadaPropiedad() != null) {
             File file_foto_fachada_propiedad = new File(resultado.getFotos().getFachadaPropiedad());
             RequestBody requestFileFachadaPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_fachada_propiedad);
-            foto_fechada_propiedad = MultipartBody.Part.createFormData("foto_fechada_propiedad", "", requestFileFachadaPorpiedad);
+            foto_fechada_propiedad = MultipartBody.Part.createFormData("foto_fachada_propiedad", "foto_fachada_propiedad", requestFileFachadaPorpiedad);
         } else {
             foto_fechada_propiedad = null;
         }
 
+        if (resultado.getFotos().getIntervencionRed() != null) {
+            File file_foto_intervension_red = new File(resultado.getFotos().getFachadaPropiedad());
+            RequestBody requestFileIntervensionRed = RequestBody.create(MediaType.parse("image/*"), file_foto_intervension_red);
+            foto_intervension_red = MultipartBody.Part.createFormData("foto_intervension_red", "foto_intervension_red", requestFileIntervensionRed);
+        } else {
+            foto_intervension_red = null;
+        }
+
+        if (resultado.getFotos().getBypass() != null) {
+            File file_foto_bypass = new File(resultado.getFotos().getFachadaPropiedad());
+            RequestBody requestFileBypass = RequestBody.create(MediaType.parse("image/*"), file_foto_bypass);
+            foto_bypass = MultipartBody.Part.createFormData("foto_bypass", "", requestFileBypass);
+        } else {
+            foto_bypass = null;
+        }
+
+
+        if (resultado.getFotos().getOtro() != null) {
+            File file_foto_otro = new File(resultado.getFotos().getFachadaPropiedad());
+            RequestBody requestFileOtro = RequestBody.create(MediaType.parse("image/*"), file_foto_otro);
+            foto_otro = MultipartBody.Part.createFormData("foto_otro", "", requestFileOtro);
+        } else {
+            foto_otro = null;
+        }
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
         PostResult service = retrofit.create(PostResult.class);
@@ -457,7 +512,10 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
                 foto_numero_medidor,
                 foto_panoramica_medidor,
                 foto_numero_propiedad,
-                foto_fechada_propiedad
+                foto_fechada_propiedad,
+                foto_intervension_red,
+                foto_bypass,
+                foto_otro
         );
 
         call.enqueue(new Callback<ResponseBody>() {
