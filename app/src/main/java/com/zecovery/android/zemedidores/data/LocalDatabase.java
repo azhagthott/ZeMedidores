@@ -25,7 +25,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 122;
+    private static final int DB_VERSION = 130;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -411,43 +411,43 @@ public class LocalDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        if (String.valueOf(foto.getRechazoInspeccion()).length()>10) {
+        if (String.valueOf(foto.getRechazoInspeccion()).length() > 10) {
             values.put(RESULT_TEST_FOTO_RECHAZO, String.valueOf(foto.getRechazoInspeccion()));
         }
 
-        if (String.valueOf(foto.getFallaMedidor()).length()>10) {
+        if (String.valueOf(foto.getFallaMedidor()).length() > 10) {
             values.put(RESULT_TEST_FOTO_FALLA_MEDIDOR, String.valueOf(foto.getFallaMedidor()));
         }
 
-        if (String.valueOf(foto.getLecturaMedidor()).length()>10) {
+        if (String.valueOf(foto.getLecturaMedidor()).length() > 10) {
             values.put(RESULT_TEST_FOTO_LECTURA_MEDIDOR, String.valueOf(foto.getLecturaMedidor()));
         }
 
-        if (String.valueOf(foto.getNumeroMedidor()).length()>10) {
+        if (String.valueOf(foto.getNumeroMedidor()).length() > 10) {
             values.put(RESULT_TEST_FOTO_NUMERO_MEDIDOR, String.valueOf(foto.getNumeroMedidor()));
         }
 
-        if (String.valueOf(foto.getPanoramicaMedidor()).length()>10) {
+        if (String.valueOf(foto.getPanoramicaMedidor()).length() > 10) {
             values.put(RESULT_TEST_FOTO_PANO_MEDIDOR, String.valueOf(foto.getPanoramicaMedidor()));
         }
 
-        if (String.valueOf(foto.getNumeroPropiedad()).length()>10) {
+        if (String.valueOf(foto.getNumeroPropiedad()).length() > 10) {
             values.put(RESULT_TEST_FOTO_NUMERO_PROPIEDAD, String.valueOf(foto.getNumeroPropiedad()));
         }
 
-        if (String.valueOf(foto.getFachadaPropiedad()).length()>10) {
+        if (String.valueOf(foto.getFachadaPropiedad()).length() > 10) {
             values.put(RESULT_TEST_FOTO_FACHADA_PROPIEDAD, String.valueOf(foto.getFachadaPropiedad()));
         }
 
-        if (String.valueOf(foto.getIntervencionRed()).length()>10) {
+        if (String.valueOf(foto.getIntervencionRed()).length() > 10) {
             values.put(RESULT_TEST_FOTO_INTERVENCION_RED, String.valueOf(foto.getIntervencionRed()));
         }
 
-        if (String.valueOf(foto.getBypass()).length()>10) {
+        if (String.valueOf(foto.getBypass()).length() > 10) {
             values.put(RESULT_TEST_FOTO_BYPASS, String.valueOf(foto.getBypass()));
         }
 
-        if (String.valueOf(foto.getOtro()).length()>10) {
+        if (String.valueOf(foto.getOtro()).length() > 10) {
             values.put(RESULT_TEST_OTRO, String.valueOf(foto.getOtro()));
         }
 

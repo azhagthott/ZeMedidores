@@ -91,7 +91,6 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         token = getArguments().getInt(ID_ASSIGNMENT_PHOTO);
         findViews(view);
 
-        continueTestButton.setVisibility(View.GONE);
         continueTestButton.setOnClickListener(this);
 
         db = new LocalDatabase(getContext());
@@ -130,8 +129,35 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
             }
         });
 
+        if (db.getFotos(token).getFallaMedidor() != null) {
+            imagePreviewMedidorRoto.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(token).getFallaMedidor()).into(imagePreviewMedidorRoto);
+        }
 
+        if (db.getFotos(token).getLecturaMedidor() != null) {
+            imagePreviewLecturaMedidor.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(token).getLecturaMedidor()).into(imagePreviewLecturaMedidor);
+        }
 
+        if (db.getFotos(token).getNumeroMedidor() != null) {
+            imagePreviewNumeroMedidor.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(token).getNumeroMedidor()).into(imagePreviewNumeroMedidor);
+        }
+
+        if (db.getFotos(token).getPanoramicaMedidor() != null) {
+            imagePreviewPanoMedidor.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(token).getPanoramicaMedidor()).into(imagePreviewPanoMedidor);
+        }
+
+        if (db.getFotos(token).getNumeroPropiedad() != null) {
+            imagePreviewNumeroPropiedad.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(token).getNumeroPropiedad()).into(imagePreviewNumeroPropiedad);
+        }
+
+        if (db.getFotos(token).getFachadaPropiedad() != null) {
+            imagePreviewFachadaPropiedad.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(token).getFachadaPropiedad()).into(imagePreviewFachadaPropiedad);
+        }
     }
 
     private void findViews(View view) {
@@ -170,78 +196,6 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
                 throw new ClassCastException(context.toString()
                         + " must implement OnHeadlineSelectedListener");
             }
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (meterLocationEditText.getText().length() == 0) {
-            meterLocationEditText.setError("Debe especificar laubicacion del medidor");
-        }
-
-        int id = v.getId();
-
-        if (negativeRadioButton.isChecked()) {
-
-            switch (id) {
-
-                case R.id.photoMeterReading:
-                    photoName = "lectura_medidor";
-                    callCamera(photoName);
-                    break;
-                case R.id.photoMeterNumber:
-                    photoName = "numero_medidor";
-                    callCamera(photoName);
-                    break;
-                case R.id.photoMeterPanoramic:
-                    photoName = "panoramica_medidor";
-                    callCamera(photoName);
-                    break;
-                case R.id.photoPropertyNumber:
-                    photoName = "numero_propiedad";
-                    callCamera(photoName);
-                    break;
-                case R.id.photoFrontageProperty:
-                    photoName = "fachada_propiedad";
-                    callCamera(photoName);
-                    break;
-
-                case R.id.continueTestButton:
-                    String meterLocation = meterLocationEditText.getText().toString();
-                    Medidor medidor = new Medidor();
-                    medidor.setUbicacion(meterLocation);
-                    db.guardaDatosMedidor(medidor, token);
-                    callback.tokenToExecuteTestPart1(token);
-                    break;
-            }
-
-        } else if (positiveRadioButton.isChecked()) {
-
-            switch (id) {
-
-                case R.id.brokenMeterPhoto:
-
-                    photoName = "medidor_descompuesto";
-                    callCamera(photoName);
-                    break;
-
-                case R.id.continueTestButton:
-
-                    String failureComment = brokenMeterCommentEditText.getText().toString();
-                    String meterLocation = meterLocationEditText.getText().toString();
-
-                    Medidor medidor = new Medidor();
-                    medidor.setUbicacion(meterLocation);
-                    medidor.setEstado("si");
-                    medidor.setDescripcionFalla(failureComment);
-
-                    db.guardaDatosMedidor(medidor, token);
-
-                    callback.tokenToExecuteTestPart1(token);
-                    break;
-            }
-        } else {
-            continueTestButton.setVisibility(View.GONE);
         }
     }
 
@@ -317,26 +271,115 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         } catch (Exception e) {
             FirebaseCrash.log("Error: " + e);
         }
+    }
 
-        if (positiveRadioButton.isChecked() && db.getFotos(token).getFallaMedidor() != null &&
-                brokenMeterCommentEditText.getText().toString().trim().length() != 0 && meterLocationEditText.getText().toString().trim().length()!=0) {
+    @Override
+    public void onClick(View v) {
 
-            continueTestButton.setVisibility(View.VISIBLE);
+        boolean ubicacionMedidor;
+        boolean medidorDescompuesto;
+        int id = v.getId();
 
 
+        if (meterLocationEditText.getText().length() == 0) {
+            ubicacionMedidor = true;
+            meterLocationEditText.setError("Debe especificar la ubicacion del medidor");
+        } else {
+            ubicacionMedidor = false;
+        }
 
-        } else if (negativeRadioButton.isChecked() &&
-                db.getFotos(token).getLecturaMedidor() != null &&
-                db.getFotos(token).getNumeroMedidor() != null &&
-                db.getFotos(token).getPanoramicaMedidor() != null &&
-                db.getFotos(token).getNumeroPropiedad() != null &&
-                db.getFotos(token).getFachadaPropiedad() != null &&
-                brokenMeterCommentEditText.getText().toString().trim().length() != 0) {
+        if (positiveRadioButton.isChecked()) {
 
-            continueTestButton.setVisibility(View.VISIBLE);
+            if (brokenMeterCommentEditText.getText().length() == 0) {
+                medidorDescompuesto = true;
+                brokenMeterCommentEditText.setError("Debe especificar la falla del medidor");
+            } else {
+                medidorDescompuesto = false;
+            }
+
+            if (id == R.id.brokenMeterPhoto) {
+                callCamera("medidor_descompuesto");
+            }
+
+
+        } else if (negativeRadioButton.isChecked()) {
+
+            medidorDescompuesto = false;
+
+            switch (id) {
+
+                case R.id.photoMeterReading:
+                    photoName = "lectura_medidor";
+                    callCamera(photoName);
+                    break;
+                case R.id.photoMeterNumber:
+                    photoName = "numero_medidor";
+                    callCamera(photoName);
+                    break;
+                case R.id.photoMeterPanoramic:
+                    photoName = "panoramica_medidor";
+                    callCamera(photoName);
+                    break;
+                case R.id.photoPropertyNumber:
+                    photoName = "numero_propiedad";
+                    callCamera(photoName);
+                    break;
+                case R.id.photoFrontageProperty:
+                    photoName = "fachada_propiedad";
+                    callCamera(photoName);
+                    break;
+            }
 
         } else {
-            Toast.makeText(getContext(), "Asegurese de sacar las fotos que corresponden", Toast.LENGTH_SHORT).show();
+            medidorDescompuesto = false;
+            Toast.makeText(getContext(), "Debe indicar si el medidor está descompuesto o no", Toast.LENGTH_SHORT).show();
+        }
+
+        if (id == R.id.continueTestButton) {
+
+            String fotoFalla = db.getFotos(token).getFallaMedidor();
+            String fotoLectura = db.getFotos(token).getLecturaMedidor();
+            String fotoNumeroMedidor = db.getFotos(token).getNumeroMedidor();
+            String fotoPanoramica = db.getFotos(token).getPanoramicaMedidor();
+            String fotoNumeroPropiedad = db.getFotos(token).getNumeroPropiedad();
+            String fotoFachada = db.getFotos(token).getFachadaPropiedad();
+
+            if (positiveRadioButton.isChecked() &&
+                    !ubicacionMedidor &&
+                    !medidorDescompuesto &&
+                    fotoFalla != null) {
+
+                String failureComment = brokenMeterCommentEditText.getText().toString();
+                String meterLocation = meterLocationEditText.getText().toString();
+
+                Medidor medidor = new Medidor();
+                medidor.setUbicacion(meterLocation);
+                medidor.setEstado("si");
+                medidor.setDescripcionFalla(failureComment);
+
+                db.guardaDatosMedidor(medidor, token);
+
+                callback.tokenToExecuteTestPart1(token);
+            }
+
+            if (negativeRadioButton.isChecked() &&
+                    !ubicacionMedidor &&
+                    fotoLectura != null &&
+                    fotoNumeroMedidor != null &&
+                    fotoPanoramica != null &&
+                    fotoNumeroPropiedad != null &&
+                    fotoFachada != null) {
+
+                String meterLocation = meterLocationEditText.getText().toString();
+
+                Medidor medidor = new Medidor();
+                medidor.setUbicacion(meterLocation);
+                medidor.setEstado("si");
+                medidor.setDescripcionFalla("");
+                db.guardaDatosMedidor(medidor, token);
+
+                callback.tokenToExecuteTestPart1(token);
+            }
         }
     }
 }

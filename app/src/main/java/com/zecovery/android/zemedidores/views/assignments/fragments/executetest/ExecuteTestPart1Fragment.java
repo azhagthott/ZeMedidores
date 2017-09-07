@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 
@@ -105,6 +106,47 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
         db = new LocalDatabase(getContext());
 
         saveButton.setOnClickListener(this);
+        intervensionRedFoto.setOnClickListener(this);
+        bypassFoto.setOnClickListener(this);
+        otroFoto.setOnClickListener(this);
+
+        intervensionRedFoto.setVisibility(View.INVISIBLE);
+        bypassFoto.setVisibility(View.INVISIBLE);
+        otroFoto.setVisibility(View.INVISIBLE);
+
+        case8PositiveRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    intervensionRedFoto.setVisibility(View.VISIBLE);
+                } else {
+                    intervensionRedFoto.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        case9PositiveRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    bypassFoto.setVisibility(View.VISIBLE);
+                } else {
+                    bypassFoto.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        case10PositiveRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    otroFoto.setVisibility(View.VISIBLE);
+                } else {
+                    otroFoto.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
     }
 
     private void findViews(View view) {
@@ -161,7 +203,21 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.saveButton) {
+        int id = v.getId();
+
+        if (id == R.id.intervensionRedFoto) {
+            callCamera("intervension_red");
+        }
+
+        if (id == R.id.bypassFoto) {
+            callCamera("bypass");
+        }
+
+        if (id == R.id.otroFoto) {
+            callCamera("otro");
+        }
+
+        if (id == R.id.saveButton) {
 
             TestParte1 test = new TestParte1();
 
@@ -247,33 +303,24 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
 
             if (case8PositiveRadioButton.isChecked()) {
                 test.setInstalacionParalela("SI");
-                intervensionRedFoto.setVisibility(View.VISIBLE);
-                callCamera("intervension_red");
             } else if (case8NegativeRadioButton.isChecked()) {
                 test.setInstalacionParalela("NO");
-                intervensionRedFoto.setVisibility(View.INVISIBLE);
             } else {
                 test.setInstalacionParalela("No enviar respuesta");
             }
 
             if (case9PositiveRadioButton.isChecked()) {
                 test.setBypass("SI");
-                bypassFoto.setVisibility(View.VISIBLE);
-                callCamera("bypass");
             } else if (case9NegativeRadioButton.isChecked()) {
                 test.setBypass("NO");
-                bypassFoto.setVisibility(View.INVISIBLE);
             } else {
                 test.setBypass("No enviar respuesta");
             }
 
             if (case10PositiveRadioButton.isChecked()) {
                 test.setOtro2("SI");
-                otroFoto.setVisibility(View.VISIBLE);
-                callCamera("otro");
             } else if (case10NegativeRadioButton.isChecked()) {
                 test.setOtro2("NO");
-                otroFoto.setVisibility(View.INVISIBLE);
             } else {
                 test.setOtro2("No enviar respuesta");
             }

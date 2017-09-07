@@ -426,7 +426,7 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         }
 
         if (resultado.getFotos().getIntervencionRed() != null) {
-            File file_foto_intervension_red = new File(resultado.getFotos().getFachadaPropiedad());
+            File file_foto_intervension_red = new File(resultado.getFotos().getIntervencionRed());
             RequestBody requestFileIntervensionRed = RequestBody.create(MediaType.parse("image/*"), file_foto_intervension_red);
             foto_intervension_red = MultipartBody.Part.createFormData("foto_intervension_red", "foto_intervension_red", requestFileIntervensionRed);
         } else {
@@ -434,18 +434,17 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         }
 
         if (resultado.getFotos().getBypass() != null) {
-            File file_foto_bypass = new File(resultado.getFotos().getFachadaPropiedad());
+            File file_foto_bypass = new File(resultado.getFotos().getBypass());
             RequestBody requestFileBypass = RequestBody.create(MediaType.parse("image/*"), file_foto_bypass);
-            foto_bypass = MultipartBody.Part.createFormData("foto_bypass", "", requestFileBypass);
+            foto_bypass = MultipartBody.Part.createFormData("foto_bypass", "foto_bypass", requestFileBypass);
         } else {
             foto_bypass = null;
         }
 
-
         if (resultado.getFotos().getOtro() != null) {
-            File file_foto_otro = new File(resultado.getFotos().getFachadaPropiedad());
+            File file_foto_otro = new File(resultado.getFotos().getOtro());
             RequestBody requestFileOtro = RequestBody.create(MediaType.parse("image/*"), file_foto_otro);
-            foto_otro = MultipartBody.Part.createFormData("foto_otro", "", requestFileOtro);
+            foto_otro = MultipartBody.Part.createFormData("foto_otro", "foto_otro", requestFileOtro);
         } else {
             foto_otro = null;
         }
