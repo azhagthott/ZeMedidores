@@ -51,6 +51,14 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
     private EditText meterLocationEditText;
     private EditText brokenMeterCommentEditText;
 
+
+    private EditText numeroMedidorEditText;
+    private EditText diametroMedidorEditText;
+    private EditText lecturaMedidorEditText;
+
+    private LinearLayout datosMedidorLinerLayout;
+
+
     private CircleImageView imagePreviewMedidorRoto;
     private CircleImageView imagePreviewLecturaMedidor;
     private CircleImageView imagePreviewNumeroMedidor;
@@ -91,6 +99,8 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         token = getArguments().getInt(ID_ASSIGNMENT_PHOTO);
         findViews(view);
 
+        datosMedidorLinerLayout.setVisibility(View.GONE);
+
         continueTestButton.setOnClickListener(this);
 
         db = new LocalDatabase(getContext());
@@ -112,7 +122,9 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
                 if (isChecked) {
                     brokenMeterLinearLayout.setVisibility(View.VISIBLE);
+                    datosMedidorLinerLayout.setVisibility(View.GONE);
                 } else {
+                    datosMedidorLinerLayout.setVisibility(View.VISIBLE);
                     brokenMeterLinearLayout.setVisibility(View.GONE);
                 }
             }
@@ -122,8 +134,10 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    datosMedidorLinerLayout.setVisibility(View.VISIBLE);
                     mandatoryPhotosLinearLayout.setVisibility(View.VISIBLE);
                 } else {
+                    datosMedidorLinerLayout.setVisibility(View.GONE);
                     mandatoryPhotosLinearLayout.setVisibility(View.GONE);
                 }
             }
@@ -180,6 +194,10 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
         imagePreviewPanoMedidor = view.findViewById(R.id.imagePreviewPanoMedidor);
         imagePreviewNumeroPropiedad = view.findViewById(R.id.imagePreviewNumeroPropiedad);
         imagePreviewFachadaPropiedad = view.findViewById(R.id.imagePreviewFachadaPropiedad);
+        numeroMedidorEditText = view.findViewById(R.id.numeroMedidorEditText);
+        diametroMedidorEditText = view.findViewById(R.id.diametroMedidorEditText);
+        lecturaMedidorEditText = view.findViewById(R.id.lecturaMedidorEditText);
+        datosMedidorLinerLayout = view.findViewById(R.id.datosMedidorLinerLayout);
     }
 
     @Override
@@ -278,14 +296,39 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
         boolean ubicacionMedidor;
         boolean medidorDescompuesto;
-        int id = v.getId();
 
+        boolean numeroMedidorBool = false;
+        boolean diametroMedidorBool = false;
+        boolean lecturaMedidorBool = false;
+
+        int id = v.getId();
 
         if (meterLocationEditText.getText().length() == 0) {
             ubicacionMedidor = true;
             meterLocationEditText.setError("Debe especificar la ubicacion del medidor");
         } else {
             ubicacionMedidor = false;
+        }
+
+        if (numeroMedidorEditText.getText().length() == 0) {
+            numeroMedidorBool = true;
+            numeroMedidorEditText.setError("Debe especificar el numero de medidor");
+        } else {
+            numeroMedidorBool = false;
+        }
+
+        if (diametroMedidorEditText.getText().length() == 0) {
+            diametroMedidorBool = true;
+            diametroMedidorEditText.setError("Debe especificar el diametro del medidor");
+        } else {
+            diametroMedidorBool = false;
+        }
+
+        if (lecturaMedidorEditText.getText().length() == 0) {
+            lecturaMedidorBool = true;
+            lecturaMedidorEditText.setError("Debe especificar la lectura del medidor");
+        } else {
+            lecturaMedidorBool = false;
         }
 
         if (positiveRadioButton.isChecked()) {
@@ -302,7 +345,14 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
             }
 
 
+            numeroMedidorBool = false;
+            diametroMedidorBool = false;
+            lecturaMedidorBool = false;
+
+
         } else if (negativeRadioButton.isChecked()) {
+
+
 
             medidorDescompuesto = false;
 
@@ -344,6 +394,7 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
             String fotoNumeroPropiedad = db.getFotos(token).getNumeroPropiedad();
             String fotoFachada = db.getFotos(token).getFachadaPropiedad();
 
+
             if (positiveRadioButton.isChecked() &&
                     !ubicacionMedidor &&
                     !medidorDescompuesto &&
@@ -364,16 +415,34 @@ public class PhotosTestFragment extends Fragment implements View.OnClickListener
 
             if (negativeRadioButton.isChecked() &&
                     !ubicacionMedidor &&
+                    !numeroMedidorBool &&
+                    !diametroMedidorBool &&
+                    !lecturaMedidorBool &&
                     fotoLectura != null &&
                     fotoNumeroMedidor != null &&
                     fotoPanoramica != null &&
                     fotoNumeroPropiedad != null &&
-                    fotoFachada != null) {
+                    fotoFachada != null
 
-                String meterLocation = meterLocationEditText.getText().toString();
+                    ) {
+
+                String ubicacion = meterLocationEditText.getText().toString();
+                String numero = numeroMedidorEditText.getText().toString();
+                String diametro = diametroMedidorEditText.getText().toString();
+                String lectura = lecturaMedidorEditText.getText().toString();
+
+                Log.d("TAG", "ubicacion: " + ubicacion);
+                Log.d("TAG", "numero: " + numero);
+                Log.d("TAG", "diametro: " + diametro);
+                Log.d("TAG", "lectura: " + lectura);
+
+
 
                 Medidor medidor = new Medidor();
-                medidor.setUbicacion(meterLocation);
+                medidor.setUbicacion(ubicacion);
+                medidor.setNumeroMedidor(numero);
+                medidor.setDiametroMedidor(diametro);
+                medidor.setLecturaMedidor(lectura);
                 medidor.setEstado("si");
                 medidor.setDescripcionFalla("");
                 db.guardaDatosMedidor(medidor, token);

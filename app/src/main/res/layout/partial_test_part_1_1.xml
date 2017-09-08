@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="8dp"
-            android:text="@string/execute_test_form_test_1_result"
+            android:text="@string/execute_test_form_test_result"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
@@ -33,14 +33,14 @@
             android:padding="8dp">
 
             <RadioButton
-                android:id="@+id/test1YesRadioButton"
+                android:id="@+id/test11YesRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="@string/radio_button_yes" />
 
             <RadioButton
-                android:id="@+id/test1NoRadioButton"
+                android:id="@+id/test11NoRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@string/execute_test_form_test_2_result"
+            android:text="@string/execute_test_form_test_result"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
@@ -84,14 +84,14 @@
             android:padding="8dp">
 
             <RadioButton
-                android:id="@+id/test2YesRadioButton"
+                android:id="@+id/test12YesRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="@string/radio_button_yes" />
 
             <RadioButton
-                android:id="@+id/test2NoRadioButton"
+                android:id="@+id/test12NoRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="8dp"
-            android:text="@string/execute_test_form_test_3_result"
+            android:text="@string/execute_test_form_test_result"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
@@ -138,20 +138,131 @@
 
 
             <RadioButton
-                android:id="@+id/test3YesRadioButton"
+                android:id="@+id/test13YesRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="@string/radio_button_yes" />
 
             <RadioButton
-                android:id="@+id/test3NoRadioButton"
+                android:id="@+id/test13NoRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:text="@string/radio_button_no" />
 
         </RadioGroup>
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray_400"
+        android:padding="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/execute_test_form_test_4"
+        android:textSize="18sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:text="@string/execute_test_form_test_result"
+            android:textColor="@color/gray_500" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+
+            <RadioButton
+                android:id="@+id/test14YesRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/radio_button_yes" />
+
+            <RadioButton
+                android:id="@+id/test14NoRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/radio_button_no" />
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/execute_test_form_test_5"
+        android:textSize="18sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:text="@string/execute_test_form_test_result"
+            android:textColor="@color/gray_500" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+
+            <RadioButton
+                android:id="@+id/test15YesRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/radio_button_yes" />
+
+            <RadioButton
+                android:id="@+id/test15NoRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/radio_button_no" />
+
+        </RadioGroup>
+
 
     </LinearLayout>
 

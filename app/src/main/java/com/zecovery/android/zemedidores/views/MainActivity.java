@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
     public class GetInspections extends InspectionList {
 
-
         public GetInspections(InspectionParams params) {
             super(params);
         }
@@ -81,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(List<Inspection> inspections) {
             super.onPostExecute(inspections);
 
-            db.saveDownloadedInspection(inspections);
+            db.guardaInspeccionesDescargadas(inspections);
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -34,12 +34,16 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
 
     private int token;
 
-    private RadioButton test1YesRadioButton;
-    private RadioButton test1NoRadioButton;
-    private RadioButton test2YesRadioButton;
-    private RadioButton test2NoRadioButton;
-    private RadioButton test3YesRadioButton;
-    private RadioButton test3NoRadioButton;
+    private RadioButton test11YesRadioButton;
+    private RadioButton test11NoRadioButton;
+    private RadioButton test12YesRadioButton;
+    private RadioButton test12NoRadioButton;
+    private RadioButton test13YesRadioButton;
+    private RadioButton test13NoRadioButton;
+    private RadioButton test14YesRadioButton;
+    private RadioButton test14NoRadioButton;
+    private RadioButton test15YesRadioButton;
+    private RadioButton test15NoRadioButton;
 
     private RadioButton case1PositiveRadioButton;
     private RadioButton case1NegativeRadioButton;
@@ -150,12 +154,17 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
     }
 
     private void findViews(View view) {
-        test1YesRadioButton = view.findViewById(R.id.test1YesRadioButton);
-        test1NoRadioButton = view.findViewById(R.id.test1NoRadioButton);
-        test2YesRadioButton = view.findViewById(R.id.test2YesRadioButton);
-        test2NoRadioButton = view.findViewById(R.id.test2NoRadioButton);
-        test3YesRadioButton = view.findViewById(R.id.test3YesRadioButton);
-        test3NoRadioButton = view.findViewById(R.id.test3NoRadioButton);
+        test11YesRadioButton = view.findViewById(R.id.test11YesRadioButton);
+        test11NoRadioButton = view.findViewById(R.id.test11NoRadioButton);
+        test12YesRadioButton = view.findViewById(R.id.test12YesRadioButton);
+        test12NoRadioButton = view.findViewById(R.id.test12NoRadioButton);
+        test13YesRadioButton = view.findViewById(R.id.test13YesRadioButton);
+        test13NoRadioButton = view.findViewById(R.id.test13NoRadioButton);
+        test14YesRadioButton = view.findViewById(R.id.test14YesRadioButton);
+        test14NoRadioButton = view.findViewById(R.id.test14NoRadioButton);
+        test15YesRadioButton = view.findViewById(R.id.test15YesRadioButton);
+        test15NoRadioButton = view.findViewById(R.id.test15NoRadioButton);
+
         case1PositiveRadioButton = view.findViewById(R.id.case1PositiveRadioButton);
         case1NegativeRadioButton = view.findViewById(R.id.case1NegativeRadioButton);
         case2PositiveRadioButton = view.findViewById(R.id.case2PositiveRadioButton);
@@ -221,28 +230,46 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
 
             TestParte1 test = new TestParte1();
 
-            if (test1YesRadioButton.isChecked()) {
+            if (test11YesRadioButton.isChecked()) {
                 test.setTest1("SI");
-            } else if (test1NoRadioButton.isChecked()) {
+            } else if (test11NoRadioButton.isChecked()) {
                 test.setTest1("NO");
             } else {
                 test.setTest1("No enviar respuesta");
             }
 
-            if (test2YesRadioButton.isChecked()) {
+            if (test12YesRadioButton.isChecked()) {
                 test.setTest2("SI");
-            } else if (test2NoRadioButton.isChecked()) {
+            } else if (test12NoRadioButton.isChecked()) {
                 test.setTest2("NO");
             } else {
                 test.setTest2("No enviar respuesta");
             }
 
-            if (test3YesRadioButton.isChecked()) {
+            if (test13YesRadioButton.isChecked()) {
                 test.setTest3("SI");
-            } else if (test3NoRadioButton.isChecked()) {
+            } else if (test13NoRadioButton.isChecked()) {
                 test.setTest3("NO");
             } else {
-                test.setTest2("No enviar respuesta");
+                test.setTest3("No enviar respuesta");
+            }
+
+
+            if (test14YesRadioButton.isChecked()) {
+                test.setTest4("SI");
+            } else if (test14NoRadioButton.isChecked()) {
+                test.setTest4("NO");
+            } else {
+                test.setTest4("No enviar respuesta");
+            }
+
+
+            if (test15YesRadioButton.isChecked()) {
+                test.setTest5("SI");
+            } else if (test15NoRadioButton.isChecked()) {
+                test.setTest5("NO");
+            } else {
+                test.setTest5("No enviar respuesta");
             }
 
             if (case1PositiveRadioButton.isChecked()) {
@@ -270,7 +297,7 @@ public class ExecuteTestPart1Fragment extends Fragment implements View.OnClickLi
             }
 
             if (case4PositiveRadioButton.isChecked()) {
-                test.setCortaEngranaje("SI");
+                test.setCortaEnganaje("SI");
             } else if (case4NegativeRadioButton.isChecked()) {
                 test.setCortaEngranaje("NO");
             } else {

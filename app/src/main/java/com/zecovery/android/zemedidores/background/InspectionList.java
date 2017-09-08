@@ -33,17 +33,27 @@ public class InspectionList extends AsyncTask<InspectionParams, Integer, List<In
 
         InspectionInterface request = InspectionInterceptor.get();
         Call<Inspect> call = request.get(params.getKey(), params.getInspectorEmail());
+        //Call<Inspect> call = request.get(123, "inspector4@zecovery.com");
+
+        Log.d("doInBackground", "request: " + request);
+        Log.d("doInBackground", "call: " + call);
 
         List<Inspection> inspectionsList = new ArrayList<>();
 
         try {
             Response<Inspect> response = call.execute();
+
+            Log.d("doInBackground", "response: " + response);
+
             Collections.addAll(inspectionsList, response.body().getInspecciones());
 
         } catch (Exception e) {
             FirebaseCrash.log("ERROR: " + e);
             Log.d("InspectionList", "Exception: " + e);
         }
+
+        Log.d("doInBackground", "inspectionsList: " + inspectionsList);
+
         return inspectionsList;
     }
 }

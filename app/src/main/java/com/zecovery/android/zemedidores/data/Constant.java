@@ -28,12 +28,8 @@ public class Constant {
     public static final String ID_ASSIGNMENT_PHOTO = "ID_ASSIGNMENT_PHOTO";
 
     public static final String ASSIGNMENT_TYPE = "assignment_type";
-
-    public static final String SOCIAL_POLYGON = "si";
-
     public static final int RESIZE_PHOTO_PIXELS_PERCENTAGE = 20;
     public static final String FOLDER_ZE_MEDIDORES = "ZE_MEDIDORES";
-    public static final String FIREBASE_STORAGE_BASE_URL = "gs://zemedidores.appspot.com/";
 
     /* rejections reasons */
     public static final String SELECT_OPTION = "Seleccione una opción";
@@ -53,7 +49,7 @@ public class Constant {
     public static final String PAYMENT_METHOD_4 = "TRANS";
 
     /* Retrofit */
-    public static final String URL_BASE_DESA = "http://medidores.demo.zecovery.com";
+    public static final String URL_BASE_DESA = "http://medidores.desa.zecovery.com";
 
     /* network*/
     public static final int TIME_OUT = 60;

@@ -3,7 +3,6 @@ package com.zecovery.android.zemedidores.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +48,7 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
 
         final Inspection inspection = inspections.get(position);
 
-        holder.setOrder(inspection.getOrden());
         holder.setAddress(inspection.getAddress());
-        holder.setEmail(inspection.getInspector());
 
         holder.inspectionLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,77 +84,6 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
                 }
             }
         });
-
-        //holder.setInspection(inspection.getAddress());
-        //holder.setDescription(inspection.getOrden());
-
-        /*
-        switch (assignment.getOrigin()) {
-            case ZE:
-                holder.originColor.setBackgroundColor(Color.BLUE);
-                break;
-            case AA:
-                holder.originColor.setBackgroundColor(Color.YELLOW);
-                break;
-            default:
-                holder.originColor.setBackgroundColor(Color.BLACK);
-                break;
-        }
-
-        switch (assignment.getAssignment_type()) {
-            case RESIDENTIAL:
-                holder.assignmentTypeColor.setBackgroundColor(Color.CYAN);
-                break;
-            case COMMERCIAL:
-                holder.assignmentTypeColor.setBackgroundColor(Color.MAGENTA);
-                break;
-            default:
-                holder.assignmentTypeColor.setBackgroundColor(Color.BLACK);
-        }
-
-        switch (assignment.getPolygon()) {
-            case SOCIAL_POLYGON:
-                holder.polygonColor.setBackgroundColor(Color.RED);
-                break;
-            default:
-                holder.polygonColor.setBackgroundColor(Color.WHITE);
-        }
-
-       /* holder.assignmentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Context context = v.getContext();
-                Intent intent = new Intent(context, MapActivity.class);
-
-                switch (assignment.getAssignment_type()) {
-                    case RESIDENTIAL:
-                        intent.putExtra(ASSIGNMENT_TYPE, RESIDENTIAL);
-                        intent.putExtra(LATITUDE, assignment.getLat());
-                        intent.putExtra(LONGITUDE, assignment.getLng());
-                        intent.putExtra(ADDRESS, assignment.getAddress());
-                        intent.putExtra(ID_ASSIGNMENT, assignment.getPush_key());
-                        context.startActivity(intent);
-                        break;
-                    case COMMERCIAL:
-                        intent.putExtra(ASSIGNMENT_TYPE, COMMERCIAL);
-                        intent.putExtra(LATITUDE, assignment.getLat());
-                        intent.putExtra(LONGITUDE, assignment.getLng());
-                        intent.putExtra(ADDRESS, assignment.getAddress());
-                        intent.putExtra(ID_ASSIGNMENT, assignment.getPush_key());
-                        context.startActivity(intent);
-                        break;
-                    case BUSINESS:
-                        intent.putExtra(ASSIGNMENT_TYPE, BUSINESS);
-                        intent.putExtra(LATITUDE, assignment.getLat());
-                        intent.putExtra(LONGITUDE, assignment.getLng());
-                        intent.putExtra(ADDRESS, assignment.getAddress());
-                        intent.putExtra(ID_ASSIGNMENT, assignment.getPush_key());
-                        context.startActivity(intent);
-                        break;
-                }
-            }
-        });*/
     }
 
     @Override
@@ -168,28 +94,16 @@ public class InspectionAdapter extends RecyclerView.Adapter<InspectionAdapter.In
     static class InspectionViewHolder extends RecyclerView.ViewHolder {
 
         private LinearLayout inspectionLinearLayout;
-        private TextView inspectionOrderTextView;
         private TextView inspectionAddressTextView;
-        private TextView inspectionEmailTextView;
 
         public InspectionViewHolder(View view) {
             super(view);
             inspectionLinearLayout = view.findViewById(R.id.inspectionLinearLayout);
-            inspectionOrderTextView = view.findViewById(R.id.inspectionOrderTextView);
             inspectionAddressTextView = view.findViewById(R.id.inspectionAddressTextView);
-            inspectionEmailTextView = view.findViewById(R.id.inspectionEmailTextView);
-        }
-
-        private void setOrder(String order) {
-            inspectionOrderTextView.setText(order);
         }
 
         private void setAddress(String address) {
             inspectionAddressTextView.setText(address);
-        }
-
-        private void setEmail(String email) {
-            inspectionEmailTextView.setText(email);
         }
     }
 }

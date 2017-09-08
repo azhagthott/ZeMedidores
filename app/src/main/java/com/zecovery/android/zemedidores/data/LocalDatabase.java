@@ -25,7 +25,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 130;
+    private static final int DB_VERSION = 140;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -38,21 +38,28 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     /* assignment table */
     private static final String ASSIGNMENT_ID_KEY = "id";
+    private static final String ASSIGNMENT_INSPECTOR = "inspector";
     private static final String ASSIGNMENT_ID_INSPECTION = "id_inspection";
     private static final String ASSIGNMENT_ADDRESS = "address";
-    private static final String ASSIGNMENT_NAME = "name";
-    private static final String ASSIGNMENT_RUT = "rut";
+    private static final String ASSIGNMENT_TYPE = "assignment_type";
+    private static final String ASSIGNMENT_DATE = "date";
+    private static final String ASSIGNMENT_LAT = "lat";
+    private static final String ASSIGNMENT_LNG = "lng";
+    private static final String ASSIGNMENT_NAME = "nombre";
+    private static final String ASSIGNMENT_EMAIL = "email";
+    private static final String ASSIGNMENT_FECHA_INI = "fecha_residencia";
+    private static final String ASSIGNMENT_MARCA_MEDIDOR = "marca_medidor";
+    private static final String ASSIGNMENT_NUMERO_MEDIDOR = "numero_medidor";
     private static final String ASSIGNMENT_ORIGIN = "origin";
+    private static final String ASSIGNMENT_SOCIAL_RISK = "social_risk";
+    private static final String ASSIGNMENT_TELEFONO = "telefono";
+    private static final String ASSIGNMENT_RUT = "rut";
+    private static final String ASSIGNMENT_ZONE = "zone";
+    private static final String ASSIGNMENT_SECTOR = "sector";
     private static final String ASSIGNMENT_ORDEN = "orden";
     private static final String ASSIGNMENT_COMUNA = "comuna";
     private static final String ASSIGNMENT_MEDIDOR = "medidor";
-    private static final String ASSIGNMENT_DATE = "date";
-    private static final String ASSIGNMENT_TYPE = "assignment_type";
-    private static final String ASSIGNMENT_SOCIAL_RISK = "social_risk";
-    private static final String ASSIGNMENT_ZONE = "zone";
-    private static final String ASSIGNMENT_SECTOR = "sector";
-    private static final String ASSIGNMENT_LAT = "lat";
-    private static final String ASSIGNMENT_LNG = "lng";
+
 
     /* location table */
     private static final String CURRENT_LOCATION_ID_KEY = "id";
@@ -74,6 +81,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_1 = "test_1";
     private static final String RESULT_TEST_2 = "test_2";
     private static final String RESULT_TEST_3 = "test_3";
+    private static final String RESULT_TEST_4 = "test_4";
+    private static final String RESULT_TEST_5 = "test_5";
     private static final String RESULT_TEST_USO_IMANES = "uso_imanes";
     private static final String RESULT_TEST_INV_TOMAS = "inv_tomas";
     private static final String RESULT_TEST_PERF_CUP = "perf_cup";
@@ -129,6 +138,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_FOTO_INTERVENCION_RED = "foto_intervencion_red";
     private static final String RESULT_TEST_FOTO_BYPASS = "foto_bypass";
     private static final String RESULT_TEST_OTRO = "foto_otro";
+    private static final String RESULT_NUMERO_MEDIDOR = "numero_medidor";
+    private static final String RESULT_DIAMETRO_MEDIDOR = "diametro_medidor";
+    private static final String RESULT_LECTURA_MEDIDOR = "lectura_meiddor";
 
 
     public LocalDatabase(Context context) {
@@ -140,6 +152,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
         String CREATE_TABLE_ASSIGNMENT = DB_CREATE_TABLE + TABLE_ASSIGNMENT + "("
                 + ASSIGNMENT_ID_KEY + " INTEGER PRIMARY_KEY, "
+                + ASSIGNMENT_INSPECTOR + " TEXT, "
                 + ASSIGNMENT_ID_INSPECTION + " TEXT, "
                 + ASSIGNMENT_ADDRESS + " TEXT, "
                 + ASSIGNMENT_TYPE + " TEXT, "
@@ -147,6 +160,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + ASSIGNMENT_LAT + " TEXT, "
                 + ASSIGNMENT_LNG + " TEXT, "
                 + ASSIGNMENT_NAME + " TEXT, "
+                + ASSIGNMENT_EMAIL + " TEXT, "
+                + ASSIGNMENT_TELEFONO + " TEXT, "
+                + ASSIGNMENT_FECHA_INI + " TEXT, "
+                + ASSIGNMENT_MARCA_MEDIDOR + " TEXT, "
+                + ASSIGNMENT_NUMERO_MEDIDOR + " TEXT, "
                 + ASSIGNMENT_ORIGIN + " TEXT, "
                 + ASSIGNMENT_SOCIAL_RISK + " TEXT, "
                 + ASSIGNMENT_RUT + " TEXT, "
@@ -178,6 +196,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_1 + " TEXT, "
                 + RESULT_TEST_2 + " TEXT, "
                 + RESULT_TEST_3 + " TEXT, "
+                + RESULT_TEST_4 + " TEXT, "
+                + RESULT_TEST_5 + " TEXT, "
                 + RESULT_TEST_USO_IMANES + " TEXT, "
                 + RESULT_TEST_INV_TOMAS + " TEXT, "
                 + RESULT_TEST_PERF_CUP + " TEXT, "
@@ -232,7 +252,10 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_FECHA_RESIDENTE + " TEXT, "
                 + RESULT_TEST_FOTO_INTERVENCION_RED + " TEXT, "
                 + RESULT_TEST_FOTO_BYPASS + " TEXT, "
-                + RESULT_TEST_OTRO + " TEXT)"
+                + RESULT_TEST_OTRO + " TEXT, "
+                + RESULT_NUMERO_MEDIDOR + " TEXT, "
+                + RESULT_DIAMETRO_MEDIDOR + " TEXT, "
+                + RESULT_LECTURA_MEDIDOR + " TEXT)"
                 + ";";
 
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
@@ -248,7 +271,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void saveDownloadedInspection(List<Inspection> inspections) {
+    public void guardaInspeccionesDescargadas(List<Inspection> inspections) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -256,12 +279,20 @@ public class LocalDatabase extends SQLiteOpenHelper {
         for (Inspection inspection : inspections) {
 
             values.put(ASSIGNMENT_ID_INSPECTION, inspection.getId_inspeccion());
+            values.put(ASSIGNMENT_INSPECTOR, inspection.getInspector());
             values.put(ASSIGNMENT_ADDRESS, inspection.getAddress());
             values.put(ASSIGNMENT_TYPE, inspection.getAssigment_type());
             values.put(ASSIGNMENT_DATE, inspection.getDate());
             values.put(ASSIGNMENT_LAT, inspection.getLat());
             values.put(ASSIGNMENT_LNG, inspection.getLng());
             values.put(ASSIGNMENT_NAME, inspection.getName_resident());
+
+            values.put(ASSIGNMENT_TELEFONO, inspection.getPhono_resident());
+            values.put(ASSIGNMENT_EMAIL, inspection.getMail_resident());
+            values.put(ASSIGNMENT_FECHA_INI, inspection.getDateIni_resident());
+            values.put(ASSIGNMENT_MARCA_MEDIDOR, inspection.getMarca_medidor());
+            values.put(ASSIGNMENT_NUMERO_MEDIDOR, inspection.getNumero_medidor());
+
             values.put(ASSIGNMENT_ORIGIN, inspection.getOrigin());
             values.put(ASSIGNMENT_SOCIAL_RISK, inspection.getPolygon());
             values.put(ASSIGNMENT_RUT, inspection.getRut());
@@ -274,6 +305,35 @@ public class LocalDatabase extends SQLiteOpenHelper {
         }
         db.close();
     }
+
+    public Residente getDatosResidente(int idInspeccion) {
+
+        Residente residente = new Residente();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_ASSIGNMENT, new String[]
+                        {
+                                ASSIGNMENT_NAME,
+                                ASSIGNMENT_RUT,
+                                ASSIGNMENT_TELEFONO,
+                                ASSIGNMENT_EMAIL,
+                                ASSIGNMENT_FECHA_INI,
+                                ASSIGNMENT_SOCIAL_RISK
+                        }
+
+                , ASSIGNMENT_ID_INSPECTION + "=?",
+                new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        residente.setNombreResidente(cursor.getString(0));
+        residente.setRutResidente(cursor.getString(1));
+        residente.setTelefonoResidente(cursor.getString(2));
+        residente.setEmailResidente(cursor.getString(3));
+        residente.setFechaResidente(cursor.getString(4));
+        residente.setRiesgoSocial(cursor.getString(5));
+        return residente;
+    }
+
 
     /* Current location*/
     public void guardaUbicacionActual(double lat, double lng) {
@@ -329,6 +389,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_METER_LOCATION, String.valueOf(medidor.getUbicacion()));
         values.put(RESULT_METER_STATUS, String.valueOf(medidor.getEstado()));
         values.put(RESULT_METER_OBS, String.valueOf(medidor.getDescripcionFalla()));
+        values.put(RESULT_NUMERO_MEDIDOR, String.valueOf(medidor.getNumeroMedidor()));
+        values.put(RESULT_DIAMETRO_MEDIDOR, String.valueOf(medidor.getDiametroMedidor()));
+        values.put(RESULT_LECTURA_MEDIDOR, String.valueOf(medidor.getLecturaMedidor()));
 
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
@@ -342,6 +405,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_TEST_1, String.valueOf(test.getTest1()));
         values.put(RESULT_TEST_2, String.valueOf(test.getTest2()));
         values.put(RESULT_TEST_3, String.valueOf(test.getTest3()));
+        values.put(RESULT_TEST_4, String.valueOf(test.getTest4()));
+        values.put(RESULT_TEST_5, String.valueOf(test.getTest4()));
         values.put(RESULT_TEST_USO_IMANES, String.valueOf(test.getUsoImanes()));
         values.put(RESULT_TEST_INV_TOMAS, String.valueOf(test.getInvertirTomas()));
         values.put(RESULT_TEST_PERF_CUP, String.valueOf(test.getPerforaCupula()));
@@ -501,6 +566,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         TestParte1 testParte1 = new TestParte1();
         TestParte2 testParte2 = new TestParte2();
         TestParte3 testParte3 = new TestParte3();
+        Medidor medidor = new Medidor();
 
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -527,6 +593,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_1,
                                 RESULT_TEST_2,
                                 RESULT_TEST_3,
+                                RESULT_TEST_4,
+                                RESULT_TEST_5,
                                 RESULT_TEST_USO_IMANES,
                                 RESULT_TEST_INV_TOMAS,
                                 RESULT_TEST_PERF_CUP,
@@ -566,8 +634,10 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_CAPACIDAD_BOMBA,
                                 RESULT_TEST_RESOLUCION,
                                 RESULT_TEST_CAUDAL,
-                                RESULT_TEST_OBS_4
-
+                                RESULT_TEST_OBS_4,
+                                RESULT_NUMERO_MEDIDOR,
+                                RESULT_DIAMETRO_MEDIDOR,
+                                RESULT_LECTURA_MEDIDOR
                         }
                 , RESULT_ID_INSPECCION + "=?",
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
@@ -595,54 +665,62 @@ public class LocalDatabase extends SQLiteOpenHelper {
         testParte1.setTest1(cursor.getString(15));
         testParte1.setTest2(cursor.getString(16));
         testParte1.setTest3(cursor.getString(17));
-        testParte1.setUsoImanes(cursor.getString(18));
-        testParte1.setInvertirTomas(cursor.getString(19));
-        testParte1.setPerforaCupula(cursor.getString(20));
-        testParte1.setCortaEngranaje(cursor.getString(21));
-        testParte1.setUsoAlambres(cursor.getString(22));
-        testParte1.setPrensado(cursor.getString(23));
-        testParte1.setOtro(cursor.getString(24));
-        testParte1.setInstalacionParalela(cursor.getString(25));
-        testParte1.setBypass(cursor.getString(26));
-        testParte1.setOtro2(cursor.getString(27));
+        testParte1.setTest4(cursor.getString(18));
+        testParte1.setTest5(cursor.getString(19));
+        testParte1.setUsoImanes(cursor.getString(20));
+        testParte1.setInvertirTomas(cursor.getString(21));
+        testParte1.setPerforaCupula(cursor.getString(22));
+        testParte1.setCortaEngranaje(cursor.getString(23));
+        testParte1.setUsoAlambres(cursor.getString(24));
+        testParte1.setPrensado(cursor.getString(25));
+        testParte1.setOtro(cursor.getString(26));
+        testParte1.setInstalacionParalela(cursor.getString(27));
+        testParte1.setBypass(cursor.getString(28));
+        testParte1.setOtro2(cursor.getString(29));
 
-        testParte2.setClaseMedidor(cursor.getString(28));
-        testParte2.setAnoMedidor(cursor.getString(29));
-        testParte2.setMarca(cursor.getString(30));
-        testParte2.setRegistrador(cursor.getString(31));
-        testParte2.setInstalacion(cursor.getString(32));
-        testParte2.setTramoAntes(cursor.getString(33));
-        testParte2.setTramoDespues(cursor.getString(34));
-        testParte2.setObservaciones(cursor.getString(35));
-        testParte2.setEstadoVerticales(cursor.getString(36));
-        testParte2.setEstadoCortes(cursor.getString(37));
-        testParte2.setSuministroAlternativo(cursor.getString(38));
-        testParte2.setCumplePlano(cursor.getString(39));
-        testParte2.setObservaciones2(cursor.getString(40));
+        testParte2.setClaseMedidor(cursor.getString(30));
+        testParte2.setAnoMedidor(cursor.getString(31));
+        testParte2.setMarca(cursor.getString(32));
+        testParte2.setRegistrador(cursor.getString(33));
+        testParte2.setInstalacion(cursor.getString(34));
+        testParte2.setTramoAntes(cursor.getString(35));
+        testParte2.setTramoDespues(cursor.getString(36));
+        testParte2.setObservaciones(cursor.getString(37));
+        testParte2.setEstadoVerticales(cursor.getString(38));
+        testParte2.setEstadoCortes(cursor.getString(39));
+        testParte2.setSuministroAlternativo(cursor.getString(40));
+        testParte2.setCumplePlano(cursor.getString(41));
+        testParte2.setObservaciones2(cursor.getString(42));
 
-        testParte3.setConstruccionNueva(cursor.getString(41));
-        testParte3.setTipoPropiedad(cursor.getString(42));
-        testParte3.setHabitantes(cursor.getString(43));
-        testParte3.setBanos(cursor.getString(44));
-        testParte3.setSuperficieEdificada(cursor.getString(45));
-        testParte3.setSuperficieJardin(cursor.getString(46));
-        testParte3.setAcceso(cursor.getString(47));
-        testParte3.setSuperficieTerreno(cursor.getString(48));
-        testParte3.setObservaciones1(cursor.getString(49));
-        testParte3.setAutoAbastecimiento(cursor.getString(50));
-        testParte3.setTipoFuente(cursor.getString(51));
-        testParte3.setUso(cursor.getString(52));
-        testParte3.setActivo(cursor.getString(53));
-        testParte3.setCapacidadBomba(cursor.getString(54));
-        testParte3.setResolucion(cursor.getString(55));
-        testParte3.setCaudal(cursor.getString(56));
-        testParte3.setObservaciones2(cursor.getString(57));
+        testParte3.setConstruccionNueva(cursor.getString(43));
+        testParte3.setTipoPropiedad(cursor.getString(44));
+        testParte3.setHabitantes(cursor.getString(45));
+        testParte3.setBanos(cursor.getString(46));
+        testParte3.setSuperficieEdificada(cursor.getString(47));
+        testParte3.setSuperficieJardin(cursor.getString(48));
+        testParte3.setAcceso(cursor.getString(49));
+        testParte3.setSuperficieTerreno(cursor.getString(50));
+        testParte3.setObservaciones1(cursor.getString(51));
+        testParte3.setAutoAbastecimiento(cursor.getString(52));
+        testParte3.setTipoFuente(cursor.getString(53));
+        testParte3.setUso(cursor.getString(54));
+        testParte3.setActivo(cursor.getString(55));
+        testParte3.setCapacidadBomba(cursor.getString(56));
+        testParte3.setResolucion(cursor.getString(57));
+        testParte3.setCaudal(cursor.getString(58));
+        testParte3.setObservaciones2(cursor.getString(59));
+
+        medidor.setNumeroMedidor(cursor.getString(60));
+        medidor.setDiametroMedidor(cursor.getString(61));
+        medidor.setLecturaMedidor(cursor.getString(62));
 
         resultado.setResidente(residente);
         resultado.setFotos(fotos);
         resultado.setTestParte1(testParte1);
         resultado.setTestParte2(testParte2);
         resultado.setTestParte3(testParte3);
+        resultado.setMedidor(medidor);
+
         return resultado;
     }
 

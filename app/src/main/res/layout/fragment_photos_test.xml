@@ -45,6 +45,52 @@
             android:background="@color/gray_400"
             android:padding="8dp" />
 
+
+        <LinearLayout
+            android:id="@+id/datosMedidorLinerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/numeroMedidorEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Numero medidor"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1" />
+
+
+            <EditText
+                android:id="@+id/diametroMedidorEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Diametro medidor"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1" />
+
+            <EditText
+                android:id="@+id/lecturaMedidorEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Lectura medidor"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1" />
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/gray_400"
+            android:padding="8dp" />
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

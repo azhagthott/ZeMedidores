@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zecovery.android.zemedidores.R;
+import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.models.Residente;
 import com.zecovery.android.zemedidores.views.assignments.fragments.TokenListener;
 
@@ -29,6 +30,8 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
     private EditText emailResidente;
     private EditText fechaResidente;
     private TextView poligonoSocialResidente;
+
+    private LocalDatabase db;
 
     private int token;
     private TokenListener tokenCallback;
@@ -65,6 +68,28 @@ public class ResidentialFormFragment extends Fragment implements View.OnClickLis
         fechaResidente = view.findViewById(R.id.fechaResidente);
         poligonoSocialResidente = view.findViewById(R.id.poligonoSocialResidente);
         token = getArguments().getInt(ID_ASSIGNMENT, 0);
+
+        db = new LocalDatabase(getContext());
+
+        if (db.getDatosResidente(token).getNombreResidente() != null) {
+            nombreResidente.setText(db.getDatosResidente(token).getNombreResidente());
+        }
+
+        if (db.getDatosResidente(token).getRutResidente() != null) {
+            rutResidente.setText(db.getDatosResidente(token).getRutResidente());
+        }
+
+        if (db.getDatosResidente(token).getTelefonoResidente() != null) {
+            telefonoResidente.setText(db.getDatosResidente(token).getTelefonoResidente());
+        }
+
+        if (db.getDatosResidente(token).getEmailResidente() != null) {
+            emailResidente.setText(db.getDatosResidente(token).getEmailResidente());
+        }
+
+        if (db.getDatosResidente(token).getFechaResidente() != null) {
+            fechaResidente.setText(db.getDatosResidente(token).getEmailResidente());
+        }
     }
 
     @Override

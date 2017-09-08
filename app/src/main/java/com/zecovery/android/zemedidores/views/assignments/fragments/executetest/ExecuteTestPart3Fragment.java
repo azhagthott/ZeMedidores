@@ -267,6 +267,8 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         String test1 = resultado.getTestParte1().getTest1();
         String test2 = resultado.getTestParte1().getTest2();
         String test3 = resultado.getTestParte1().getTest3();
+        String test4 = resultado.getTestParte1().getTest4();
+        String test5 = resultado.getTestParte1().getTest5();
         String uso_imanes = resultado.getTestParte1().getUsoImanes();
         String invertir_tomas = resultado.getTestParte1().getInvertirTomas();
         String perfora_cupula = resultado.getTestParte1().getPerforaCupula();
@@ -310,9 +312,13 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         String caudal = resultado.getTestParte3().getCaudal();
         String observacion_4 = resultado.getTestParte3().getObservaciones2();
 
+
+
         RequestBody test1_body = RequestBody.create(MediaType.parse("multipart/form-data"), test1);
         RequestBody test2_body = RequestBody.create(MediaType.parse("multipart/form-data"), test2);
         RequestBody test3_body = RequestBody.create(MediaType.parse("multipart/form-data"), test3);
+        RequestBody test4_body = RequestBody.create(MediaType.parse("multipart/form-data"), test4);
+        RequestBody test5_body = RequestBody.create(MediaType.parse("multipart/form-data"), test5);
         RequestBody uso_imanes_body = RequestBody.create(MediaType.parse("multipart/form-data"), uso_imanes);
         RequestBody invertir_tomas_body = RequestBody.create(MediaType.parse("multipart/form-data"), invertir_tomas);
         RequestBody perfora_cupula_body = RequestBody.create(MediaType.parse("multipart/form-data"), perfora_cupula);
@@ -360,6 +366,18 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
         String telefono_residente = String.valueOf(resultado.getResidente().getTelefonoResidente());
         String email_residente = String.valueOf(resultado.getResidente().getEmailResidente());
         String fecha_residente = String.valueOf(resultado.getResidente().getFechaResidente());
+
+        String numero_medidor = String.valueOf(resultado.getMedidor().getNumeroMedidor());
+        String diametro_medidor = String.valueOf(resultado.getMedidor().getNumeroMedidor());
+        String lectura_medidor = String.valueOf(resultado.getMedidor().getLecturaMedidor());
+
+        Log.d(TAG, "post: " + numero_medidor);
+        Log.d(TAG, "post: " + diametro_medidor);
+        Log.d(TAG, "post: " + lectura_medidor);
+
+        RequestBody numero_medidor_body = RequestBody.create(MediaType.parse("multipart/form-data"), numero_medidor);
+        RequestBody diametro_medidor_body = RequestBody.create(MediaType.parse("multipart/form-data"), diametro_medidor);
+        RequestBody lectura_medidor_body = RequestBody.create(MediaType.parse("multipart/form-data"), lectura_medidor);
 
         RequestBody nombre_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), nombre_residente);
         RequestBody rut_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), rut_residente);
@@ -461,6 +479,8 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
                 test1_body,
                 test2_body,
                 test3_body,
+                test4_body,
+                test5_body,
                 uso_imanes_body,
                 invertir_tomas_body,
                 perfora_cupula_body,
@@ -506,6 +526,9 @@ public class ExecuteTestPart3Fragment extends Fragment implements View.OnClickLi
                 telefono_residente_body,
                 email_residente_body,
                 fecha_residente_body,
+                numero_medidor_body,
+                diametro_medidor_body,
+                lectura_medidor_body,
                 foto_falla_medidor,
                 foto_lectura_medidor,
                 foto_numero_medidor,

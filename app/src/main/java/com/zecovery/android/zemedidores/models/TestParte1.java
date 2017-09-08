@@ -9,6 +9,8 @@ public class TestParte1 {
     private String test1;
     private String test2;
     private String test3;
+    private String test4;
+    private String test5;
     private String usoImanes;
     private String invertirTomas;
     private String perforaCupula;
@@ -45,6 +47,30 @@ public class TestParte1 {
 
     public void setTest3(String test3) {
         this.test3 = test3;
+    }
+
+    public String getTest4() {
+        return test4;
+    }
+
+    public void setTest4(String test4) {
+        this.test4 = test4;
+    }
+
+    public String getTest5() {
+        return test5;
+    }
+
+    public void setTest5(String test5) {
+        this.test5 = test5;
+    }
+
+    public String getCortaEnganaje() {
+        return cortaEnganaje;
+    }
+
+    public void setCortaEnganaje(String cortaEnganaje) {
+        this.cortaEnganaje = cortaEnganaje;
     }
 
     public String getUsoImanes() {

@@ -81,12 +81,13 @@
     <string name="commercial_form_save_button">Continuar</string>
 
     <!-- UI Fragments execute test -->
-    <string name="execute_test_form_test_1">Ejecute prueba Nº1</string>
-    <string name="execute_test_form_test_1_result">Seleccione el resultado:</string>
-    <string name="execute_test_form_test_2">Ejecute prueba Nº2</string>
-    <string name="execute_test_form_test_2_result">Seleccione el resultado:</string>
-    <string name="execute_test_form_test_3">Ejecute prueba Nº3</string>
-    <string name="execute_test_form_test_3_result">Seleccione el resultado:</string>
+    <string name="execute_test_form_test_1">Revisión visual del medidor</string>
+    <string name="execute_test_form_test_2">Corte de llave de paso</string>
+    <string name="execute_test_form_test_3">Funcionamiento del medidor</string>
+    <string name="execute_test_form_test_4">Llave del medidor</string>
+    <string name="execute_test_form_test_5">Desmontaje</string>
+    <string name="execute_test_form_test_result">Seleccione el resultado:</string>
+
 
     <string name="test_results_save_error">Los resultados de las pruebas no pudieron ser guardados</string>
     <string name="test_results_saved">Los resultados fueron guardados</string>
