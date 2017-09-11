@@ -11,10 +11,10 @@ import com.zecovery.android.zemedidores.models.Residente;
 
 public class GuardaDatosResidente {
 
-    private SaveResidentialForm callback;
+    private GuardaDatosFormularioResidencial callback;
     private Context context;
 
-    public GuardaDatosResidente(SaveResidentialForm callback, Context context) {
+    public GuardaDatosResidente(GuardaDatosFormularioResidencial callback, Context context) {
         this.callback = callback;
         this.context = context;
     }
@@ -23,9 +23,9 @@ public class GuardaDatosResidente {
         if (resident != null) {
             LocalDatabase db = new LocalDatabase(context);
             db.guardaDatosResidente(resident, token);
-            callback.save();
+            callback.guardaDatos();
         } else {
-            callback.error();
+            callback.errorGuardaDatos();
         }
     }
 }

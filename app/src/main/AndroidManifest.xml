@@ -35,12 +35,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login" />
         <activity
-            android:name=".views.login.UnAuthorizedActivity"
+            android:name=".views.login.NoAutorizadoActivity"
             android:label="@string/title_activity_un_authorized"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".views.ShiftActivity"
+            android:name=".views.turno.TurnoActivity"
             android:label="@string/title_activity_init_shift"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -50,7 +50,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".views.assignments.MapActivity"
+            android:name=".views.map.MapActivity"
             android:label="@string/init_inspect_title"
             android:parentActivityName=".views.MainActivity"
             android:screenOrientation="portrait"
@@ -60,7 +60,7 @@
                 android:value="com.zecovery.android.zemedidores.views.MainActivity" />
         </activity>
         <activity
-            android:name=".views.assignments.AssignmentActivity"
+            android:name=".views.assignments.ContentActivity"
             android:label="@string/title_check_data"
             android:parentActivityName=".views.MainActivity"
             android:screenOrientation="portrait"
@@ -70,7 +70,7 @@
                 android:value="com.zecovery.android.zemedidores.views.MainActivity" />
         </activity>
         <activity
-            android:name=".views.assignments.RejectedActivity"
+            android:name=".views.assignments.InspeccionRechazadaActivity"
             android:label="@string/title_activity_rejected"
             android:parentActivityName=".views.MainActivity"
             android:screenOrientation="portrait"

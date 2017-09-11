@@ -6,7 +6,7 @@ package com.zecovery.android.zemedidores.views.login;
 
 public interface LoginAuthorizationCallback {
 
-    void authorized();
+    void autorizado();
 
-    void unAuthorized();
+    void noAutorizado();
 }

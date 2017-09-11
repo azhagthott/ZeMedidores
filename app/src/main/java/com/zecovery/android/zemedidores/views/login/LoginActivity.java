@@ -11,9 +11,9 @@ import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.CurrentUser;
-import com.zecovery.android.zemedidores.views.ShiftActivity;
+import com.zecovery.android.zemedidores.views.turno.TurnoActivity;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 public class LoginActivity extends AppCompatActivity implements
         LoginValidationCallback, LoginAuthorizationCallback {
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements
 
             // Successfully signed in
             if (resultCode == ResultCodes.OK) {
-                FirebaseCrash.log("Login success: " + new CurrentUser().uid());
+                FirebaseCrash.log("Login iniciaTurnoOk: " + new CurrentUser().uid());
                 logged();
 
             } else {
@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements
                     }
 
                     if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
-                        FirebaseCrash.report(new Exception("Unknown error at login / sign in failed"));
+                        FirebaseCrash.report(new Exception("Unknown iniciaTurnoError at login / sign in failed"));
                     }
                 }
             }
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     public void signIn() {
-        startActivityForResult(
+        /*startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setIsSmartLockEnabled(false)
@@ -68,17 +68,27 @@ public class LoginActivity extends AppCompatActivity implements
                         .setTheme(R.style.AppTheme_Login)
                         .build(),
                 RC_SIGN_IN);
+*/
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(
+                                Collections.singletonList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build()))
+                        .setTheme(R.style.AppTheme_Login)
+                        .setIsSmartLockEnabled(true, true)
+                        .build(),
+                RC_SIGN_IN);
     }
 
     @Override
-    public void authorized() {
-        startActivity(new Intent(this, ShiftActivity.class));
+    public void autorizado() {
+        startActivity(new Intent(this, TurnoActivity.class));
         finish();
     }
 
     @Override
-    public void unAuthorized() {
-        startActivity(new Intent(this, UnAuthorizedActivity.class));
+    public void noAutorizado() {
+        startActivity(new Intent(this, NoAutorizadoActivity.class));
         finish();
     }
 }

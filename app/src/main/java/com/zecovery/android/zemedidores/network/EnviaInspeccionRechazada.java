@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
+import com.zecovery.android.zemedidores.views.assignments.RechazoCallback;
 
 import java.io.File;
 import java.util.Calendar;

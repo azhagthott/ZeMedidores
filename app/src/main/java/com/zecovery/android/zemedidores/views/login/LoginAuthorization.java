@@ -28,14 +28,14 @@ public class LoginAuthorization implements ValueEventListener {
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         if (dataSnapshot.exists()) {
-            callback.authorized();
+            callback.autorizado();
         } else {
-            callback.unAuthorized();
+            callback.noAutorizado();
         }
     }
 
     @Override
     public void onCancelled(DatabaseError databaseError) {
-        callback.unAuthorized();
+        callback.noAutorizado();
     }
 }

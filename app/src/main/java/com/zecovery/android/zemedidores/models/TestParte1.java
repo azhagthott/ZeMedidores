@@ -18,6 +18,8 @@ public class TestParte1 {
     private String usoAlambres;
     private String prensado;
     private String otro;
+    private String otroText;
+    private String otroText2;
     private String instalacionParalela;
     private String bypass;
     private String otro2;
@@ -63,14 +65,6 @@ public class TestParte1 {
 
     public void setTest5(String test5) {
         this.test5 = test5;
-    }
-
-    public String getCortaEnganaje() {
-        return cortaEnganaje;
-    }
-
-    public void setCortaEnganaje(String cortaEnganaje) {
-        this.cortaEnganaje = cortaEnganaje;
     }
 
     public String getUsoImanes() {
@@ -129,6 +123,14 @@ public class TestParte1 {
         this.otro = otro;
     }
 
+    public String getOtroText() {
+        return otroText;
+    }
+
+    public void setOtroText(String otroText) {
+        this.otroText = otroText;
+    }
+
     public String getInstalacionParalela() {
         return instalacionParalela;
     }
@@ -151,5 +153,13 @@ public class TestParte1 {
 
     public void setOtro2(String otro2) {
         this.otro2 = otro2;
+    }
+
+    public String getOtroText2() {
+        return otroText2;
+    }
+
+    public void setOtroText2(String otroText2) {
+        this.otroText2 = otroText2;
     }
 }

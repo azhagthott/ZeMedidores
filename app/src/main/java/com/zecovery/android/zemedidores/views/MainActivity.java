@@ -14,9 +14,9 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.zecovery.android.zemedidores.R;
-import com.zecovery.android.zemedidores.adapters.InspectionAdapter;
-import com.zecovery.android.zemedidores.background.InspectionList;
-import com.zecovery.android.zemedidores.background.InspectionParams;
+import com.zecovery.android.zemedidores.adapters.InspeccionAdapter;
+import com.zecovery.android.zemedidores.background.ListaInspecciones;
+import com.zecovery.android.zemedidores.background.InspeccionParams;
 import com.zecovery.android.zemedidores.data.CurrentUser;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.models.Inspection;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = new LocalDatabase(this);
 
-        new GetInspections(new InspectionParams(123, new CurrentUser().email())).execute();
+        new GetInspecciones(new InspeccionParams(123, new CurrentUser().email())).execute();
         setSupportActionBar(toolbar);
     }
 
@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public class GetInspections extends InspectionList {
+    public class GetInspecciones extends ListaInspecciones {
 
-        public GetInspections(InspectionParams params) {
+        public GetInspecciones(InspeccionParams params) {
             super(params);
         }
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             mainRecyclerView.setLayoutManager(linearLayoutManager);
-            InspectionAdapter adapter = new InspectionAdapter(inspections);
+            InspeccionAdapter adapter = new InspeccionAdapter(inspections);
             mainRecyclerView.setAdapter(adapter);
         }
     }

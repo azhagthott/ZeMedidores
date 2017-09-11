@@ -25,7 +25,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 140;
+    private static final int DB_VERSION = 142;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -90,6 +90,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_USO_ALAM = "uso_alam";
     private static final String RESULT_TEST_PRENSADO = "prensado";
     private static final String RESULT_TEST_OTRO_1 = "otro_1";
+    private static final String RESULT_TEST_OTRO_1_TEXT = "otro_1";
+    private static final String RESULT_TEST_OTRO_2_TEXT = "otro_2";
     private static final String RESULT_TEST_INST_PAR = "inst_par";
     private static final String RESULT_TEST_BYPASS = "bypass";
     private static final String RESULT_TEST_OTRO_2 = "otro_2";
@@ -255,7 +257,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_OTRO + " TEXT, "
                 + RESULT_NUMERO_MEDIDOR + " TEXT, "
                 + RESULT_DIAMETRO_MEDIDOR + " TEXT, "
-                + RESULT_LECTURA_MEDIDOR + " TEXT)"
+                + RESULT_LECTURA_MEDIDOR + " TEXT, "
+                + RESULT_TEST_OTRO_1_TEXT + " TEXT, "
+                + RESULT_TEST_OTRO_2_TEXT + " TEXT)"
                 + ";";
 
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
@@ -365,6 +369,14 @@ public class LocalDatabase extends SQLiteOpenHelper {
         }
     }
 
+    public void creaInspeccion(int idInspeccion) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
+        db.insert(TABLE_INSPECTION_RESULT, null, values);
+        db.close();
+    }
+
     public void guardaDatosResidente(Residente residente, int idInspeccion) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -375,11 +387,28 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_TEST_RUT_RESIDENTE, String.valueOf(residente.getRutResidente()));
         values.put(RESULT_TEST_TELEFONO_RESIDENTE, String.valueOf(residente.getTelefonoResidente()));
         values.put(RESULT_TEST_EMAIL_RESIDENTE, String.valueOf(residente.getEmailResidente()));
-        values.put(RESULT_TEST_FECHA_RESIDENTE, String.valueOf(residente.getFechaResidente()));
 
-        db.insert(TABLE_INSPECTION_RESULT, null, values);
+        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
+
+    public void guardaFechaResidencia(int idInspeccion, int year, int month, int day) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        int realMonth = month + 1;
+
+        String stringYear = String.valueOf(year);
+        String stringMonth = String.valueOf(realMonth);
+        String stringDay = String.valueOf(day);
+
+        String date = stringYear + "-" + stringMonth + "-" + stringDay;
+        values.put(RESULT_TEST_FECHA_RESIDENTE, date);
+        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.close();
+    }
+
 
     public void guardaDatosMedidor(Medidor medidor, int idInspeccion) {
 
@@ -414,9 +443,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_TEST_USO_ALAM, String.valueOf(test.getUsoAlambres()));
         values.put(RESULT_TEST_PRENSADO, String.valueOf(test.getPrensado()));
         values.put(RESULT_TEST_OTRO_1, String.valueOf(test.getOtro()));
+        values.put(RESULT_TEST_OTRO_1_TEXT, String.valueOf(test.getOtroText()));
         values.put(RESULT_TEST_INST_PAR, String.valueOf(test.getInstalacionParalela()));
         values.put(RESULT_TEST_BYPASS, String.valueOf(test.getBypass()));
         values.put(RESULT_TEST_OTRO_2, String.valueOf(test.getOtro2()));
+        values.put(RESULT_TEST_OTRO_2_TEXT, String.valueOf(test.getOtroText2()));
 
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
@@ -637,7 +668,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_OBS_4,
                                 RESULT_NUMERO_MEDIDOR,
                                 RESULT_DIAMETRO_MEDIDOR,
-                                RESULT_LECTURA_MEDIDOR
+                                RESULT_LECTURA_MEDIDOR,
+                                RESULT_TEST_OTRO_1_TEXT,
+                                RESULT_TEST_OTRO_2_TEXT
                         }
                 , RESULT_ID_INSPECCION + "=?",
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
@@ -713,6 +746,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
         medidor.setNumeroMedidor(cursor.getString(60));
         medidor.setDiametroMedidor(cursor.getString(61));
         medidor.setLecturaMedidor(cursor.getString(62));
+        testParte1.setOtroText(cursor.getString(63));
+        testParte1.setOtroText2(cursor.getString(64));
 
         resultado.setResidente(residente);
         resultado.setFotos(fotos);
@@ -722,8 +757,5 @@ public class LocalDatabase extends SQLiteOpenHelper {
         resultado.setMedidor(medidor);
 
         return resultado;
-    }
-
-    public void guardaFormularioNegociacion(int idInspeccion) {
     }
 }

@@ -249,40 +249,58 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="8dp"
-            android:text="@string/execute_test_option_7"
-            android:textColor="@color/gray_500" />
-
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
 
-            <RadioButton
-                android:id="@+id/case7PositiveRadioButton"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="@string/radio_button_yes" />
+                android:layout_gravity="center"
+                android:padding="8dp"
+                android:text="@string/execute_test_option_7"
+                android:textColor="@color/gray_500" />
 
-            <RadioButton
-                android:id="@+id/case7NegativeRadioButton"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:text="@string/radio_button_no" />
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/case7PositiveRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="@string/radio_button_yes" />
+
+                <RadioButton
+                    android:id="@+id/case7NegativeRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="@string/radio_button_no" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/case7EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:hint="Especificar"
+            android:maxLines="1"
+            android:minLines="1" />
 
     </LinearLayout>
+
 
 </LinearLayout>

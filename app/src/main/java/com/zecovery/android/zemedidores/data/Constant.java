@@ -11,21 +11,21 @@ public class Constant {
 
     public static final String TAG = "LOG:::";
 
-    public static final String RESIDENTIAL = "1";
-    public static final String COMMERCIAL = "2";
-    public static final String BUSINESS = "3";
+    public static final String RESIDENCIAL = "1";
+    public static final String COMERCIAL = "2";
+    public static final String EMPRESA = "3";
 
     public static final String UNAUTHORIZED = "No autorizado";
 
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
     public static final String ADDRESS = "ADDRESS";
-    public static final String ID_ASSIGNMENT = "ID_ASSIGNMENT";
-    public static final String ID_ASSIGNMENT_EXECUTE_TEST_1 = "ID_ASSIGNMENT_EXECUTE_TEST_1";
-    public static final String ID_ASSIGNMENT_EXECUTE_TEST_2 = "ID_ASSIGNMENT_EXECUTE_TEST_2";
-    public static final String ID_ASSIGNMENT_EXECUTE_TEST_3 = "ID_ASSIGNMENT_EXECUTE_TEST_3";
-    public static final String ID_ASSIGNMENT_NEGOTIATION = "ID_ASSIGNMENT_NEGOTIATION";
-    public static final String ID_ASSIGNMENT_PHOTO = "ID_ASSIGNMENT_PHOTO";
+    public static final String ID_INSPECCION = "ID_INSPECCION";
+    public static final String ID_INSPECCION_EJECUTA_TEST_1 = "ID_INSPECCION_EJECUTA_TEST_1";
+    public static final String ID_INSPECCION_EJECUTA_TEST_2 = "ID_INSPECCION_EJECUTA_TEST_2";
+    public static final String ID_INSPECCION_EJECUTA_TEST_3 = "ID_INSPECCION_EJECUTA_TEST_3";
+    public static final String ID_INSPECCION_FORMULARIO_NEGOCIACION = "ID_INSPECCION_FORMULARIO_NEGOCIACION";
+    public static final String ID_INSPECCION_FORMULARIO_FOTOS = "ID_INSPECCION_FORMULARIO_FOTOS";
 
     public static final String ASSIGNMENT_TYPE = "assignment_type";
     public static final int RESIZE_PHOTO_PIXELS_PERCENTAGE = 20;
@@ -50,6 +50,7 @@ public class Constant {
 
     /* Retrofit */
     public static final String URL_BASE_DESA = "http://medidores.desa.zecovery.com";
+    public static final String URL_BASE_DEMO = "http://medidores.demo.zecovery.com";
 
     /* network*/
     public static final int TIME_OUT = 60;
