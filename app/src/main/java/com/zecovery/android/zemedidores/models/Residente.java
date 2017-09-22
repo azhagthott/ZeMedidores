@@ -12,6 +12,7 @@ public class Residente {
     private String emailResidente;
     private String fechaResidente;
     private String riesgoSocial;
+    private String direccionResidente;
 
     public Residente() {
     }
@@ -62,5 +63,13 @@ public class Residente {
 
     public void setRiesgoSocial(String riesgoSocial) {
         this.riesgoSocial = riesgoSocial;
+    }
+
+    public String getDireccionResidente() {
+        return direccionResidente;
+    }
+
+    public void setDireccionResidente(String direccionResidente) {
+        this.direccionResidente = direccionResidente;
     }
 }

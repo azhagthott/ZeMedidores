@@ -30,8 +30,9 @@ import java.util.Calendar;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 
-public class FormularioResidencialFragment extends Fragment implements View.OnClickListener, GuardaDatosFormularioResidencial {
+public class FormularioResidencialFragment extends Fragment implements View.OnClickListener, GuardaDatosFormularioResidencial, DatePickerDialog.OnDateSetListener {
 
+    private static final int REQUEST_DATE = 109;
     private Button saveButton;
     private EditText nombreResidente;
     private EditText rutResidente;
@@ -40,12 +41,8 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
     private TextView fechaResidente;
     private TextView poligonoSocialResidente;
     private ImageButton setFechaResidenteButton;
-
     private LocalDatabase db;
-
     private int idInspeccion;
-    private static final int REQUEST_DATE = 109;
-
     private IdInspeccionListener tokenCallback;
 
     public FormularioResidencialFragment() {
@@ -75,35 +72,40 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
 
         findViews(view);
 
+        Log.d("TAG", "onViewCreated: " + idInspeccion);
+
+
         saveButton.setOnClickListener(this);
 
-        if (db.getDatosResidente(idInspeccion).getNombreResidente() != null) {
-            nombreResidente.setText(db.getDatosResidente(idInspeccion).getNombreResidente());
-        }
-
-        if (db.getDatosResidente(idInspeccion).getRutResidente() != null) {
-            rutResidente.setText(db.getDatosResidente(idInspeccion).getRutResidente());
-        }
-
-        if (db.getDatosResidente(idInspeccion).getTelefonoResidente() != null) {
-            telefonoResidente.setText(db.getDatosResidente(idInspeccion).getTelefonoResidente());
-        }
-
-        if (db.getDatosResidente(idInspeccion).getEmailResidente() != null) {
-            emailResidente.setText(db.getDatosResidente(idInspeccion).getEmailResidente());
-        }
-
-        if (db.getDatosResidente(idInspeccion).getFechaResidente() != null) {
-            fechaResidente.setText(db.getDatosResidente(idInspeccion).getFechaResidente());
-        }
-
-        setFechaResidenteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new DatePickerFragment().newInstance(idInspeccion).show(getFragmentManager(), "datePicker");
-
+        if (idInspeccion > 0) {
+            if (db.getDatosResidente(idInspeccion).getNombreResidente() != null) {
+                nombreResidente.setText(db.getDatosResidente(idInspeccion).getNombreResidente());
             }
-        });
+
+            if (db.getDatosResidente(idInspeccion).getRutResidente() != null) {
+                rutResidente.setText(db.getDatosResidente(idInspeccion).getRutResidente());
+            }
+
+            if (db.getDatosResidente(idInspeccion).getTelefonoResidente() != null) {
+                telefonoResidente.setText(db.getDatosResidente(idInspeccion).getTelefonoResidente());
+            }
+
+            if (db.getDatosResidente(idInspeccion).getEmailResidente() != null) {
+                emailResidente.setText(db.getDatosResidente(idInspeccion).getEmailResidente());
+            }
+
+            if (db.getDatosResidente(idInspeccion).getFechaResidente() != null) {
+                fechaResidente.setText(db.getDatosResidente(idInspeccion).getFechaResidente());
+            }
+
+            setFechaResidenteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new DatePickerFragment().newInstance(idInspeccion).show(getFragmentManager(), "datePicker");
+
+                }
+            });
+        }
     }
 
     private void findViews(View view) {
@@ -162,14 +164,15 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
             errorTelefono = false;
         }
 
-        if (fechaResidente.getText().length() == 0) {
+        /*if (fechaResidente.getText().length() == 0) {
             errorFecha = true;
             fechaResidente.setError("Debe ingresar fecha desde que habita la propiedad");
         } else {
             errorFecha = false;
-        }
+        }*/
 
-        if (!errorNombre && !errorRut && !errorTelefono && !errorFecha) {
+        //&& !errorFecha
+        if (!errorNombre && !errorRut && !errorTelefono) {
             Residente resident = new Residente();
             resident.setNombreResidente(nombreResidente.getText().toString());
             resident.setRutResidente(rutResidente.getText().toString());
@@ -208,6 +211,11 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
         }
     }
 
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+    }
+
     public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
         private int idInspeccion;
@@ -237,15 +245,13 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
 
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(),
-                    (DatePickerDialog.OnDateSetListener) FormularioResidencialFragment.instantiate(getContext(),
-                            FormularioResidencialFragment.class.getCanonicalName()), year, month, day);
+            return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) FormularioResidencialFragment.instantiate(getContext(),
+                    FormularioResidencialFragment.class.getCanonicalName()), year, month, day);
         }
 
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             final int realMonth = month + 1;
-
             LocalDatabase db = new LocalDatabase(getContext());
             db.guardaFechaResidencia(idInspeccion, year, realMonth, day);
         }

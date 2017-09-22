@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.zecovery.android.zemedidores.models.Foto;
@@ -25,11 +26,12 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 142;
+    private static final int DB_VERSION = 152;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
     private static final String TABLE_INSPECTION_RESULT = "result";
+    private static final String TABLE_VERSION = "version";
 
     //SQL comandos
     private static final String DB_CREATE_TABLE = "CREATE TABLE ";
@@ -90,8 +92,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_USO_ALAM = "uso_alam";
     private static final String RESULT_TEST_PRENSADO = "prensado";
     private static final String RESULT_TEST_OTRO_1 = "otro_1";
-    private static final String RESULT_TEST_OTRO_1_TEXT = "otro_1";
-    private static final String RESULT_TEST_OTRO_2_TEXT = "otro_2";
+    private static final String RESULT_TEST_OTRO_1_TEXT = "otro_1_text";
+    private static final String RESULT_TEST_OTRO_2_TEXT = "otro_2_text";
     private static final String RESULT_TEST_INST_PAR = "inst_par";
     private static final String RESULT_TEST_BYPASS = "bypass";
     private static final String RESULT_TEST_OTRO_2 = "otro_2";
@@ -145,12 +147,23 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_LECTURA_MEDIDOR = "lectura_meiddor";
 
 
+    private static final String VERSION_KEY = "id";
+    private static final String VERSION_DATABASE_ACTUAL = "db_version_actual";
+    private static final String VERSION_COMPILACION_ACTUAL = "comp_version_actual";
+
+
     public LocalDatabase(Context context) {
         super(context, DB_MANE, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        String CREATE_TABLE_VERSION = DB_VERSION + TABLE_VERSION + "("
+                + VERSION_KEY + " INTEGER PRIMARY_KEY, "
+                + VERSION_DATABASE_ACTUAL + " TEXT, "
+                + VERSION_COMPILACION_ACTUAL + " TEXT)"
+                + ";";
 
         String CREATE_TABLE_ASSIGNMENT = DB_CREATE_TABLE + TABLE_ASSIGNMENT + "("
                 + ASSIGNMENT_ID_KEY + " INTEGER PRIMARY_KEY, "
@@ -262,6 +275,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_OTRO_2_TEXT + " TEXT)"
                 + ";";
 
+        //db.execSQL(CREATE_TABLE_VERSION);
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
         db.execSQL(CREATE_TABLE_CURRENT_LOCATION);
         db.execSQL(CREATE_TABLE_INSPECTION_RESULT);
@@ -269,6 +283,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        //db.execSQL(DB_DROP_TABLE + TABLE_VERSION);
         db.execSQL(DB_DROP_TABLE + TABLE_ASSIGNMENT);
         db.execSQL(DB_DROP_TABLE + TABLE_CURRENT_LOCATION);
         db.execSQL(DB_DROP_TABLE + TABLE_INSPECTION_RESULT);
@@ -328,14 +343,19 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
+
+            residente.setNombreResidente(cursor.getString(0));
+            residente.setRutResidente(cursor.getString(1));
+            residente.setTelefonoResidente(cursor.getString(2));
+            residente.setEmailResidente(cursor.getString(3));
+            residente.setFechaResidente(cursor.getString(4));
+            residente.setRiesgoSocial(cursor.getString(5));
+
         }
-        residente.setNombreResidente(cursor.getString(0));
-        residente.setRutResidente(cursor.getString(1));
-        residente.setTelefonoResidente(cursor.getString(2));
-        residente.setEmailResidente(cursor.getString(3));
-        residente.setFechaResidente(cursor.getString(4));
-        residente.setRiesgoSocial(cursor.getString(5));
+
+
         return residente;
+
     }
 
 
@@ -382,6 +402,10 @@ public class LocalDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        Log.d("TAG", "guardaDatosResidente: " + residente.getNombreResidente());
+        Log.d("TAG", "idInspeccion: " + idInspeccion);
+
+
         values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
         values.put(RESULT_TEST_NOMBRE_RESIDENTE, String.valueOf(residente.getNombreResidente()));
         values.put(RESULT_TEST_RUT_RESIDENTE, String.valueOf(residente.getRutResidente()));
@@ -389,6 +413,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_TEST_EMAIL_RESIDENTE, String.valueOf(residente.getEmailResidente()));
 
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+
+
         db.close();
     }
 
@@ -571,20 +597,23 @@ public class LocalDatabase extends SQLiteOpenHelper {
                         }
                 , RESULT_ID_INSPECCION + "=?",
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
+
         if (cursor != null) {
             cursor.moveToFirst();
+
+            fotos.setRechazoInspeccion(cursor.getString(0));
+            fotos.setFallaMedidor(cursor.getString(1));
+            fotos.setLecturaMedidor(cursor.getString(2));
+            fotos.setNumeroMedidor(cursor.getString(3));
+            fotos.setPanoramicaMedidor(cursor.getString(4));
+            fotos.setNumeroPropiedad(cursor.getString(5));
+            fotos.setFachadaPropiedad(cursor.getString(6));
+            fotos.setIntervencionRed(cursor.getString(7));
+            fotos.setBypass(cursor.getString(8));
+            fotos.setOtro(cursor.getString(9));
         }
 
-        fotos.setRechazoInspeccion(cursor.getString(0));
-        fotos.setFallaMedidor(cursor.getString(1));
-        fotos.setLecturaMedidor(cursor.getString(2));
-        fotos.setNumeroMedidor(cursor.getString(3));
-        fotos.setPanoramicaMedidor(cursor.getString(4));
-        fotos.setNumeroPropiedad(cursor.getString(5));
-        fotos.setFachadaPropiedad(cursor.getString(6));
-        fotos.setIntervencionRed(cursor.getString(7));
-        fotos.setBypass(cursor.getString(8));
-        fotos.setOtro(cursor.getString(9));
+        //cursor.close();
         return fotos;
 
     }

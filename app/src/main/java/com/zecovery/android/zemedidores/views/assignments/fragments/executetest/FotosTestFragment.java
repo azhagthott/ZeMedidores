@@ -67,18 +67,21 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
     private IdInspeccionListener callback;
     private LocalDatabase db;
 
-    private int token;
+    private int idInspeccion;
     private String photoName;
     private String localPath;
 
     public FotosTestFragment() {
     }
 
-    public FotosTestFragment newInstance(int token) {
+    public FotosTestFragment newInstance(int idInspeccion) {
+
+
+        Log.d("TAG", "idInspeccion: " + idInspeccion);
 
         FotosTestFragment photosTestFragment = new FotosTestFragment();
         Bundle args = new Bundle();
-        args.putInt(ID_INSPECCION_FORMULARIO_FOTOS, token);
+        args.putInt(ID_INSPECCION_FORMULARIO_FOTOS, idInspeccion);
         photosTestFragment.setArguments(args);
         return photosTestFragment;
     }
@@ -92,7 +95,7 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        token = getArguments().getInt(ID_INSPECCION_FORMULARIO_FOTOS);
+        idInspeccion = getArguments().getInt(ID_INSPECCION_FORMULARIO_FOTOS);
         findViews(view);
 
         datosMedidorLinerLayout.setVisibility(View.GONE);
@@ -115,6 +118,7 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
         positiveRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
 
                 if (isChecked) {
                     brokenMeterLinearLayout.setVisibility(View.VISIBLE);
@@ -139,34 +143,34 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
             }
         });
 
-        if (db.getFotos(token).getFallaMedidor() != null) {
+        if (db.getFotos(idInspeccion).getFallaMedidor() != null) {
             imagePreviewMedidorRoto.setVisibility(View.VISIBLE);
-            Glide.with(getContext()).load(db.getFotos(token).getFallaMedidor()).into(imagePreviewMedidorRoto);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getFallaMedidor()).into(imagePreviewMedidorRoto);
         }
 
-        if (db.getFotos(token).getLecturaMedidor() != null) {
+        if (db.getFotos(idInspeccion).getLecturaMedidor() != null) {
             imagePreviewLecturaMedidor.setVisibility(View.VISIBLE);
-            Glide.with(getContext()).load(db.getFotos(token).getLecturaMedidor()).into(imagePreviewLecturaMedidor);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getLecturaMedidor()).into(imagePreviewLecturaMedidor);
         }
 
-        if (db.getFotos(token).getNumeroMedidor() != null) {
+        if (db.getFotos(idInspeccion).getNumeroMedidor() != null) {
             imagePreviewNumeroMedidor.setVisibility(View.VISIBLE);
-            Glide.with(getContext()).load(db.getFotos(token).getNumeroMedidor()).into(imagePreviewNumeroMedidor);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getNumeroMedidor()).into(imagePreviewNumeroMedidor);
         }
 
-        if (db.getFotos(token).getPanoramicaMedidor() != null) {
+        if (db.getFotos(idInspeccion).getPanoramicaMedidor() != null) {
             imagePreviewPanoMedidor.setVisibility(View.VISIBLE);
-            Glide.with(getContext()).load(db.getFotos(token).getPanoramicaMedidor()).into(imagePreviewPanoMedidor);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getPanoramicaMedidor()).into(imagePreviewPanoMedidor);
         }
 
-        if (db.getFotos(token).getNumeroPropiedad() != null) {
+        if (db.getFotos(idInspeccion).getNumeroPropiedad() != null) {
             imagePreviewNumeroPropiedad.setVisibility(View.VISIBLE);
-            Glide.with(getContext()).load(db.getFotos(token).getNumeroPropiedad()).into(imagePreviewNumeroPropiedad);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getNumeroPropiedad()).into(imagePreviewNumeroPropiedad);
         }
 
-        if (db.getFotos(token).getFachadaPropiedad() != null) {
+        if (db.getFotos(idInspeccion).getFachadaPropiedad() != null) {
             imagePreviewFachadaPropiedad.setVisibility(View.VISIBLE);
-            Glide.with(getContext()).load(db.getFotos(token).getFachadaPropiedad()).into(imagePreviewFachadaPropiedad);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getFachadaPropiedad()).into(imagePreviewFachadaPropiedad);
         }
     }
 
@@ -233,53 +237,64 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+        Log.d("TAG", "requestCode: " + requestCode);
+        Log.d("TAG", "resultCode: " + resultCode);
+
+
         magicalCamera.resultPhoto(requestCode, resultCode, data);
 
         try {
 
-            localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), photoName, token + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
+            localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), photoName, idInspeccion + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
             String localPathParts[] = localPath.split("/");
             //localPhotoName = localPathParts[7];
 
             Foto foto = new Foto();
 
+            Log.d("TAG", "photoName: " + photoName);
+
             switch (photoName) {
 
                 case "medidor_descompuesto":
                     foto.setFallaMedidor(localPath);
-                    db.guardaFoto(foto, token);
+                    db.guardaFoto(foto, idInspeccion);
                     imagePreviewMedidorRoto.setVisibility(View.VISIBLE);
-                    Glide.with(getContext()).load(db.getFotos(token).getFallaMedidor()).into(imagePreviewMedidorRoto);
+
+                    Log.d("TAG", "localPath: " + localPath);
+                    Log.d("TAG", "idInspeccion: " + idInspeccion);
+
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getFallaMedidor()).into(imagePreviewMedidorRoto);
                     break;
                 case "lectura_medidor":
                     foto.setLecturaMedidor(localPath);
-                    db.guardaFoto(foto, token);
+                    db.guardaFoto(foto, idInspeccion);
                     imagePreviewLecturaMedidor.setVisibility(View.VISIBLE);
-                    Glide.with(getContext()).load(db.getFotos(token).getLecturaMedidor()).into(imagePreviewLecturaMedidor);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getLecturaMedidor()).into(imagePreviewLecturaMedidor);
                     break;
                 case "numero_medidor":
                     foto.setNumeroMedidor(localPath);
-                    db.guardaFoto(foto, token);
+                    db.guardaFoto(foto, idInspeccion);
                     imagePreviewNumeroMedidor.setVisibility(View.VISIBLE);
-                    Glide.with(getContext()).load(db.getFotos(token).getNumeroMedidor()).into(imagePreviewNumeroMedidor);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getNumeroMedidor()).into(imagePreviewNumeroMedidor);
                     break;
                 case "panoramica_medidor":
                     foto.setPanoramicaMedidor(localPath);
-                    db.guardaFoto(foto, token);
+                    db.guardaFoto(foto, idInspeccion);
                     imagePreviewPanoMedidor.setVisibility(View.VISIBLE);
-                    Glide.with(getContext()).load(db.getFotos(token).getPanoramicaMedidor()).into(imagePreviewPanoMedidor);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getPanoramicaMedidor()).into(imagePreviewPanoMedidor);
                     break;
                 case "numero_propiedad":
                     foto.setNumeroPropiedad(localPath);
-                    db.guardaFoto(foto, token);
+                    db.guardaFoto(foto, idInspeccion);
                     imagePreviewNumeroPropiedad.setVisibility(View.VISIBLE);
-                    Glide.with(getContext()).load(db.getFotos(token).getNumeroPropiedad()).into(imagePreviewNumeroPropiedad);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getNumeroPropiedad()).into(imagePreviewNumeroPropiedad);
                     break;
                 case "fachada_propiedad":
                     foto.setFachadaPropiedad(localPath);
-                    db.guardaFoto(foto, token);
+                    db.guardaFoto(foto, idInspeccion);
                     imagePreviewFachadaPropiedad.setVisibility(View.VISIBLE);
-                    Glide.with(getContext()).load(db.getFotos(token).getFachadaPropiedad()).into(imagePreviewFachadaPropiedad);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getFachadaPropiedad()).into(imagePreviewFachadaPropiedad);
                     break;
             }
         } catch (Exception e) {
@@ -382,12 +397,12 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
 
         if (id == R.id.continueTestButton) {
 
-            String fotoFalla = db.getFotos(token).getFallaMedidor();
-            String fotoLectura = db.getFotos(token).getLecturaMedidor();
-            String fotoNumeroMedidor = db.getFotos(token).getNumeroMedidor();
-            String fotoPanoramica = db.getFotos(token).getPanoramicaMedidor();
-            String fotoNumeroPropiedad = db.getFotos(token).getNumeroPropiedad();
-            String fotoFachada = db.getFotos(token).getFachadaPropiedad();
+            String fotoFalla = db.getFotos(idInspeccion).getFallaMedidor();
+            String fotoLectura = db.getFotos(idInspeccion).getLecturaMedidor();
+            String fotoNumeroMedidor = db.getFotos(idInspeccion).getNumeroMedidor();
+            String fotoPanoramica = db.getFotos(idInspeccion).getPanoramicaMedidor();
+            String fotoNumeroPropiedad = db.getFotos(idInspeccion).getNumeroPropiedad();
+            String fotoFachada = db.getFotos(idInspeccion).getFachadaPropiedad();
 
 
             if (positiveRadioButton.isChecked() &&
@@ -403,9 +418,9 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                 medidor.setEstado("si");
                 medidor.setDescripcionFalla(failureComment);
 
-                db.guardaDatosMedidor(medidor, token);
+                db.guardaDatosMedidor(medidor, idInspeccion);
 
-                callback.IdInspeccionEjecutaTestParte1(token);
+                callback.IdInspeccionEjecutaTestParte1(idInspeccion);
             }
 
             if (negativeRadioButton.isChecked() &&
@@ -439,9 +454,9 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                 medidor.setLecturaMedidor(lectura);
                 medidor.setEstado("si");
                 medidor.setDescripcionFalla("");
-                db.guardaDatosMedidor(medidor, token);
+                db.guardaDatosMedidor(medidor, idInspeccion);
 
-                callback.IdInspeccionEjecutaTestParte1(token);
+                callback.IdInspeccionEjecutaTestParte1(idInspeccion);
             }
         }
     }

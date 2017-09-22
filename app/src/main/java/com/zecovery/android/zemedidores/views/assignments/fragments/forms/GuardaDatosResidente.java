@@ -19,10 +19,10 @@ public class GuardaDatosResidente {
         this.context = context;
     }
 
-    public void guardaDatos(Residente resident, int token) {
+    public void guardaDatos(Residente resident, int idInspeccion) {
         if (resident != null) {
             LocalDatabase db = new LocalDatabase(context);
-            db.guardaDatosResidente(resident, token);
+            db.guardaDatosResidente(resident, idInspeccion);
             callback.guardaDatos();
         } else {
             callback.errorGuardaDatos();

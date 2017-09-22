@@ -4,6 +4,18 @@
     tools:context="com.zecovery.android.zemedidores.views.MainActivity">
 
     <item
+        android:id="@+id/action_preference"
+        android:orderInCategory="100"
+        android:title="@string/action_preference"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:title="@string/action_about"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_sign_out"
         android:orderInCategory="100"
         android:title="@string/action_sign_out"

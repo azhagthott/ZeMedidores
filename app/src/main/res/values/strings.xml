@@ -5,6 +5,8 @@
     <string name="action_map">Ver mapa</string>
     <string name="action_intro">Ver intro</string>
     <string name="action_sign_out">Cerrar sesión</string>
+    <string name="action_about">Info</string>
+    <string name="action_preference">Preferencias</string>
 
     <string name="title_activity_login">Iniciar sesión</string>
     <string name="title_activity_launch_screen">Intro</string>
@@ -170,6 +172,8 @@
     <string name="negotiation_form_take_photo">Sacar foto de CI</string>
 
     <string name="negotiation_form_end">Finalizar inspección</string>
+    <string name="title_activity_about">Información</string>
+    <string name="title_activity_nueva_inspeccion">NuevaInspeccionActivity</string>
 
 
 </resources>

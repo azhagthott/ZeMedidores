@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.zecovery.android.zemedidores.views.assignments.NuevaInspeccionActivity"
+    tools:showIn="@layout/activity_nueva_inspeccion">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:text="Datos Residente"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/nuevaInspeccionDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="Dirección"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minLines="1" />
+
+        <EditText
+            android:id="@+id/nuevoResidenteNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="nombre"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minLines="1" />
+
+        <EditText
+            android:id="@+id/nuevoResidenteRut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="RUT"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minLines="1" />
+
+        <EditText
+            android:id="@+id/nuevoResidenteTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="Tetelefono"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:minLines="1" />
+
+        <EditText
+            android:id="@+id/nuevoResidenteEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:minLines="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/nuevoResidenteFecha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="8"
+                android:maxLines="1"
+                android:minLines="1" />
+
+            <ImageButton
+                android:id="@+id/setFechaResidenteButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="2"
+                android:background="@android:color/transparent"
+                android:padding="12dp"
+                android:src="@drawable/ic_date_black_24" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
+            android:background="@color/gray_500" />
+
+
+    </LinearLayout>
+
+</ScrollView>

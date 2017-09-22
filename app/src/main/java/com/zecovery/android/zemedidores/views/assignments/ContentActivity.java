@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.views.assignments.fragments.IdInspeccionListener;
@@ -36,20 +37,34 @@ public class ContentActivity extends AppCompatActivity implements IdInspeccionLi
 
         if (extra != null) {
 
-            int token = getIntent().getIntExtra(ID_INSPECCION, 0);
+            int idInspeccion = getIntent().getIntExtra(ID_INSPECCION, 0);
 
-            switch (getIntent().getStringExtra(ASSIGNMENT_TYPE)) {
+            Log.d("TAG", "idInspeccion: " + idInspeccion);
 
-                case RESIDENCIAL:
-                    callFragment(new FormularioResidencialFragment().newInstance(token));
-                    break;
-                case COMERCIAL:
-                    callFragment(new FormularioComercialFragment());
-                    break;
-                case EMPRESA:
-                    callFragment(new FormularioEmpresaFragment());
-                    break;
+            if (idInspeccion > 9999999) {
+
+
+
+                callFragment(new FotosTestFragment().newInstance(idInspeccion));
+
+
+
+            } else {
+                switch (getIntent().getStringExtra(ASSIGNMENT_TYPE)) {
+
+                    case RESIDENCIAL:
+                        callFragment(new FormularioResidencialFragment().newInstance(idInspeccion));
+                        break;
+                    case COMERCIAL:
+                        callFragment(new FormularioComercialFragment());
+                        break;
+                    case EMPRESA:
+                        callFragment(new FormularioEmpresaFragment());
+                        break;
+                }
             }
+
+
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -60,27 +75,27 @@ public class ContentActivity extends AppCompatActivity implements IdInspeccionLi
     }
 
     @Override
-    public void IdInspeccionFotoTest(int token) {
-        callFragment(new FotosTestFragment().newInstance(token));
+    public void IdInspeccionFotoTest(int idInspeccion) {
+        callFragment(new FotosTestFragment().newInstance(idInspeccion));
     }
 
     @Override
-    public void IdInspeccionEjecutaTestParte1(int token) {
-        callFragment(new EjecutaTestParte1Fragment().newInstance(token));
+    public void IdInspeccionEjecutaTestParte1(int idInspeccion) {
+        callFragment(new EjecutaTestParte1Fragment().newInstance(idInspeccion));
     }
 
     @Override
-    public void IdInspeccionEjecutaTestParte2(int token) {
-        callFragment(new EjecutaTestParte2Fragment().newInstance(token));
+    public void IdInspeccionEjecutaTestParte2(int idInspeccion) {
+        callFragment(new EjecutaTestParte2Fragment().newInstance(idInspeccion));
     }
 
     @Override
-    public void IdInspeccionEjecutaTestParte3(int token) {
-        callFragment(new EjecutaTestParte3Fragment().newInstance(token));
+    public void IdInspeccionEjecutaTestParte3(int idInspeccion) {
+        callFragment(new EjecutaTestParte3Fragment().newInstance(idInspeccion));
     }
 
     @Override
-    public void idInspeccionFormNegociacion(int token) {
-        callFragment(new FormularioNegociacionFragment().newInstance(token));
+    public void idInspeccionFormNegociacion(int idInspeccion) {
+        callFragment(new FormularioNegociacionFragment().newInstance(idInspeccion));
     }
 }

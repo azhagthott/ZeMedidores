@@ -50,7 +50,7 @@ public class Constant {
 
     /* Retrofit */
     public static final String URL_BASE_DESA = "http://medidores.desa.zecovery.com";
-    public static final String URL_BASE_DEMO = "http://medidores.demo.zecovery.com";
+    //public static final String URL_BASE_DEMO = "http://medidores.demo.zecovery.com";
 
     /* network*/
     public static final int TIME_OUT = 60;

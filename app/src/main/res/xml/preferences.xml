@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Ambiente / Oringe de los datos">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="preference_desa"
+            android:summary="Ambiente de Desarrollo"
+            android:title="DESA" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="preference_demo"
+            android:summary="Ambiente de Desarrollo"
+            android:title="DEMO" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
