@@ -50,7 +50,7 @@ public class Constant {
     public static final String PAYMENT_METHOD_4 = "TRANS";
 
     /* Retrofit */
-    public static final String URL_BASE_DESA = "http://medidores.demo.zecovery.com";
+    public static final String URL_BASE_DESA = "http://medidores.desa.zecovery.com";
     //public static final String URL_BASE_DEMO = "http://medidores.demo.zecovery.com";
 
     /* network*/

@@ -6,7 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.zecovery.android.zemedidores.R;
-import com.zecovery.android.zemedidores.data.LocalDatabase;
+
+import static com.zecovery.android.zemedidores.data.LocalDatabase.DB_VERSION;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -22,14 +23,11 @@ public class AboutActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        LocalDatabase db = new LocalDatabase(this);
-
         versionDatabaseTextView = findViewById(R.id.versionDatabaseTextView);
         versionCompilacionTextView = findViewById(R.id.versionCompilacionTextView);
 
-
-
-
+        versionDatabaseTextView.setText(String.valueOf(DB_VERSION));
+        versionCompilacionTextView.setText(String.valueOf(1));
     }
 
 }

@@ -13,44 +13,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:elevation="2dp"
+        android:fontFamily="sans-serif-light"
         android:padding="8dp"
         android:text="@string/subtitle_main"
+        android:textColor="@color/white_google"
         android:textSize="24sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="@string/title_main"
-        android:textSize="24sp"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:visibility="gone"
-        android:weightSum="2">
-
-        <Spinner
-            android:id="@+id/zoneSelectorSpinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Spinner
-            android:id="@+id/sectorSelectorSpinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mainRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="8dp" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

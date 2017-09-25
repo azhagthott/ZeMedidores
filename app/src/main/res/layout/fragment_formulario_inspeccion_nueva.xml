@@ -11,6 +11,16 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:fontFamily="sans-serif-light"
+            android:padding="8dp"
+            android:text="@string/fragment_inspeccion_nueva"
+            android:textColor="@color/white_google"
+            android:textSize="24sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,6 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/residential_form_rut"
+                android:inputType="text"
                 android:maxLines="1"
                 android:minLines="1"
                 android:paddingEnd="4dp"

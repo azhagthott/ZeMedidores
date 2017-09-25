@@ -50,6 +50,7 @@
     <string name="fragment_business_title">Ingreso de inspección: Empresa</string>
     <string name="fragment_residential_title">Ingreso de inspección: Residencial</string>
     <string name="fragment_commercial_title">Ingreso de inspección: Comercial</string>
+    <string name="fragment_inspeccion_nueva">Ingreso de inspección: Nueva</string>
 
     <!-- UI Fragments residential form-->
     <string name="residential_form_warning">Poligono social</string>

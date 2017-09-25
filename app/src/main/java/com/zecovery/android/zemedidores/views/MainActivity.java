@@ -25,7 +25,6 @@ import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.models.Inspection;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
 import com.zecovery.android.zemedidores.views.map.MapActivity;
-import com.zecovery.android.zemedidores.views.settings.SettingsActivity;
 
 import java.util.List;
 import java.util.Random;
@@ -87,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_about:
                 startActivity(new Intent(this, AboutActivity.class));
                 break;
-            case R.id.action_preference:
+            /*case R.id.action_preference:
                 startActivity(new Intent(this, SettingsActivity.class));
-                break;
+                break;*/
         }
         return super.onOptionsItemSelected(item);
     }

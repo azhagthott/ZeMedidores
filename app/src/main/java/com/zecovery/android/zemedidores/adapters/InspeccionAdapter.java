@@ -2,6 +2,7 @@ package com.zecovery.android.zemedidores.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,8 @@ import java.util.List;
 
 import static com.zecovery.android.zemedidores.data.Constant.ADDRESS;
 import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
-import static com.zecovery.android.zemedidores.data.Constant.EMPRESA;
 import static com.zecovery.android.zemedidores.data.Constant.COMERCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.EMPRESA;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.LATITUDE;
 import static com.zecovery.android.zemedidores.data.Constant.LONGITUDE;
@@ -47,6 +48,14 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
     public void onBindViewHolder(InspeccionViewHolder holder, int position) {
 
         final Inspection inspection = inspections.get(position);
+
+        if (inspection.getOrigin() == 1) {
+            holder.setColor(Color.BLUE);
+        } else if (inspection.getOrigin() == 2) {
+            holder.setColor(Color.RED);
+        } else {
+            holder.setColor(Color.BLACK);
+        }
 
         holder.setAddress(inspection.getAddress());
 
@@ -95,15 +104,21 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
 
         private LinearLayout inspectionLinearLayout;
         private TextView inspectionAddressTextView;
+        private View inpseccionColor;
 
         public InspeccionViewHolder(View view) {
             super(view);
             inspectionLinearLayout = view.findViewById(R.id.inspectionLinearLayout);
             inspectionAddressTextView = view.findViewById(R.id.inspectionAddressTextView);
+            inpseccionColor = view.findViewById(R.id.inpseccionColor);
         }
 
         private void setAddress(String address) {
             inspectionAddressTextView.setText(address);
+        }
+
+        private void setColor(int color) {
+            inpseccionColor.setBackgroundColor(color);
         }
     }
 }

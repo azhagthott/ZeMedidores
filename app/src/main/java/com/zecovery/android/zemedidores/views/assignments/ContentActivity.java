@@ -68,11 +68,6 @@ public class ContentActivity extends AppCompatActivity implements IdInspeccionLi
     }
 
     @Override
-    public void getDate() {
-
-    }
-
-    @Override
     public void IdInspeccionFotoTest(int idInspeccion) {
         callFragment(new FotosTestFragment().newInstance(idInspeccion));
     }

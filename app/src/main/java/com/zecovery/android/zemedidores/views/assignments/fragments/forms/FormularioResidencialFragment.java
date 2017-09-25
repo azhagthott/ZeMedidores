@@ -2,12 +2,9 @@ package com.zecovery.android.zemedidores.views.assignments.fragments.forms;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,9 +27,8 @@ import java.util.Calendar;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 
-public class FormularioResidencialFragment extends Fragment implements View.OnClickListener, FormularioResidencialCallback, DatePickerDialog.OnDateSetListener {
+public class FormularioResidencialFragment extends Fragment implements View.OnClickListener, FormularioResidencialCallback {
 
-    private static final int REQUEST_DATE = 109;
     private Button saveButton;
     private EditText nombreResidente;
     private EditText rutResidente;
@@ -46,11 +42,18 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
 
     private IdInspeccionListener idInspeccionCallback;
 
+    private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            int realMonth = month + 1;
+            fechaResidente.setText(year + "-" + realMonth + "-" + day);
+        }
+    };
+
+
     private int idInspeccion;
 
-
     public FormularioResidencialFragment() {
-
     }
 
     public FormularioResidencialFragment newInstance(int idInspeccion) {
@@ -104,7 +107,7 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
             setFechaResidenteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new DatePickerFragment().newInstance(idInspeccion).show(getFragmentManager(), "datePicker");
+                    showDatePicker();
                 }
             });
         }
@@ -197,64 +200,15 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
         Toast.makeText(getContext(), "No se pudo guardar la informacion", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-
-        if (requestCode == REQUEST_DATE) {
-
-
-            Log.d("TAG", "onActivityResult: " + data.getStringExtra("DATE"));
-
-
-        }
-    }
-
-    @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-
-    }
-
-    public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
-        private int idInspeccion;
-
-        public DatePickerFragment() {
-        }
-
-        public DatePickerFragment newInstance(int idInspeccion) {
-
-            DatePickerFragment fragment = new DatePickerFragment();
-            Bundle args = new Bundle();
-            args.putInt(ID_INSPECCION, idInspeccion);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            idInspeccion = getArguments().getInt(ID_INSPECCION, 0);
-
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) FormularioResidencialFragment.instantiate(getContext(),
-                    FormularioResidencialFragment.class.getCanonicalName()), year, month, day);
-        }
-
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            final int realMonth = month + 1;
-            LocalDatabase db = new LocalDatabase(getContext());
-            db.guardaFechaResidencia(idInspeccion, year, realMonth, day);
-        }
+    private void showDatePicker() {
+        DatePickerFragment date = new DatePickerFragment();
+        final Calendar c = Calendar.getInstance();
+        Bundle args = new Bundle();
+        args.putInt("year", c.get(Calendar.YEAR));
+        args.putInt("month", c.get(Calendar.MONTH));
+        args.putInt("day", c.get(Calendar.DAY_OF_MONTH));
+        date.setArguments(args);
+        date.setCallBack(onDate);
+        date.show(getFragmentManager(), "Date Picker");
     }
 }

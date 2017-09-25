@@ -26,7 +26,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 154;
+    public static final int DB_VERSION = 155;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -144,6 +144,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_NUMERO_MEDIDOR = "numero_medidor";
     private static final String RESULT_DIAMETRO_MEDIDOR = "diametro_medidor";
     private static final String RESULT_LECTURA_MEDIDOR = "lectura_meiddor";
+    private static final String RESULT_TEST_DIRECCION_RESIDENTE = "direccion_residente";
 
 
     private static final String VERSION_KEY = "id";
@@ -271,7 +272,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_DIAMETRO_MEDIDOR + " TEXT, "
                 + RESULT_LECTURA_MEDIDOR + " TEXT, "
                 + RESULT_TEST_OTRO_1_TEXT + " TEXT, "
-                + RESULT_TEST_OTRO_2_TEXT + " TEXT)"
+                + RESULT_TEST_OTRO_2_TEXT + " TEXT, "
+                + RESULT_TEST_DIRECCION_RESIDENTE + " TEXT)"
                 + ";";
 
         //db.execSQL(CREATE_TABLE_VERSION);
@@ -406,6 +408,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
 
         values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
+        values.put(RESULT_TEST_DIRECCION_RESIDENTE, String.valueOf(residente.getDireccionResidente()));
         values.put(RESULT_TEST_NOMBRE_RESIDENTE, String.valueOf(residente.getNombreResidente()));
         values.put(RESULT_TEST_RUT_RESIDENTE, String.valueOf(residente.getRutResidente()));
         values.put(RESULT_TEST_TELEFONO_RESIDENTE, String.valueOf(residente.getTelefonoResidente()));
@@ -595,7 +598,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
         return fecha;
     }
 
-
     public Foto getFotos(int idInspeccion) {
 
         Foto fotos = new Foto();
@@ -634,7 +636,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
         //cursor.close();
         return fotos;
-
     }
 
     public ResultadoInspeccion getResultadoInspeccion(int idInspeccion) {
@@ -718,7 +719,8 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_DIAMETRO_MEDIDOR,
                                 RESULT_LECTURA_MEDIDOR,
                                 RESULT_TEST_OTRO_1_TEXT,
-                                RESULT_TEST_OTRO_2_TEXT
+                                RESULT_TEST_OTRO_2_TEXT,
+                                RESULT_TEST_DIRECCION_RESIDENTE
                         }
                 , RESULT_ID_INSPECCION + "=?",
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
@@ -797,6 +799,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         testParte1.setOtroText(cursor.getString(63));
         testParte1.setOtroText2(cursor.getString(64));
 
+        residente.setDireccionResidente(cursor.getString(65));
         resultado.setResidente(residente);
         resultado.setFotos(fotos);
         resultado.setTestParte1(testParte1);
