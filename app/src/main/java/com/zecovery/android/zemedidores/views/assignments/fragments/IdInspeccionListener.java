@@ -6,6 +6,8 @@ package com.zecovery.android.zemedidores.views.assignments.fragments;
 
 public interface IdInspeccionListener {
 
+    void getDate();
+
     void IdInspeccionFotoTest(int IdInspeccion);
 
     void IdInspeccionEjecutaTestParte1(int IdInspeccion);

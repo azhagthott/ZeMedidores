@@ -175,5 +175,8 @@
     <string name="title_activity_about">Información</string>
     <string name="title_activity_nueva_inspeccion">NuevaInspeccionActivity</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

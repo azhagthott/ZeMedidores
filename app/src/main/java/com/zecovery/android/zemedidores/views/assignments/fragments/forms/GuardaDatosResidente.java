@@ -11,10 +11,10 @@ import com.zecovery.android.zemedidores.models.Residente;
 
 public class GuardaDatosResidente {
 
-    private GuardaDatosFormularioResidencial callback;
+    private FormularioResidencialCallback callback;
     private Context context;
 
-    public GuardaDatosResidente(GuardaDatosFormularioResidencial callback, Context context) {
+    public GuardaDatosResidente(FormularioResidencialCallback callback, Context context) {
         this.callback = callback;
         this.context = context;
     }

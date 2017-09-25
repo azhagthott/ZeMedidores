@@ -26,7 +26,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    private static final int DB_VERSION = 152;
+    private static final int DB_VERSION = 154;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -61,7 +61,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String ASSIGNMENT_ORDEN = "orden";
     private static final String ASSIGNMENT_COMUNA = "comuna";
     private static final String ASSIGNMENT_MEDIDOR = "medidor";
-
 
     /* location table */
     private static final String CURRENT_LOCATION_ID_KEY = "id";
@@ -576,6 +575,26 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
+
+    public String getFechaResidencia(int idInspeccion) {
+
+        String fecha = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+                        {
+                                RESULT_TEST_FECHA_RESIDENTE
+                        }
+                , RESULT_ID_INSPECCION + "=?",
+                new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            fecha = cursor.getString(0);
+        }
+        return fecha;
+    }
+
 
     public Foto getFotos(int idInspeccion) {
 

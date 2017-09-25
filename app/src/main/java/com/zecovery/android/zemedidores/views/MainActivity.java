@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,11 +23,16 @@ import com.zecovery.android.zemedidores.background.ListaInspecciones;
 import com.zecovery.android.zemedidores.data.CurrentUser;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.models.Inspection;
-import com.zecovery.android.zemedidores.views.assignments.NuevaInspeccionActivity;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
+import com.zecovery.android.zemedidores.views.map.MapActivity;
 import com.zecovery.android.zemedidores.views.settings.SettingsActivity;
 
 import java.util.List;
+import java.util.Random;
+
+import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
+import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
+import static com.zecovery.android.zemedidores.data.Constant.NUEVA;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +52,16 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, NuevaInspeccionActivity.class));
+
+                Random r = new Random();
+                int idInspeccion = -1 * (r.nextInt(99999999 - 10000000) + 10000000);
+
+                Log.d("MainActivity", "idInspeccion: " + idInspeccion);
+
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                intent.putExtra(ASSIGNMENT_TYPE, NUEVA);
+                intent.putExtra(ID_INSPECCION, idInspeccion);
+                startActivity(intent);
             }
         });
 

@@ -11,14 +11,14 @@ import android.widget.EditText;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.models.Residente;
-import com.zecovery.android.zemedidores.views.assignments.fragments.forms.GuardaDatosFormularioResidencial;
+import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioResidencialCallback;
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.GuardaDatosResidente;
 
 import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENCIAL;
 
-public class NuevaInspeccionActivity extends AppCompatActivity implements View.OnClickListener, GuardaDatosFormularioResidencial {
+public class NuevaInspeccionActivity extends AppCompatActivity implements View.OnClickListener, FormularioResidencialCallback {
 
     private FloatingActionButton nuevaInspeccionFab;
     private EditText nuevaInspeccionDireccion;

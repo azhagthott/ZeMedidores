@@ -15,6 +15,7 @@ import com.zecovery.android.zemedidores.views.assignments.fragments.executetest.
 import com.zecovery.android.zemedidores.views.assignments.fragments.executetest.FotosTestFragment;
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioComercialFragment;
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioEmpresaFragment;
+import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioInspeccionNuevaFragment;
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioNegociacionFragment;
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioResidencialFragment;
 
@@ -22,6 +23,7 @@ import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
 import static com.zecovery.android.zemedidores.data.Constant.COMERCIAL;
 import static com.zecovery.android.zemedidores.data.Constant.EMPRESA;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
+import static com.zecovery.android.zemedidores.data.Constant.NUEVA;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENCIAL;
 
 public class ContentActivity extends AppCompatActivity implements IdInspeccionListener {
@@ -38,33 +40,24 @@ public class ContentActivity extends AppCompatActivity implements IdInspeccionLi
         if (extra != null) {
 
             int idInspeccion = getIntent().getIntExtra(ID_INSPECCION, 0);
-
-            Log.d("TAG", "idInspeccion: " + idInspeccion);
-
-            if (idInspeccion > 9999999) {
+            Log.d("ContentActivity", "idInspeccion: " + idInspeccion);
 
 
+            switch (getIntent().getStringExtra(ASSIGNMENT_TYPE)) {
 
-                callFragment(new FotosTestFragment().newInstance(idInspeccion));
-
-
-
-            } else {
-                switch (getIntent().getStringExtra(ASSIGNMENT_TYPE)) {
-
-                    case RESIDENCIAL:
-                        callFragment(new FormularioResidencialFragment().newInstance(idInspeccion));
-                        break;
-                    case COMERCIAL:
-                        callFragment(new FormularioComercialFragment());
-                        break;
-                    case EMPRESA:
-                        callFragment(new FormularioEmpresaFragment());
-                        break;
-                }
+                case NUEVA:
+                    callFragment(new FormularioInspeccionNuevaFragment().newInstance(idInspeccion));
+                    break;
+                case RESIDENCIAL:
+                    callFragment(new FormularioResidencialFragment().newInstance(idInspeccion));
+                    break;
+                case COMERCIAL:
+                    callFragment(new FormularioComercialFragment());
+                    break;
+                case EMPRESA:
+                    callFragment(new FormularioEmpresaFragment());
+                    break;
             }
-
-
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -72,6 +65,11 @@ public class ContentActivity extends AppCompatActivity implements IdInspeccionLi
     private void callFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_assignment, fragment).commit();
+    }
+
+    @Override
+    public void getDate() {
+
     }
 
     @Override

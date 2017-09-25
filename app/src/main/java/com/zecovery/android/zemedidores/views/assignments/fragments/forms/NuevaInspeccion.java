@@ -1,4 +1,4 @@
-package com.zecovery.android.zemedidores.views.assignments;
+package com.zecovery.android.zemedidores.views.assignments.fragments.forms;
 
 import android.content.Context;
 

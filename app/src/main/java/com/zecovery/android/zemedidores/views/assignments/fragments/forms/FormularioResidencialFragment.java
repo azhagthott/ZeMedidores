@@ -30,7 +30,7 @@ import java.util.Calendar;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 
-public class FormularioResidencialFragment extends Fragment implements View.OnClickListener, GuardaDatosFormularioResidencial, DatePickerDialog.OnDateSetListener {
+public class FormularioResidencialFragment extends Fragment implements View.OnClickListener, FormularioResidencialCallback, DatePickerDialog.OnDateSetListener {
 
     private static final int REQUEST_DATE = 109;
     private Button saveButton;
@@ -41,9 +41,13 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
     private TextView fechaResidente;
     private TextView poligonoSocialResidente;
     private ImageButton setFechaResidenteButton;
+
     private LocalDatabase db;
+
+    private IdInspeccionListener idInspeccionCallback;
+
     private int idInspeccion;
-    private IdInspeccionListener tokenCallback;
+
 
     public FormularioResidencialFragment() {
 
@@ -74,7 +78,6 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
 
         Log.d("TAG", "onViewCreated: " + idInspeccion);
 
-
         saveButton.setOnClickListener(this);
 
         if (idInspeccion > 0) {
@@ -102,7 +105,6 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
                 @Override
                 public void onClick(View view) {
                     new DatePickerFragment().newInstance(idInspeccion).show(getFragmentManager(), "datePicker");
-
                 }
             });
         }
@@ -127,7 +129,7 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
 
             try {
                 Activity activity = (Activity) context;
-                tokenCallback = (IdInspeccionListener) activity;
+                idInspeccionCallback = (IdInspeccionListener) activity;
             } catch (Exception e) {
                 Log.d("TAG", e.toString());
                 throw new ClassCastException(context.toString()
@@ -164,15 +166,14 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
             errorTelefono = false;
         }
 
-        /*if (fechaResidente.getText().length() == 0) {
+        if (fechaResidente.getText().length() == 0) {
             errorFecha = true;
             fechaResidente.setError("Debe ingresar fecha desde que habita la propiedad");
         } else {
             errorFecha = false;
-        }*/
+        }
 
-        //&& !errorFecha
-        if (!errorNombre && !errorRut && !errorTelefono) {
+        if (!errorNombre && !errorRut && !errorTelefono && !errorFecha) {
             Residente resident = new Residente();
             resident.setNombreResidente(nombreResidente.getText().toString());
             resident.setRutResidente(rutResidente.getText().toString());
@@ -187,7 +188,7 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
 
     @Override
     public void guardaDatos() {
-        tokenCallback.IdInspeccionFotoTest(idInspeccion);
+        idInspeccionCallback.IdInspeccionFotoTest(idInspeccion);
     }
 
     @Override
