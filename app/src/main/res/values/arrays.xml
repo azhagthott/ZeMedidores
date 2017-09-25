@@ -13,4 +13,29 @@
         <item>Otro (especifique)</item>
     </array>
 
+    <!-- Empresa -->
+    <string-array name="nombre_empresa_array">
+        <item>Aguas Andinas</item>
+        <item>ESVAL</item>
+    </string-array>
+
+    <string-array name="valor_empresa_array">
+        <item>80</item>
+        <item>86</item>
+    </string-array>
+
+
+    <!-- Ambiente -->
+    <string-array name="nombre_ambiente_array">
+        <item>DESA</item>
+        <item>DEMO</item>
+        <item>PROD</item>
+    </string-array>
+
+    <string-array name="valor_ambiente_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>

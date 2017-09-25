@@ -85,10 +85,10 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
     public EjecutaTestParte1Fragment() {
     }
 
-    public EjecutaTestParte1Fragment newInstance(int token) {
+    public EjecutaTestParte1Fragment newInstance(int idInspeccion) {
         EjecutaTestParte1Fragment executeTestFragment = new EjecutaTestParte1Fragment();
         Bundle args = new Bundle();
-        args.putInt(ID_INSPECCION_EJECUTA_TEST_1, token);
+        args.putInt(ID_INSPECCION_EJECUTA_TEST_1, idInspeccion);
         executeTestFragment.setArguments(args);
         return executeTestFragment;
     }
@@ -130,33 +130,23 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     case7EditText.setVisibility(View.VISIBLE);
+                    Log.d("case 7", "VISIBLE");
                 } else {
                     case7EditText.setVisibility(View.GONE);
+                    Log.d("case 7", "GONE");
                 }
             }
         });
-
-        case7NegativeRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    case7EditText.setVisibility(View.GONE);
-                } else {
-                    case7EditText.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-
-        if (case7PositiveRadioButton.isChecked())
 
         case8PositiveRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     intervensionRedFoto.setVisibility(View.VISIBLE);
+                    Log.d("case 8", "VISIBLE");
                 } else {
                     intervensionRedFoto.setVisibility(View.INVISIBLE);
+                    Log.d("case 8", "INVISIBLE");
                 }
             }
         });
@@ -166,8 +156,10 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     bypassFoto.setVisibility(View.VISIBLE);
+                    Log.d("case 9", "VISIBLE");
                 } else {
                     bypassFoto.setVisibility(View.INVISIBLE);
+                    Log.d("case 9", "INVISIBLE");
                 }
             }
         });
@@ -178,9 +170,11 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
                 if (isChecked) {
                     otroFoto.setVisibility(View.VISIBLE);
                     otroFotoEditText.setVisibility(View.VISIBLE);
+                    Log.d("case 10", "VISIBLE");
                 } else {
                     otroFoto.setVisibility(View.INVISIBLE);
                     otroFotoEditText.setVisibility(View.GONE);
+                    Log.d("case 10", "INVISIBLE");
                 }
             }
         });
@@ -269,7 +263,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test11NoRadioButton.isChecked()) {
                 test.setTest1("NO");
             } else {
-                test.setTest1("No enviar respuesta");
+                test.setTest1("No envia respuesta");
             }
 
             if (test12YesRadioButton.isChecked()) {
@@ -277,7 +271,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test12NoRadioButton.isChecked()) {
                 test.setTest2("NO");
             } else {
-                test.setTest2("No enviar respuesta");
+                test.setTest2("No envia respuesta");
             }
 
             if (test13YesRadioButton.isChecked()) {
@@ -285,7 +279,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test13NoRadioButton.isChecked()) {
                 test.setTest3("NO");
             } else {
-                test.setTest3("No enviar respuesta");
+                test.setTest3("No envia respuesta");
             }
 
             if (test14YesRadioButton.isChecked()) {
@@ -293,7 +287,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test14NoRadioButton.isChecked()) {
                 test.setTest4("NO");
             } else {
-                test.setTest4("No enviar respuesta");
+                test.setTest4("No envia respuesta");
             }
 
             if (test15YesRadioButton.isChecked()) {
@@ -301,7 +295,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test15NoRadioButton.isChecked()) {
                 test.setTest5("NO");
             } else {
-                test.setTest5("No enviar respuesta");
+                test.setTest5("No envia respuesta");
             }
 
             if (case1PositiveRadioButton.isChecked()) {
@@ -309,7 +303,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (case1NegativeRadioButton.isChecked()) {
                 test.setUsoImanes("NO");
             } else {
-                test.setUsoImanes("No enviar respuesta");
+                test.setUsoImanes("No envia respuesta");
             }
 
             if (case2PositiveRadioButton.isChecked()) {
@@ -317,7 +311,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (case2NegativeRadioButton.isChecked()) {
                 test.setInvertirTomas("NO");
             } else {
-                test.setInvertirTomas("No enviar respuesta");
+                test.setInvertirTomas("No envia respuesta");
             }
 
             if (case3PositiveRadioButton.isChecked()) {
@@ -325,7 +319,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (case3NegativeRadioButton.isChecked()) {
                 test.setPerforaCupula("NO");
             } else {
-                test.setPerforaCupula("No enviar respuesta");
+                test.setPerforaCupula("No envia respuesta");
             }
 
             if (case4PositiveRadioButton.isChecked()) {
@@ -333,7 +327,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (case4NegativeRadioButton.isChecked()) {
                 test.setCortaEngranaje("NO");
             } else {
-                test.setCortaEngranaje("No enviar respuesta");
+                test.setCortaEngranaje("No envia respuesta");
             }
 
             if (case5PositiveRadioButton.isChecked()) {
@@ -341,7 +335,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (case5NegativeRadioButton.isChecked()) {
                 test.setUsoAlambres("NO");
             } else {
-                test.setUsoAlambres("No enviar respuestaO");
+                test.setUsoAlambres("No envia respuesta");
             }
 
             if (case6PositiveRadioButton.isChecked()) {
@@ -349,7 +343,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (case6NegativeRadioButton.isChecked()) {
                 test.setPrensado("NO");
             } else {
-                test.setPrensado("No enviar respuesta");
+                test.setPrensado("No envia respuesta");
             }
 
             if (case7PositiveRadioButton.isChecked()) {
@@ -358,32 +352,38 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (case7NegativeRadioButton.isChecked()) {
                 test.setOtro("NO");
             } else {
-                test.setOtro("No enviar respuesta");
+                test.setOtro("No envia respuesta");
             }
 
             if (case8PositiveRadioButton.isChecked()) {
                 test.setInstalacionParalela("SI");
             } else if (case8NegativeRadioButton.isChecked()) {
+                Log.d("TAG", "onClick: SI");
                 test.setInstalacionParalela("NO");
+                Log.d("TAG", "onClick: NO");
             } else {
-                test.setInstalacionParalela("No enviar respuesta");
+                test.setInstalacionParalela("No envia respuesta");
             }
 
             if (case9PositiveRadioButton.isChecked()) {
                 test.setBypass("SI");
+                Log.d("TAG", "onClick: SI");
             } else if (case9NegativeRadioButton.isChecked()) {
                 test.setBypass("NO");
+                Log.d("TAG", "onClick: NO");
             } else {
-                test.setBypass("No enviar respuesta");
+                test.setBypass("No envia respuesta");
             }
 
             if (case10PositiveRadioButton.isChecked()) {
                 test.setOtro2("SI");
+                Log.d("TAG", "onClick: SI");
                 test.setOtroText2(otroFotoEditText.getText().toString());
             } else if (case10NegativeRadioButton.isChecked()) {
                 test.setOtro2("NO");
+                Log.d("TAG", "onClick: NO");
             } else {
-                test.setOtro2("No enviar respuesta");
+                test.setOtro2("No envia respuesta");
             }
 
             db.guardaDatosTestParte1(test, idInspeccion);

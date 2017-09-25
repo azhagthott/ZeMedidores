@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static com.zecovery.android.zemedidores.data.Constant.URL_BASE_DESA;
+import static com.zecovery.android.zemedidores.data.Constant.URL_BASE;
 
 /**
  * Created by fbarrios80 on 10-09-17.
@@ -100,6 +100,10 @@ public class EnviaInspeccion {
         String diametro_medidor = String.valueOf(resultado.getMedidor().getNumeroMedidor());
         String lectura_medidor = String.valueOf(resultado.getMedidor().getLecturaMedidor());
 
+        String numero_cliente = String.valueOf(resultado.getResidente().getNumeroCliente());
+        String empresa_inspeccion = String.valueOf(resultado.getEmpresaInspeccion());
+
+
         RequestBody id_inspeccion_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(idInspeccion));
         RequestBody lat_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().latitude));
         RequestBody lng_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().longitude));
@@ -157,6 +161,10 @@ public class EnviaInspeccion {
         RequestBody telefono_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), telefono_residente);
         RequestBody email_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), email_residente);
         RequestBody fecha_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), fecha_residente);
+
+        RequestBody numero_cliente_body = RequestBody.create(MediaType.parse("multipart/form-data"), numero_cliente);
+        RequestBody empresa_inspeccion_body = RequestBody.create(MediaType.parse("multipart/form-data"), empresa_inspeccion);
+
         MultipartBody.Part foto_falla_medidor;
         MultipartBody.Part foto_lectura_medidor;
         MultipartBody.Part foto_numero_medidor;
@@ -239,7 +247,7 @@ public class EnviaInspeccion {
             foto_otro = null;
         }
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE).build();
         PostResult service = retrofit.create(PostResult.class);
 
         Call<ResponseBody> call = service.postResultadoTest(
@@ -301,6 +309,8 @@ public class EnviaInspeccion {
                 numero_medidor_body,
                 diametro_medidor_body,
                 lectura_medidor_body,
+                numero_cliente_body,
+                empresa_inspeccion_body,
                 foto_falla_medidor,
                 foto_lectura_medidor,
                 foto_numero_medidor,
@@ -315,8 +325,10 @@ public class EnviaInspeccion {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("LOG", "onResponse code:" + response.code());
-                Log.d("LOG", "onResponse body:" + response.body());
+
+                Log.d("onResponse", "code:" + response.raw().code());
+                Log.d("onResponse", "message:" + response.raw().message());
+                Log.d("onResponse", "body:" + response.raw().body());
 
                 if (200 == response.code()) {
                     callback.enviaInspeccionOk(200);

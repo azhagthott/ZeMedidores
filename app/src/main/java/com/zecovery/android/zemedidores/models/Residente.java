@@ -13,6 +13,7 @@ public class Residente {
     private String fechaResidente;
     private String riesgoSocial;
     private String direccionResidente;
+    private String numeroClienmte;
 
     public Residente() {
     }
@@ -71,5 +72,13 @@ public class Residente {
 
     public void setDireccionResidente(String direccionResidente) {
         this.direccionResidente = direccionResidente;
+    }
+
+    public String getNumeroCliente() {
+        return numeroClienmte;
+    }
+
+    public void setNumeroCliente(String numeroClienmte) {
+        this.numeroClienmte = numeroClienmte;
     }
 }

@@ -36,6 +36,7 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
 
     private Button saveButton;
     private EditText nuevaInspeccionDireccion;
+    private EditText nuevaInspeccionNumeroCliente;
     private EditText nuevoResidenteNombre;
     private EditText nuevoResidenteRut;
     private EditText nuevoResidenteTelefono;
@@ -115,6 +116,7 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
 
     private void findViews(View view) {
         nuevaInspeccionDireccion = view.findViewById(R.id.nuevaInspeccionDireccion);
+        nuevaInspeccionNumeroCliente = view.findViewById(R.id.nuevaInspeccionNumeroCliente);
         nuevoResidenteNombre = view.findViewById(R.id.nuevoResidenteNombre);
         nuevoResidenteRut = view.findViewById(R.id.nuevoResidenteRut);
         nuevoResidenteTelefono = view.findViewById(R.id.nuevoResidenteTelefono);
@@ -128,6 +130,7 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
     public void onClick(View view) {
 
         boolean errorDireccion;
+        boolean errorNumMedidor;
         boolean errorNombre;
         boolean errorRut;
         boolean errorTelefono;
@@ -140,6 +143,14 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
         } else {
             errorDireccion = false;
         }
+        if (nuevaInspeccionNumeroCliente.getText().length() == 0) {
+            errorNumMedidor = true;
+            nuevaInspeccionNumeroCliente.setError("Debe ingresar el nombre del residente");
+        } else {
+            errorNumMedidor = false;
+        }
+
+
         if (nuevoResidenteNombre.getText().length() == 0) {
             errorNombre = true;
             nuevoResidenteNombre.setError("Debe ingresar el nombre del residente");
@@ -165,11 +176,12 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
             errorFecha = false;
         }
 
-        if (!errorDireccion && !errorNombre && !errorRut && !errorTelefono && !errorFecha) {
+        if (!errorDireccion && !errorNumMedidor && !errorNombre && !errorRut && !errorTelefono && !errorFecha) {
 
             Residente resident = new Residente();
 
             resident.setDireccionResidente(nuevaInspeccionDireccion.getText().toString());
+            resident.setNumeroCliente(nuevaInspeccionNumeroCliente.getText().toString());
             resident.setNombreResidente(nuevoResidenteNombre.getText().toString());
             resident.setRutResidente(nuevoResidenteRut.getText().toString());
             resident.setTelefonoResidente(nuevoResidenteTelefono.getText().toString());

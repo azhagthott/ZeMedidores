@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static com.zecovery.android.zemedidores.data.Constant.URL_BASE_DESA;
+import static com.zecovery.android.zemedidores.data.Constant.URL_BASE;
 
 /**
  * Created by fbarrios80 on 03-07-17.
@@ -53,7 +53,7 @@ public class EnviaInspeccionRechazada {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("foto_rechazo", photoName, requestFile);
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE_DESA).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE).build();
         PostResult service = retrofit.create(PostResult.class);
 
         RequestBody idInspeccionBody = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(idInspeccion));

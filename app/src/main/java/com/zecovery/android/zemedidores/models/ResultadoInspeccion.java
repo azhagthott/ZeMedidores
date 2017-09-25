@@ -12,6 +12,7 @@ public class ResultadoInspeccion {
     private Foto fotos;
     private Residente residente;
     private Medidor medidor;
+    private String empresaInspeccion;
 
     public ResultadoInspeccion() {
     }
@@ -62,5 +63,13 @@ public class ResultadoInspeccion {
 
     public void setMedidor(Medidor medidor) {
         this.medidor = medidor;
+    }
+
+    public String getEmpresaInspeccion() {
+        return empresaInspeccion;
+    }
+
+    public void setEmpresaInspeccion(String empresaInspeccion) {
+        this.empresaInspeccion = empresaInspeccion;
     }
 }

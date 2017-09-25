@@ -50,12 +50,14 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
         final Inspection inspection = inspections.get(position);
 
         if (inspection.getOrigin() == 1) {
-            holder.setColor(Color.BLUE);
-        } else if (inspection.getOrigin() == 2) {
             holder.setColor(Color.RED);
+        } else if (inspection.getOrigin() == 2) {
+            holder.setColor(Color.BLUE);
         } else {
             holder.setColor(Color.BLACK);
         }
+
+
 
         holder.setAddress(inspection.getAddress());
 

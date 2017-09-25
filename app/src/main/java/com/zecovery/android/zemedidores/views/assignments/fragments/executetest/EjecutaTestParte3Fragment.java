@@ -69,10 +69,10 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
     public EjecutaTestParte3Fragment() {
     }
 
-    public EjecutaTestParte3Fragment newInstance(int token) {
+    public EjecutaTestParte3Fragment newInstance(int idInspeccion) {
         EjecutaTestParte3Fragment executeTestFragment = new EjecutaTestParte3Fragment();
         Bundle args = new Bundle();
-        args.putInt(ID_INSPECCION_EJECUTA_TEST_3, token);
+        args.putInt(ID_INSPECCION_EJECUTA_TEST_3, idInspeccion);
         executeTestFragment.setArguments(args);
         return executeTestFragment;
     }

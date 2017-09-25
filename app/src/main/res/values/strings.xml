@@ -1,12 +1,18 @@
 <resources>
     <string name="app_name">Ze Medidores</string>
 
+
+    <!-- UI Preference -->
     <string name="action_settings">Preferencias</string>
     <string name="action_map">Ver mapa</string>
     <string name="action_intro">Ver intro</string>
     <string name="action_sign_out">Cerrar sesión</string>
     <string name="action_about">Info</string>
     <string name="action_preference">Preferencias</string>
+
+    <string name="sp_key_empresa">spEmpresa</string>
+    <string name="sp_key_ambiente">spAmbiente</string>
+
 
     <string name="title_activity_login">Iniciar sesión</string>
     <string name="title_activity_launch_screen">Intro</string>
@@ -178,6 +184,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_conten_tabs">ContenTabsActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 
 </resources>

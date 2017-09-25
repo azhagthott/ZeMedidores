@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Ambiente / Oringe de los datos">
+    <PreferenceCategory android:title="Ambiente">
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="preference_desa"
-            android:summary="Ambiente de Desarrollo"
-            android:title="DESA" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="preference_demo"
-            android:summary="Ambiente de Desarrollo"
-            android:title="DEMO" />
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/nombre_ambiente_array"
+            android:entryValues="@array/valor_ambiente_array"
+            android:key="@string/sp_key_ambiente"
+            android:summary="Seleccione ambiente (DESA/DEMO)"
+            android:title="Seleccionar ambiente" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="Empresa">
+
+        <ListPreference
+            android:entries="@array/nombre_empresa_array"
+            android:entryValues="@array/valor_empresa_array"
+            android:key="@string/sp_key_empresa"
+            android:summary="Seleccione su empresa"
+            android:title="Seleccionar empresa" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -42,13 +42,32 @@
                 android:text="Direccion residente"
                 android:textColor="@color/gray_500" />
 
-
             <EditText
                 android:id="@+id/nuevaInspeccionDireccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:hint="Dirección"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp"
+                android:text="Numero cliente"
+                android:textColor="@color/gray_500" />
+
+            <EditText
+                android:id="@+id/nuevaInspeccionNumeroCliente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="Numero cliente"
                 android:inputType="text"
                 android:maxLines="1"
                 android:minLines="1"

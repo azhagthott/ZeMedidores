@@ -3,13 +3,14 @@ package com.zecovery.android.zemedidores.views.map;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -105,10 +106,13 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
     private void assignmentType() {
 
+        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String empresaInspeccion = mSharedPreferences.getString(getString(R.string.sp_key_empresa), "VACIO");
+
         if (getIntent().getExtras() != null) {
 
             int idInspeccion = getIntent().getIntExtra(ID_INSPECCION, 0);
-            Log.d("MapActivity", "idInspeccion: " + idInspeccion);
 
             Intent intent = new Intent(MapActivity.this, ContentActivity.class);
 
@@ -117,25 +121,25 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                 case NUEVA:
                     intent.putExtra(ASSIGNMENT_TYPE, NUEVA);
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
-                    db.creaInspeccion(idInspeccion);
+                    db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
                     break;
                 case RESIDENCIAL:
                     intent.putExtra(ASSIGNMENT_TYPE, RESIDENCIAL);
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
-                    db.creaInspeccion(idInspeccion);
+                    db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
                     break;
                 case COMERCIAL:
                     intent.putExtra(ASSIGNMENT_TYPE, RESIDENCIAL); //FIXME: lleva siempre a residencial
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
-                    db.creaInspeccion(idInspeccion);
+                    db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
                     break;
                 case EMPRESA:
                     intent.putExtra(ASSIGNMENT_TYPE, RESIDENCIAL);//FIXME: lleva siempre a residencial
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
-                    db.creaInspeccion(idInspeccion);
+                    db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
                     break;
             }

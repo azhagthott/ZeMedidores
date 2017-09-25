@@ -90,6 +90,8 @@ public interface PostResult {
             @Part("numero_medidor") RequestBody numero_medidor_body,
             @Part("diametro_medidor") RequestBody diametro_medidor_body,
             @Part("lectura_medidor") RequestBody lectura_medidor_body,
+            @Part("numero_cliente") RequestBody numero_cliente,
+            @Part("empresa_inspeccion") RequestBody empresa_inspeccion,
             @Nullable @Part MultipartBody.Part foto_falla_medidor,
             @Nullable @Part MultipartBody.Part foto_lectura_medidor,
             @Nullable @Part MultipartBody.Part foto_numero_medidor,

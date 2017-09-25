@@ -260,10 +260,6 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                     foto.setFallaMedidor(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     imagePreviewMedidorRoto.setVisibility(View.VISIBLE);
-
-                    Log.d("TAG", "localPath: " + localPath);
-                    Log.d("TAG", "idInspeccion: " + idInspeccion);
-
                     Glide.with(getContext()).load(db.getFotos(idInspeccion).getFallaMedidor()).into(imagePreviewMedidorRoto);
                     break;
                 case "lectura_medidor":
@@ -355,14 +351,11 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                 callCamera("medidor_descompuesto");
             }
 
-
             numeroMedidorBool = false;
             diametroMedidorBool = false;
             lecturaMedidorBool = false;
 
-
         } else if (negativeRadioButton.isChecked()) {
-
 
             medidorDescompuesto = false;
 
@@ -433,19 +426,12 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                     fotoPanoramica != null &&
                     fotoNumeroPropiedad != null &&
                     fotoFachada != null
-
                     ) {
 
                 String ubicacion = meterLocationEditText.getText().toString();
                 String numero = numeroMedidorEditText.getText().toString();
                 String diametro = diametroMedidorEditText.getText().toString();
                 String lectura = lecturaMedidorEditText.getText().toString();
-
-                Log.d("TAG", "ubicacion: " + ubicacion);
-                Log.d("TAG", "numero: " + numero);
-                Log.d("TAG", "diametro: " + diametro);
-                Log.d("TAG", "lectura: " + lectura);
-
 
                 Medidor medidor = new Medidor();
                 medidor.setUbicacion(ubicacion);

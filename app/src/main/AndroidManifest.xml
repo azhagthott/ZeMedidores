@@ -109,6 +109,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.zecovery.android.zemedidores.views.MainActivity" />
         </activity>
+        <activity
+            android:name=".views.assignments.ContentTabsActivity"
+            android:label="@string/title_activity_conten_tabs"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
