@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.crash.FirebaseCrash;
+import com.zecovery.android.zemedidores.data.CurrentUser;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.models.ResultadoInspeccion;
 
@@ -165,6 +166,10 @@ public class EnviaInspeccion {
         RequestBody numero_cliente_body = RequestBody.create(MediaType.parse("multipart/form-data"), numero_cliente);
         RequestBody empresa_inspeccion_body = RequestBody.create(MediaType.parse("multipart/form-data"), empresa_inspeccion);
 
+        String email_inspector = new CurrentUser().email();
+        RequestBody email_inspector_body = RequestBody.create(MediaType.parse("multipart/form-data"), email_inspector);
+
+
         MultipartBody.Part foto_falla_medidor;
         MultipartBody.Part foto_lectura_medidor;
         MultipartBody.Part foto_numero_medidor;
@@ -311,6 +316,7 @@ public class EnviaInspeccion {
                 lectura_medidor_body,
                 numero_cliente_body,
                 empresa_inspeccion_body,
+                email_inspector_body,
                 foto_falla_medidor,
                 foto_lectura_medidor,
                 foto_numero_medidor,

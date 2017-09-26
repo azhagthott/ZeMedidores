@@ -30,5 +30,4 @@ public class CurrentUser {
     public String uid() {
         return get().getUid();
     }
-
 }

@@ -38,14 +38,6 @@ dependencies {
     compile('com.frosquivel:magicalcamera:5.0.5@aar') {
         transitive = false;
     }
-
-
-
-
-
-
-
-
     compile 'com.android.support:appcompat-v7:26.0.1'
     compile 'com.android.support:recyclerview-v7:26.0.1'
     compile 'com.android.support:support-v4:26.0.1'

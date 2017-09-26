@@ -34,8 +34,6 @@ public class ContentTabsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         mViewPager = findViewById(R.id.container);
 
 

@@ -173,7 +173,7 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
         } else if (newBuildingNoRadioButton.isChecked()) {
             test.setConstruccionNueva("NO");
         } else {
-            test.setConstruccionNueva("No enviar informacion");
+            test.setConstruccionNueva("No envia respuesta");
         }
 
         String habitantes = occupantEditText.getText().toString();
@@ -202,7 +202,7 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
         } else if (autoAbastecimientoNo.isChecked()) {
             test.setAutoAbastecimiento("NO");
         } else {
-            test.setAutoAbastecimiento("No enviar informacion");
+            test.setAutoAbastecimiento("No envia respuesta");
         }
 
         if (activoSi.isChecked()) {
@@ -210,7 +210,7 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
         } else if (activoNo.isChecked()) {
             test.setActivo("NO");
         } else {
-            test.setActivo("No enviar informacion");
+            test.setActivo("No envia respuesta");
         }
 
         String fuentePropia = sourceTypeEditText.getText().toString();
