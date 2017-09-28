@@ -50,7 +50,6 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
         }
     };
 
-
     private int idInspeccion;
 
     public FormularioResidencialFragment() {
@@ -101,7 +100,10 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
             }
 
             if (db.getDatosResidente(idInspeccion).getFechaResidente() != null) {
-                fechaResidente.setText(db.getDatosResidente(idInspeccion).getFechaResidente());
+                String fecha = db.getDatosResidente(idInspeccion).getFechaResidente();
+                String[] partesFecha = fecha.split(" ");
+                fechaResidente.setText(partesFecha[0]);
+                //fechaResidente.setText(db.getDatosResidente(idInspeccion).getFechaResidente());
             }
 
             setFechaResidenteButton.setOnClickListener(new View.OnClickListener() {

@@ -4,14 +4,12 @@
 
     <!-- UI Preference -->
     <string name="action_settings">Preferencias</string>
-    <string name="action_map">Ver mapa</string>
-    <string name="action_intro">Ver intro</string>
     <string name="action_sign_out">Cerrar sesión</string>
     <string name="action_about">Info</string>
     <string name="action_preference">Preferencias</string>
-
     <string name="sp_key_empresa">spEmpresa</string>
     <string name="sp_key_ambiente">spAmbiente</string>
+    <!-- UI Preference -->
 
 
     <string name="title_activity_login">Iniciar sesión</string>
@@ -30,8 +28,8 @@
 
     <!-- UI Init Shift -->
     <string name="title_activity_init_shift">Empezar turno</string>
-    <string name="init_shift_intro_text">Recuerde que debe empezar su turno antes de realizar cualquier inspección (solo para usuarios autorizados)</string>
-    <string name="init_shift_button">Empezar turno</string>
+    <string name="init_shift_intro_text">Recuerde que debe iniciar su turno antes de realizar cualquier inspección (solo para usuarios autorizados)</string>
+    <string name="init_shift_button">Iniciar turno</string>
 
     <!-- UI Main -->
     <string name="title_main">Listado de inspecciones</string>
@@ -41,31 +39,32 @@
     <string name="init_inspect_title">Ubicación</string>
     <string name="init_inspect_sub_title">Nombre del lugar a inspeccionar</string>
     <string name="init_inspect_ask">¿Se puede realizar inspección?</string>
-    <string name="init_inspect_affirmative">SI</string>
-    <string name="init_inspect_negative">NO</string>
+    <string name="init_inspect_affirmative">Si</string>
+    <string name="init_inspect_negative">No</string>
 
     <!-- UI Map activity -->
-    <string name="permissions_location">Para poder ocupar la aplicación se requieren permisos de Ubicación y uso de Camara</string>
+    <string name="permissions_location">Para poder ocupar la aplicación se requieren permisos de ubicación y uso de camara</string>
     <string name="permissions_result">Puede empezar su turno</string>
     <string name="permissions_check">Revisando permisos</string>
-    <string name="permissions_yes">si</string>
-    <string name="permissions_no">no</string>
+    <string name="permissions_yes">Si</string>
+    <string name="permissions_no">No</string>
 
     <!-- UI Fragments -->
     <string name="title_check_data">Realizar inspección</string>
     <string name="fragment_business_title">Ingreso de inspección: Empresa</string>
     <string name="fragment_residential_title">Ingreso de inspección: Residencial</string>
     <string name="fragment_commercial_title">Ingreso de inspección: Comercial</string>
-    <string name="fragment_inspeccion_nueva">Ingreso de inspección: Nueva</string>
+    <string name="fragment_inspeccion_nueva">Ingreso de inspección: Auto Generada</string>
+
 
     <!-- UI Fragments residential form-->
+    <string name="residential_form_title">Datos Residente</string>
     <string name="residential_form_warning">Poligono social</string>
     <string name="residential_form_name">Nombre del residente: </string>
     <string name="residential_form_rut">RUT del residente: </string>
     <string name="residential_form_phone">Teléfono: </string>
-    <string name="residential_form_email">Email: (Opcional)</string>
+    <string name="residential_form_email">Correo electrónico: (Opcional)</string>
     <string name="residential_form_date">Fecha desde que habita el inmueble: </string>
-
     <string name="residential_form_measurer">Ubicación del medidor: </string>
     <string name="residential_form_measurer_status">¿El medidor está descompuesto?: </string>
 
@@ -118,11 +117,17 @@
     <string name="photo_test_broken_meter_reason_title">Indique el tipo de falla</string>
     <string name="photo_test_broken_meter_reason">Ejemplo de tipo de falla</string>
 
-    <string name="radio_button_yes">SI</string>
-    <string name="radio_button_no">NO</string>
+    <string name="radio_button_yes">Si</string>
+    <string name="radio_button_no">No</string>
 
     <string name="execute_test_title_1">¿Se evidencia intervención del medidor?</string>
     <string name="execute_test_title_2">¿Se evidencia intervención de la red?</string>
+
+
+    <string name="ejecuta_test_titulo_2">Medidor</string>
+    <string name="ejecuta_test_titulo_3">Características de la instalación</string>
+
+    <string name="ejecuta_test_especificar">Especifique</string>
 
     <string name="execute_test_option_1">Uso imanes</string>
     <string name="execute_test_option_2">Invertir tomas</string>
@@ -141,12 +146,12 @@
     <string name="execute_test_3_source_title">Fuente propia de abastecimiento</string>
     <string name="execute_test_3_new_building">Construcción nueva</string>
     <string name="execute_test_3_property_type">Tipo de propiedad</string>
-    <string name="execute_test_3_occupant">Habitantes</string>
-    <string name="execute_test_3_bathroom">Baños</string>
-    <string name="execute_test_3_building_surface">Superficie edificada</string>
-    <string name="execute_test_3_garden_surface">Superficie jardín</string>
-    <string name="execute_test_3_access">Acceso</string>
-    <string name="execute_test_3_total_surface">Superficie terreno</string>
+    <string name="execute_test_3_occupant">Habitantes (Cantidad)</string>
+    <string name="execute_test_3_bathroom">Baños (Cantidad)</string>
+    <string name="execute_test_3_building_surface">Superficie edificada (m\u00B2)</string>
+    <string name="execute_test_3_garden_surface">Superficie jardín (m\u00B2)</string>
+    <string name="execute_test_3_access">Acceso (m\u00B2)</string>
+    <string name="execute_test_3_total_surface">Superficie terreno (m\u00B2)</string>
     <string name="execute_test_3_comment">Observaciones</string>
 
 
@@ -160,12 +165,12 @@
     <string name="execute_test_3_caudal">Merced/Caudal</string>
 
 
-    <string name="execute_test_form_save_button">Guardar resultaods</string>
+    <string name="execute_test_form_save_button">Guardar resultados</string>
 
 
     <!-- UI Fragments rejection form-->
-    <string name="title_reason_rejected">Seleccione el motivo por el que  no se realiza la inspección (obligatorio)</string>
-    <string name="rejection_error">La razon de rechazo no ha podido ser enviada, por favor reintentar</string>
+    <string name="title_reason_rejected">Seleccione el motivo por el que no se realiza la inspección (obligatorio)</string>
+    <string name="rejection_error">La razón de rechazo no ha podido ser enviada, por favor reintentar</string>
     <string name="rejection_hint">indique por qué no se puede realizar la inspección</string>
 
     <!-- UI Fragments negotiation form-->

@@ -7,9 +7,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="8dp"
+        android:background="@color/colorAccent"
+        android:fontFamily="sans-serif-light"
+        android:padding="12dp"
         android:text="@string/execute_test_title_2"
+        android:textColor="@color/white_google"
         android:textSize="18sp" />
 
     <RelativeLayout
@@ -184,15 +186,21 @@
 
         </RelativeLayout>
 
-        <EditText
-            android:minLines="1"
-            android:maxLines="1"
-            android:id="@+id/otroFotoEditText"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:hint="Especifique" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/otroFotoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:hint="@string/ejecuta_test_especificar"
+                android:maxLines="1"
+                android:minLines="1" />
+
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 

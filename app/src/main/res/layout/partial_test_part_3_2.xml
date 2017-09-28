@@ -7,11 +7,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:padding="8dp"
+        android:background="@color/colorAccent"
+        android:fontFamily="sans-serif-light"
+        android:padding="12dp"
         android:text="@string/execute_test_3_type_title"
+        android:textColor="@color/white_google"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -29,6 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:padding="4dp"
                 android:text="@string/execute_test_3_auto_supply" />
 
@@ -75,6 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:padding="4dp"
                     android:text="@string/execute_test_3_auto_supply_type" />
 
@@ -98,6 +100,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:padding="4dp"
                     android:text="@string/execute_test_3_use" />
 
@@ -121,6 +124,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:padding="4dp"
                     android:text="@string/execute_test_3_active" />
 
@@ -161,6 +165,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:padding="4dp"
                     android:text="@string/execute_test_3_capacity" />
 
@@ -184,6 +189,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:padding="4dp"
                     android:text="@string/execute_test_3_dga" />
 
@@ -207,6 +213,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:padding="4dp"
                     android:text="@string/execute_test_3_caudal" />
 
@@ -230,6 +237,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:padding="4dp"
                     android:text="@string/execute_test_3_comment" />
 

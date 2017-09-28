@@ -7,11 +7,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:padding="8dp"
+        android:background="@color/colorAccent"
+        android:fontFamily="sans-serif-light"
+        android:padding="12dp"
         android:text="@string/execute_test_3_source_title"
+        android:textColor="@color/white_google"
         android:textSize="18sp" />
 
     <LinearLayout

@@ -1,6 +1,5 @@
 package com.zecovery.android.zemedidores.views.assignments.fragments.forms;
 
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -28,9 +27,6 @@ import java.util.Calendar;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FormularioInspeccionNuevaFragment extends Fragment implements View.OnClickListener,
         FormularioResidencialCallback {
 
@@ -129,54 +125,16 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
     @Override
     public void onClick(View view) {
 
-        boolean errorDireccion;
-        boolean errorNumMedidor;
-        boolean errorNombre;
-        boolean errorRut;
-        boolean errorTelefono;
-        boolean errorFecha;
+        boolean errorNumCliente;
 
-
-        if (nuevaInspeccionDireccion.getText().length() == 0) {
-            errorDireccion = true;
-            nuevaInspeccionDireccion.setError("Debe ingresar el nombre del residente");
-        } else {
-            errorDireccion = false;
-        }
         if (nuevaInspeccionNumeroCliente.getText().length() == 0) {
-            errorNumMedidor = true;
+            errorNumCliente = true;
             nuevaInspeccionNumeroCliente.setError("Debe ingresar el nombre del residente");
         } else {
-            errorNumMedidor = false;
+            errorNumCliente = false;
         }
 
-
-        if (nuevoResidenteNombre.getText().length() == 0) {
-            errorNombre = true;
-            nuevoResidenteNombre.setError("Debe ingresar el nombre del residente");
-        } else {
-            errorNombre = false;
-        }
-        if (nuevoResidenteRut.getText().length() == 0) {
-            errorRut = true;
-            nuevoResidenteRut.setError("Debe ingresar el RUT del residente");
-        } else {
-            errorRut = false;
-        }
-        if (nuevoResidenteTelefono.getText().length() == 0) {
-            errorTelefono = true;
-            nuevoResidenteTelefono.setError("Debe ingresar telefono de contacto del residente");
-        } else {
-            errorTelefono = false;
-        }
-        if (fechaResidente.getText().length() == 0) {
-            errorFecha = true;
-            fechaResidente.setError("Debe ingresar fecha desde cuando habita");
-        } else {
-            errorFecha = false;
-        }
-
-        if (!errorDireccion && !errorNumMedidor && !errorNombre && !errorRut && !errorTelefono && !errorFecha) {
+        if (!errorNumCliente) {
 
             Residente resident = new Residente();
 
@@ -191,7 +149,7 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
             new GuardaDatosResidente(this, getContext()).guardaDatos(resident, idInspeccion);
 
         } else {
-            Toast.makeText(getContext(), "Complete los campos obligatorios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "El numero de cliente es obligatorio", Toast.LENGTH_SHORT).show();
         }
     }
 

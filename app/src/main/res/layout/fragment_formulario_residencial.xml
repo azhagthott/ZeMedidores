@@ -46,81 +46,71 @@
             android:layout_margin="12dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
-                android:text="@string/residential_form_name"
-                android:textColor="@color/gray_500" />
-
-            <EditText
-                android:id="@+id/nombreResidente"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/residential_form_name"
-                android:inputType="text"
-                android:maxLines="1"
-                android:minLines="1"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
-                android:text="@string/residential_form_rut"
-                android:textColor="@color/gray_500" />
+                <EditText
+                    android:id="@+id/nombreResidente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/residential_form_name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingEnd="4dp"
+                    android:paddingStart="4dp" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/rutResidente"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/residential_form_rut"
-                android:inputType="text"
-                android:maxLines="1"
-                android:minLines="1"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
-                android:text="@string/residential_form_phone"
-                android:textColor="@color/gray_500" />
+                <EditText
+                    android:id="@+id/rutResidente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/residential_form_rut"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:paddingEnd="4dp"
+                    android:paddingStart="4dp" />
 
-            <EditText
-                android:id="@+id/telefonoResidente"
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/residential_form_phone"
-                android:inputType="phone"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
-                android:text="@string/residential_form_email"
-                android:textColor="@color/gray_500" />
+                <EditText
+                    android:id="@+id/telefonoResidente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/residential_form_phone"
+                    android:inputType="phone"
+                    android:paddingEnd="4dp"
+                    android:paddingStart="4dp" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/emailResidente"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/residential_form_email"
-                android:inputType="textEmailAddress"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/emailResidente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/residential_form_email"
+                    android:inputType="textEmailAddress"
+                    android:paddingEnd="4dp"
+                    android:paddingStart="4dp" />
+
+            </android.support.design.widget.TextInputLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

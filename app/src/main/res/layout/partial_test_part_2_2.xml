@@ -7,9 +7,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="Características de la instalación"
+        android:background="@color/colorAccent"
+        android:fontFamily="sans-serif-light"
+        android:padding="12dp"
+        android:text="@string/ejecuta_test_titulo_3"
+        android:textColor="@color/white_google"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -17,21 +19,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/verticalStatusEditText"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:hint="Estado verticales"
-            android:inputType="text" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/cutStatusEditText"
+            <EditText
+                android:id="@+id/verticalStatusEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:hint="Estado verticales"
+                android:inputType="text" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:hint="Estado corte"
-            android:inputType="text" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/cutStatusEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:hint="Estado corte"
+                android:inputType="text" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,12 +127,16 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/obs2EditText"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="Observaciones"
-        android:inputType="text" />
+        android:layout_height="wrap_content">
 
+        <EditText
+            android:id="@+id/obs2EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="Observaciones"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
 </LinearLayout>
