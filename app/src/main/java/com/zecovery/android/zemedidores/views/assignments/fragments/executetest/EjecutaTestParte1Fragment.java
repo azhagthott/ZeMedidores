@@ -124,6 +124,107 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         case7EditText.setVisibility(View.GONE);
         otroFotoEditText.setVisibility(View.GONE);
 
+
+        if (db.getDatosTestParte1(idInspeccion).getTest1() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getTest1().equals("SI")) {
+                test11YesRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getTest1().equals("NO")) {
+                test11NoRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getTest2() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getTest2().equals("SI")) {
+                test12YesRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getTest2().equals("NO")) {
+                test12NoRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getTest3() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getTest3().equals("SI")) {
+                test13YesRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getTest3().equals("NO")) {
+                test13NoRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getTest4() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getTest4().equals("SI")) {
+                test14YesRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getTest4().equals("NO")) {
+                test14NoRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getTest5() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getTest5().equals("SI")) {
+                test15YesRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getTest5().equals("NO")) {
+                test15NoRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getUsoImanes() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getUsoImanes().equals("SI")) {
+                case1PositiveRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getUsoImanes().equals("NO")) {
+                case1NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getInvertirTomas() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getInvertirTomas().equals("SI")) {
+                case2PositiveRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getInvertirTomas().equals("NO")) {
+                case2NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getPerforaCupula() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getPerforaCupula().equals("SI")) {
+                case3PositiveRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getPerforaCupula().equals("NO")) {
+                case3NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje().equals("SI")) {
+                case4PositiveRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje().equals("NO")) {
+                case4NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getUsoAlambres() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getUsoAlambres().equals("SI")) {
+                case5PositiveRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getUsoAlambres().equals("NO")) {
+                case5NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getPrensado() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getPrensado().equals("SI")) {
+                case6PositiveRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getPrensado().equals("NO")) {
+                case6NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getOtro() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getOtro().equals("SI")) {
+                case7PositiveRadioButton.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getOtro().equals("NO")) {
+                case7NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getOtroText() != null) {
+            case7EditText.setText(db.getDatosTestParte1(idInspeccion).getOtroText());
+        }
+
         case7PositiveRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -179,46 +280,6 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             }
         });
 
-    }
-
-    private void findViews(View view) {
-        test11YesRadioButton = view.findViewById(R.id.test11YesRadioButton);
-        test11NoRadioButton = view.findViewById(R.id.test11NoRadioButton);
-        test12YesRadioButton = view.findViewById(R.id.test12YesRadioButton);
-        test12NoRadioButton = view.findViewById(R.id.test12NoRadioButton);
-        test13YesRadioButton = view.findViewById(R.id.test13YesRadioButton);
-        test13NoRadioButton = view.findViewById(R.id.test13NoRadioButton);
-        test14YesRadioButton = view.findViewById(R.id.test14YesRadioButton);
-        test14NoRadioButton = view.findViewById(R.id.test14NoRadioButton);
-        test15YesRadioButton = view.findViewById(R.id.test15YesRadioButton);
-        test15NoRadioButton = view.findViewById(R.id.test15NoRadioButton);
-
-        case1PositiveRadioButton = view.findViewById(R.id.case1PositiveRadioButton);
-        case1NegativeRadioButton = view.findViewById(R.id.case1NegativeRadioButton);
-        case2PositiveRadioButton = view.findViewById(R.id.case2PositiveRadioButton);
-        case2NegativeRadioButton = view.findViewById(R.id.case2NegativeRadioButton);
-        case3PositiveRadioButton = view.findViewById(R.id.case3PositiveRadioButton);
-        case3NegativeRadioButton = view.findViewById(R.id.case3NegativeRadioButton);
-        case4PositiveRadioButton = view.findViewById(R.id.case4PositiveRadioButton);
-        case4NegativeRadioButton = view.findViewById(R.id.case4NegativeRadioButton);
-        case5PositiveRadioButton = view.findViewById(R.id.case5PositiveRadioButton);
-        case5NegativeRadioButton = view.findViewById(R.id.case5NegativeRadioButton);
-        case6PositiveRadioButton = view.findViewById(R.id.case6PositiveRadioButton);
-        case6NegativeRadioButton = view.findViewById(R.id.case6NegativeRadioButton);
-        case7PositiveRadioButton = view.findViewById(R.id.case7PositiveRadioButton);
-        case7NegativeRadioButton = view.findViewById(R.id.case7NegativeRadioButton);
-        case7EditText = view.findViewById(R.id.case7EditText);
-        case8PositiveRadioButton = view.findViewById(R.id.case8PositiveRadioButton);
-        case8NegativeRadioButton = view.findViewById(R.id.case8NegativeRadioButton);
-        case9PositiveRadioButton = view.findViewById(R.id.case9PositiveRadioButton);
-        case9NegativeRadioButton = view.findViewById(R.id.case9NegativeRadioButton);
-        case10PositiveRadioButton = view.findViewById(R.id.case10PositiveRadioButton);
-        case10NegativeRadioButton = view.findViewById(R.id.case10NegativeRadioButton);
-        intervensionRedFoto = view.findViewById(R.id.intervensionRedFoto);
-        bypassFoto = view.findViewById(R.id.bypassFoto);
-        otroFoto = view.findViewById(R.id.otroFoto);
-        otroFotoEditText = view.findViewById(R.id.otroFotoEditText);
-        saveButton = view.findViewById(R.id.saveButton);
     }
 
     @Override
@@ -437,5 +498,45 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         } catch (Exception e) {
             FirebaseCrash.log("Error: " + e);
         }
+    }
+
+    private void findViews(View view) {
+        test11YesRadioButton = view.findViewById(R.id.test11YesRadioButton);
+        test11NoRadioButton = view.findViewById(R.id.test11NoRadioButton);
+        test12YesRadioButton = view.findViewById(R.id.test12YesRadioButton);
+        test12NoRadioButton = view.findViewById(R.id.test12NoRadioButton);
+        test13YesRadioButton = view.findViewById(R.id.test13YesRadioButton);
+        test13NoRadioButton = view.findViewById(R.id.test13NoRadioButton);
+        test14YesRadioButton = view.findViewById(R.id.test14YesRadioButton);
+        test14NoRadioButton = view.findViewById(R.id.test14NoRadioButton);
+        test15YesRadioButton = view.findViewById(R.id.test15YesRadioButton);
+        test15NoRadioButton = view.findViewById(R.id.test15NoRadioButton);
+
+        case1PositiveRadioButton = view.findViewById(R.id.case1PositiveRadioButton);
+        case1NegativeRadioButton = view.findViewById(R.id.case1NegativeRadioButton);
+        case2PositiveRadioButton = view.findViewById(R.id.case2PositiveRadioButton);
+        case2NegativeRadioButton = view.findViewById(R.id.case2NegativeRadioButton);
+        case3PositiveRadioButton = view.findViewById(R.id.case3PositiveRadioButton);
+        case3NegativeRadioButton = view.findViewById(R.id.case3NegativeRadioButton);
+        case4PositiveRadioButton = view.findViewById(R.id.case4PositiveRadioButton);
+        case4NegativeRadioButton = view.findViewById(R.id.case4NegativeRadioButton);
+        case5PositiveRadioButton = view.findViewById(R.id.case5PositiveRadioButton);
+        case5NegativeRadioButton = view.findViewById(R.id.case5NegativeRadioButton);
+        case6PositiveRadioButton = view.findViewById(R.id.case6PositiveRadioButton);
+        case6NegativeRadioButton = view.findViewById(R.id.case6NegativeRadioButton);
+        case7PositiveRadioButton = view.findViewById(R.id.case7PositiveRadioButton);
+        case7NegativeRadioButton = view.findViewById(R.id.case7NegativeRadioButton);
+        case7EditText = view.findViewById(R.id.case7EditText);
+        case8PositiveRadioButton = view.findViewById(R.id.case8PositiveRadioButton);
+        case8NegativeRadioButton = view.findViewById(R.id.case8NegativeRadioButton);
+        case9PositiveRadioButton = view.findViewById(R.id.case9PositiveRadioButton);
+        case9NegativeRadioButton = view.findViewById(R.id.case9NegativeRadioButton);
+        case10PositiveRadioButton = view.findViewById(R.id.case10PositiveRadioButton);
+        case10NegativeRadioButton = view.findViewById(R.id.case10NegativeRadioButton);
+        intervensionRedFoto = view.findViewById(R.id.intervensionRedFoto);
+        bypassFoto = view.findViewById(R.id.bypassFoto);
+        otroFoto = view.findViewById(R.id.otroFoto);
+        otroFotoEditText = view.findViewById(R.id.otroFotoEditText);
+        saveButton = view.findViewById(R.id.saveButton);
     }
 }

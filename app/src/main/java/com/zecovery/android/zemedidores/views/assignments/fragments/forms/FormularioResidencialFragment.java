@@ -103,7 +103,6 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
                 String fecha = db.getDatosResidente(idInspeccion).getFechaResidente();
                 String[] partesFecha = fecha.split(" ");
                 fechaResidente.setText(partesFecha[0]);
-                //fechaResidente.setText(db.getDatosResidente(idInspeccion).getFechaResidente());
             }
 
             setFechaResidenteButton.setOnClickListener(new View.OnClickListener() {

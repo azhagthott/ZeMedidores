@@ -14,23 +14,32 @@
         android:textColor="@color/white_google"
         android:textSize="18sp" />
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_above="@+id/linearLayout"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/radioGroup4"
+            android:gravity="center_vertical"
             android:padding="8dp"
             android:text="@string/execute_test_option_1"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:id="@+id/radioGroup4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -51,9 +60,47 @@
 
         </RadioGroup>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/radioGroup4"
+            android:orientation="horizontal">
 
-    <LinearLayout
+            <ImageButton
+                android:id="@+id/otroFoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/otroFoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/otroFoto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -90,9 +137,9 @@
 
         </RadioGroup>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -129,9 +176,9 @@
 
         </RadioGroup>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -168,9 +215,9 @@
 
         </RadioGroup>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -207,9 +254,9 @@
 
         </RadioGroup>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -246,9 +293,9 @@
 
         </RadioGroup>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -309,7 +356,7 @@
 
         </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

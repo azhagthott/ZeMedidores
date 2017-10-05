@@ -25,7 +25,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    public static final int DB_VERSION = 161;
+    public static final int DB_VERSION = 162;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -456,6 +456,56 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    public TestParte1 getDatosTestParte1(int idInspeccion) {
+
+        TestParte1 testParte1 = new TestParte1();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+                        {
+                                RESULT_TEST_1,
+                                RESULT_TEST_2,
+                                RESULT_TEST_3,
+                                RESULT_TEST_4,
+                                RESULT_TEST_5,
+                                RESULT_TEST_USO_IMANES,
+                                RESULT_TEST_INV_TOMAS,
+                                RESULT_TEST_PERF_CUP,
+                                RESULT_TEST_CORTAR_ENG,
+                                RESULT_TEST_USO_ALAM,
+                                RESULT_TEST_PRENSADO,
+                                RESULT_TEST_OTRO_1,
+                                RESULT_TEST_OTRO_1_TEXT,
+                                RESULT_TEST_INST_PAR,
+                                RESULT_TEST_BYPASS,
+                                RESULT_TEST_OTRO_2,
+                                RESULT_TEST_OTRO_2_TEXT
+                        }
+
+                , RESULT_ID_INSPECCION + "=?",
+                new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            testParte1.setTest1(cursor.getString(0));
+            testParte1.setTest2(cursor.getString(1));
+            testParte1.setTest3(cursor.getString(2));
+            testParte1.setTest4(cursor.getString(3));
+            testParte1.setTest5(cursor.getString(4));
+            testParte1.setUsoImanes(cursor.getString(5));
+            testParte1.setInvertirTomas(cursor.getString(6));
+            testParte1.setPerforaCupula(cursor.getString(7));
+            testParte1.setCortaEngranaje(cursor.getString(8));
+            testParte1.setUsoAlambres(cursor.getString(9));
+            testParte1.setPrensado(cursor.getString(10));
+            testParte1.setOtro(cursor.getString(11));
+            testParte1.setOtroText(cursor.getString(12));
+            testParte1.setOtro2(cursor.getString(13));
+            testParte1.setOtroText2(cursor.getString(14));
+            cursor.close();
+        }
+        return testParte1;
+    }
+
+
     public void guardaDatosTestParte2(TestParte2 test, int idInspeccion) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -478,6 +528,13 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
+
+    public TestParte2 getDatosTestParte2(int idInspeccion) {
+
+        TestParte2 testParte2 = new TestParte2();
+        return testParte2;
+    }
+
 
     public void guardaDatosTestParte3(TestParte3 test, int idInspeccion) {
 
@@ -505,6 +562,14 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
+
+
+    public TestParte3 getDatosTestParte3(int idInspeccion) {
+
+        TestParte3 testParte3 = new TestParte3();
+        return testParte3;
+    }
+
 
     public void guardaFoto(Foto foto, int idInspeccion) {
         SQLiteDatabase db = this.getWritableDatabase();

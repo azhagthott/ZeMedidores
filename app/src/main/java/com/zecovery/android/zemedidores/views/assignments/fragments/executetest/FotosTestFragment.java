@@ -174,32 +174,6 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    private void findViews(View view) {
-        photoMeterReading = view.findViewById(R.id.photoMeterReading);
-        photoMeterNumber = view.findViewById(R.id.photoMeterNumber);
-        photoMeterPanoramic = view.findViewById(R.id.photoMeterPanoramic);
-        photoPropertyNumber = view.findViewById(R.id.photoPropertyNumber);
-        photoFrontageProperty = view.findViewById(R.id.photoFrontageProperty);
-        brokenMeterPhoto = view.findViewById(R.id.brokenMeterPhoto);
-        positiveRadioButton = view.findViewById(R.id.positiveRadioButton);
-        negativeRadioButton = view.findViewById(R.id.negativeRadioButton);
-        brokenMeterLinearLayout = view.findViewById(R.id.brokenMeterLinearLayout);
-        mandatoryPhotosLinearLayout = view.findViewById(R.id.mandatoryPhotosLinearLayout);
-        meterLocationEditText = view.findViewById(R.id.meterLocationEditText);
-        brokenMeterCommentEditText = view.findViewById(R.id.brokenMeterCommentEditText);
-        continueTestButton = view.findViewById(R.id.continueTestButton);
-        imagePreviewMedidorRoto = view.findViewById(R.id.imagePreviewMedidorRoto);
-        imagePreviewLecturaMedidor = view.findViewById(R.id.imagePreviewLecturaMedidor);
-        imagePreviewNumeroMedidor = view.findViewById(R.id.imagePreviewNumeroMedidor);
-        imagePreviewPanoMedidor = view.findViewById(R.id.imagePreviewPanoMedidor);
-        imagePreviewNumeroPropiedad = view.findViewById(R.id.imagePreviewNumeroPropiedad);
-        imagePreviewFachadaPropiedad = view.findViewById(R.id.imagePreviewFachadaPropiedad);
-        numeroMedidorEditText = view.findViewById(R.id.numeroMedidorEditText);
-        diametroMedidorEditText = view.findViewById(R.id.diametroMedidorEditText);
-        lecturaMedidorEditText = view.findViewById(R.id.lecturaMedidorEditText);
-        datosMedidorLinerLayout = view.findViewById(R.id.datosMedidorLinerLayout);
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -445,5 +419,31 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                 callback.IdInspeccionEjecutaTestParte1(idInspeccion);
             }
         }
+    }
+
+    private void findViews(View view) {
+        photoMeterReading = view.findViewById(R.id.photoMeterReading);
+        photoMeterNumber = view.findViewById(R.id.photoMeterNumber);
+        photoMeterPanoramic = view.findViewById(R.id.photoMeterPanoramic);
+        photoPropertyNumber = view.findViewById(R.id.photoPropertyNumber);
+        photoFrontageProperty = view.findViewById(R.id.photoFrontageProperty);
+        brokenMeterPhoto = view.findViewById(R.id.brokenMeterPhoto);
+        positiveRadioButton = view.findViewById(R.id.positiveRadioButton);
+        negativeRadioButton = view.findViewById(R.id.negativeRadioButton);
+        brokenMeterLinearLayout = view.findViewById(R.id.brokenMeterLinearLayout);
+        mandatoryPhotosLinearLayout = view.findViewById(R.id.mandatoryPhotosLinearLayout);
+        meterLocationEditText = view.findViewById(R.id.meterLocationEditText);
+        brokenMeterCommentEditText = view.findViewById(R.id.brokenMeterCommentEditText);
+        continueTestButton = view.findViewById(R.id.continueTestButton);
+        imagePreviewMedidorRoto = view.findViewById(R.id.imagePreviewMedidorRoto);
+        imagePreviewLecturaMedidor = view.findViewById(R.id.imagePreviewLecturaMedidor);
+        imagePreviewNumeroMedidor = view.findViewById(R.id.imagePreviewNumeroMedidor);
+        imagePreviewPanoMedidor = view.findViewById(R.id.imagePreviewPanoMedidor);
+        imagePreviewNumeroPropiedad = view.findViewById(R.id.imagePreviewNumeroPropiedad);
+        imagePreviewFachadaPropiedad = view.findViewById(R.id.imagePreviewFachadaPropiedad);
+        numeroMedidorEditText = view.findViewById(R.id.numeroMedidorEditText);
+        diametroMedidorEditText = view.findViewById(R.id.diametroMedidorEditText);
+        lecturaMedidorEditText = view.findViewById(R.id.lecturaMedidorEditText);
+        datosMedidorLinerLayout = view.findViewById(R.id.datosMedidorLinerLayout);
     }
 }
