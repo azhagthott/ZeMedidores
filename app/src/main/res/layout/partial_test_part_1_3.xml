@@ -23,11 +23,12 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayout3"
+            android:layout_above="@+id/ocultaFotosInstParalelaLl"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_toStartOf="@+id/radioGroup"
+            android:gravity="center_vertical"
             android:padding="8dp"
             android:text="@string/execute_test_2_option_1"
             android:textColor="@color/gray_500" />
@@ -59,7 +60,7 @@
         </RadioGroup>
 
         <LinearLayout
-            android:id="@+id/linearLayout3"
+            android:id="@+id/ocultaFotosInstParalelaLl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -67,32 +68,74 @@
             android:layout_below="@+id/radioGroup"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/intervensionRedFoto1"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:padding="8dp"
-                android:src="@drawable/ic_photo_camera_black_24"
-                android:visibility="visible" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/intervensionRedFoto2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:padding="8dp"
-                android:src="@drawable/ic_photo_camera_black_24"
-                android:visibility="visible" />
+                <ImageButton
+                    android:id="@+id/intervensionRedFoto1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="visible" />
 
-            <ImageButton
-                android:id="@+id/intervensionRedFoto3"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/intervensionRedPreview1"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:padding="8dp"
-                android:src="@drawable/ic_photo_camera_black_24"
-                android:visibility="visible" />
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/intervensionRedFoto2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="visible" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/intervensionRedPreview2"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/intervensionRedFoto3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="visible" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/intervensionRedPreview3"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -107,11 +150,12 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayout2"
+            android:layout_above="@+id/ocultaFotosBypassLl"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
             android:layout_toStartOf="@+id/radioGroup2"
+            android:gravity="center_vertical"
             android:padding="8dp"
             android:text="@string/execute_test_2_option_2"
             android:textColor="@color/gray_500" />
@@ -143,7 +187,7 @@
         </RadioGroup>
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/ocultaFotosBypassLl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -151,32 +195,75 @@
             android:layout_below="@+id/radioGroup2"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/bypassFoto1"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:padding="8dp"
-                android:src="@drawable/ic_photo_camera_black_24"
-                android:visibility="visible" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/bypassFoto2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:padding="8dp"
-                android:src="@drawable/ic_photo_camera_black_24"
-                android:visibility="visible" />
+                <ImageButton
+                    android:id="@+id/bypassFoto1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="visible" />
 
-            <ImageButton
-                android:id="@+id/bypassFoto3"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/bypassPreview1"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:padding="8dp"
-                android:src="@drawable/ic_photo_camera_black_24"
-                android:visibility="visible" />
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/bypassFoto2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="visible" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/bypassPreview2"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/bypassFoto3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24"
+                    android:visibility="visible" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/bypassPreview3"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_photo_camera_black_24" />
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </RelativeLayout>
@@ -195,11 +282,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/linearLayout"
+                android:layout_above="@+id/ocultaFotosOtrosLl"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="center"
                 android:layout_toStartOf="@+id/radioGroup3"
+                android:gravity="center_vertical"
                 android:padding="8dp"
                 android:text="@string/execute_test_2_option_3"
                 android:textColor="@color/gray_500" />
@@ -231,7 +319,7 @@
             </RadioGroup>
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/ocultaFotosOtrosLl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -239,32 +327,74 @@
                 android:layout_below="@+id/radioGroup3"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/otroFoto1"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_photo_camera_black_24"
-                    android:visibility="visible" />
+                    android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/otroFoto2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_photo_camera_black_24"
-                    android:visibility="visible" />
+                    <ImageButton
+                        android:id="@+id/otroFoto1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_photo_camera_black_24"
+                        android:visibility="visible" />
 
-                <ImageButton
-                    android:id="@+id/otroFoto3"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/otroPreview1"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_photo_camera_black_24" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_photo_camera_black_24"
-                    android:visibility="visible" />
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/otroFoto2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_photo_camera_black_24"
+                        android:visibility="visible" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/otroPreview2"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_photo_camera_black_24" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/otroFoto3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_photo_camera_black_24"
+                        android:visibility="visible" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/otroPreview3"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_photo_camera_black_24" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -287,6 +417,5 @@
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>

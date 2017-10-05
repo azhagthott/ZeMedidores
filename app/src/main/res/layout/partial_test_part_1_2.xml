@@ -25,7 +25,6 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayout"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/radioGroup4"
@@ -61,7 +60,7 @@
         </RadioGroup>
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/ocultaFotosImanesLl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -70,7 +69,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/otroFoto1"
+                android:id="@+id/usoImanesFoto1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -79,7 +78,7 @@
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/otroFoto2"
+                android:id="@+id/usoImanesFoto2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -88,7 +87,7 @@
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/otroFoto3"
+                android:id="@+id/usoImanesFoto3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -107,16 +106,23 @@
         android:padding="8dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/radioGroup5"
+            android:gravity="center_vertical"
             android:padding="8dp"
             android:text="@string/execute_test_option_2"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:id="@+id/radioGroup5"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -137,25 +143,109 @@
 
         </RadioGroup>
 
+        <LinearLayout
+            android:id="@+id/ocultaFotosInvertirTomasLl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/radioGroup5"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/radioGroup5"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/invertirTomasFoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/invertirTomasFoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/invertirTomasFoto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center"
+            android:layout_toStartOf="@+id/radioGroup6"
             android:padding="8dp"
             android:text="@string/execute_test_option_3"
             android:textColor="@color/gray_500" />
 
-        <RadioGroup
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/ocultaFotosCupulaLl"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/radioGroup6"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/perforeCupulaFoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/perforeCupulaFoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/perforeCupulaFoto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroup6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -185,16 +275,25 @@
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/radioGroup7"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center"
+            android:layout_toStartOf="@+id/radioGroup7"
+            android:gravity="center_vertical"
             android:padding="8dp"
             android:text="@string/execute_test_option_4"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:id="@+id/radioGroup7"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -215,6 +314,44 @@
 
         </RadioGroup>
 
+        <LinearLayout
+            android:id="@+id/ocultaFotosEngranajeLl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView9"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/engranajeFoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/engranajeFoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/engranajeFoto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -224,16 +361,25 @@
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/radioGroup8"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center"
+            android:layout_toStartOf="@+id/radioGroup8"
+            android:gravity="center_vertical"
             android:padding="8dp"
             android:text="@string/execute_test_option_5"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:id="@+id/radioGroup8"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -254,6 +400,44 @@
 
         </RadioGroup>
 
+        <LinearLayout
+            android:id="@+id/ocultaFotosAlambresLl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView10"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/alambresFoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/alambresFoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/alambresFoto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -263,16 +447,24 @@
         android:padding="8dp">
 
         <TextView
+            android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/radioGroup9"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_gravity="center"
+            android:layout_toStartOf="@+id/radioGroup9"
             android:padding="8dp"
             android:text="@string/execute_test_option_6"
             android:textColor="@color/gray_500" />
 
         <RadioGroup
-            android:layout_width="match_parent"
+            android:id="@+id/radioGroup9"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:gravity="end"
             android:orientation="horizontal"
             android:padding="8dp">
@@ -293,56 +485,130 @@
 
         </RadioGroup>
 
+        <LinearLayout
+            android:id="@+id/ocultaFotosPrensadoLl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView11"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/prensadoFoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/prensadoFoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/prensadoFoto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/radioGroup10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:gravity="end"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:padding="8dp"
                 android:text="@string/execute_test_option_7"
                 android:textColor="@color/gray_500" />
 
-            <RadioGroup
-                android:layout_width="match_parent"
+            <RadioButton
+                android:id="@+id/case7PositiveRadioButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:padding="4dp"
+                android:text="@string/radio_button_yes" />
 
-                <RadioButton
-                    android:id="@+id/case7PositiveRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="@string/radio_button_yes" />
+            <RadioButton
+                android:id="@+id/case7NegativeRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/radio_button_no" />
 
-                <RadioButton
-                    android:id="@+id/case7NegativeRadioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:text="@string/radio_button_no" />
+        </RadioGroup>
 
-            </RadioGroup>
+        <LinearLayout
+            android:id="@+id/ocultaFotosOtrosLl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/radioGroup10"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/otrosFoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/otrosFoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/otrosFoto3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_photo_camera_black_24"
+                android:visibility="visible" />
 
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/ocultaFotosOtrosLl">
 
             <EditText
                 android:id="@+id/case7EditText"
@@ -355,6 +621,7 @@
                 android:minLines="1" />
 
         </android.support.design.widget.TextInputLayout>
+
 
     </RelativeLayout>
 

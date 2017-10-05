@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.frosquivel.magicalcamera.MagicalCamera;
@@ -25,6 +26,8 @@ import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.models.Foto;
 import com.zecovery.android.zemedidores.models.TestParte1;
 import com.zecovery.android.zemedidores.views.assignments.fragments.IdInspeccionListener;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.zecovery.android.zemedidores.data.Constant.FOLDER_ZE_MEDIDORES;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION_EJECUTA_TEST_1;
@@ -43,7 +46,6 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
     private RadioButton test14NoRadioButton;
     private RadioButton test15YesRadioButton;
     private RadioButton test15NoRadioButton;
-
     private RadioButton case1PositiveRadioButton;
     private RadioButton case1NegativeRadioButton;
     private RadioButton case2PositiveRadioButton;
@@ -66,9 +68,33 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
     private RadioButton case10PositiveRadioButton;
     private RadioButton case10NegativeRadioButton;
 
-    private ImageButton intervensionRedFoto;
-    private ImageButton bypassFoto;
-    private ImageButton otroFoto;
+    private ImageButton intervensionRedFoto1;
+    private ImageButton intervensionRedFoto2;
+    private ImageButton intervensionRedFoto3;
+
+    private ImageButton bypassFoto1;
+    private ImageButton bypassFoto2;
+    private ImageButton bypassFoto3;
+    private ImageButton otroFoto1;
+    private ImageButton otroFoto2;
+    private ImageButton otroFoto3;
+
+    private CircleImageView intervensionRedPreview1;
+    private CircleImageView intervensionRedPreview2;
+    private CircleImageView intervensionRedPreview3;
+
+    private CircleImageView bypassPreview1;
+    private CircleImageView bypassPreview2;
+    private CircleImageView bypassPreview3;
+
+    private CircleImageView otroPreview1;
+    private CircleImageView otroPreview2;
+    private CircleImageView otroPreview3;
+
+    private LinearLayout ocultaFotosInstParalelaLl;
+    private LinearLayout ocultaFotosBypassLl;
+    private LinearLayout ocultaFotosOtrosLl;
+
     private EditText otroFotoEditText;
     private Button saveButton;
 
@@ -110,20 +136,30 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         Log.d(TAG, "EjecutaTestParte1Fragment");
         Log.d(TAG, "idInspeccion: " + idInspeccion);
 
+
+        ocultaFotosInstParalelaLl.setVisibility(View.GONE);
+        ocultaFotosBypassLl.setVisibility(View.GONE);
+        ocultaFotosOtrosLl.setVisibility(View.GONE);
+
+
         db = new LocalDatabase(getContext());
 
         saveButton.setOnClickListener(this);
-        intervensionRedFoto.setOnClickListener(this);
-        bypassFoto.setOnClickListener(this);
-        otroFoto.setOnClickListener(this);
 
-        intervensionRedFoto.setVisibility(View.INVISIBLE);
-        bypassFoto.setVisibility(View.INVISIBLE);
-        otroFoto.setVisibility(View.INVISIBLE);
+        intervensionRedFoto1.setOnClickListener(this);
+        intervensionRedFoto2.setOnClickListener(this);
+        intervensionRedFoto3.setOnClickListener(this);
+
+        bypassFoto1.setOnClickListener(this);
+        bypassFoto2.setOnClickListener(this);
+        bypassFoto3.setOnClickListener(this);
+
+        otroFoto1.setOnClickListener(this);
+        otroFoto1.setOnClickListener(this);
+        otroFoto1.setOnClickListener(this);
 
         case7EditText.setVisibility(View.GONE);
         otroFotoEditText.setVisibility(View.GONE);
-
 
         if (db.getDatosTestParte1(idInspeccion).getTest1() != null) {
             if (db.getDatosTestParte1(idInspeccion).getTest1().equals("SI")) {
@@ -239,14 +275,16 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             }
         });
 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
         case8PositiveRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    intervensionRedFoto.setVisibility(View.VISIBLE);
+                    ocultaFotosInstParalelaLl.setVisibility(View.VISIBLE);
                     Log.d("case 8", "VISIBLE");
                 } else {
-                    intervensionRedFoto.setVisibility(View.INVISIBLE);
+                    ocultaFotosInstParalelaLl.setVisibility(View.GONE);
                     Log.d("case 8", "INVISIBLE");
                 }
             }
@@ -256,10 +294,10 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    bypassFoto.setVisibility(View.VISIBLE);
+                    ocultaFotosBypassLl.setVisibility(View.VISIBLE);
                     Log.d("case 9", "VISIBLE");
                 } else {
-                    bypassFoto.setVisibility(View.INVISIBLE);
+                    ocultaFotosBypassLl.setVisibility(View.GONE);
                     Log.d("case 9", "INVISIBLE");
                 }
             }
@@ -269,12 +307,12 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    otroFoto.setVisibility(View.VISIBLE);
                     otroFotoEditText.setVisibility(View.VISIBLE);
+                    ocultaFotosOtrosLl.setVisibility(View.VISIBLE);
                     Log.d("case 10", "VISIBLE");
                 } else {
-                    otroFoto.setVisibility(View.INVISIBLE);
                     otroFotoEditText.setVisibility(View.GONE);
+                    ocultaFotosOtrosLl.setVisibility(View.GONE);
                     Log.d("case 10", "INVISIBLE");
                 }
             }
@@ -304,17 +342,36 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
 
         int id = v.getId();
 
-        if (id == R.id.intervensionRedFoto) {
-            callCamera("intervension_red");
+        switch (id) {
+            case R.id.intervensionRedFoto1:
+                callCamera("intervension_red_1");
+                break;
+            case R.id.intervensionRedFoto2:
+                callCamera("intervension_red_2");
+                break;
+            case R.id.intervensionRedFoto3:
+                callCamera("intervension_red_3");
+                break;
+            case R.id.bypassFoto1:
+                callCamera("bypass_1");
+                break;
+            case R.id.bypassFoto2:
+                callCamera("bypass_2");
+                break;
+            case R.id.bypassFoto3:
+                callCamera("bypass_3");
+                break;
+            case R.id.otroFoto1:
+                callCamera("otro_1");
+                break;
+            case R.id.otroFoto2:
+                callCamera("otro_2");
+                break;
+            case R.id.otroFoto3:
+                callCamera("otro_3");
+                break;
         }
 
-        if (id == R.id.bypassFoto) {
-            callCamera("bypass");
-        }
-
-        if (id == R.id.otroFoto) {
-            callCamera("otro");
-        }
 
         if (id == R.id.saveButton) {
             TestParte1 test = new TestParte1();
@@ -533,9 +590,35 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         case9NegativeRadioButton = view.findViewById(R.id.case9NegativeRadioButton);
         case10PositiveRadioButton = view.findViewById(R.id.case10PositiveRadioButton);
         case10NegativeRadioButton = view.findViewById(R.id.case10NegativeRadioButton);
-        intervensionRedFoto = view.findViewById(R.id.intervensionRedFoto);
-        bypassFoto = view.findViewById(R.id.bypassFoto);
-        otroFoto = view.findViewById(R.id.otroFoto);
+
+        intervensionRedFoto1 = view.findViewById(R.id.intervensionRedFoto1);
+        intervensionRedFoto2 = view.findViewById(R.id.intervensionRedFoto2);
+        intervensionRedFoto3 = view.findViewById(R.id.intervensionRedFoto3);
+
+        bypassFoto1 = view.findViewById(R.id.bypassFoto1);
+        bypassFoto2 = view.findViewById(R.id.bypassFoto2);
+        bypassFoto3 = view.findViewById(R.id.bypassFoto3);
+
+        otroFoto1 = view.findViewById(R.id.otroFoto1);
+        otroFoto2 = view.findViewById(R.id.otroFoto2);
+        otroFoto3 = view.findViewById(R.id.otroFoto3);
+
+        ocultaFotosInstParalelaLl = view.findViewById(R.id.ocultaFotosInstParalelaLl);
+        ocultaFotosBypassLl = view.findViewById(R.id.ocultaFotosBypassLl);
+        ocultaFotosOtrosLl = view.findViewById(R.id.ocultaFotosOtrosLl);
+
+        intervensionRedPreview1 = view.findViewById(R.id.intervensionRedPreview1);
+        intervensionRedPreview2 = view.findViewById(R.id.intervensionRedPreview2);
+        intervensionRedPreview3 = view.findViewById(R.id.intervensionRedPreview3);
+
+        bypassPreview1 = view.findViewById(R.id.bypassPreview1);
+        bypassPreview2 = view.findViewById(R.id.bypassPreview2);
+        bypassPreview3 = view.findViewById(R.id.bypassPreview3);
+
+        otroPreview1 = view.findViewById(R.id.otroPreview1);
+        otroPreview2 = view.findViewById(R.id.otroPreview2);
+        otroPreview3 = view.findViewById(R.id.otroPreview3);
+
         otroFotoEditText = view.findViewById(R.id.otroFotoEditText);
         saveButton = view.findViewById(R.id.saveButton);
     }
