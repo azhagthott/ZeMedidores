@@ -76,7 +76,6 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
 
     public FotosTestFragment newInstance(int idInspeccion) {
 
-
         Log.d("TAG", "idInspeccion: " + idInspeccion);
 
         FotosTestFragment photosTestFragment = new FotosTestFragment();
@@ -118,8 +117,6 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
         positiveRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-
                 if (isChecked) {
                     brokenMeterLinearLayout.setVisibility(View.VISIBLE);
                     datosMedidorLinerLayout.setVisibility(View.GONE);

@@ -29,13 +29,46 @@ import com.zecovery.android.zemedidores.views.assignments.fragments.IdInspeccion
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.zecovery.android.zemedidores.data.Constant.BYPASS_1;
+import static com.zecovery.android.zemedidores.data.Constant.BYPASS_2;
+import static com.zecovery.android.zemedidores.data.Constant.BYPASS_3;
+import static com.zecovery.android.zemedidores.data.Constant.CORTA_ENGRANAJE_1;
+import static com.zecovery.android.zemedidores.data.Constant.CORTA_ENGRANAJE_2;
+import static com.zecovery.android.zemedidores.data.Constant.CORTA_ENGRANAJE_3;
 import static com.zecovery.android.zemedidores.data.Constant.FOLDER_ZE_MEDIDORES;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION_EJECUTA_TEST_1;
+import static com.zecovery.android.zemedidores.data.Constant.INSTALACION_PARALELA_1;
+import static com.zecovery.android.zemedidores.data.Constant.INSTALACION_PARALELA_2;
+import static com.zecovery.android.zemedidores.data.Constant.INSTALACION_PARALELA_3;
+import static com.zecovery.android.zemedidores.data.Constant.INVERTIR_TOMAS_1;
+import static com.zecovery.android.zemedidores.data.Constant.INVERTIR_TOMAS_2;
+import static com.zecovery.android.zemedidores.data.Constant.INVERTIR_TOMAS_3;
+import static com.zecovery.android.zemedidores.data.Constant.NO_RESPONDE;
+import static com.zecovery.android.zemedidores.data.Constant.OTROS_1_1;
+import static com.zecovery.android.zemedidores.data.Constant.OTROS_1_2;
+import static com.zecovery.android.zemedidores.data.Constant.OTROS_1_3;
+import static com.zecovery.android.zemedidores.data.Constant.OTROS_2_1;
+import static com.zecovery.android.zemedidores.data.Constant.OTROS_2_2;
+import static com.zecovery.android.zemedidores.data.Constant.OTROS_2_3;
+import static com.zecovery.android.zemedidores.data.Constant.PERFORA_CUPULA_1;
+import static com.zecovery.android.zemedidores.data.Constant.PERFORA_CUPULA_2;
+import static com.zecovery.android.zemedidores.data.Constant.PERFORA_CUPULA_3;
+import static com.zecovery.android.zemedidores.data.Constant.PRENSADO_1;
+import static com.zecovery.android.zemedidores.data.Constant.PRENSADO_2;
+import static com.zecovery.android.zemedidores.data.Constant.PRENSADO_3;
 import static com.zecovery.android.zemedidores.data.Constant.RESIZE_PHOTO_PIXELS_PERCENTAGE;
-import static com.zecovery.android.zemedidores.data.Constant.TAG;
+import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_NO;
+import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_SI;
+import static com.zecovery.android.zemedidores.data.Constant.USO_ALAMBRE_1;
+import static com.zecovery.android.zemedidores.data.Constant.USO_ALAMBRE_2;
+import static com.zecovery.android.zemedidores.data.Constant.USO_ALAMBRE_3;
+import static com.zecovery.android.zemedidores.data.Constant.USO_IMANES_1;
+import static com.zecovery.android.zemedidores.data.Constant.USO_IMANES_2;
+import static com.zecovery.android.zemedidores.data.Constant.USO_IMANES_3;
 
 public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickListener {
 
+    /* Test 1 parte 1*/
     private RadioButton test11YesRadioButton;
     private RadioButton test11NoRadioButton;
     private RadioButton test12YesRadioButton;
@@ -46,21 +79,25 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
     private RadioButton test14NoRadioButton;
     private RadioButton test15YesRadioButton;
     private RadioButton test15NoRadioButton;
-    private RadioButton case1PositiveRadioButton;
-    private RadioButton case1NegativeRadioButton;
-    private RadioButton case2PositiveRadioButton;
-    private RadioButton case2NegativeRadioButton;
-    private RadioButton case3PositiveRadioButton;
-    private RadioButton case3NegativeRadioButton;
-    private RadioButton case4PositiveRadioButton;
-    private RadioButton case4NegativeRadioButton;
-    private RadioButton case5PositiveRadioButton;
-    private RadioButton case5NegativeRadioButton;
-    private RadioButton case6PositiveRadioButton;
-    private RadioButton case6NegativeRadioButton;
-    private RadioButton case7PositiveRadioButton;
-    private RadioButton case7NegativeRadioButton;
-    private EditText case7EditText;
+
+    /* Test 1 parte 2*/
+    private RadioButton usoImanesPositivoRb;
+    private RadioButton usoImanesNegativoRb;
+    private RadioButton invertirTomasPositivoRb;
+    private RadioButton invertirTomasNegativoRb;
+    private RadioButton perforaCupulaPositivoRb;
+    private RadioButton perforaCupulaNegativoRb;
+    private RadioButton cortaEngranajePositivoRb;
+    private RadioButton cortaEngranajeNegativoRb;
+    private RadioButton usoAlambrePositivoRb;
+    private RadioButton usoAlambreNegativoRb;
+    private RadioButton prensadoPositivoRb;
+    private RadioButton prensadoNegativoRb;
+    private RadioButton otro12PositivoRb;
+    private RadioButton otro12NegativoRb;
+    private EditText otro12EditText;
+
+    /* Test 1 parte 3*/
     private RadioButton case8PositiveRadioButton;
     private RadioButton case8NegativeRadioButton;
     private RadioButton case9PositiveRadioButton;
@@ -68,16 +105,65 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
     private RadioButton case10PositiveRadioButton;
     private RadioButton case10NegativeRadioButton;
 
+    private LinearLayout ocultaFotosImanesLl;
+    private LinearLayout ocultaFotosInvertirTomasLl;
+    private LinearLayout ocultaFotosCupulaLl;
+    private LinearLayout ocultaFotosEngranajeLl;
+    private LinearLayout ocultaFotosAlambresLl;
+    private LinearLayout ocultaFotosPrensadoLl;
+    private LinearLayout ocultaFotosOtros12Ll;
+
+    private ImageButton usoImanesFoto1;
+    private ImageButton usoImanesFoto2;
+    private ImageButton usoImanesFoto3;
+    private ImageButton invertirTomasFoto1;
+    private ImageButton invertirTomasFoto2;
+    private ImageButton invertirTomasFoto3;
+    private ImageButton perforaCupulaFoto1;
+    private ImageButton perforaCupulaFoto2;
+    private ImageButton perforaCupulaFoto3;
+    private ImageButton engranajeFoto1;
+    private ImageButton engranajeFoto2;
+    private ImageButton engranajeFoto3;
+    private ImageButton alambresFoto1;
+    private ImageButton alambresFoto2;
+    private ImageButton alambresFoto3;
+    private ImageButton prensadoFoto1;
+    private ImageButton prensadoFoto2;
+    private ImageButton prensadoFoto3;
+    private ImageButton otrosFoto11;
+    private ImageButton otrosFoto12;
+    private ImageButton otrosFoto13;
     private ImageButton intervensionRedFoto1;
     private ImageButton intervensionRedFoto2;
     private ImageButton intervensionRedFoto3;
-
     private ImageButton bypassFoto1;
     private ImageButton bypassFoto2;
     private ImageButton bypassFoto3;
-    private ImageButton otroFoto1;
-    private ImageButton otroFoto2;
-    private ImageButton otroFoto3;
+    private ImageButton otroFoto21;
+    private ImageButton otroFoto22;
+    private ImageButton otroFoto23;
+
+
+    private CircleImageView usoImanesPreview1;
+    private CircleImageView usoImanesPreview2;
+    private CircleImageView usoImanesPreview3;
+
+    private CircleImageView engranajePreview1;
+    private CircleImageView engranajePreview2;
+    private CircleImageView engranajePreview3;
+
+    private CircleImageView alambresPreview1;
+    private CircleImageView alambresPreview2;
+    private CircleImageView alambresPreview3;
+
+    private CircleImageView prensadoPreview1;
+    private CircleImageView prensadoPreview2;
+    private CircleImageView prensadoPreview3;
+
+    private CircleImageView otros12Preview1;
+    private CircleImageView otros12Preview2;
+    private CircleImageView otros12Preview3;
 
     private CircleImageView intervensionRedPreview1;
     private CircleImageView intervensionRedPreview2;
@@ -93,7 +179,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
 
     private LinearLayout ocultaFotosInstParalelaLl;
     private LinearLayout ocultaFotosBypassLl;
-    private LinearLayout ocultaFotosOtrosLl;
+    private LinearLayout ocultaFotosOtros13Ll;
 
     private EditText otroFotoEditText;
     private Button saveButton;
@@ -132,19 +218,43 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         findViews(view);
 
         idInspeccion = getArguments().getInt(ID_INSPECCION_EJECUTA_TEST_1);
+        db = new LocalDatabase(getContext());
 
-        Log.d(TAG, "EjecutaTestParte1Fragment");
-        Log.d(TAG, "idInspeccion: " + idInspeccion);
-
+        ocultaFotosImanesLl.setVisibility(View.GONE);
+        ocultaFotosInvertirTomasLl.setVisibility(View.GONE);
+        ocultaFotosCupulaLl.setVisibility(View.GONE);
+        ocultaFotosEngranajeLl.setVisibility(View.GONE);
+        ocultaFotosAlambresLl.setVisibility(View.GONE);
+        ocultaFotosPrensadoLl.setVisibility(View.GONE);
+        ocultaFotosOtros12Ll.setVisibility(View.GONE);
 
         ocultaFotosInstParalelaLl.setVisibility(View.GONE);
         ocultaFotosBypassLl.setVisibility(View.GONE);
-        ocultaFotosOtrosLl.setVisibility(View.GONE);
-
-
-        db = new LocalDatabase(getContext());
+        ocultaFotosOtros13Ll.setVisibility(View.GONE);
 
         saveButton.setOnClickListener(this);
+
+        usoImanesFoto1.setOnClickListener(this);
+        usoImanesFoto2.setOnClickListener(this);
+        usoImanesFoto3.setOnClickListener(this);
+        invertirTomasFoto1.setOnClickListener(this);
+        invertirTomasFoto2.setOnClickListener(this);
+        invertirTomasFoto3.setOnClickListener(this);
+        perforaCupulaFoto1.setOnClickListener(this);
+        perforaCupulaFoto2.setOnClickListener(this);
+        perforaCupulaFoto3.setOnClickListener(this);
+        engranajeFoto1.setOnClickListener(this);
+        engranajeFoto2.setOnClickListener(this);
+        engranajeFoto3.setOnClickListener(this);
+        alambresFoto1.setOnClickListener(this);
+        alambresFoto2.setOnClickListener(this);
+        alambresFoto3.setOnClickListener(this);
+        prensadoFoto1.setOnClickListener(this);
+        prensadoFoto2.setOnClickListener(this);
+        prensadoFoto3.setOnClickListener(this);
+        otrosFoto11.setOnClickListener(this);
+        otrosFoto12.setOnClickListener(this);
+        otrosFoto13.setOnClickListener(this);
 
         intervensionRedFoto1.setOnClickListener(this);
         intervensionRedFoto2.setOnClickListener(this);
@@ -154,122 +264,210 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         bypassFoto2.setOnClickListener(this);
         bypassFoto3.setOnClickListener(this);
 
-        otroFoto1.setOnClickListener(this);
-        otroFoto1.setOnClickListener(this);
-        otroFoto1.setOnClickListener(this);
+        otroFoto21.setOnClickListener(this);
+        otroFoto22.setOnClickListener(this);
+        otroFoto23.setOnClickListener(this);
 
-        case7EditText.setVisibility(View.GONE);
+        otro12EditText.setVisibility(View.GONE);
         otroFotoEditText.setVisibility(View.GONE);
 
         if (db.getDatosTestParte1(idInspeccion).getTest1() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getTest1().equals("SI")) {
+            if (db.getDatosTestParte1(idInspeccion).getTest1().equals(RESPONDE_SI)) {
                 test11YesRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getTest1().equals("NO")) {
+            } else if (db.getDatosTestParte1(idInspeccion).getTest1().equals(RESPONDE_NO)) {
                 test11NoRadioButton.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getTest2() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getTest2().equals("SI")) {
+            if (db.getDatosTestParte1(idInspeccion).getTest2().equals(RESPONDE_SI)) {
                 test12YesRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getTest2().equals("NO")) {
+            } else if (db.getDatosTestParte1(idInspeccion).getTest2().equals(RESPONDE_NO)) {
                 test12NoRadioButton.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getTest3() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getTest3().equals("SI")) {
+            if (db.getDatosTestParte1(idInspeccion).getTest3().equals(RESPONDE_SI)) {
                 test13YesRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getTest3().equals("NO")) {
+            } else if (db.getDatosTestParte1(idInspeccion).getTest3().equals(RESPONDE_NO)) {
                 test13NoRadioButton.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getTest4() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getTest4().equals("SI")) {
+            if (db.getDatosTestParte1(idInspeccion).getTest4().equals(RESPONDE_SI)) {
                 test14YesRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getTest4().equals("NO")) {
+            } else if (db.getDatosTestParte1(idInspeccion).getTest4().equals(RESPONDE_NO)) {
                 test14NoRadioButton.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getTest5() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getTest5().equals("SI")) {
+            if (db.getDatosTestParte1(idInspeccion).getTest5().equals(RESPONDE_SI)) {
                 test15YesRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getTest5().equals("NO")) {
+            } else if (db.getDatosTestParte1(idInspeccion).getTest5().equals(RESPONDE_NO)) {
                 test15NoRadioButton.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getUsoImanes() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getUsoImanes().equals("SI")) {
-                case1PositiveRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getUsoImanes().equals("NO")) {
-                case1NegativeRadioButton.setChecked(true);
+            if (db.getDatosTestParte1(idInspeccion).getUsoImanes().equals(RESPONDE_SI)) {
+                usoImanesPositivoRb.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getUsoImanes().equals(RESPONDE_NO)) {
+                usoImanesNegativoRb.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getInvertirTomas() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getInvertirTomas().equals("SI")) {
-                case2PositiveRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getInvertirTomas().equals("NO")) {
-                case2NegativeRadioButton.setChecked(true);
+            if (db.getDatosTestParte1(idInspeccion).getInvertirTomas().equals(RESPONDE_SI)) {
+                invertirTomasPositivoRb.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getInvertirTomas().equals(RESPONDE_NO)) {
+                invertirTomasNegativoRb.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getPerforaCupula() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getPerforaCupula().equals("SI")) {
-                case3PositiveRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getPerforaCupula().equals("NO")) {
-                case3NegativeRadioButton.setChecked(true);
+            if (db.getDatosTestParte1(idInspeccion).getPerforaCupula().equals(RESPONDE_SI)) {
+                perforaCupulaPositivoRb.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getPerforaCupula().equals(RESPONDE_NO)) {
+                perforaCupulaNegativoRb.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje().equals("SI")) {
-                case4PositiveRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje().equals("NO")) {
-                case4NegativeRadioButton.setChecked(true);
+            if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje().equals(RESPONDE_SI)) {
+                cortaEngranajePositivoRb.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje().equals(RESPONDE_NO)) {
+                cortaEngranajeNegativoRb.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getUsoAlambres() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getUsoAlambres().equals("SI")) {
-                case5PositiveRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getUsoAlambres().equals("NO")) {
-                case5NegativeRadioButton.setChecked(true);
+            if (db.getDatosTestParte1(idInspeccion).getUsoAlambres().equals(RESPONDE_SI)) {
+                usoAlambrePositivoRb.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getUsoAlambres().equals(RESPONDE_NO)) {
+                usoAlambreNegativoRb.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getPrensado() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getPrensado().equals("SI")) {
-                case6PositiveRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getPrensado().equals("NO")) {
-                case6NegativeRadioButton.setChecked(true);
+            if (db.getDatosTestParte1(idInspeccion).getPrensado().equals(RESPONDE_SI)) {
+                prensadoPositivoRb.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getPrensado().equals(RESPONDE_NO)) {
+                prensadoNegativoRb.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getOtro() != null) {
-            if (db.getDatosTestParte1(idInspeccion).getOtro().equals("SI")) {
-                case7PositiveRadioButton.setChecked(true);
-            } else if (db.getDatosTestParte1(idInspeccion).getOtro().equals("NO")) {
-                case7NegativeRadioButton.setChecked(true);
+            if (db.getDatosTestParte1(idInspeccion).getOtro().equals(RESPONDE_SI)) {
+                otro12PositivoRb.setChecked(true);
+            } else if (db.getDatosTestParte1(idInspeccion).getOtro().equals(RESPONDE_NO)) {
+                otro12NegativoRb.setChecked(true);
             }
         }
 
         if (db.getDatosTestParte1(idInspeccion).getOtroText() != null) {
-            case7EditText.setText(db.getDatosTestParte1(idInspeccion).getOtroText());
+            otro12EditText.setText(db.getDatosTestParte1(idInspeccion).getOtroText());
         }
 
-        case7PositiveRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        usoImanesPositivoRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    case7EditText.setVisibility(View.VISIBLE);
+                    ocultaFotosImanesLl.setVisibility(View.VISIBLE);
+                    Log.d("case 1", "VISIBLE");
+                } else {
+                    ocultaFotosImanesLl.setVisibility(View.GONE);
+                    Log.d("case 1", "GONE");
+                }
+            }
+        });
+
+        invertirTomasPositivoRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    ocultaFotosInvertirTomasLl.setVisibility(View.VISIBLE);
+                    Log.d("case 2", "VISIBLE");
+                } else {
+                    ocultaFotosInvertirTomasLl.setVisibility(View.GONE);
+                    Log.d("case 2", "GONE");
+                }
+            }
+        });
+
+        perforaCupulaPositivoRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    ocultaFotosCupulaLl.setVisibility(View.VISIBLE);
+                    Log.d("case 2", "VISIBLE");
+                } else {
+                    ocultaFotosCupulaLl.setVisibility(View.GONE);
+                    Log.d("case 2", "GONE");
+                }
+            }
+        });
+
+        cortaEngranajePositivoRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    ocultaFotosEngranajeLl.setVisibility(View.VISIBLE);
+                    Log.d("case 2", "VISIBLE");
+                } else {
+                    ocultaFotosEngranajeLl.setVisibility(View.GONE);
+                    Log.d("case 2", "GONE");
+                }
+            }
+        });
+
+        usoAlambrePositivoRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    ocultaFotosAlambresLl.setVisibility(View.VISIBLE);
+                    Log.d("case 2", "VISIBLE");
+                } else {
+                    ocultaFotosAlambresLl.setVisibility(View.GONE);
+                    Log.d("case 2", "GONE");
+                }
+            }
+        });
+
+        prensadoPositivoRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    ocultaFotosPrensadoLl.setVisibility(View.VISIBLE);
+                    Log.d("case 2", "VISIBLE");
+                } else {
+                    ocultaFotosPrensadoLl.setVisibility(View.GONE);
+                    Log.d("case 2", "GONE");
+                }
+            }
+        });
+
+        otro12PositivoRb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    ocultaFotosOtros12Ll.setVisibility(View.VISIBLE);
+                    otro12EditText.setVisibility(View.VISIBLE);
                     Log.d("case 7", "VISIBLE");
                 } else {
-                    case7EditText.setVisibility(View.GONE);
+                    ocultaFotosOtros12Ll.setVisibility(View.GONE);
+                    otro12EditText.setVisibility(View.GONE);
                     Log.d("case 7", "GONE");
                 }
             }
@@ -308,11 +506,11 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     otroFotoEditText.setVisibility(View.VISIBLE);
-                    ocultaFotosOtrosLl.setVisibility(View.VISIBLE);
+                    ocultaFotosOtros13Ll.setVisibility(View.VISIBLE);
                     Log.d("case 10", "VISIBLE");
                 } else {
                     otroFotoEditText.setVisibility(View.GONE);
-                    ocultaFotosOtrosLl.setVisibility(View.GONE);
+                    ocultaFotosOtros13Ll.setVisibility(View.GONE);
                     Log.d("case 10", "INVISIBLE");
                 }
             }
@@ -343,165 +541,233 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         int id = v.getId();
 
         switch (id) {
-            case R.id.intervensionRedFoto1:
-                callCamera("intervension_red_1");
+
+            case R.id.usoImanesFoto1:
+                callCamera(USO_IMANES_1);
                 break;
-            case R.id.intervensionRedFoto2:
-                callCamera("intervension_red_2");
+            case R.id.usoImanesFoto2:
+                callCamera(USO_IMANES_2);
                 break;
-            case R.id.intervensionRedFoto3:
-                callCamera("intervension_red_3");
+            case R.id.usoImanesFoto3:
+                callCamera(USO_IMANES_3);
+                break;
+            case R.id.invertirTomasFoto1:
+                callCamera(INVERTIR_TOMAS_1);
+                break;
+            case R.id.invertirTomasFoto2:
+                callCamera(INVERTIR_TOMAS_2);
+                break;
+            case R.id.invertirTomasFoto3:
+                callCamera(INVERTIR_TOMAS_3);
+                break;
+            case R.id.perforaCupulaFoto1:
+                callCamera(PERFORA_CUPULA_1);
+                break;
+            case R.id.perforaCupulaFoto2:
+                callCamera(PERFORA_CUPULA_2);
+                break;
+            case R.id.perforaCupulaFoto3:
+                callCamera(PERFORA_CUPULA_3);
+                break;
+            case R.id.engranajeFoto1:
+                callCamera(CORTA_ENGRANAJE_1);
+                break;
+            case R.id.engranajeFoto2:
+                callCamera(CORTA_ENGRANAJE_2);
+                break;
+            case R.id.engranajeFoto3:
+                callCamera(CORTA_ENGRANAJE_3);
+                break;
+            case R.id.alambresFoto1:
+                callCamera(USO_ALAMBRE_1);
+                break;
+            case R.id.alambresFoto2:
+                callCamera(USO_ALAMBRE_2);
+                break;
+            case R.id.alambresFoto3:
+                callCamera(USO_ALAMBRE_3);
+                break;
+            case R.id.prensadoFoto1:
+                callCamera(PRENSADO_1);
+                break;
+            case R.id.prensadoFoto2:
+                callCamera(PRENSADO_2);
+                break;
+            case R.id.prensadoFoto3:
+                callCamera(PRENSADO_3);
+                break;
+            case R.id.otrosFoto11:
+                callCamera(OTROS_1_1);
+                break;
+            case R.id.otrosFoto12:
+                callCamera(OTROS_1_2);
+                break;
+            case R.id.otrosFoto13:
+                callCamera(OTROS_1_3);
+                break;
+            case R.id.instalacionParalelaFoto1:
+                callCamera(INSTALACION_PARALELA_1);
+                break;
+            case R.id.instalacionParalelaFoto2:
+                callCamera(INSTALACION_PARALELA_2);
+                break;
+            case R.id.instalacionParalelaFoto3:
+                callCamera(INSTALACION_PARALELA_3);
                 break;
             case R.id.bypassFoto1:
-                callCamera("bypass_1");
+                callCamera(BYPASS_1);
                 break;
             case R.id.bypassFoto2:
-                callCamera("bypass_2");
+                callCamera(BYPASS_2);
                 break;
             case R.id.bypassFoto3:
-                callCamera("bypass_3");
+                callCamera(BYPASS_3);
                 break;
-            case R.id.otroFoto1:
-                callCamera("otro_1");
+            case R.id.otroFoto21:
+                callCamera(OTROS_2_1);
                 break;
-            case R.id.otroFoto2:
-                callCamera("otro_2");
+            case R.id.otroFoto22:
+                callCamera(OTROS_2_2);
                 break;
-            case R.id.otroFoto3:
-                callCamera("otro_3");
+            case R.id.otroFoto23:
+                callCamera(OTROS_2_3);
                 break;
         }
-
 
         if (id == R.id.saveButton) {
             TestParte1 test = new TestParte1();
 
+            /*
+            Test 1 Parte 1
+            */
             if (test11YesRadioButton.isChecked()) {
-                test.setTest1("SI");
+                test.setTest1(RESPONDE_SI);
             } else if (test11NoRadioButton.isChecked()) {
-                test.setTest1("NO");
+                test.setTest1(RESPONDE_NO);
             } else {
-                test.setTest1("No envia respuesta");
+                test.setTest1(NO_RESPONDE);
             }
 
             if (test12YesRadioButton.isChecked()) {
-                test.setTest2("SI");
+                test.setTest2(RESPONDE_SI);
             } else if (test12NoRadioButton.isChecked()) {
-                test.setTest2("NO");
+                test.setTest2(RESPONDE_NO);
             } else {
-                test.setTest2("No envia respuesta");
+                test.setTest2(NO_RESPONDE);
             }
 
             if (test13YesRadioButton.isChecked()) {
-                test.setTest3("SI");
+                test.setTest3(RESPONDE_SI);
             } else if (test13NoRadioButton.isChecked()) {
-                test.setTest3("NO");
+                test.setTest3(RESPONDE_NO);
             } else {
-                test.setTest3("No envia respuesta");
+                test.setTest3(NO_RESPONDE);
             }
 
             if (test14YesRadioButton.isChecked()) {
-                test.setTest4("SI");
+                test.setTest4(RESPONDE_SI);
             } else if (test14NoRadioButton.isChecked()) {
-                test.setTest4("NO");
+                test.setTest4(RESPONDE_NO);
             } else {
-                test.setTest4("No envia respuesta");
+                test.setTest4(NO_RESPONDE);
             }
 
             if (test15YesRadioButton.isChecked()) {
-                test.setTest5("SI");
+                test.setTest5(RESPONDE_SI);
             } else if (test15NoRadioButton.isChecked()) {
-                test.setTest5("NO");
+                test.setTest5(RESPONDE_NO);
             } else {
-                test.setTest5("No envia respuesta");
+                test.setTest5(NO_RESPONDE);
             }
 
-            if (case1PositiveRadioButton.isChecked()) {
-                test.setUsoImanes("SI");
-            } else if (case1NegativeRadioButton.isChecked()) {
-                test.setUsoImanes("NO");
+            /*
+            Test 1 Parte 2
+            */
+            if (usoImanesPositivoRb.isChecked()) {
+                test.setUsoImanes(RESPONDE_SI);
+            } else if (usoImanesNegativoRb.isChecked()) {
+                test.setUsoImanes(RESPONDE_NO);
             } else {
-                test.setUsoImanes("No envia respuesta");
+                test.setUsoImanes(NO_RESPONDE);
             }
 
-            if (case2PositiveRadioButton.isChecked()) {
-                test.setInvertirTomas("SI");
-            } else if (case2NegativeRadioButton.isChecked()) {
-                test.setInvertirTomas("NO");
+            if (invertirTomasPositivoRb.isChecked()) {
+                test.setInvertirTomas(RESPONDE_SI);
+            } else if (invertirTomasNegativoRb.isChecked()) {
+                test.setInvertirTomas(RESPONDE_NO);
             } else {
-                test.setInvertirTomas("No envia respuesta");
+                test.setInvertirTomas(NO_RESPONDE);
             }
 
-            if (case3PositiveRadioButton.isChecked()) {
-                test.setPerforaCupula("SI");
-            } else if (case3NegativeRadioButton.isChecked()) {
-                test.setPerforaCupula("NO");
+            if (perforaCupulaPositivoRb.isChecked()) {
+                test.setPerforaCupula(RESPONDE_SI);
+            } else if (perforaCupulaNegativoRb.isChecked()) {
+                test.setPerforaCupula(RESPONDE_NO);
             } else {
-                test.setPerforaCupula("No envia respuesta");
+                test.setPerforaCupula(NO_RESPONDE);
             }
 
-            if (case4PositiveRadioButton.isChecked()) {
-                test.setCortaEngranaje("SI");
-            } else if (case4NegativeRadioButton.isChecked()) {
-                test.setCortaEngranaje("NO");
+            if (cortaEngranajePositivoRb.isChecked()) {
+                test.setCortaEngranaje(RESPONDE_SI);
+            } else if (cortaEngranajeNegativoRb.isChecked()) {
+                test.setCortaEngranaje(RESPONDE_NO);
             } else {
-                test.setCortaEngranaje("No envia respuesta");
+                test.setCortaEngranaje(NO_RESPONDE);
             }
 
-            if (case5PositiveRadioButton.isChecked()) {
-                test.setUsoAlambres("SI");
-            } else if (case5NegativeRadioButton.isChecked()) {
-                test.setUsoAlambres("NO");
+            if (usoAlambrePositivoRb.isChecked()) {
+                test.setUsoAlambres(RESPONDE_SI);
+            } else if (usoAlambreNegativoRb.isChecked()) {
+                test.setUsoAlambres(RESPONDE_NO);
             } else {
-                test.setUsoAlambres("No envia respuesta");
+                test.setUsoAlambres(NO_RESPONDE);
             }
 
-            if (case6PositiveRadioButton.isChecked()) {
-                test.setPrensado("SI");
-            } else if (case6NegativeRadioButton.isChecked()) {
-                test.setPrensado("NO");
+            if (prensadoPositivoRb.isChecked()) {
+                test.setPrensado(RESPONDE_SI);
+            } else if (prensadoNegativoRb.isChecked()) {
+                test.setPrensado(RESPONDE_NO);
             } else {
-                test.setPrensado("No envia respuesta");
+                test.setPrensado(NO_RESPONDE);
             }
 
-            if (case7PositiveRadioButton.isChecked()) {
-                test.setOtro("SI");
-                test.setOtroText(case7EditText.getText().toString());
-            } else if (case7NegativeRadioButton.isChecked()) {
-                test.setOtro("NO");
+            if (otro12PositivoRb.isChecked()) {
+                test.setOtro(RESPONDE_SI);
+                test.setOtroText(otro12EditText.getText().toString());
+            } else if (otro12NegativoRb.isChecked()) {
+                test.setOtro(RESPONDE_NO);
             } else {
-                test.setOtro("No envia respuesta");
+                test.setOtro(NO_RESPONDE);
             }
 
+            /*
+            Test 1 Parte 3
+            */
             if (case8PositiveRadioButton.isChecked()) {
-                test.setInstalacionParalela("SI");
+                test.setInstalacionParalela(RESPONDE_SI);
             } else if (case8NegativeRadioButton.isChecked()) {
                 Log.d("TAG", "onClick: SI");
-                test.setInstalacionParalela("NO");
+                test.setInstalacionParalela(RESPONDE_NO);
                 Log.d("TAG", "onClick: NO");
             } else {
-                test.setInstalacionParalela("No envia respuesta");
+                test.setInstalacionParalela(NO_RESPONDE);
             }
 
             if (case9PositiveRadioButton.isChecked()) {
-                test.setBypass("SI");
-                Log.d("TAG", "onClick: SI");
+                test.setBypass(RESPONDE_SI);
             } else if (case9NegativeRadioButton.isChecked()) {
-                test.setBypass("NO");
-                Log.d("TAG", "onClick: NO");
+                test.setBypass(RESPONDE_NO);
             } else {
-                test.setBypass("No envia respuesta");
+                test.setBypass(NO_RESPONDE);
             }
 
             if (case10PositiveRadioButton.isChecked()) {
-                test.setOtro2("SI");
-                Log.d("TAG", "onClick: SI");
+                test.setOtro2(RESPONDE_SI);
                 test.setOtroText2(otroFotoEditText.getText().toString());
             } else if (case10NegativeRadioButton.isChecked()) {
-                test.setOtro2("NO");
-                Log.d("TAG", "onClick: NO");
+                test.setOtro2(RESPONDE_NO);
             } else {
-                test.setOtro2("No envia respuesta");
+                test.setOtro2(NO_RESPONDE);
             }
 
             db.guardaDatosTestParte1(test, idInspeccion);
@@ -538,16 +804,125 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), photoName, idInspeccion + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
 
             switch (photoName) {
-                case "intervension_red":
-                    foto.setIntervencionRed(localPath);
+
+                case USO_IMANES_1:
+                    foto.setUsoImanes1(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     break;
-                case "bypass":
-                    foto.setBypass(localPath);
+                case USO_IMANES_2:
+                    foto.setUsoImanes2(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     break;
-                case "otro":
-                    foto.setOtro(localPath);
+                case USO_IMANES_3:
+                    foto.setUsoImanes3(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case INVERTIR_TOMAS_1:
+                    foto.setInvertirTomas1(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case INVERTIR_TOMAS_2:
+                    foto.setInvertirTomas2(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case INVERTIR_TOMAS_3:
+                    foto.setInvertirTomas3(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case PERFORA_CUPULA_1:
+                    foto.setPerforaCupula1(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case PERFORA_CUPULA_2:
+                    foto.setPerforaCupula2(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case PERFORA_CUPULA_3:
+                    foto.setPerforaCupula3(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case CORTA_ENGRANAJE_1:
+                    foto.setCortaEngrnaje1(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case CORTA_ENGRANAJE_2:
+                    foto.setCortaEngrnaje2(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case CORTA_ENGRANAJE_3:
+                    foto.setCortaEngrnaje3(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case USO_ALAMBRE_1:
+                    foto.setUsoAlambre1(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case USO_ALAMBRE_2:
+                    foto.setUsoAlambre2(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case USO_ALAMBRE_3:
+                    foto.setUsoAlambre3(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case PRENSADO_1:
+                    foto.setPrensado1(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case PRENSADO_2:
+                    foto.setPrensado2(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case PRENSADO_3:
+                    foto.setPrensado3(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case OTROS_1_1:
+                    foto.setOtro11(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case OTROS_1_2:
+                    foto.setOtro12(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case OTROS_1_3:
+                    foto.setOtro13(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case INSTALACION_PARALELA_1:
+                    foto.setInstalacionParalela1(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case INSTALACION_PARALELA_2:
+                    foto.setInstalacionParalela2(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case INSTALACION_PARALELA_3:
+                    foto.setInstalacionParalela3(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case BYPASS_1:
+                    foto.setBypass1(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case BYPASS_2:
+                    foto.setBypass2(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case BYPASS_3:
+                    foto.setBypass3(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case OTROS_2_1:
+                    foto.setOtro21(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case OTROS_2_2:
+                    foto.setOtro22(localPath);
+                    db.guardaFoto(foto, idInspeccion);
+                    break;
+                case OTROS_2_3:
+                    foto.setOtro23(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     break;
             }
@@ -558,6 +933,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
     }
 
     private void findViews(View view) {
+
+        /* Test 1 parte 1 */
         test11YesRadioButton = view.findViewById(R.id.test11YesRadioButton);
         test11NoRadioButton = view.findViewById(R.id.test11NoRadioButton);
         test12YesRadioButton = view.findViewById(R.id.test12YesRadioButton);
@@ -569,27 +946,76 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         test15YesRadioButton = view.findViewById(R.id.test15YesRadioButton);
         test15NoRadioButton = view.findViewById(R.id.test15NoRadioButton);
 
-        case1PositiveRadioButton = view.findViewById(R.id.case1PositiveRadioButton);
-        case1NegativeRadioButton = view.findViewById(R.id.case1NegativeRadioButton);
-        case2PositiveRadioButton = view.findViewById(R.id.case2PositiveRadioButton);
-        case2NegativeRadioButton = view.findViewById(R.id.case2NegativeRadioButton);
-        case3PositiveRadioButton = view.findViewById(R.id.case3PositiveRadioButton);
-        case3NegativeRadioButton = view.findViewById(R.id.case3NegativeRadioButton);
-        case4PositiveRadioButton = view.findViewById(R.id.case4PositiveRadioButton);
-        case4NegativeRadioButton = view.findViewById(R.id.case4NegativeRadioButton);
-        case5PositiveRadioButton = view.findViewById(R.id.case5PositiveRadioButton);
-        case5NegativeRadioButton = view.findViewById(R.id.case5NegativeRadioButton);
-        case6PositiveRadioButton = view.findViewById(R.id.case6PositiveRadioButton);
-        case6NegativeRadioButton = view.findViewById(R.id.case6NegativeRadioButton);
-        case7PositiveRadioButton = view.findViewById(R.id.case7PositiveRadioButton);
-        case7NegativeRadioButton = view.findViewById(R.id.case7NegativeRadioButton);
-        case7EditText = view.findViewById(R.id.case7EditText);
+        /* Test 1 parte 2 */
+        usoImanesPositivoRb = view.findViewById(R.id.usoImanesPositivoRb);
+        usoImanesNegativoRb = view.findViewById(R.id.usoImanesNegativoRb);
+        invertirTomasPositivoRb = view.findViewById(R.id.invertirTomasPositivoRb);
+        invertirTomasNegativoRb = view.findViewById(R.id.invertirTomasNegativoRb);
+        perforaCupulaPositivoRb = view.findViewById(R.id.perforaCupulaPositivoRb);
+        perforaCupulaNegativoRb = view.findViewById(R.id.perforaCupulaNegativoRb);
+        cortaEngranajePositivoRb = view.findViewById(R.id.cortaEngranajePositivoRb);
+        cortaEngranajeNegativoRb = view.findViewById(R.id.cortaEngranajeNegativoRb);
+        usoAlambrePositivoRb = view.findViewById(R.id.usoAlambrePositivoRb);
+        usoAlambreNegativoRb = view.findViewById(R.id.usoAlambreNegativoRb);
+        prensadoPositivoRb = view.findViewById(R.id.prensadoPositivoRb);
+        prensadoNegativoRb = view.findViewById(R.id.prensadoNegativoRb);
+        otro12PositivoRb = view.findViewById(R.id.otro12PositivoRb);
+        otro12NegativoRb = view.findViewById(R.id.otro12NegativoRb);
+        otro12EditText = view.findViewById(R.id.otro12EditText);
+
+        /* Test 1 parte 3 */
         case8PositiveRadioButton = view.findViewById(R.id.case8PositiveRadioButton);
         case8NegativeRadioButton = view.findViewById(R.id.case8NegativeRadioButton);
         case9PositiveRadioButton = view.findViewById(R.id.case9PositiveRadioButton);
         case9NegativeRadioButton = view.findViewById(R.id.case9NegativeRadioButton);
         case10PositiveRadioButton = view.findViewById(R.id.case10PositiveRadioButton);
         case10NegativeRadioButton = view.findViewById(R.id.case10NegativeRadioButton);
+
+        ocultaFotosImanesLl = view.findViewById(R.id.ocultaFotosImanesLl);
+        ocultaFotosInvertirTomasLl = view.findViewById(R.id.ocultaFotosInvertirTomasLl);
+        ocultaFotosCupulaLl = view.findViewById(R.id.ocultaFotosCupulaLl);
+        ocultaFotosEngranajeLl = view.findViewById(R.id.ocultaFotosEngranajeLl);
+        ocultaFotosAlambresLl = view.findViewById(R.id.ocultaFotosAlambresLl);
+        ocultaFotosPrensadoLl = view.findViewById(R.id.ocultaFotosPrensadoLl);
+        ocultaFotosOtros12Ll = view.findViewById(R.id.ocultaFotosOtros12Ll);
+
+        usoImanesPreview1 = view.findViewById(R.id.usoImanesPreview1);
+        usoImanesPreview2 = view.findViewById(R.id.usoImanesPreview2);
+        usoImanesPreview3 = view.findViewById(R.id.usoImanesPreview3);
+        engranajePreview1 = view.findViewById(R.id.engranajePreview1);
+        engranajePreview2 = view.findViewById(R.id.engranajePreview2);
+        engranajePreview3 = view.findViewById(R.id.engranajePreview3);
+        alambresPreview1 = view.findViewById(R.id.alambresPreview1);
+        alambresPreview2 = view.findViewById(R.id.alambresPreview2);
+        alambresPreview3 = view.findViewById(R.id.alambresPreview3);
+        prensadoPreview1 = view.findViewById(R.id.prensadoPreview1);
+        prensadoPreview2 = view.findViewById(R.id.prensadoPreview2);
+        prensadoPreview3 = view.findViewById(R.id.prensadoPreview3);
+        otros12Preview1 = view.findViewById(R.id.otros12Preview1);
+        otros12Preview2 = view.findViewById(R.id.otros12Preview2);
+        otros12Preview3 = view.findViewById(R.id.otros12Preview3);
+
+        usoImanesFoto1 = view.findViewById(R.id.usoImanesFoto1);
+        usoImanesFoto2 = view.findViewById(R.id.usoImanesFoto2);
+        usoImanesFoto3 = view.findViewById(R.id.usoImanesFoto3);
+        invertirTomasFoto1 = view.findViewById(R.id.invertirTomasFoto1);
+        invertirTomasFoto2 = view.findViewById(R.id.invertirTomasFoto2);
+        invertirTomasFoto3 = view.findViewById(R.id.invertirTomasFoto3);
+        perforaCupulaFoto1 = view.findViewById(R.id.perforaCupulaFoto1);
+        perforaCupulaFoto2 = view.findViewById(R.id.perforaCupulaFoto2);
+        perforaCupulaFoto3 = view.findViewById(R.id.perforaCupulaFoto3);
+        engranajeFoto1 = view.findViewById(R.id.engranajeFoto1);
+        engranajeFoto2 = view.findViewById(R.id.engranajeFoto2);
+        engranajeFoto3 = view.findViewById(R.id.engranajeFoto3);
+        alambresFoto1 = view.findViewById(R.id.alambresFoto1);
+        alambresFoto2 = view.findViewById(R.id.alambresFoto2);
+        alambresFoto3 = view.findViewById(R.id.alambresFoto3);
+        prensadoFoto1 = view.findViewById(R.id.prensadoFoto1);
+        prensadoFoto2 = view.findViewById(R.id.prensadoFoto2);
+        prensadoFoto3 = view.findViewById(R.id.prensadoFoto3);
+        otrosFoto11 = view.findViewById(R.id.otrosFoto11);
+        otrosFoto12 = view.findViewById(R.id.otrosFoto12);
+        otrosFoto13 = view.findViewById(R.id.otrosFoto13);
 
         intervensionRedFoto1 = view.findViewById(R.id.intervensionRedFoto1);
         intervensionRedFoto2 = view.findViewById(R.id.intervensionRedFoto2);
@@ -599,13 +1025,13 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         bypassFoto2 = view.findViewById(R.id.bypassFoto2);
         bypassFoto3 = view.findViewById(R.id.bypassFoto3);
 
-        otroFoto1 = view.findViewById(R.id.otroFoto1);
-        otroFoto2 = view.findViewById(R.id.otroFoto2);
-        otroFoto3 = view.findViewById(R.id.otroFoto3);
+        otroFoto21 = view.findViewById(R.id.otroFoto21);
+        otroFoto22 = view.findViewById(R.id.otroFoto22);
+        otroFoto23 = view.findViewById(R.id.otroFoto23);
 
         ocultaFotosInstParalelaLl = view.findViewById(R.id.ocultaFotosInstParalelaLl);
         ocultaFotosBypassLl = view.findViewById(R.id.ocultaFotosBypassLl);
-        ocultaFotosOtrosLl = view.findViewById(R.id.ocultaFotosOtrosLl);
+        ocultaFotosOtros13Ll = view.findViewById(R.id.ocultaFotosOtros13Ll);
 
         intervensionRedPreview1 = view.findViewById(R.id.intervensionRedPreview1);
         intervensionRedPreview2 = view.findViewById(R.id.intervensionRedPreview2);

@@ -58,4 +58,54 @@ public class Constant {
     public static final String URL_BASE = "http://medidores.demo.zecovery.com";
     //public static final String URL_BASE_DEMO = "http://medidores.demo.zecovery.com";
 
+    public static final String USO_IMANES_1 = "USO_IMANES_1";
+    public static final String USO_IMANES_2 = "USO_IMANES_2";
+    public static final String USO_IMANES_3 = "USO_IMANES_3";
+
+    public static final String INVERTIR_TOMAS_1 = "INVERTIR_TOMAS_1";
+    public static final String INVERTIR_TOMAS_2 = "INVERTIR_TOMAS_2";
+    public static final String INVERTIR_TOMAS_3 = "INVERTIR_TOMAS_3";
+
+
+    public static final String PERFORA_CUPULA_1 = "PERFORA_CUPULA_1";
+    public static final String PERFORA_CUPULA_2 = "PERFORA_CUPULA_2";
+    public static final String PERFORA_CUPULA_3 = "PERFORA_CUPULA_3";
+
+    public static final String CORTA_ENGRANAJE_1 = "CORTA_ENGRANAJE_1";
+    public static final String CORTA_ENGRANAJE_2 = "CORTA_ENGRANAJE_2";
+    public static final String CORTA_ENGRANAJE_3 = "CORTA_ENGRANAJE_3";
+
+
+    public static final String USO_ALAMBRE_1 = "USO_ALAMBRE_1";
+    public static final String USO_ALAMBRE_2 = "USO_ALAMBRE_2";
+    public static final String USO_ALAMBRE_3 = "USO_ALAMBRE_3";
+
+
+    public static final String PRENSADO_1 = "PRENSADO_1";
+    public static final String PRENSADO_2 = "PRENSADO_2";
+    public static final String PRENSADO_3 = "PRENSADO_3";
+
+    public static final String OTROS_1_1 = "OTRO_1_1";
+    public static final String OTROS_1_2 = "OTRO_1_2";
+    public static final String OTROS_1_3 = "OTRO_1_3";
+
+
+
+    public static final String INSTALACION_PARALELA_1 = "INSTALACION_PARALELA_1";
+    public static final String INSTALACION_PARALELA_2 = "INSTALACION_PARALELA_2";
+    public static final String INSTALACION_PARALELA_3 = "INSTALACION_PARALELA_3";
+
+    public static final String BYPASS_1 = "BYPASS_1";
+    public static final String BYPASS_2 = "BYPASS_2";
+    public static final String BYPASS_3 = "BYPASS_3";
+
+    public static final String OTROS_2_1 = "OTRO_2_1";
+    public static final String OTROS_2_2 = "OTRO_2_2";
+    public static final String OTROS_2_3 = "OTRO_2_3";
+
+    public static final String RESPONDE_SI = "SI";
+    public static final String RESPONDE_NO = "NO";
+    public static final String NO_RESPONDE = "No envia respuesta";
+
+
 }

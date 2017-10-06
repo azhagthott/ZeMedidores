@@ -30,7 +30,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
     private static final String TABLE_INSPECTION_RESULT = "result";
-    private static final String TABLE_VERSION = "version";
 
     //SQL comandos
     private static final String DB_CREATE_TABLE = "CREATE TABLE ";
@@ -69,15 +68,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
     /* meter, resident, tests table */
     private static final String RESULT_ID_KEY = "id";
     private static final String RESULT_ID_INSPECCION = "id_inspeccion";
-    private static final String RESULT_METER_LOCATION = "meter_location";
-    private static final String RESULT_METER_STATUS = "meter_status";
-    private static final String RESULT_METER_OBS = "meter_obs";
-    private static final String RESULT_BROKEN_METER_PHOTO = "photo_broken_meter";
-    private static final String RESULT_METER_LECTURE_PHOTO = "photo_lecture_meter";
-    private static final String RESULT_METER_NUMBER_PHOTO = "photo_number_meter";
-    private static final String RESULT_METER_PANO_PHOTO = "photo_pano_meter";
-    private static final String RESULT_METER_NUMBER_PROP_PHOTO = "photo_number_prop_meter";
-    private static final String RESULT_FACE_PHOTO = "photo_face";
+    private static final String RESULT_MEDIDOR_UBICACION = "medidor_ubicacion";
+    private static final String RESULT_MEDIDOR_ESTADO = "medidor_estado";
+    private static final String RESULT_MEDIDOR_OBS = "meiddor_obs";
+
+    /* Tests */
     private static final String RESULT_TEST_1 = "test_1";
     private static final String RESULT_TEST_2 = "test_2";
     private static final String RESULT_TEST_3 = "test_3";
@@ -91,10 +86,10 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_PRENSADO = "prensado";
     private static final String RESULT_TEST_OTRO_1 = "otro_1";
     private static final String RESULT_TEST_OTRO_1_TEXT = "otro_1_text";
-    private static final String RESULT_TEST_OTRO_2_TEXT = "otro_2_text";
     private static final String RESULT_TEST_INST_PAR = "inst_par";
     private static final String RESULT_TEST_BYPASS = "bypass";
     private static final String RESULT_TEST_OTRO_2 = "otro_2";
+    private static final String RESULT_TEST_OTRO_2_TEXT = "otro_2_text";
     private static final String RESULT_TEST_CLASS = "clase";
     private static final String RESULT_TEST_YEAR = "year";
     private static final String RESULT_TEST_MARCA = "marca";
@@ -125,6 +120,20 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_RESOLUCION = "resolucion";
     private static final String RESULT_TEST_CAUDAL = "caudal";
     private static final String RESULT_TEST_OBS_4 = "observaciones_4";
+    private static final String RESULT_TEST_NOMBRE_RESIDENTE = "nombre_residente";
+    private static final String RESULT_TEST_RUT_RESIDENTE = "rut_residente";
+    private static final String RESULT_TEST_TELEFONO_RESIDENTE = "telefono_residente";
+    private static final String RESULT_TEST_EMAIL_RESIDENTE = "email_residente";
+    private static final String RESULT_TEST_FECHA_RESIDENTE = "fecha_residente";
+
+    /* Fotos */
+    private static final String RESULT_FOTO_MEDIDOR_ROTO = "photo_broken_meter";
+    private static final String RESULT_FOTO_LECTURA_MEDIDOR = "photo_lecture_meter";
+    private static final String RESULT_FOTO_NUMERO_MEDIDOR = "photo_number_meter";
+    private static final String RESULT_METER_PANO_PHOTO = "photo_pano_meter";
+    private static final String RESULT_METER_NUMBER_PROP_PHOTO = "photo_number_prop_meter";
+    private static final String RESULT_FACE_PHOTO = "photo_face";
+
     private static final String RESULT_TEST_FOTO_RECHAZO = "foto_rechazo_inspeccion";
     private static final String RESULT_TEST_FOTO_FALLA_MEDIDOR = "foto_falla_medidor";
     private static final String RESULT_TEST_FOTO_LECTURA_MEDIDOR = "foto_lectura_medidor";
@@ -132,14 +141,37 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_FOTO_PANO_MEDIDOR = "foto_pano_medidor";
     private static final String RESULT_TEST_FOTO_NUMERO_PROPIEDAD = "foto_numero_propiedad";
     private static final String RESULT_TEST_FOTO_FACHADA_PROPIEDAD = "foto_fachada_propiedad";
-    private static final String RESULT_TEST_NOMBRE_RESIDENTE = "nombre_residente";
-    private static final String RESULT_TEST_RUT_RESIDENTE = "rut_residente";
-    private static final String RESULT_TEST_TELEFONO_RESIDENTE = "telefono_residente";
-    private static final String RESULT_TEST_EMAIL_RESIDENTE = "email_residente";
-    private static final String RESULT_TEST_FECHA_RESIDENTE = "fecha_residente";
-    private static final String RESULT_TEST_FOTO_INTERVENCION_RED = "foto_intervencion_red";
-    private static final String RESULT_TEST_FOTO_BYPASS = "foto_bypass";
-    private static final String RESULT_TEST_OTRO = "foto_otro";
+    private static final String RESULT_TEST_FOTO_USO_IMANES_1 = "foto_uso_imanes_1";
+    private static final String RESULT_TEST_FOTO_USO_IMANES_2 = "foto_uso_imanes_2";
+    private static final String RESULT_TEST_FOTO_USO_IMANES_3 = "foto_uso_imanes_3";
+    private static final String RESULT_TEST_FOTO_INV_TOMAS_1 = "foto_inv_tomas_1";
+    private static final String RESULT_TEST_FOTO_INV_TOMAS_2 = "foto_inv_tomas_2";
+    private static final String RESULT_TEST_FOTO_INV_TOMAS_3 = "foto_inv_tomas_3";
+    private static final String RESULT_TEST_FOTO_PERF_CUPULA_1 = "foto_perf_cupula_1";
+    private static final String RESULT_TEST_FOTO_PERF_CUPULA_2 = "foto_perf_cupula_2";
+    private static final String RESULT_TEST_FOTO_PERF_CUPULA_3 = "foto_perf_cupula_3";
+    private static final String RESULT_TEST_FOTO_CORTA_ENGRANAJE_1 = "foto_corta_engranaje_1";
+    private static final String RESULT_TEST_FOTO_CORTA_ENGRANAJE_2 = "foto_corta_engranaje_2";
+    private static final String RESULT_TEST_FOTO_CORTA_ENGRANAJE_3 = "foto_corta_engranaje_3";
+    private static final String RESULT_TEST_FOTO_USO_ALAMBRE_1 = "foto_uso_alambre_1";
+    private static final String RESULT_TEST_FOTO_USO_ALAMBRE_2 = "foto_uso_alambre_2";
+    private static final String RESULT_TEST_FOTO_USO_ALAMBRE_3 = "foto_uso_alambre_3";
+    private static final String RESULT_TEST_FOTO_PRENSADO_1 = "foto_prensado_1";
+    private static final String RESULT_TEST_FOTO_PRENSADO_2 = "foto_prensado_2";
+    private static final String RESULT_TEST_FOTO_PRENSADO_3 = "foto_prensado_3";
+    private static final String RESULT_TEST_FOTO_OTRO_1_1 = "foto_otro_1_1";
+    private static final String RESULT_TEST_FOTO_OTRO_1_2 = "foto_otro_1_2";
+    private static final String RESULT_TEST_FOTO_OTRO_1_3 = "foto_otro_1_3";
+    private static final String RESULT_TEST_FOTO_INST_PARALELA_1 = "foto_inst_paralela_1";
+    private static final String RESULT_TEST_FOTO_INST_PARALELA_2 = "foto_inst_paralela_2";
+    private static final String RESULT_TEST_FOTO_INST_PARALELA_3 = "foto_inst_paralela_3";
+    private static final String RESULT_TEST_FOTO_BYPASS_1 = "foto_bypass_1";
+    private static final String RESULT_TEST_FOTO_BYPASS_2 = "foto_bypass_2";
+    private static final String RESULT_TEST_FOTO_BYPASS_3 = "foto_bypass_3";
+    private static final String RESULT_TEST_FOTO_OTRO_2_1 = "foto_otro_2_1";
+    private static final String RESULT_TEST_FOTO_OTRO_2_2 = "foto_otro_2_2";
+    private static final String RESULT_TEST_FOTO_OTRO_2_3 = "foto_otro_2_3";
+
     private static final String RESULT_NUMERO_MEDIDOR = "numero_medidor";
     private static final String RESULT_DIAMETRO_MEDIDOR = "diametro_medidor";
     private static final String RESULT_LECTURA_MEDIDOR = "lectura_meiddor";
@@ -148,23 +180,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_EMPRESA_INSPECTOR = "empresa_inspeccion";
 
 
-    private static final String VERSION_KEY = "id";
-    private static final String VERSION_DATABASE_ACTUAL = "db_version_actual";
-    private static final String VERSION_COMPILACION_ACTUAL = "comp_version_actual";
-
-
     public LocalDatabase(Context context) {
         super(context, DB_MANE, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        String CREATE_TABLE_VERSION = DB_VERSION + TABLE_VERSION + "("
-                + VERSION_KEY + " INTEGER PRIMARY_KEY, "
-                + VERSION_DATABASE_ACTUAL + " TEXT, "
-                + VERSION_COMPILACION_ACTUAL + " TEXT)"
-                + ";";
 
         String CREATE_TABLE_ASSIGNMENT = DB_CREATE_TABLE + TABLE_ASSIGNMENT + "("
                 + ASSIGNMENT_ID_KEY + " INTEGER PRIMARY_KEY, "
@@ -200,12 +221,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
         String CREATE_TABLE_INSPECTION_RESULT = DB_CREATE_TABLE + TABLE_INSPECTION_RESULT + "("
                 + RESULT_ID_KEY + " INTEGER PRIMARY_KEY, "
                 + RESULT_ID_INSPECCION + " TEXT, "
-                + RESULT_METER_LOCATION + " TEXT, "
-                + RESULT_METER_STATUS + " TEXT, "
-                + RESULT_METER_OBS + " TEXT, "
-                + RESULT_BROKEN_METER_PHOTO + " TEXT, "
-                + RESULT_METER_LECTURE_PHOTO + " TEXT, "
-                + RESULT_METER_NUMBER_PHOTO + " TEXT, "
+                + RESULT_MEDIDOR_UBICACION + " TEXT, "
+                + RESULT_MEDIDOR_ESTADO + " TEXT, "
+                + RESULT_MEDIDOR_OBS + " TEXT, "
+                + RESULT_FOTO_MEDIDOR_ROTO + " TEXT, "
+                + RESULT_FOTO_LECTURA_MEDIDOR + " TEXT, "
+                + RESULT_FOTO_NUMERO_MEDIDOR + " TEXT, "
                 + RESULT_METER_PANO_PHOTO + " TEXT, "
                 + RESULT_METER_NUMBER_PROP_PHOTO + " TEXT, "
                 + RESULT_FACE_PHOTO + " TEXT, "
@@ -266,9 +287,36 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_TELEFONO_RESIDENTE + " TEXT, "
                 + RESULT_TEST_EMAIL_RESIDENTE + " TEXT, "
                 + RESULT_TEST_FECHA_RESIDENTE + " TEXT, "
-                + RESULT_TEST_FOTO_INTERVENCION_RED + " TEXT, "
-                + RESULT_TEST_FOTO_BYPASS + " TEXT, "
-                + RESULT_TEST_OTRO + " TEXT, "
+                + RESULT_TEST_FOTO_USO_IMANES_1 + " TEXT, "
+                + RESULT_TEST_FOTO_USO_IMANES_2 + " TEXT, "
+                + RESULT_TEST_FOTO_USO_IMANES_3 + " TEXT, "
+                + RESULT_TEST_FOTO_INV_TOMAS_1 + " TEXT, "
+                + RESULT_TEST_FOTO_INV_TOMAS_2 + " TEXT, "
+                + RESULT_TEST_FOTO_INV_TOMAS_3 + " TEXT, "
+                + RESULT_TEST_FOTO_PERF_CUPULA_1 + " TEXT, "
+                + RESULT_TEST_FOTO_PERF_CUPULA_2 + " TEXT, "
+                + RESULT_TEST_FOTO_PERF_CUPULA_3 + " TEXT, "
+                + RESULT_TEST_FOTO_CORTA_ENGRANAJE_1 + " TEXT, "
+                + RESULT_TEST_FOTO_CORTA_ENGRANAJE_2 + " TEXT, "
+                + RESULT_TEST_FOTO_CORTA_ENGRANAJE_3 + " TEXT, "
+                + RESULT_TEST_FOTO_USO_ALAMBRE_1 + " TEXT, "
+                + RESULT_TEST_FOTO_USO_ALAMBRE_2 + " TEXT, "
+                + RESULT_TEST_FOTO_USO_ALAMBRE_3 + " TEXT, "
+                + RESULT_TEST_FOTO_PRENSADO_1 + " TEXT, "
+                + RESULT_TEST_FOTO_PRENSADO_2 + " TEXT, "
+                + RESULT_TEST_FOTO_PRENSADO_3 + " TEXT, "
+                + RESULT_TEST_FOTO_OTRO_1_1 + " TEXT, "
+                + RESULT_TEST_FOTO_OTRO_1_2 + " TEXT, "
+                + RESULT_TEST_FOTO_OTRO_1_3 + " TEXT, "
+                + RESULT_TEST_FOTO_INST_PARALELA_1 + " TEXT, "
+                + RESULT_TEST_FOTO_INST_PARALELA_2 + " TEXT, "
+                + RESULT_TEST_FOTO_INST_PARALELA_3 + " TEXT, "
+                + RESULT_TEST_FOTO_BYPASS_1 + " TEXT, "
+                + RESULT_TEST_FOTO_BYPASS_2 + " TEXT, "
+                + RESULT_TEST_FOTO_BYPASS_3 + " TEXT, "
+                + RESULT_TEST_FOTO_OTRO_2_1 + " TEXT, "
+                + RESULT_TEST_FOTO_OTRO_2_2 + " TEXT, "
+                + RESULT_TEST_FOTO_OTRO_2_3 + " TEXT, "
                 + RESULT_NUMERO_MEDIDOR + " TEXT, "
                 + RESULT_DIAMETRO_MEDIDOR + " TEXT, "
                 + RESULT_LECTURA_MEDIDOR + " TEXT, "
@@ -279,7 +327,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_EMPRESA_INSPECTOR + " TEXT)"
                 + ";";
 
-        //db.execSQL(CREATE_TABLE_VERSION);
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
         db.execSQL(CREATE_TABLE_CURRENT_LOCATION);
         db.execSQL(CREATE_TABLE_INSPECTION_RESULT);
@@ -287,7 +334,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        //db.execSQL(DB_DROP_TABLE + TABLE_VERSION);
         db.execSQL(DB_DROP_TABLE + TABLE_ASSIGNMENT);
         db.execSQL(DB_DROP_TABLE + TABLE_CURRENT_LOCATION);
         db.execSQL(DB_DROP_TABLE + TABLE_INSPECTION_RESULT);
@@ -418,9 +464,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(RESULT_METER_LOCATION, String.valueOf(medidor.getUbicacion()));
-        values.put(RESULT_METER_STATUS, String.valueOf(medidor.getEstado()));
-        values.put(RESULT_METER_OBS, String.valueOf(medidor.getDescripcionFalla()));
+        values.put(RESULT_MEDIDOR_UBICACION, String.valueOf(medidor.getUbicacion()));
+        values.put(RESULT_MEDIDOR_ESTADO, String.valueOf(medidor.getEstado()));
+        values.put(RESULT_MEDIDOR_OBS, String.valueOf(medidor.getDescripcionFalla()));
         values.put(RESULT_NUMERO_MEDIDOR, String.valueOf(medidor.getNumeroMedidor()));
         values.put(RESULT_DIAMETRO_MEDIDOR, String.valueOf(medidor.getDiametroMedidor()));
         values.put(RESULT_LECTURA_MEDIDOR, String.valueOf(medidor.getLecturaMedidor()));
@@ -529,13 +575,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public TestParte2 getDatosTestParte2(int idInspeccion) {
-
-        TestParte2 testParte2 = new TestParte2();
-        return testParte2;
-    }
-
-
     public void guardaDatosTestParte3(TestParte3 test, int idInspeccion) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -562,14 +601,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
-
-
-    public TestParte3 getDatosTestParte3(int idInspeccion) {
-
-        TestParte3 testParte3 = new TestParte3();
-        return testParte3;
-    }
-
 
     public void guardaFoto(Foto foto, int idInspeccion) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -603,16 +634,123 @@ public class LocalDatabase extends SQLiteOpenHelper {
             values.put(RESULT_TEST_FOTO_FACHADA_PROPIEDAD, String.valueOf(foto.getFachadaPropiedad()));
         }
 
-        if (String.valueOf(foto.getIntervencionRed()).length() > 10) {
-            values.put(RESULT_TEST_FOTO_INTERVENCION_RED, String.valueOf(foto.getIntervencionRed()));
+        if (String.valueOf(foto.getUsoImanes1()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_USO_IMANES_1, String.valueOf(foto.getUsoImanes1()));
         }
 
-        if (String.valueOf(foto.getBypass()).length() > 10) {
-            values.put(RESULT_TEST_FOTO_BYPASS, String.valueOf(foto.getBypass()));
+        if (String.valueOf(foto.getUsoImanes2()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_USO_IMANES_2, String.valueOf(foto.getUsoImanes2()));
         }
 
-        if (String.valueOf(foto.getOtro()).length() > 10) {
-            values.put(RESULT_TEST_OTRO, String.valueOf(foto.getOtro()));
+        if (String.valueOf(foto.getUsoImanes3()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_USO_IMANES_3, String.valueOf(foto.getUsoImanes3()));
+        }
+
+        if (String.valueOf(foto.getInvertirTomas1()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_INV_TOMAS_1, String.valueOf(foto.getInvertirTomas1()));
+        }
+
+        if (String.valueOf(foto.getInvertirTomas2()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_INV_TOMAS_2, String.valueOf(foto.getInvertirTomas2()));
+        }
+
+        if (String.valueOf(foto.getInvertirTomas3()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_INV_TOMAS_3, String.valueOf(foto.getInvertirTomas3()));
+        }
+
+        if (String.valueOf(foto.getPerforaCupula1()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_PERF_CUPULA_1, String.valueOf(foto.getPerforaCupula1()));
+        }
+
+        if (String.valueOf(foto.getPerforaCupula2()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_PERF_CUPULA_2, String.valueOf(foto.getPerforaCupula2()));
+        }
+
+        if (String.valueOf(foto.getPerforaCupula3()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_PERF_CUPULA_3, String.valueOf(foto.getPerforaCupula3()));
+        }
+
+        if (String.valueOf(foto.getCortaEngrnaje1()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_CORTA_ENGRANAJE_1, String.valueOf(foto.getCortaEngrnaje1()));
+        }
+
+        if (String.valueOf(foto.getCortaEngrnaje2()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_CORTA_ENGRANAJE_2, String.valueOf(foto.getCortaEngrnaje2()));
+        }
+
+        if (String.valueOf(foto.getCortaEngrnaje3()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_CORTA_ENGRANAJE_3, String.valueOf(foto.getCortaEngrnaje3()));
+        }
+
+        if (String.valueOf(foto.getUsoAlambre1()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_USO_ALAMBRE_1, String.valueOf(foto.getUsoAlambre1()));
+        }
+
+        if (String.valueOf(foto.getUsoAlambre2()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_USO_ALAMBRE_2, String.valueOf(foto.getUsoAlambre2()));
+        }
+
+        if (String.valueOf(foto.getUsoAlambre3()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_USO_ALAMBRE_3, String.valueOf(foto.getUsoAlambre3()));
+        }
+
+        if (String.valueOf(foto.getPrensado1()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_PRENSADO_1, String.valueOf(foto.getPrensado1()));
+        }
+
+        if (String.valueOf(foto.getPrensado2()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_PRENSADO_2, String.valueOf(foto.getPrensado2()));
+        }
+
+        if (String.valueOf(foto.getPrensado3()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_PRENSADO_3, String.valueOf(foto.getPrensado3()));
+        }
+
+        if (String.valueOf(foto.getOtro11()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_OTRO_1_1, String.valueOf(foto.getOtro11()));
+        }
+
+        if (String.valueOf(foto.getOtro12()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_OTRO_1_2, String.valueOf(foto.getOtro12()));
+        }
+        if (String.valueOf(foto.getOtro13()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_OTRO_1_3, String.valueOf(foto.getOtro13()));
+        }
+
+        if (String.valueOf(foto.getInstalacionParalela1()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_INST_PARALELA_1, String.valueOf(foto.getInstalacionParalela1()));
+        }
+
+        if (String.valueOf(foto.getInstalacionParalela2()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_INST_PARALELA_2, String.valueOf(foto.getInstalacionParalela2()));
+        }
+
+        if (String.valueOf(foto.getInstalacionParalela3()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_INST_PARALELA_3, String.valueOf(foto.getInstalacionParalela3()));
+        }
+
+        if (String.valueOf(foto.getBypass1()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_BYPASS_1, String.valueOf(foto.getBypass1()));
+        }
+
+        if (String.valueOf(foto.getBypass2()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_BYPASS_2, String.valueOf(foto.getBypass2()));
+        }
+
+        if (String.valueOf(foto.getBypass3()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_BYPASS_3, String.valueOf(foto.getBypass3()));
+        }
+
+        if (String.valueOf(foto.getOtro21()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_OTRO_2_1, String.valueOf(foto.getOtro21()));
+        }
+
+        if (String.valueOf(foto.getOtro22()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_OTRO_2_2, String.valueOf(foto.getOtro22()));
+        }
+
+        if (String.valueOf(foto.getOtro23()).length() > 10) {
+            values.put(RESULT_TEST_FOTO_OTRO_2_3, String.valueOf(foto.getOtro23()));
         }
 
         db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
@@ -653,9 +791,36 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_FOTO_PANO_MEDIDOR,
                                 RESULT_TEST_FOTO_NUMERO_PROPIEDAD,
                                 RESULT_TEST_FOTO_FACHADA_PROPIEDAD,
-                                RESULT_TEST_FOTO_INTERVENCION_RED,
-                                RESULT_TEST_FOTO_BYPASS,
-                                RESULT_TEST_OTRO
+                                RESULT_TEST_FOTO_USO_IMANES_1,
+                                RESULT_TEST_FOTO_USO_IMANES_2,
+                                RESULT_TEST_FOTO_USO_IMANES_3,
+                                RESULT_TEST_FOTO_INV_TOMAS_1,
+                                RESULT_TEST_FOTO_INV_TOMAS_2,
+                                RESULT_TEST_FOTO_INV_TOMAS_3,
+                                RESULT_TEST_FOTO_PERF_CUPULA_1,
+                                RESULT_TEST_FOTO_PERF_CUPULA_2,
+                                RESULT_TEST_FOTO_PERF_CUPULA_3,
+                                RESULT_TEST_FOTO_CORTA_ENGRANAJE_1,
+                                RESULT_TEST_FOTO_CORTA_ENGRANAJE_2,
+                                RESULT_TEST_FOTO_CORTA_ENGRANAJE_3,
+                                RESULT_TEST_FOTO_USO_ALAMBRE_1,
+                                RESULT_TEST_FOTO_USO_ALAMBRE_2,
+                                RESULT_TEST_FOTO_USO_ALAMBRE_3,
+                                RESULT_TEST_FOTO_PRENSADO_1,
+                                RESULT_TEST_FOTO_PRENSADO_2,
+                                RESULT_TEST_FOTO_PRENSADO_3,
+                                RESULT_TEST_FOTO_OTRO_1_1,
+                                RESULT_TEST_FOTO_OTRO_1_2,
+                                RESULT_TEST_FOTO_OTRO_1_3,
+                                RESULT_TEST_FOTO_INST_PARALELA_1,
+                                RESULT_TEST_FOTO_INST_PARALELA_2,
+                                RESULT_TEST_FOTO_INST_PARALELA_3,
+                                RESULT_TEST_FOTO_BYPASS_1,
+                                RESULT_TEST_FOTO_BYPASS_2,
+                                RESULT_TEST_FOTO_BYPASS_3,
+                                RESULT_TEST_FOTO_OTRO_2_1,
+                                RESULT_TEST_FOTO_OTRO_2_2,
+                                RESULT_TEST_FOTO_OTRO_2_3
                         }
                 , RESULT_ID_INSPECCION + "=?",
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
@@ -669,9 +834,39 @@ public class LocalDatabase extends SQLiteOpenHelper {
             fotos.setPanoramicaMedidor(cursor.getString(4));
             fotos.setNumeroPropiedad(cursor.getString(5));
             fotos.setFachadaPropiedad(cursor.getString(6));
-            fotos.setIntervencionRed(cursor.getString(7));
-            fotos.setBypass(cursor.getString(8));
-            fotos.setOtro(cursor.getString(9));
+            fotos.setUsoImanes1(cursor.getString(7));
+            fotos.setUsoImanes2(cursor.getString(8));
+            fotos.setUsoImanes3(cursor.getString(9));
+            fotos.setInvertirTomas1(cursor.getString(10));
+            fotos.setInvertirTomas2(cursor.getString(11));
+            fotos.setInvertirTomas3(cursor.getString(12));
+            fotos.setPerforaCupula1(cursor.getString(13));
+            fotos.setPerforaCupula2(cursor.getString(14));
+            fotos.setPerforaCupula3(cursor.getString(15));
+            fotos.setCortaEngrnaje1(cursor.getString(16));
+            fotos.setCortaEngrnaje2(cursor.getString(17));
+            fotos.setCortaEngrnaje3(cursor.getString(18));
+            fotos.setUsoAlambre1(cursor.getString(19));
+            fotos.setUsoAlambre2(cursor.getString(20));
+            fotos.setUsoAlambre3(cursor.getString(21));
+            fotos.setPrensado1(cursor.getString(22));
+            fotos.setPrensado2(cursor.getString(23));
+            fotos.setPrensado3(cursor.getString(24));
+            fotos.setOtro11(cursor.getString(25));
+            fotos.setOtro12(cursor.getString(26));
+            fotos.setOtro13(cursor.getString(27));
+            fotos.setOtro11(cursor.getString(28));
+            fotos.setOtro12(cursor.getString(29));
+            fotos.setOtro13(cursor.getString(30));
+            fotos.setInstalacionParalela1(cursor.getString(31));
+            fotos.setInstalacionParalela2(cursor.getString(32));
+            fotos.setInstalacionParalela3(cursor.getString(33));
+            fotos.setBypass1(cursor.getString(34));
+            fotos.setBypass2(cursor.getString(35));
+            fotos.setBypass3(cursor.getString(36));
+            fotos.setOtro21(cursor.getString(37));
+            fotos.setOtro22(cursor.getString(38));
+            fotos.setOtro23(cursor.getString(39));
             cursor.close();
         }
         return fotos;
@@ -680,6 +875,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
     public ResultadoInspeccion getResultadoInspeccion(int idInspeccion) {
 
         ResultadoInspeccion resultado = new ResultadoInspeccion();
+
         Residente residente = new Residente();
         Foto fotos = new Foto();
         TestParte1 testParte1 = new TestParte1();
@@ -696,7 +892,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_TELEFONO_RESIDENTE,
                                 RESULT_TEST_EMAIL_RESIDENTE,
                                 RESULT_TEST_FECHA_RESIDENTE,
-
                                 RESULT_TEST_FOTO_RECHAZO,
                                 RESULT_TEST_FOTO_FALLA_MEDIDOR,
                                 RESULT_TEST_FOTO_LECTURA_MEDIDOR,
@@ -704,10 +899,36 @@ public class LocalDatabase extends SQLiteOpenHelper {
                                 RESULT_TEST_FOTO_PANO_MEDIDOR,
                                 RESULT_TEST_FOTO_NUMERO_PROPIEDAD,
                                 RESULT_TEST_FOTO_FACHADA_PROPIEDAD,
-                                RESULT_TEST_FOTO_INTERVENCION_RED,
-                                RESULT_TEST_FOTO_BYPASS,
-                                RESULT_TEST_OTRO,
-
+                                RESULT_TEST_FOTO_USO_IMANES_1,
+                                RESULT_TEST_FOTO_USO_IMANES_2,
+                                RESULT_TEST_FOTO_USO_IMANES_3,
+                                RESULT_TEST_FOTO_INV_TOMAS_1,
+                                RESULT_TEST_FOTO_INV_TOMAS_2,
+                                RESULT_TEST_FOTO_INV_TOMAS_3,
+                                RESULT_TEST_FOTO_PERF_CUPULA_1,
+                                RESULT_TEST_FOTO_PERF_CUPULA_2,
+                                RESULT_TEST_FOTO_PERF_CUPULA_3,
+                                RESULT_TEST_FOTO_CORTA_ENGRANAJE_1,
+                                RESULT_TEST_FOTO_CORTA_ENGRANAJE_2,
+                                RESULT_TEST_FOTO_CORTA_ENGRANAJE_3,
+                                RESULT_TEST_FOTO_USO_ALAMBRE_1,
+                                RESULT_TEST_FOTO_USO_ALAMBRE_2,
+                                RESULT_TEST_FOTO_USO_ALAMBRE_3,
+                                RESULT_TEST_FOTO_PRENSADO_1,
+                                RESULT_TEST_FOTO_PRENSADO_2,
+                                RESULT_TEST_FOTO_PRENSADO_3,
+                                RESULT_TEST_FOTO_OTRO_1_1,
+                                RESULT_TEST_FOTO_OTRO_1_2,
+                                RESULT_TEST_FOTO_OTRO_1_3,
+                                RESULT_TEST_FOTO_INST_PARALELA_1,
+                                RESULT_TEST_FOTO_INST_PARALELA_2,
+                                RESULT_TEST_FOTO_INST_PARALELA_3,
+                                RESULT_TEST_FOTO_BYPASS_1,
+                                RESULT_TEST_FOTO_BYPASS_2,
+                                RESULT_TEST_FOTO_BYPASS_3,
+                                RESULT_TEST_FOTO_OTRO_2_1,
+                                RESULT_TEST_FOTO_OTRO_2_2,
+                                RESULT_TEST_FOTO_OTRO_2_3,
                                 RESULT_TEST_1,
                                 RESULT_TEST_2,
                                 RESULT_TEST_3,
@@ -766,90 +987,123 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
+
+            /* Datos residente */
+            residente.setNombreResidente(cursor.getString(0));
+            residente.setRutResidente(cursor.getString(1));
+            residente.setTelefonoResidente(cursor.getString(2));
+            residente.setEmailResidente(cursor.getString(3));
+            residente.setFechaResidente(cursor.getString(4));
+            residente.setDireccionResidente(cursor.getString(65));
+            residente.setNumeroCliente(cursor.getString(66));
+
+            /* Fotos */
+            fotos.setRechazoInspeccion(cursor.getString(5));
+            fotos.setFallaMedidor(cursor.getString(6));
+            fotos.setLecturaMedidor(cursor.getString(7));
+            fotos.setNumeroMedidor(cursor.getString(8));
+            fotos.setPanoramicaMedidor(cursor.getString(9));
+            fotos.setNumeroPropiedad(cursor.getString(10));
+            fotos.setFachadaPropiedad(cursor.getString(11));
+            fotos.setUsoImanes1(cursor.getString(12));
+            fotos.setUsoImanes2(cursor.getString(12));
+            fotos.setUsoImanes3(cursor.getString(12));
+            fotos.setInvertirTomas1(cursor.getString(12));
+            fotos.setInvertirTomas2(cursor.getString(12));
+            fotos.setInvertirTomas3(cursor.getString(12));
+            fotos.setPerforaCupula1(cursor.getString(12));
+            fotos.setPerforaCupula2(cursor.getString(12));
+            fotos.setPerforaCupula3(cursor.getString(12));
+            fotos.setCortaEngrnaje1(cursor.getString(12));
+            fotos.setCortaEngrnaje2(cursor.getString(12));
+            fotos.setCortaEngrnaje3(cursor.getString(12));
+            fotos.setUsoAlambre1(cursor.getString(12));
+            fotos.setUsoAlambre2(cursor.getString(12));
+            fotos.setUsoAlambre3(cursor.getString(12));
+            fotos.setPrensado1(cursor.getString(12));
+            fotos.setPrensado2(cursor.getString(12));
+            fotos.setPrensado3(cursor.getString(12));
+            fotos.setOtro11(cursor.getString(12));
+            fotos.setOtro12(cursor.getString(12));
+            fotos.setOtro13(cursor.getString(12));
+            fotos.setInstalacionParalela1(cursor.getString(12));
+            fotos.setInstalacionParalela2(cursor.getString(12));
+            fotos.setInstalacionParalela3(cursor.getString(12));
+            fotos.setBypass1(cursor.getString(13));
+            fotos.setBypass2(cursor.getString(13));
+            fotos.setBypass3(cursor.getString(13));
+            fotos.setOtro21(cursor.getString(14));
+            fotos.setOtro22(cursor.getString(14));
+            fotos.setOtro23(cursor.getString(14));
+
+            /* Test 1 */
+            testParte1.setTest1(cursor.getString(15));
+            testParte1.setTest2(cursor.getString(16));
+            testParte1.setTest3(cursor.getString(17));
+            testParte1.setTest4(cursor.getString(18));
+            testParte1.setTest5(cursor.getString(19));
+            testParte1.setUsoImanes(cursor.getString(20));
+            testParte1.setInvertirTomas(cursor.getString(21));
+            testParte1.setPerforaCupula(cursor.getString(22));
+            testParte1.setCortaEngranaje(cursor.getString(23));
+            testParte1.setUsoAlambres(cursor.getString(24));
+            testParte1.setPrensado(cursor.getString(25));
+            testParte1.setOtro(cursor.getString(26));
+            testParte1.setOtroText(cursor.getString(63));
+            testParte1.setInstalacionParalela(cursor.getString(27));
+            testParte1.setBypass(cursor.getString(28));
+            testParte1.setOtro2(cursor.getString(29));
+            testParte1.setOtroText2(cursor.getString(64));
+
+            /* Test 2 */
+            testParte2.setClaseMedidor(cursor.getString(30));
+            testParte2.setAnoMedidor(cursor.getString(31));
+            testParte2.setMarca(cursor.getString(32));
+            testParte2.setRegistrador(cursor.getString(33));
+            testParte2.setInstalacion(cursor.getString(34));
+            testParte2.setTramoAntes(cursor.getString(35));
+            testParte2.setTramoDespues(cursor.getString(36));
+            testParte2.setObservaciones(cursor.getString(37));
+            testParte2.setEstadoVerticales(cursor.getString(38));
+            testParte2.setEstadoCortes(cursor.getString(39));
+            testParte2.setSuministroAlternativo(cursor.getString(40));
+            testParte2.setCumplePlano(cursor.getString(41));
+            testParte2.setObservaciones2(cursor.getString(42));
+
+            /* Test 3 */
+            testParte3.setConstruccionNueva(cursor.getString(43));
+            testParte3.setTipoPropiedad(cursor.getString(44));
+            testParte3.setHabitantes(cursor.getString(45));
+            testParte3.setBanos(cursor.getString(46));
+            testParte3.setSuperficieEdificada(cursor.getString(47));
+            testParte3.setSuperficieJardin(cursor.getString(48));
+            testParte3.setAcceso(cursor.getString(49));
+            testParte3.setSuperficieTerreno(cursor.getString(50));
+            testParte3.setObservaciones1(cursor.getString(51));
+            testParte3.setAutoAbastecimiento(cursor.getString(52));
+            testParte3.setTipoFuente(cursor.getString(53));
+            testParte3.setUso(cursor.getString(54));
+            testParte3.setActivo(cursor.getString(55));
+            testParte3.setCapacidadBomba(cursor.getString(56));
+            testParte3.setResolucion(cursor.getString(57));
+            testParte3.setCaudal(cursor.getString(58));
+            testParte3.setObservaciones2(cursor.getString(59));
+
+            /* Medidor */
+            medidor.setNumeroMedidor(cursor.getString(60));
+            medidor.setDiametroMedidor(cursor.getString(61));
+            medidor.setLecturaMedidor(cursor.getString(62));
+
+            resultado.setResidente(residente);
+            resultado.setFotos(fotos);
+            resultado.setTestParte1(testParte1);
+            resultado.setTestParte2(testParte2);
+            resultado.setTestParte3(testParte3);
+            resultado.setMedidor(medidor);
+            resultado.setEmpresaInspeccion(cursor.getString(67));
+
+            cursor.close();
         }
-
-        residente.setNombreResidente(cursor.getString(0));
-        residente.setRutResidente(cursor.getString(1));
-        residente.setTelefonoResidente(cursor.getString(2));
-        residente.setEmailResidente(cursor.getString(3));
-        residente.setFechaResidente(cursor.getString(4));
-
-        fotos.setRechazoInspeccion(cursor.getString(5));
-        fotos.setFallaMedidor(cursor.getString(6));
-        fotos.setLecturaMedidor(cursor.getString(7));
-        fotos.setNumeroMedidor(cursor.getString(8));
-        fotos.setPanoramicaMedidor(cursor.getString(9));
-        fotos.setNumeroPropiedad(cursor.getString(10));
-        fotos.setFachadaPropiedad(cursor.getString(11));
-        fotos.setIntervencionRed(cursor.getString(12));
-        fotos.setBypass(cursor.getString(13));
-        fotos.setOtro(cursor.getString(14));
-
-        testParte1.setTest1(cursor.getString(15));
-        testParte1.setTest2(cursor.getString(16));
-        testParte1.setTest3(cursor.getString(17));
-        testParte1.setTest4(cursor.getString(18));
-        testParte1.setTest5(cursor.getString(19));
-        testParte1.setUsoImanes(cursor.getString(20));
-        testParte1.setInvertirTomas(cursor.getString(21));
-        testParte1.setPerforaCupula(cursor.getString(22));
-        testParte1.setCortaEngranaje(cursor.getString(23));
-        testParte1.setUsoAlambres(cursor.getString(24));
-        testParte1.setPrensado(cursor.getString(25));
-        testParte1.setOtro(cursor.getString(26));
-        testParte1.setInstalacionParalela(cursor.getString(27));
-        testParte1.setBypass(cursor.getString(28));
-        testParte1.setOtro2(cursor.getString(29));
-
-        testParte2.setClaseMedidor(cursor.getString(30));
-        testParte2.setAnoMedidor(cursor.getString(31));
-        testParte2.setMarca(cursor.getString(32));
-        testParte2.setRegistrador(cursor.getString(33));
-        testParte2.setInstalacion(cursor.getString(34));
-        testParte2.setTramoAntes(cursor.getString(35));
-        testParte2.setTramoDespues(cursor.getString(36));
-        testParte2.setObservaciones(cursor.getString(37));
-        testParte2.setEstadoVerticales(cursor.getString(38));
-        testParte2.setEstadoCortes(cursor.getString(39));
-        testParte2.setSuministroAlternativo(cursor.getString(40));
-        testParte2.setCumplePlano(cursor.getString(41));
-        testParte2.setObservaciones2(cursor.getString(42));
-
-        testParte3.setConstruccionNueva(cursor.getString(43));
-        testParte3.setTipoPropiedad(cursor.getString(44));
-        testParte3.setHabitantes(cursor.getString(45));
-        testParte3.setBanos(cursor.getString(46));
-        testParte3.setSuperficieEdificada(cursor.getString(47));
-        testParte3.setSuperficieJardin(cursor.getString(48));
-        testParte3.setAcceso(cursor.getString(49));
-        testParte3.setSuperficieTerreno(cursor.getString(50));
-        testParte3.setObservaciones1(cursor.getString(51));
-        testParte3.setAutoAbastecimiento(cursor.getString(52));
-        testParte3.setTipoFuente(cursor.getString(53));
-        testParte3.setUso(cursor.getString(54));
-        testParte3.setActivo(cursor.getString(55));
-        testParte3.setCapacidadBomba(cursor.getString(56));
-        testParte3.setResolucion(cursor.getString(57));
-        testParte3.setCaudal(cursor.getString(58));
-        testParte3.setObservaciones2(cursor.getString(59));
-
-        medidor.setNumeroMedidor(cursor.getString(60));
-        medidor.setDiametroMedidor(cursor.getString(61));
-        medidor.setLecturaMedidor(cursor.getString(62));
-        testParte1.setOtroText(cursor.getString(63));
-        testParte1.setOtroText2(cursor.getString(64));
-
-        residente.setDireccionResidente(cursor.getString(65));
-        residente.setNumeroCliente(cursor.getString(66));
-
-        resultado.setResidente(residente);
-        resultado.setFotos(fotos);
-        resultado.setTestParte1(testParte1);
-        resultado.setTestParte2(testParte2);
-        resultado.setTestParte3(testParte3);
-        resultado.setMedidor(medidor);
-        resultado.setEmpresaInspeccion(cursor.getString(67));
-
         return resultado;
     }
 }

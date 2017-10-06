@@ -74,7 +74,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/intervensionRedFoto1"
+                    android:id="@+id/instalacionParalelaFoto1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -97,7 +97,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/intervensionRedFoto2"
+                    android:id="@+id/instalacionParalelaFoto2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -120,7 +120,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/intervensionRedFoto3"
+                    android:id="@+id/instalacionParalelaFoto3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -319,7 +319,7 @@
             </RadioGroup>
 
             <LinearLayout
-                android:id="@+id/ocultaFotosOtrosLl"
+                android:id="@+id/ocultaFotosOtros13Ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -333,7 +333,7 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/otroFoto1"
+                        android:id="@+id/otroFoto21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -356,7 +356,7 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/otroFoto2"
+                        android:id="@+id/otroFoto22"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -379,7 +379,7 @@
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/otroFoto3"
+                        android:id="@+id/otroFoto23"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
@@ -411,6 +411,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:hint="@string/ejecuta_test_especificar"
+                android:inputType="text"
                 android:maxLines="1"
                 android:minLines="1" />
 
