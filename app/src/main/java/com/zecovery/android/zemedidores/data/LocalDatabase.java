@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.zecovery.android.zemedidores.models.Foto;
@@ -25,7 +26,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    public static final int DB_VERSION = 162;
+    public static final int DB_VERSION = 164;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -326,6 +327,10 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_NUM_CLIENTE_RESIDENTE + " TEXT, "
                 + RESULT_TEST_EMPRESA_INSPECTOR + " TEXT)"
                 + ";";
+
+        Log.d("TAG", "CREATE_TABLE_ASSIGNMENT: " + CREATE_TABLE_ASSIGNMENT);
+        Log.d("TAG", "CREATE_TABLE_CURRENT_LOCATION: " + CREATE_TABLE_CURRENT_LOCATION);
+        Log.d("TAG", "CREATE_TABLE_INSPECTION_RESULT: " + CREATE_TABLE_INSPECTION_RESULT);
 
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
         db.execSQL(CREATE_TABLE_CURRENT_LOCATION);
@@ -867,7 +872,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
             fotos.setOtro21(cursor.getString(37));
             fotos.setOtro22(cursor.getString(38));
             fotos.setOtro23(cursor.getString(39));
-            cursor.close();
         }
         return fotos;
     }
@@ -1102,8 +1106,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
             resultado.setMedidor(medidor);
             resultado.setEmpresaInspeccion(cursor.getString(67));
 
-            cursor.close();
+
         }
+        cursor.close();
         return resultado;
     }
 }

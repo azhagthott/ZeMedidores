@@ -255,7 +255,6 @@ public class EnviaInspeccion {
             foto_fechada_propiedad = null;
         }
 
-
         /* Fotos uso imanes */
         if (resultado.getFotos().getUsoImanes1() != null) {
             File file = new File(resultado.getFotos().getUsoImanes1());
@@ -280,7 +279,6 @@ public class EnviaInspeccion {
         } else {
             foto_uso_imanes_3 = null;
         }
-
 
         /* Fotos invertir tomas */
         if (resultado.getFotos().getInvertirTomas1() != null) {
@@ -307,7 +305,6 @@ public class EnviaInspeccion {
             foto_invertir_tomas_3 = null;
         }
 
-
         /* Fotos perfora cupula */
         if (resultado.getFotos().getPerforaCupula1() != null) {
             File file = new File(resultado.getFotos().getPerforaCupula1());
@@ -333,6 +330,30 @@ public class EnviaInspeccion {
             foto_perfora_cupula_3 = null;
         }
 
+        /* Fotos corta engranajes  */
+        if (resultado.getFotos().getCortaEngrnaje1() != null) {
+            File file = new File(resultado.getFotos().getCortaEngrnaje1());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_corta_engranaje_1 = MultipartBody.Part.createFormData("foto_corta_engranaje_1", "foto_corta_engranaje_1", requestFile);
+        } else {
+            foto_corta_engranaje_1 = null;
+        }
+
+        if (resultado.getFotos().getCortaEngrnaje2() != null) {
+            File file = new File(resultado.getFotos().getCortaEngrnaje2());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_corta_engranaje_2 = MultipartBody.Part.createFormData("foto_corta_engranaje_2", "foto_corta_engranaje_2", requestFile);
+        } else {
+            foto_corta_engranaje_2 = null;
+        }
+
+        if (resultado.getFotos().getCortaEngrnaje3() != null) {
+            File file = new File(resultado.getFotos().getCortaEngrnaje3());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_corta_engranaje_3 = MultipartBody.Part.createFormData("foto_corta_engranaje_3", "foto_corta_engranaje_3", requestFile);
+        } else {
+            foto_corta_engranaje_3 = null;
+        }
 
         /* Fotos uso alambres */
         if (resultado.getFotos().getUsoAlambre1() != null) {
@@ -359,12 +380,57 @@ public class EnviaInspeccion {
             foto_uso_alambres_3 = null;
         }
 
+        /* Fotos prensado */
+        if (resultado.getFotos().getPrensado1() != null) {
+            File file = new File(resultado.getFotos().getPrensado1());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_prensado_1 = MultipartBody.Part.createFormData("foto_prensado_1", "foto_prensado_1", requestFile);
+        } else {
+            foto_prensado_1 = null;
+        }
 
+        if (resultado.getFotos().getPrensado2() != null) {
+            File file = new File(resultado.getFotos().getPrensado2());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_prensado_2 = MultipartBody.Part.createFormData("foto_prensado_2", "foto_prensado_2", requestFile);
+        } else {
+            foto_prensado_2 = null;
+        }
 
+        if (resultado.getFotos().getPrensado3() != null) {
+            File file = new File(resultado.getFotos().getPrensado3());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_prensado_3 = MultipartBody.Part.createFormData("foto_prensado_3", "foto_prensado_3", requestFile);
+        } else {
+            foto_prensado_3 = null;
+        }
 
+        /* Fotos otros 1 */
+        if (resultado.getFotos().getOtro11() != null) {
+            File file = new File(resultado.getFotos().getOtro11());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_otros_1_1 = MultipartBody.Part.createFormData("foto_otros_1_1", "foto_otros_1_1", requestFile);
+        } else {
+            foto_otros_1_1 = null;
+        }
 
+        if (resultado.getFotos().getOtro12() != null) {
+            File file = new File(resultado.getFotos().getOtro12());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_otros_1_2 = MultipartBody.Part.createFormData("foto_otros_1_2", "foto_otros_1_2", requestFile);
+        } else {
+            foto_otros_1_2 = null;
+        }
 
-        /* Fotos instlacion paralela*/
+        if (resultado.getFotos().getOtro13() != null) {
+            File file = new File(resultado.getFotos().getOtro13());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_otros_1_3 = MultipartBody.Part.createFormData("foto_otros_1_3", "foto_otros_1_3", requestFile);
+        } else {
+            foto_otros_1_3 = null;
+        }
+
+        /* Fotos instlacion paralela */
         if (resultado.getFotos().getInstalacionParalela1() != null) {
             File file = new File(resultado.getFotos().getInstalacionParalela1());
             RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
@@ -414,7 +480,9 @@ public class EnviaInspeccion {
             foto_bypass_3 = null;
         }
 
-        /* Fotos otros 2 */
+        /*
+            Fotos otros 2
+        */
         if (resultado.getFotos().getOtro21() != null) {
             File file_foto_otro_2_1 = new File(resultado.getFotos().getOtro21());
             RequestBody requestFileOtro21 = RequestBody.create(MediaType.parse("image/*"), file_foto_otro_2_1);
@@ -530,7 +598,7 @@ public class EnviaInspeccion {
                 foto_prensado_3,
                 foto_otros_1_1,
                 foto_otros_1_2,
-                foto_otros_1_3
+                foto_otros_1_3,
                 foto_instalacion_paralela_1,
                 foto_instalacion_paralela_2,
                 foto_instalacion_paralela_3,
