@@ -134,9 +134,9 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
     private ImageButton otrosFoto11;
     private ImageButton otrosFoto12;
     private ImageButton otrosFoto13;
-    private ImageButton intervensionRedFoto1;
-    private ImageButton intervensionRedFoto2;
-    private ImageButton intervensionRedFoto3;
+    private ImageButton instalacionParalelaFoto1;
+    private ImageButton instalacionParalelaFoto2;
+    private ImageButton instalacionParalelaFoto3;
     private ImageButton bypassFoto1;
     private ImageButton bypassFoto2;
     private ImageButton bypassFoto3;
@@ -256,9 +256,9 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         otrosFoto12.setOnClickListener(this);
         otrosFoto13.setOnClickListener(this);
 
-        intervensionRedFoto1.setOnClickListener(this);
-        intervensionRedFoto2.setOnClickListener(this);
-        intervensionRedFoto3.setOnClickListener(this);
+        instalacionParalelaFoto1.setOnClickListener(this);
+        instalacionParalelaFoto2.setOnClickListener(this);
+        instalacionParalelaFoto3.setOnClickListener(this);
 
         bypassFoto1.setOnClickListener(this);
         bypassFoto2.setOnClickListener(this);
@@ -1017,9 +1017,9 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         otrosFoto12 = view.findViewById(R.id.otrosFoto12);
         otrosFoto13 = view.findViewById(R.id.otrosFoto13);
 
-        intervensionRedFoto1 = view.findViewById(R.id.intervensionRedFoto1);
-        intervensionRedFoto2 = view.findViewById(R.id.intervensionRedFoto2);
-        intervensionRedFoto3 = view.findViewById(R.id.intervensionRedFoto3);
+        instalacionParalelaFoto1 = view.findViewById(R.id.instalacionParalelaFoto1);
+        instalacionParalelaFoto2 = view.findViewById(R.id.instalacionParalelaFoto2);
+        instalacionParalelaFoto3 = view.findViewById(R.id.instalacionParalelaFoto3);
 
         bypassFoto1 = view.findViewById(R.id.bypassFoto1);
         bypassFoto2 = view.findViewById(R.id.bypassFoto2);

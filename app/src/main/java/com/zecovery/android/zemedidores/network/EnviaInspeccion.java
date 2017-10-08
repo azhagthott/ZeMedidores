@@ -176,9 +176,36 @@ public class EnviaInspeccion {
         MultipartBody.Part foto_panoramica_medidor;
         MultipartBody.Part foto_numero_propiedad;
         MultipartBody.Part foto_fechada_propiedad;
-        MultipartBody.Part foto_intervension_red;
-        MultipartBody.Part foto_bypass;
-        MultipartBody.Part foto_otro;
+        MultipartBody.Part foto_uso_imanes_1;
+        MultipartBody.Part foto_uso_imanes_2;
+        MultipartBody.Part foto_uso_imanes_3;
+        MultipartBody.Part foto_invertir_tomas_1;
+        MultipartBody.Part foto_invertir_tomas_2;
+        MultipartBody.Part foto_invertir_tomas_3;
+        MultipartBody.Part foto_perfora_cupula_1;
+        MultipartBody.Part foto_perfora_cupula_2;
+        MultipartBody.Part foto_perfora_cupula_3;
+        MultipartBody.Part foto_corta_engranaje_1;
+        MultipartBody.Part foto_corta_engranaje_2;
+        MultipartBody.Part foto_corta_engranaje_3;
+        MultipartBody.Part foto_uso_alambres_1;
+        MultipartBody.Part foto_uso_alambres_2;
+        MultipartBody.Part foto_uso_alambres_3;
+        MultipartBody.Part foto_prensado_1;
+        MultipartBody.Part foto_prensado_2;
+        MultipartBody.Part foto_prensado_3;
+        MultipartBody.Part foto_otros_1_1;
+        MultipartBody.Part foto_otros_1_2;
+        MultipartBody.Part foto_otros_1_3;
+        MultipartBody.Part foto_instalacion_paralela_1;
+        MultipartBody.Part foto_instalacion_paralela_2;
+        MultipartBody.Part foto_instalacion_paralela_3;
+        MultipartBody.Part foto_bypass_1;
+        MultipartBody.Part foto_bypass_2;
+        MultipartBody.Part foto_bypass_3;
+        MultipartBody.Part foto_otros_2_1;
+        MultipartBody.Part foto_otros_2_2;
+        MultipartBody.Part foto_otros_2_3;
 
         if (resultado.getFotos().getFallaMedidor() != null) {
             File file_foto_falla = new File(resultado.getFotos().getFallaMedidor());
@@ -228,28 +255,188 @@ public class EnviaInspeccion {
             foto_fechada_propiedad = null;
         }
 
-        if (resultado.getFotos().getIntervencionRed() != null) {
-            File file_foto_intervension_red = new File(resultado.getFotos().getIntervencionRed());
-            RequestBody requestFileIntervensionRed = RequestBody.create(MediaType.parse("image/*"), file_foto_intervension_red);
-            foto_intervension_red = MultipartBody.Part.createFormData("foto_intervension_red", "foto_intervension_red", requestFileIntervensionRed);
+
+        /* Fotos uso imanes */
+        if (resultado.getFotos().getUsoImanes1() != null) {
+            File file = new File(resultado.getFotos().getUsoImanes1());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_uso_imanes_1 = MultipartBody.Part.createFormData("foto_uso_imanes_1", "foto_uso_imanes_1", requestFile);
         } else {
-            foto_intervension_red = null;
+            foto_uso_imanes_1 = null;
         }
 
-        if (resultado.getFotos().getBypass() != null) {
-            File file_foto_bypass = new File(resultado.getFotos().getBypass());
-            RequestBody requestFileBypass = RequestBody.create(MediaType.parse("image/*"), file_foto_bypass);
-            foto_bypass = MultipartBody.Part.createFormData("foto_bypass", "foto_bypass", requestFileBypass);
+        if (resultado.getFotos().getUsoImanes2() != null) {
+            File file = new File(resultado.getFotos().getUsoImanes2());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_uso_imanes_2 = MultipartBody.Part.createFormData("foto_uso_imanes_2", "foto_uso_imanes_2", requestFile);
         } else {
-            foto_bypass = null;
+            foto_uso_imanes_2 = null;
         }
 
-        if (resultado.getFotos().getOtro() != null) {
-            File file_foto_otro = new File(resultado.getFotos().getOtro());
-            RequestBody requestFileOtro = RequestBody.create(MediaType.parse("image/*"), file_foto_otro);
-            foto_otro = MultipartBody.Part.createFormData("foto_otro", "foto_otro", requestFileOtro);
+        if (resultado.getFotos().getUsoImanes3() != null) {
+            File file = new File(resultado.getFotos().getUsoImanes3());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_uso_imanes_3 = MultipartBody.Part.createFormData("foto_uso_imanes_3", "foto_uso_imanes_3", requestFile);
         } else {
-            foto_otro = null;
+            foto_uso_imanes_3 = null;
+        }
+
+
+        /* Fotos invertir tomas */
+        if (resultado.getFotos().getInvertirTomas1() != null) {
+            File file = new File(resultado.getFotos().getInvertirTomas1());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_invertir_tomas_1 = MultipartBody.Part.createFormData("foto_invertir_tomas_1", "foto_invertir_tomas_1", requestFile);
+        } else {
+            foto_invertir_tomas_1 = null;
+        }
+
+        if (resultado.getFotos().getInvertirTomas2() != null) {
+            File file = new File(resultado.getFotos().getInvertirTomas2());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_invertir_tomas_2 = MultipartBody.Part.createFormData("foto_invertir_tomas_2", "foto_invertir_tomas_2", requestFile);
+        } else {
+            foto_invertir_tomas_2 = null;
+        }
+
+        if (resultado.getFotos().getInvertirTomas3() != null) {
+            File file = new File(resultado.getFotos().getInvertirTomas3());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_invertir_tomas_3 = MultipartBody.Part.createFormData("foto_invertir_tomas_3", "foto_invertir_tomas_3", requestFile);
+        } else {
+            foto_invertir_tomas_3 = null;
+        }
+
+
+        /* Fotos perfora cupula */
+        if (resultado.getFotos().getPerforaCupula1() != null) {
+            File file = new File(resultado.getFotos().getPerforaCupula1());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_perfora_cupula_1 = MultipartBody.Part.createFormData("foto_perfora_cupula_1", "foto_perfora_cupula_1", requestFile);
+        } else {
+            foto_perfora_cupula_1 = null;
+        }
+
+        if (resultado.getFotos().getPerforaCupula2() != null) {
+            File file = new File(resultado.getFotos().getPerforaCupula2());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_perfora_cupula_2 = MultipartBody.Part.createFormData("foto_perfora_cupula_2", "foto_perfora_cupula_2", requestFile);
+        } else {
+            foto_perfora_cupula_2 = null;
+        }
+
+        if (resultado.getFotos().getPerforaCupula3() != null) {
+            File file = new File(resultado.getFotos().getPerforaCupula3());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_perfora_cupula_3 = MultipartBody.Part.createFormData("foto_perfora_cupula_3", "foto_perfora_cupula_3", requestFile);
+        } else {
+            foto_perfora_cupula_3 = null;
+        }
+
+
+        /* Fotos uso alambres */
+        if (resultado.getFotos().getUsoAlambre1() != null) {
+            File file = new File(resultado.getFotos().getUsoAlambre1());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_uso_alambres_1 = MultipartBody.Part.createFormData("foto_uso_alambres_1", "foto_uso_alambres_1", requestFile);
+        } else {
+            foto_uso_alambres_1 = null;
+        }
+
+        if (resultado.getFotos().getUsoAlambre2() != null) {
+            File file = new File(resultado.getFotos().getUsoAlambre2());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_uso_alambres_2 = MultipartBody.Part.createFormData("foto_uso_alambres_2", "foto_uso_alambres_2", requestFile);
+        } else {
+            foto_uso_alambres_2 = null;
+        }
+
+        if (resultado.getFotos().getUsoAlambre3() != null) {
+            File file = new File(resultado.getFotos().getUsoAlambre3());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_uso_alambres_3 = MultipartBody.Part.createFormData("foto_uso_alambres_3", "foto_uso_alambres_3", requestFile);
+        } else {
+            foto_uso_alambres_3 = null;
+        }
+
+
+
+
+
+
+        /* Fotos instlacion paralela*/
+        if (resultado.getFotos().getInstalacionParalela1() != null) {
+            File file = new File(resultado.getFotos().getInstalacionParalela1());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_instalacion_paralela_1 = MultipartBody.Part.createFormData("foto_instalacion_paralela_1", "foto_instalacion_paralela_1", requestFile);
+        } else {
+            foto_instalacion_paralela_1 = null;
+        }
+
+        if (resultado.getFotos().getInstalacionParalela2() != null) {
+            File file_foto_instalacion_paralela_2 = new File(resultado.getFotos().getInstalacionParalela2());
+            RequestBody requestFileInstParalela2 = RequestBody.create(MediaType.parse("image/*"), file_foto_instalacion_paralela_2);
+            foto_instalacion_paralela_2 = MultipartBody.Part.createFormData("foto_instalacion_paralela_2", "foto_instalacion_paralela_2", requestFileInstParalela2);
+        } else {
+            foto_instalacion_paralela_2 = null;
+        }
+
+        if (resultado.getFotos().getInstalacionParalela3() != null) {
+            File file_foto_instalacion_paralela_3 = new File(resultado.getFotos().getInstalacionParalela3());
+            RequestBody requestFileInstParalela3 = RequestBody.create(MediaType.parse("image/*"), file_foto_instalacion_paralela_3);
+            foto_instalacion_paralela_3 = MultipartBody.Part.createFormData("foto_instalacion_paralela_3", "foto_instalacion_paralela_3", requestFileInstParalela3);
+        } else {
+            foto_instalacion_paralela_3 = null;
+        }
+
+        /* Fotos bypass */
+        if (resultado.getFotos().getBypass1() != null) {
+            File file_foto_bypass_1 = new File(resultado.getFotos().getBypass1());
+            RequestBody requestFileBypass1 = RequestBody.create(MediaType.parse("image/*"), file_foto_bypass_1);
+            foto_bypass_1 = MultipartBody.Part.createFormData("foto_bypass_1", "foto_bypass_1", requestFileBypass1);
+        } else {
+            foto_bypass_1 = null;
+        }
+
+        if (resultado.getFotos().getBypass2() != null) {
+            File file_foto_bypass_2 = new File(resultado.getFotos().getBypass2());
+            RequestBody requestFileBypass2 = RequestBody.create(MediaType.parse("image/*"), file_foto_bypass_2);
+            foto_bypass_2 = MultipartBody.Part.createFormData("foto_bypass_2", "foto_bypass_2", requestFileBypass2);
+        } else {
+            foto_bypass_2 = null;
+        }
+
+        if (resultado.getFotos().getBypass3() != null) {
+            File file_foto_bypass_3 = new File(resultado.getFotos().getBypass3());
+            RequestBody requestFileBypass3 = RequestBody.create(MediaType.parse("image/*"), file_foto_bypass_3);
+            foto_bypass_3 = MultipartBody.Part.createFormData("foto_bypass_3", "foto_bypass_3", requestFileBypass3);
+        } else {
+            foto_bypass_3 = null;
+        }
+
+        /* Fotos otros 2 */
+        if (resultado.getFotos().getOtro21() != null) {
+            File file_foto_otro_2_1 = new File(resultado.getFotos().getOtro21());
+            RequestBody requestFileOtro21 = RequestBody.create(MediaType.parse("image/*"), file_foto_otro_2_1);
+            foto_otros_2_1 = MultipartBody.Part.createFormData("foto_otros_2_1", "foto_otros_2_1", requestFileOtro21);
+        } else {
+            foto_otros_2_1 = null;
+        }
+
+        if (resultado.getFotos().getOtro22() != null) {
+            File file_foto_otro_2_2 = new File(resultado.getFotos().getOtro22());
+            RequestBody requestFileOtro22 = RequestBody.create(MediaType.parse("image/*"), file_foto_otro_2_2);
+            foto_otros_2_2 = MultipartBody.Part.createFormData("foto_otros_2_2", "foto_otros_2_2", requestFileOtro22);
+        } else {
+            foto_otros_2_2 = null;
+        }
+
+        if (resultado.getFotos().getOtro23() != null) {
+            File file_foto_otro_2_3 = new File(resultado.getFotos().getOtro23());
+            RequestBody requestFileOtro23 = RequestBody.create(MediaType.parse("image/*"), file_foto_otro_2_3);
+            foto_otros_2_3 = MultipartBody.Part.createFormData("foto_otros_2_3", "foto_otros_2_3", requestFileOtro23);
+        } else {
+            foto_otros_2_3 = null;
         }
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(URL_BASE).build();
@@ -323,9 +510,36 @@ public class EnviaInspeccion {
                 foto_panoramica_medidor,
                 foto_numero_propiedad,
                 foto_fechada_propiedad,
-                foto_intervension_red,
-                foto_bypass,
-                foto_otro
+                foto_uso_imanes_1,
+                foto_uso_imanes_2,
+                foto_uso_imanes_3,
+                foto_invertir_tomas_1,
+                foto_invertir_tomas_2,
+                foto_invertir_tomas_3,
+                foto_perfora_cupula_1,
+                foto_perfora_cupula_2,
+                foto_perfora_cupula_3,
+                foto_corta_engranaje_1,
+                foto_corta_engranaje_2,
+                foto_corta_engranaje_3,
+                foto_uso_alambres_1,
+                foto_uso_alambres_2,
+                foto_uso_alambres_3,
+                foto_prensado_1,
+                foto_prensado_2,
+                foto_prensado_3,
+                foto_otros_1_1,
+                foto_otros_1_2,
+                foto_otros_1_3
+                foto_instalacion_paralela_1,
+                foto_instalacion_paralela_2,
+                foto_instalacion_paralela_3,
+                foto_bypass_1,
+                foto_bypass_2,
+                foto_bypass_3,
+                foto_otros_2_1,
+                foto_otros_2_2,
+                foto_otros_2_3
         );
 
         call.enqueue(new Callback<ResponseBody>() {
