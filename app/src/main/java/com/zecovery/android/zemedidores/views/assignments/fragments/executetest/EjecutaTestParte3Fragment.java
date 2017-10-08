@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION_EJECUTA_TEST_3;
+import static com.zecovery.android.zemedidores.data.Constant.NO_ENVIA_RESPUESTA;
+import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_NO;
+import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_SI;
 import static com.zecovery.android.zemedidores.data.Constant.SELECT_OPTION;
 import static com.zecovery.android.zemedidores.data.Constant.TAG;
 import static com.zecovery.android.zemedidores.data.Constant.TYPE_1;
@@ -169,11 +172,11 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
         TestParte3 test = new TestParte3();
 
         if (newBuildingYesRadioButton.isChecked()) {
-            test.setConstruccionNueva("SI");
+            test.setConstruccionNueva(RESPONDE_SI);
         } else if (newBuildingNoRadioButton.isChecked()) {
-            test.setConstruccionNueva("NO");
+            test.setConstruccionNueva(RESPONDE_NO);
         } else {
-            test.setConstruccionNueva("No envia respuesta");
+            test.setConstruccionNueva(NO_ENVIA_RESPUESTA);
         }
 
         String habitantes = occupantEditText.getText().toString();
@@ -198,19 +201,19 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
         test.setObservaciones1(obs1);
 
         if (autoAbastecimientoSi.isChecked()) {
-            test.setAutoAbastecimiento("SI");
+            test.setAutoAbastecimiento(RESPONDE_SI);
         } else if (autoAbastecimientoNo.isChecked()) {
-            test.setAutoAbastecimiento("NO");
+            test.setAutoAbastecimiento(RESPONDE_NO);
         } else {
-            test.setAutoAbastecimiento("No envia respuesta");
+            test.setAutoAbastecimiento(NO_ENVIA_RESPUESTA);
         }
 
         if (activoSi.isChecked()) {
-            test.setActivo("SI");
+            test.setActivo(RESPONDE_SI);
         } else if (activoNo.isChecked()) {
-            test.setActivo("NO");
+            test.setActivo(RESPONDE_NO);
         } else {
-            test.setActivo("No envia respuesta");
+            test.setActivo(NO_ENVIA_RESPUESTA);
         }
 
         String fuentePropia = sourceTypeEditText.getText().toString();

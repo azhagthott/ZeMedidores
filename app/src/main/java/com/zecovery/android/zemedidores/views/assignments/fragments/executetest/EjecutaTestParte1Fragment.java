@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
+import com.bumptech.glide.Glide;
 import com.frosquivel.magicalcamera.MagicalCamera;
 import com.frosquivel.magicalcamera.MagicalPermissions;
 import com.google.firebase.crash.FirebaseCrash;
@@ -43,7 +44,7 @@ import static com.zecovery.android.zemedidores.data.Constant.INSTALACION_PARALEL
 import static com.zecovery.android.zemedidores.data.Constant.INVERTIR_TOMAS_1;
 import static com.zecovery.android.zemedidores.data.Constant.INVERTIR_TOMAS_2;
 import static com.zecovery.android.zemedidores.data.Constant.INVERTIR_TOMAS_3;
-import static com.zecovery.android.zemedidores.data.Constant.NO_RESPONDE;
+import static com.zecovery.android.zemedidores.data.Constant.NO_ENVIA_RESPUESTA;
 import static com.zecovery.android.zemedidores.data.Constant.OTROS_1_1;
 import static com.zecovery.android.zemedidores.data.Constant.OTROS_1_2;
 import static com.zecovery.android.zemedidores.data.Constant.OTROS_1_3;
@@ -144,38 +145,36 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
     private ImageButton otroFoto22;
     private ImageButton otroFoto23;
 
-
     private CircleImageView usoImanesPreview1;
     private CircleImageView usoImanesPreview2;
     private CircleImageView usoImanesPreview3;
-
+    private CircleImageView invertirTomasPreview1;
+    private CircleImageView invertirTomasPreview2;
+    private CircleImageView invertirTomasPreview3;
+    private CircleImageView perforaCupulaPreview1;
+    private CircleImageView perforaCupulaPreview2;
+    private CircleImageView perforaCupulaPreview3;
     private CircleImageView engranajePreview1;
     private CircleImageView engranajePreview2;
     private CircleImageView engranajePreview3;
-
     private CircleImageView alambresPreview1;
     private CircleImageView alambresPreview2;
     private CircleImageView alambresPreview3;
-
     private CircleImageView prensadoPreview1;
     private CircleImageView prensadoPreview2;
     private CircleImageView prensadoPreview3;
-
-    private CircleImageView otros12Preview1;
-    private CircleImageView otros12Preview2;
-    private CircleImageView otros12Preview3;
-
-    private CircleImageView intervensionRedPreview1;
-    private CircleImageView intervensionRedPreview2;
-    private CircleImageView intervensionRedPreview3;
-
+    private CircleImageView otros1Preview1;
+    private CircleImageView otros1Preview2;
+    private CircleImageView otros1Preview3;
+    private CircleImageView instalacionParalelaPreview1;
+    private CircleImageView instalacionParalelaPreview2;
+    private CircleImageView instalacionParalelaPreview3;
     private CircleImageView bypassPreview1;
     private CircleImageView bypassPreview2;
     private CircleImageView bypassPreview3;
-
-    private CircleImageView otroPreview1;
-    private CircleImageView otroPreview2;
-    private CircleImageView otroPreview3;
+    private CircleImageView otros2Preview1;
+    private CircleImageView otros2Preview2;
+    private CircleImageView otros2Preview3;
 
     private LinearLayout ocultaFotosInstParalelaLl;
     private LinearLayout ocultaFotosBypassLl;
@@ -220,18 +219,6 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         idInspeccion = getArguments().getInt(ID_INSPECCION_EJECUTA_TEST_1);
         db = new LocalDatabase(getContext());
 
-        ocultaFotosImanesLl.setVisibility(View.GONE);
-        ocultaFotosInvertirTomasLl.setVisibility(View.GONE);
-        ocultaFotosCupulaLl.setVisibility(View.GONE);
-        ocultaFotosEngranajeLl.setVisibility(View.GONE);
-        ocultaFotosAlambresLl.setVisibility(View.GONE);
-        ocultaFotosPrensadoLl.setVisibility(View.GONE);
-        ocultaFotosOtros12Ll.setVisibility(View.GONE);
-
-        ocultaFotosInstParalelaLl.setVisibility(View.GONE);
-        ocultaFotosBypassLl.setVisibility(View.GONE);
-        ocultaFotosOtros13Ll.setVisibility(View.GONE);
-
         saveButton.setOnClickListener(this);
 
         usoImanesFoto1.setOnClickListener(this);
@@ -255,21 +242,15 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         otrosFoto11.setOnClickListener(this);
         otrosFoto12.setOnClickListener(this);
         otrosFoto13.setOnClickListener(this);
-
         instalacionParalelaFoto1.setOnClickListener(this);
         instalacionParalelaFoto2.setOnClickListener(this);
         instalacionParalelaFoto3.setOnClickListener(this);
-
         bypassFoto1.setOnClickListener(this);
         bypassFoto2.setOnClickListener(this);
         bypassFoto3.setOnClickListener(this);
-
         otroFoto21.setOnClickListener(this);
         otroFoto22.setOnClickListener(this);
         otroFoto23.setOnClickListener(this);
-
-        otro12EditText.setVisibility(View.GONE);
-        otroFotoEditText.setVisibility(View.GONE);
 
         if (db.getDatosTestParte1(idInspeccion).getTest1() != null) {
             if (db.getDatosTestParte1(idInspeccion).getTest1().equals(RESPONDE_SI)) {
@@ -314,6 +295,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         if (db.getDatosTestParte1(idInspeccion).getUsoImanes() != null) {
             if (db.getDatosTestParte1(idInspeccion).getUsoImanes().equals(RESPONDE_SI)) {
                 usoImanesPositivoRb.setChecked(true);
+                ocultaFotosImanesLl.setVisibility(View.VISIBLE);
             } else if (db.getDatosTestParte1(idInspeccion).getUsoImanes().equals(RESPONDE_NO)) {
                 usoImanesNegativoRb.setChecked(true);
             }
@@ -322,6 +304,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         if (db.getDatosTestParte1(idInspeccion).getInvertirTomas() != null) {
             if (db.getDatosTestParte1(idInspeccion).getInvertirTomas().equals(RESPONDE_SI)) {
                 invertirTomasPositivoRb.setChecked(true);
+                ocultaFotosInvertirTomasLl.setVisibility(View.VISIBLE);
             } else if (db.getDatosTestParte1(idInspeccion).getInvertirTomas().equals(RESPONDE_NO)) {
                 invertirTomasNegativoRb.setChecked(true);
             }
@@ -330,6 +313,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         if (db.getDatosTestParte1(idInspeccion).getPerforaCupula() != null) {
             if (db.getDatosTestParte1(idInspeccion).getPerforaCupula().equals(RESPONDE_SI)) {
                 perforaCupulaPositivoRb.setChecked(true);
+                ocultaFotosCupulaLl.setVisibility(View.VISIBLE);
             } else if (db.getDatosTestParte1(idInspeccion).getPerforaCupula().equals(RESPONDE_NO)) {
                 perforaCupulaNegativoRb.setChecked(true);
             }
@@ -338,6 +322,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje() != null) {
             if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje().equals(RESPONDE_SI)) {
                 cortaEngranajePositivoRb.setChecked(true);
+                ocultaFotosEngranajeLl.setVisibility(View.VISIBLE);
             } else if (db.getDatosTestParte1(idInspeccion).getCortaEngranaje().equals(RESPONDE_NO)) {
                 cortaEngranajeNegativoRb.setChecked(true);
             }
@@ -346,6 +331,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         if (db.getDatosTestParte1(idInspeccion).getUsoAlambres() != null) {
             if (db.getDatosTestParte1(idInspeccion).getUsoAlambres().equals(RESPONDE_SI)) {
                 usoAlambrePositivoRb.setChecked(true);
+                ocultaFotosAlambresLl.setVisibility(View.VISIBLE);
             } else if (db.getDatosTestParte1(idInspeccion).getUsoAlambres().equals(RESPONDE_NO)) {
                 usoAlambreNegativoRb.setChecked(true);
             }
@@ -354,6 +340,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         if (db.getDatosTestParte1(idInspeccion).getPrensado() != null) {
             if (db.getDatosTestParte1(idInspeccion).getPrensado().equals(RESPONDE_SI)) {
                 prensadoPositivoRb.setChecked(true);
+                ocultaFotosPrensadoLl.setVisibility(View.VISIBLE);
             } else if (db.getDatosTestParte1(idInspeccion).getPrensado().equals(RESPONDE_NO)) {
                 prensadoNegativoRb.setChecked(true);
             }
@@ -362,13 +349,51 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         if (db.getDatosTestParte1(idInspeccion).getOtro() != null) {
             if (db.getDatosTestParte1(idInspeccion).getOtro().equals(RESPONDE_SI)) {
                 otro12PositivoRb.setChecked(true);
+                ocultaFotosOtros12Ll.setVisibility(View.VISIBLE);
+                otro12EditText.setVisibility(View.VISIBLE);
             } else if (db.getDatosTestParte1(idInspeccion).getOtro().equals(RESPONDE_NO)) {
                 otro12NegativoRb.setChecked(true);
             }
         }
 
-        if (db.getDatosTestParte1(idInspeccion).getOtroText() != null) {
+        if (db.getDatosTestParte1(idInspeccion).getOtroText() != null && !db.getDatosTestParte1(idInspeccion).getOtroText().equals("null")) {
             otro12EditText.setText(db.getDatosTestParte1(idInspeccion).getOtroText());
+        } else {
+            otro12EditText.setText("");
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getInstalacionParalela() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getInstalacionParalela().equals(RESPONDE_SI)) {
+                case8PositiveRadioButton.setChecked(true);
+                ocultaFotosInstParalelaLl.setVisibility(View.VISIBLE);
+            } else if (db.getDatosTestParte1(idInspeccion).getInstalacionParalela().equals(RESPONDE_NO)) {
+                case8NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getBypass() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getBypass().equals(RESPONDE_SI)) {
+                case9PositiveRadioButton.setChecked(true);
+                ocultaFotosBypassLl.setVisibility(View.VISIBLE);
+            } else if (db.getDatosTestParte1(idInspeccion).getBypass().equals(RESPONDE_NO)) {
+                case9NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getOtro2() != null) {
+            if (db.getDatosTestParte1(idInspeccion).getOtro2().equals(RESPONDE_SI)) {
+                case10PositiveRadioButton.setChecked(true);
+                ocultaFotosOtros13Ll.setVisibility(View.VISIBLE);
+                otroFotoEditText.setVisibility(View.VISIBLE);
+            } else if (db.getDatosTestParte1(idInspeccion).getOtro2().equals(RESPONDE_NO)) {
+                case10NegativeRadioButton.setChecked(true);
+            }
+        }
+
+        if (db.getDatosTestParte1(idInspeccion).getOtroText2() != null && !db.getDatosTestParte1(idInspeccion).getOtroText2().equals("null")) {
+            otroFotoEditText.setText(db.getDatosTestParte1(idInspeccion).getOtroText2());
+        } else {
+            otroFotoEditText.setText("");
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -505,8 +530,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    otroFotoEditText.setVisibility(View.VISIBLE);
                     ocultaFotosOtros13Ll.setVisibility(View.VISIBLE);
+                    otroFotoEditText.setVisibility(View.VISIBLE);
                     Log.d("case 10", "VISIBLE");
                 } else {
                     otroFotoEditText.setVisibility(View.GONE);
@@ -516,6 +541,165 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             }
         });
 
+        /* Preview uso de imanes */
+        if (db.getFotos(idInspeccion).getUsoImanes1() != null) {
+            usoImanesPreview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoImanes1()).into(usoImanesPreview1);
+        }
+
+        if (db.getFotos(idInspeccion).getUsoImanes2() != null) {
+            usoImanesPreview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoImanes2()).into(usoImanesPreview2);
+        }
+
+        if (db.getFotos(idInspeccion).getUsoImanes3() != null) {
+            usoImanesPreview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoImanes3()).into(usoImanesPreview3);
+        }
+
+        /* Preview invertir tomas */
+        if (db.getFotos(idInspeccion).getInvertirTomas1() != null) {
+            invertirTomasPreview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getInvertirTomas1()).into(invertirTomasPreview1);
+        }
+
+        if (db.getFotos(idInspeccion).getInvertirTomas2() != null) {
+            invertirTomasPreview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getInvertirTomas2()).into(invertirTomasPreview2);
+        }
+
+        if (db.getFotos(idInspeccion).getInvertirTomas3() != null) {
+            invertirTomasPreview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getInvertirTomas3()).into(invertirTomasPreview3);
+        }
+
+        /* Preview perfora cupula */
+        if (db.getFotos(idInspeccion).getPerforaCupula1() != null) {
+            perforaCupulaPreview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getPerforaCupula1()).into(perforaCupulaPreview1);
+        }
+
+        if (db.getFotos(idInspeccion).getPerforaCupula2() != null) {
+            perforaCupulaPreview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getPerforaCupula2()).into(perforaCupulaPreview2);
+        }
+
+        if (db.getFotos(idInspeccion).getPerforaCupula3() != null) {
+            perforaCupulaPreview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getPerforaCupula3()).into(perforaCupulaPreview3);
+        }
+
+        /* Preview corta engranajes */
+        if (db.getFotos(idInspeccion).getCortaEngrnaje1() != null) {
+            engranajePreview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getCortaEngrnaje1()).into(engranajePreview1);
+        }
+
+        if (db.getFotos(idInspeccion).getCortaEngrnaje2() != null) {
+            engranajePreview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getCortaEngrnaje2()).into(engranajePreview2);
+        }
+
+        if (db.getFotos(idInspeccion).getCortaEngrnaje3() != null) {
+            engranajePreview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getCortaEngrnaje3()).into(engranajePreview3);
+        }
+
+        /* Preview uso de alambes */
+        if (db.getFotos(idInspeccion).getUsoAlambre1() != null) {
+            alambresPreview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoAlambre1()).into(alambresPreview1);
+        }
+
+        if (db.getFotos(idInspeccion).getUsoAlambre2() != null) {
+            alambresPreview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoAlambre2()).into(alambresPreview2);
+        }
+
+        if (db.getFotos(idInspeccion).getUsoAlambre3() != null) {
+            alambresPreview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoAlambre3()).into(alambresPreview3);
+        }
+
+        /* Preview prensado */
+        if (db.getFotos(idInspeccion).getPrensado1() != null) {
+            prensadoPreview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getPrensado1()).into(prensadoPreview1);
+        }
+
+        if (db.getFotos(idInspeccion).getPrensado2() != null) {
+            prensadoPreview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getPrensado2()).into(prensadoPreview2);
+        }
+
+        if (db.getFotos(idInspeccion).getPrensado3() != null) {
+            prensadoPreview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getPrensado3()).into(prensadoPreview3);
+        }
+
+        /* Preview otros 1 */
+        if (db.getFotos(idInspeccion).getOtro11() != null) {
+            otros1Preview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro11()).into(otros1Preview1);
+        }
+
+        if (db.getFotos(idInspeccion).getOtro12() != null) {
+            otros1Preview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro12()).into(otros1Preview2);
+        }
+
+        if (db.getFotos(idInspeccion).getOtro13() != null) {
+            otros1Preview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro13()).into(otros1Preview3);
+        }
+
+        /* Preview instalacion paralela */
+        if (db.getFotos(idInspeccion).getInstalacionParalela1() != null) {
+            instalacionParalelaPreview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getInstalacionParalela1()).into(instalacionParalelaPreview1);
+        }
+
+        if (db.getFotos(idInspeccion).getInstalacionParalela2() != null) {
+            instalacionParalelaPreview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getInstalacionParalela2()).into(instalacionParalelaPreview2);
+        }
+
+        if (db.getFotos(idInspeccion).getInstalacionParalela3() != null) {
+            instalacionParalelaPreview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getInstalacionParalela3()).into(instalacionParalelaPreview3);
+        }
+
+        /* Preview bypass */
+        if (db.getFotos(idInspeccion).getBypass1() != null) {
+            bypassPreview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getBypass1()).into(bypassPreview1);
+        }
+
+        if (db.getFotos(idInspeccion).getBypass2() != null) {
+            bypassPreview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getBypass2()).into(bypassPreview2);
+        }
+
+        if (db.getFotos(idInspeccion).getBypass3() != null) {
+            bypassPreview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getBypass3()).into(bypassPreview3);
+        }
+
+        /* Preview otros 2 */
+        if (db.getFotos(idInspeccion).getOtro21() != null) {
+            otros2Preview1.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro21()).into(otros2Preview1);
+        }
+
+        if (db.getFotos(idInspeccion).getOtro22() != null) {
+            otros2Preview2.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro22()).into(otros2Preview2);
+        }
+
+        if (db.getFotos(idInspeccion).getOtro23() != null) {
+            otros2Preview3.setVisibility(View.VISIBLE);
+            Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro23()).into(otros2Preview3);
+        }
     }
 
     @Override
@@ -541,7 +725,6 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         int id = v.getId();
 
         switch (id) {
-
             case R.id.usoImanesFoto1:
                 callCamera(USO_IMANES_1);
                 break;
@@ -645,7 +828,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test11NoRadioButton.isChecked()) {
                 test.setTest1(RESPONDE_NO);
             } else {
-                test.setTest1(NO_RESPONDE);
+                test.setTest1(NO_ENVIA_RESPUESTA);
             }
 
             if (test12YesRadioButton.isChecked()) {
@@ -653,7 +836,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test12NoRadioButton.isChecked()) {
                 test.setTest2(RESPONDE_NO);
             } else {
-                test.setTest2(NO_RESPONDE);
+                test.setTest2(NO_ENVIA_RESPUESTA);
             }
 
             if (test13YesRadioButton.isChecked()) {
@@ -661,7 +844,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test13NoRadioButton.isChecked()) {
                 test.setTest3(RESPONDE_NO);
             } else {
-                test.setTest3(NO_RESPONDE);
+                test.setTest3(NO_ENVIA_RESPUESTA);
             }
 
             if (test14YesRadioButton.isChecked()) {
@@ -669,7 +852,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test14NoRadioButton.isChecked()) {
                 test.setTest4(RESPONDE_NO);
             } else {
-                test.setTest4(NO_RESPONDE);
+                test.setTest4(NO_ENVIA_RESPUESTA);
             }
 
             if (test15YesRadioButton.isChecked()) {
@@ -677,7 +860,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (test15NoRadioButton.isChecked()) {
                 test.setTest5(RESPONDE_NO);
             } else {
-                test.setTest5(NO_RESPONDE);
+                test.setTest5(NO_ENVIA_RESPUESTA);
             }
 
             /*
@@ -688,7 +871,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (usoImanesNegativoRb.isChecked()) {
                 test.setUsoImanes(RESPONDE_NO);
             } else {
-                test.setUsoImanes(NO_RESPONDE);
+                test.setUsoImanes(NO_ENVIA_RESPUESTA);
             }
 
             if (invertirTomasPositivoRb.isChecked()) {
@@ -696,7 +879,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (invertirTomasNegativoRb.isChecked()) {
                 test.setInvertirTomas(RESPONDE_NO);
             } else {
-                test.setInvertirTomas(NO_RESPONDE);
+                test.setInvertirTomas(NO_ENVIA_RESPUESTA);
             }
 
             if (perforaCupulaPositivoRb.isChecked()) {
@@ -704,7 +887,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (perforaCupulaNegativoRb.isChecked()) {
                 test.setPerforaCupula(RESPONDE_NO);
             } else {
-                test.setPerforaCupula(NO_RESPONDE);
+                test.setPerforaCupula(NO_ENVIA_RESPUESTA);
             }
 
             if (cortaEngranajePositivoRb.isChecked()) {
@@ -712,7 +895,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (cortaEngranajeNegativoRb.isChecked()) {
                 test.setCortaEngranaje(RESPONDE_NO);
             } else {
-                test.setCortaEngranaje(NO_RESPONDE);
+                test.setCortaEngranaje(NO_ENVIA_RESPUESTA);
             }
 
             if (usoAlambrePositivoRb.isChecked()) {
@@ -720,7 +903,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (usoAlambreNegativoRb.isChecked()) {
                 test.setUsoAlambres(RESPONDE_NO);
             } else {
-                test.setUsoAlambres(NO_RESPONDE);
+                test.setUsoAlambres(NO_ENVIA_RESPUESTA);
             }
 
             if (prensadoPositivoRb.isChecked()) {
@@ -728,7 +911,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (prensadoNegativoRb.isChecked()) {
                 test.setPrensado(RESPONDE_NO);
             } else {
-                test.setPrensado(NO_RESPONDE);
+                test.setPrensado(NO_ENVIA_RESPUESTA);
             }
 
             if (otro12PositivoRb.isChecked()) {
@@ -737,7 +920,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (otro12NegativoRb.isChecked()) {
                 test.setOtro(RESPONDE_NO);
             } else {
-                test.setOtro(NO_RESPONDE);
+                test.setOtro(NO_ENVIA_RESPUESTA);
             }
 
             /*
@@ -746,11 +929,9 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             if (case8PositiveRadioButton.isChecked()) {
                 test.setInstalacionParalela(RESPONDE_SI);
             } else if (case8NegativeRadioButton.isChecked()) {
-                Log.d("TAG", "onClick: SI");
                 test.setInstalacionParalela(RESPONDE_NO);
-                Log.d("TAG", "onClick: NO");
             } else {
-                test.setInstalacionParalela(NO_RESPONDE);
+                test.setInstalacionParalela(NO_ENVIA_RESPUESTA);
             }
 
             if (case9PositiveRadioButton.isChecked()) {
@@ -758,7 +939,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (case9NegativeRadioButton.isChecked()) {
                 test.setBypass(RESPONDE_NO);
             } else {
-                test.setBypass(NO_RESPONDE);
+                test.setBypass(NO_ENVIA_RESPUESTA);
             }
 
             if (case10PositiveRadioButton.isChecked()) {
@@ -767,20 +948,17 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             } else if (case10NegativeRadioButton.isChecked()) {
                 test.setOtro2(RESPONDE_NO);
             } else {
-                test.setOtro2(NO_RESPONDE);
+                test.setOtro2(NO_ENVIA_RESPUESTA);
             }
 
             db.guardaDatosTestParte1(test, idInspeccion);
-
             callback.IdInspeccionEjecutaTestParte2(idInspeccion);
         }
     }
 
-
     private Intent callCamera(String photoName) {
 
         this.photoName = photoName;
-
         String[] permissions = new String[]{
                 Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -802,128 +980,186 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
 
         try {
             localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), photoName, idInspeccion + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
-
             switch (photoName) {
-
                 case USO_IMANES_1:
                     foto.setUsoImanes1(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    usoImanesPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoImanes1()).into(usoImanesPreview1);
                     break;
                 case USO_IMANES_2:
                     foto.setUsoImanes2(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    usoImanesPreview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoImanes2()).into(usoImanesPreview2);
                     break;
                 case USO_IMANES_3:
                     foto.setUsoImanes3(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    usoImanesPreview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoImanes3()).into(usoImanesPreview3);
                     break;
                 case INVERTIR_TOMAS_1:
                     foto.setInvertirTomas1(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    invertirTomasPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getInvertirTomas1()).into(invertirTomasPreview1);
                     break;
                 case INVERTIR_TOMAS_2:
                     foto.setInvertirTomas2(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    invertirTomasPreview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getInvertirTomas2()).into(invertirTomasPreview2);
                     break;
                 case INVERTIR_TOMAS_3:
                     foto.setInvertirTomas3(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    invertirTomasPreview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getInvertirTomas3()).into(invertirTomasPreview3);
                     break;
                 case PERFORA_CUPULA_1:
                     foto.setPerforaCupula1(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    perforaCupulaPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getPerforaCupula1()).into(perforaCupulaPreview1);
                     break;
                 case PERFORA_CUPULA_2:
                     foto.setPerforaCupula2(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    perforaCupulaPreview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getPerforaCupula2()).into(perforaCupulaPreview2);
                     break;
                 case PERFORA_CUPULA_3:
                     foto.setPerforaCupula3(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    perforaCupulaPreview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getPerforaCupula3()).into(perforaCupulaPreview3);
                     break;
                 case CORTA_ENGRANAJE_1:
                     foto.setCortaEngrnaje1(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    engranajePreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getCortaEngrnaje1()).into(engranajePreview1);
                     break;
                 case CORTA_ENGRANAJE_2:
                     foto.setCortaEngrnaje2(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    engranajePreview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getCortaEngrnaje2()).into(engranajePreview2);
                     break;
                 case CORTA_ENGRANAJE_3:
                     foto.setCortaEngrnaje3(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    engranajePreview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getCortaEngrnaje3()).into(engranajePreview3);
                     break;
                 case USO_ALAMBRE_1:
                     foto.setUsoAlambre1(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    alambresPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoAlambre1()).into(alambresPreview1);
                     break;
                 case USO_ALAMBRE_2:
                     foto.setUsoAlambre2(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    alambresPreview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoAlambre2()).into(alambresPreview2);
                     break;
                 case USO_ALAMBRE_3:
                     foto.setUsoAlambre3(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    alambresPreview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getUsoAlambre3()).into(alambresPreview3);
                     break;
                 case PRENSADO_1:
                     foto.setPrensado1(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    prensadoPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getPrensado1()).into(prensadoPreview1);
                     break;
                 case PRENSADO_2:
                     foto.setPrensado2(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    prensadoPreview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getPrensado2()).into(prensadoPreview2);
                     break;
                 case PRENSADO_3:
                     foto.setPrensado3(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    prensadoPreview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getPrensado3()).into(prensadoPreview3);
                     break;
                 case OTROS_1_1:
                     foto.setOtro11(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    otros1Preview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro11()).into(otros1Preview1);
                     break;
                 case OTROS_1_2:
                     foto.setOtro12(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    otros1Preview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro12()).into(otros1Preview2);
                     break;
                 case OTROS_1_3:
                     foto.setOtro13(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    otros1Preview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro13()).into(otros1Preview3);
                     break;
                 case INSTALACION_PARALELA_1:
                     foto.setInstalacionParalela1(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    instalacionParalelaPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getInstalacionParalela1()).into(instalacionParalelaPreview1);
                     break;
                 case INSTALACION_PARALELA_2:
                     foto.setInstalacionParalela2(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    instalacionParalelaPreview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getInstalacionParalela2()).into(instalacionParalelaPreview2);
                     break;
                 case INSTALACION_PARALELA_3:
                     foto.setInstalacionParalela3(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    instalacionParalelaPreview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getInstalacionParalela3()).into(instalacionParalelaPreview3);
                     break;
                 case BYPASS_1:
                     foto.setBypass1(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    bypassPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getBypass1()).into(bypassPreview1);
                     break;
                 case BYPASS_2:
                     foto.setBypass2(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    bypassPreview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getBypass2()).into(bypassPreview2);
                     break;
                 case BYPASS_3:
                     foto.setBypass3(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    bypassPreview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getBypass3()).into(bypassPreview3);
                     break;
                 case OTROS_2_1:
                     foto.setOtro21(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    otros2Preview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro21()).into(otros2Preview1);
                     break;
                 case OTROS_2_2:
                     foto.setOtro22(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    otros2Preview2.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro22()).into(otros2Preview2);
                     break;
                 case OTROS_2_3:
                     foto.setOtro23(localPath);
                     db.guardaFoto(foto, idInspeccion);
+                    otros2Preview3.setVisibility(View.VISIBLE);
+                    Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro23()).into(otros2Preview3);
                     break;
             }
 
@@ -978,22 +1214,9 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         ocultaFotosAlambresLl = view.findViewById(R.id.ocultaFotosAlambresLl);
         ocultaFotosPrensadoLl = view.findViewById(R.id.ocultaFotosPrensadoLl);
         ocultaFotosOtros12Ll = view.findViewById(R.id.ocultaFotosOtros12Ll);
-
-        usoImanesPreview1 = view.findViewById(R.id.usoImanesPreview1);
-        usoImanesPreview2 = view.findViewById(R.id.usoImanesPreview2);
-        usoImanesPreview3 = view.findViewById(R.id.usoImanesPreview3);
-        engranajePreview1 = view.findViewById(R.id.engranajePreview1);
-        engranajePreview2 = view.findViewById(R.id.engranajePreview2);
-        engranajePreview3 = view.findViewById(R.id.engranajePreview3);
-        alambresPreview1 = view.findViewById(R.id.alambresPreview1);
-        alambresPreview2 = view.findViewById(R.id.alambresPreview2);
-        alambresPreview3 = view.findViewById(R.id.alambresPreview3);
-        prensadoPreview1 = view.findViewById(R.id.prensadoPreview1);
-        prensadoPreview2 = view.findViewById(R.id.prensadoPreview2);
-        prensadoPreview3 = view.findViewById(R.id.prensadoPreview3);
-        otros12Preview1 = view.findViewById(R.id.otros12Preview1);
-        otros12Preview2 = view.findViewById(R.id.otros12Preview2);
-        otros12Preview3 = view.findViewById(R.id.otros12Preview3);
+        ocultaFotosInstParalelaLl = view.findViewById(R.id.ocultaFotosInstParalelaLl);
+        ocultaFotosBypassLl = view.findViewById(R.id.ocultaFotosBypassLl);
+        ocultaFotosOtros13Ll = view.findViewById(R.id.ocultaFotosOtros13Ll);
 
         usoImanesFoto1 = view.findViewById(R.id.usoImanesFoto1);
         usoImanesFoto2 = view.findViewById(R.id.usoImanesFoto2);
@@ -1016,36 +1239,96 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         otrosFoto11 = view.findViewById(R.id.otrosFoto11);
         otrosFoto12 = view.findViewById(R.id.otrosFoto12);
         otrosFoto13 = view.findViewById(R.id.otrosFoto13);
-
         instalacionParalelaFoto1 = view.findViewById(R.id.instalacionParalelaFoto1);
         instalacionParalelaFoto2 = view.findViewById(R.id.instalacionParalelaFoto2);
         instalacionParalelaFoto3 = view.findViewById(R.id.instalacionParalelaFoto3);
-
         bypassFoto1 = view.findViewById(R.id.bypassFoto1);
         bypassFoto2 = view.findViewById(R.id.bypassFoto2);
         bypassFoto3 = view.findViewById(R.id.bypassFoto3);
-
         otroFoto21 = view.findViewById(R.id.otroFoto21);
         otroFoto22 = view.findViewById(R.id.otroFoto22);
         otroFoto23 = view.findViewById(R.id.otroFoto23);
 
-        ocultaFotosInstParalelaLl = view.findViewById(R.id.ocultaFotosInstParalelaLl);
-        ocultaFotosBypassLl = view.findViewById(R.id.ocultaFotosBypassLl);
-        ocultaFotosOtros13Ll = view.findViewById(R.id.ocultaFotosOtros13Ll);
-
-        intervensionRedPreview1 = view.findViewById(R.id.intervensionRedPreview1);
-        intervensionRedPreview2 = view.findViewById(R.id.intervensionRedPreview2);
-        intervensionRedPreview3 = view.findViewById(R.id.intervensionRedPreview3);
-
+        usoImanesPreview1 = view.findViewById(R.id.usoImanesPreview1);
+        usoImanesPreview2 = view.findViewById(R.id.usoImanesPreview2);
+        usoImanesPreview3 = view.findViewById(R.id.usoImanesPreview3);
+        invertirTomasPreview1 = view.findViewById(R.id.invertirTomasPreview1);
+        invertirTomasPreview2 = view.findViewById(R.id.invertirTomasPreview2);
+        invertirTomasPreview3 = view.findViewById(R.id.invertirTomasPreview3);
+        engranajePreview1 = view.findViewById(R.id.engranajePreview1);
+        engranajePreview2 = view.findViewById(R.id.engranajePreview2);
+        engranajePreview3 = view.findViewById(R.id.engranajePreview3);
+        perforaCupulaPreview1 = view.findViewById(R.id.perforaCupulaPreview1);
+        perforaCupulaPreview2 = view.findViewById(R.id.perforaCupulaPreview2);
+        perforaCupulaPreview3 = view.findViewById(R.id.perforaCupulaPreview3);
+        alambresPreview1 = view.findViewById(R.id.alambresPreview1);
+        alambresPreview2 = view.findViewById(R.id.alambresPreview2);
+        alambresPreview3 = view.findViewById(R.id.alambresPreview3);
+        prensadoPreview1 = view.findViewById(R.id.prensadoPreview1);
+        prensadoPreview2 = view.findViewById(R.id.prensadoPreview2);
+        prensadoPreview3 = view.findViewById(R.id.prensadoPreview3);
+        otros1Preview1 = view.findViewById(R.id.otros1Preview1);
+        otros1Preview2 = view.findViewById(R.id.otros1Preview2);
+        otros1Preview3 = view.findViewById(R.id.otros1Preview3);
+        instalacionParalelaPreview1 = view.findViewById(R.id.instalacionParalelaPreview1);
+        instalacionParalelaPreview2 = view.findViewById(R.id.instalacionParalelaPreview2);
+        instalacionParalelaPreview3 = view.findViewById(R.id.instalacionParalelaPreview3);
         bypassPreview1 = view.findViewById(R.id.bypassPreview1);
         bypassPreview2 = view.findViewById(R.id.bypassPreview2);
         bypassPreview3 = view.findViewById(R.id.bypassPreview3);
-
-        otroPreview1 = view.findViewById(R.id.otroPreview1);
-        otroPreview2 = view.findViewById(R.id.otroPreview2);
-        otroPreview3 = view.findViewById(R.id.otroPreview3);
+        otros2Preview1 = view.findViewById(R.id.otros2Preview1);
+        otros2Preview2 = view.findViewById(R.id.otros2Preview2);
+        otros2Preview3 = view.findViewById(R.id.otros2Preview3);
 
         otroFotoEditText = view.findViewById(R.id.otroFotoEditText);
         saveButton = view.findViewById(R.id.saveButton);
+
+        /* Vistas que se inician ocultas*/
+
+        ocultaFotosImanesLl.setVisibility(View.GONE);
+        ocultaFotosInvertirTomasLl.setVisibility(View.GONE);
+        ocultaFotosCupulaLl.setVisibility(View.GONE);
+        ocultaFotosEngranajeLl.setVisibility(View.GONE);
+        ocultaFotosAlambresLl.setVisibility(View.GONE);
+        ocultaFotosPrensadoLl.setVisibility(View.GONE);
+        ocultaFotosOtros12Ll.setVisibility(View.GONE);
+
+        ocultaFotosInstParalelaLl.setVisibility(View.GONE);
+        ocultaFotosBypassLl.setVisibility(View.GONE);
+        ocultaFotosOtros13Ll.setVisibility(View.GONE);
+
+        usoImanesPreview1.setVisibility(View.GONE);
+        usoImanesPreview2.setVisibility(View.GONE);
+        usoImanesPreview3.setVisibility(View.GONE);
+        invertirTomasPreview1.setVisibility(View.GONE);
+        invertirTomasPreview2.setVisibility(View.GONE);
+        invertirTomasPreview3.setVisibility(View.GONE);
+        perforaCupulaPreview1.setVisibility(View.GONE);
+        perforaCupulaPreview2.setVisibility(View.GONE);
+        perforaCupulaPreview3.setVisibility(View.GONE);
+        engranajePreview1.setVisibility(View.GONE);
+        engranajePreview2.setVisibility(View.GONE);
+        engranajePreview3.setVisibility(View.GONE);
+        alambresPreview1.setVisibility(View.GONE);
+        alambresPreview2.setVisibility(View.GONE);
+        alambresPreview3.setVisibility(View.GONE);
+        prensadoPreview1.setVisibility(View.GONE);
+        prensadoPreview2.setVisibility(View.GONE);
+        prensadoPreview3.setVisibility(View.GONE);
+        otros1Preview1.setVisibility(View.GONE);
+        otros1Preview2.setVisibility(View.GONE);
+        otros1Preview3.setVisibility(View.GONE);
+        instalacionParalelaPreview1.setVisibility(View.GONE);
+        instalacionParalelaPreview2.setVisibility(View.GONE);
+        instalacionParalelaPreview3.setVisibility(View.GONE);
+        bypassPreview1.setVisibility(View.GONE);
+        bypassPreview2.setVisibility(View.GONE);
+        bypassPreview3.setVisibility(View.GONE);
+        otros2Preview1.setVisibility(View.GONE);
+        otros2Preview2.setVisibility(View.GONE);
+        otros2Preview3.setVisibility(View.GONE);
+
+        otro12EditText.setVisibility(View.GONE);
+        otroFotoEditText.setVisibility(View.GONE);
     }
 }

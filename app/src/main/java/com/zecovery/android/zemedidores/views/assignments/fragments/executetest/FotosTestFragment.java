@@ -31,9 +31,17 @@ import com.zecovery.android.zemedidores.views.assignments.fragments.IdInspeccion
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.zecovery.android.zemedidores.data.Constant.FACHADA_PROPIEDAD;
 import static com.zecovery.android.zemedidores.data.Constant.FOLDER_ZE_MEDIDORES;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION_FORMULARIO_FOTOS;
+import static com.zecovery.android.zemedidores.data.Constant.LECTURA_MEDIDOR;
+import static com.zecovery.android.zemedidores.data.Constant.MEDIDOR_DESCOMPUESTO;
+import static com.zecovery.android.zemedidores.data.Constant.NUMERO_MEDIDOR;
+import static com.zecovery.android.zemedidores.data.Constant.NUMERO_PROPIEDAD;
+import static com.zecovery.android.zemedidores.data.Constant.PANORAMICA_MEDIDOR;
 import static com.zecovery.android.zemedidores.data.Constant.RESIZE_PHOTO_PIXELS_PERCENTAGE;
+import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_NO;
+import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_SI;
 
 public class FotosTestFragment extends Fragment implements View.OnClickListener {
 
@@ -46,11 +54,13 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
     private RadioButton positiveRadioButton;
     private RadioButton negativeRadioButton;
     private Button continueTestButton;
-    private EditText meterLocationEditText;
-    private EditText brokenMeterCommentEditText;
+
+    private EditText ubicacionMedidorEditText;
+    private EditText fallaMedidorEditText;
     private EditText numeroMedidorEditText;
     private EditText diametroMedidorEditText;
     private EditText lecturaMedidorEditText;
+
     private CircleImageView imagePreviewMedidorRoto;
     private CircleImageView imagePreviewLecturaMedidor;
     private CircleImageView imagePreviewNumeroMedidor;
@@ -59,7 +69,7 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
     private CircleImageView imagePreviewFachadaPropiedad;
 
     private LinearLayout datosMedidorLinerLayout;
-    private LinearLayout brokenMeterLinearLayout;
+    private LinearLayout medidorRotoLinearLayout;
     private LinearLayout mandatoryPhotosLinearLayout;
 
     private MagicalCamera magicalCamera;
@@ -68,7 +78,7 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
     private LocalDatabase db;
 
     private int idInspeccion;
-    private String photoName;
+    private String nombreFoto;
     private String localPath;
 
     public FotosTestFragment() {
@@ -97,17 +107,10 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
         idInspeccion = getArguments().getInt(ID_INSPECCION_FORMULARIO_FOTOS);
         findViews(view);
 
-        datosMedidorLinerLayout.setVisibility(View.GONE);
-
-        continueTestButton.setOnClickListener(this);
-
         db = new LocalDatabase(getContext());
 
-        brokenMeterLinearLayout.setVisibility(View.GONE);
-        mandatoryPhotosLinearLayout.setVisibility(View.GONE);
-
+        continueTestButton.setOnClickListener(this);
         photoMeterReading.setOnClickListener(this);
-        brokenMeterLinearLayout.setOnClickListener(this);
         photoMeterNumber.setOnClickListener(this);
         photoMeterPanoramic.setOnClickListener(this);
         photoPropertyNumber.setOnClickListener(this);
@@ -118,11 +121,11 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    brokenMeterLinearLayout.setVisibility(View.VISIBLE);
+                    medidorRotoLinearLayout.setVisibility(View.VISIBLE);
                     datosMedidorLinerLayout.setVisibility(View.GONE);
                 } else {
                     datosMedidorLinerLayout.setVisibility(View.VISIBLE);
-                    brokenMeterLinearLayout.setVisibility(View.GONE);
+                    medidorRotoLinearLayout.setVisibility(View.GONE);
                 }
             }
         });
@@ -169,6 +172,46 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
             imagePreviewFachadaPropiedad.setVisibility(View.VISIBLE);
             Glide.with(getContext()).load(db.getFotos(idInspeccion).getFachadaPropiedad()).into(imagePreviewFachadaPropiedad);
         }
+
+        if (db.getDatosMedidor(idInspeccion).getUbicacion() != null && !db.getDatosMedidor(idInspeccion).getUbicacion().equals("null")) {
+            ubicacionMedidorEditText.setText(db.getDatosMedidor(idInspeccion).getUbicacion());
+        } else {
+            ubicacionMedidorEditText.setText("");
+        }
+
+        if (db.getDatosMedidor(idInspeccion).getDescripcionFalla() != null && !db.getDatosMedidor(idInspeccion).getDescripcionFalla().equals("null")) {
+            fallaMedidorEditText.setText(db.getDatosMedidor(idInspeccion).getDescripcionFalla());
+        } else {
+            fallaMedidorEditText.setText("");
+        }
+
+        if (db.getDatosMedidor(idInspeccion).getNumeroMedidor() != null && !db.getDatosMedidor(idInspeccion).getNumeroMedidor().equals("null")) {
+            numeroMedidorEditText.setText(db.getDatosMedidor(idInspeccion).getNumeroMedidor());
+        } else {
+            numeroMedidorEditText.setText("");
+        }
+
+        if (db.getDatosMedidor(idInspeccion).getDiametroMedidor() != null && !db.getDatosMedidor(idInspeccion).getDiametroMedidor().equals("null")) {
+            diametroMedidorEditText.setText(db.getDatosMedidor(idInspeccion).getDiametroMedidor());
+        } else {
+            diametroMedidorEditText.setText("");
+        }
+
+        if (db.getDatosMedidor(idInspeccion).getLecturaMedidor() != null && !db.getDatosMedidor(idInspeccion).getLecturaMedidor().equals("null")) {
+            lecturaMedidorEditText.setText(db.getDatosMedidor(idInspeccion).getLecturaMedidor());
+        } else {
+            lecturaMedidorEditText.setText("");
+        }
+
+        if (db.getDatosMedidor(idInspeccion).getEstado() != null) {
+            if (db.getDatosMedidor(idInspeccion).getEstado().equals(RESPONDE_SI)) {
+                positiveRadioButton.setChecked(true);
+                medidorRotoLinearLayout.setVisibility(View.VISIBLE);
+            } else {
+                negativeRadioButton.setChecked(true);
+                datosMedidorLinerLayout.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
@@ -188,9 +231,9 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    private Intent callCamera(String photoName) {
+    private Intent callCamera(String nombreFoto) {
 
-        this.photoName = photoName;
+        this.nombreFoto = nombreFoto;
 
         String[] permissions = new String[]{
                 Manifest.permission.CAMERA,
@@ -208,56 +251,49 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-        Log.d("TAG", "requestCode: " + requestCode);
-        Log.d("TAG", "resultCode: " + resultCode);
-
-
         magicalCamera.resultPhoto(requestCode, resultCode, data);
 
         try {
 
-            localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), photoName, idInspeccion + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
-            String localPathParts[] = localPath.split("/");
-            //localPhotoName = localPathParts[7];
+            localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), nombreFoto, idInspeccion + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
 
             Foto foto = new Foto();
 
-            Log.d("TAG", "photoName: " + photoName);
+            Log.d("TAG", "nombreFoto: " + nombreFoto);
 
-            switch (photoName) {
+            switch (nombreFoto) {
 
-                case "medidor_descompuesto":
+                case MEDIDOR_DESCOMPUESTO:
                     foto.setFallaMedidor(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     imagePreviewMedidorRoto.setVisibility(View.VISIBLE);
                     Glide.with(getContext()).load(db.getFotos(idInspeccion).getFallaMedidor()).into(imagePreviewMedidorRoto);
                     break;
-                case "lectura_medidor":
+                case LECTURA_MEDIDOR:
                     foto.setLecturaMedidor(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     imagePreviewLecturaMedidor.setVisibility(View.VISIBLE);
                     Glide.with(getContext()).load(db.getFotos(idInspeccion).getLecturaMedidor()).into(imagePreviewLecturaMedidor);
                     break;
-                case "numero_medidor":
+                case NUMERO_MEDIDOR:
                     foto.setNumeroMedidor(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     imagePreviewNumeroMedidor.setVisibility(View.VISIBLE);
                     Glide.with(getContext()).load(db.getFotos(idInspeccion).getNumeroMedidor()).into(imagePreviewNumeroMedidor);
                     break;
-                case "panoramica_medidor":
+                case PANORAMICA_MEDIDOR:
                     foto.setPanoramicaMedidor(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     imagePreviewPanoMedidor.setVisibility(View.VISIBLE);
                     Glide.with(getContext()).load(db.getFotos(idInspeccion).getPanoramicaMedidor()).into(imagePreviewPanoMedidor);
                     break;
-                case "numero_propiedad":
+                case NUMERO_PROPIEDAD:
                     foto.setNumeroPropiedad(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     imagePreviewNumeroPropiedad.setVisibility(View.VISIBLE);
                     Glide.with(getContext()).load(db.getFotos(idInspeccion).getNumeroPropiedad()).into(imagePreviewNumeroPropiedad);
                     break;
-                case "fachada_propiedad":
+                case FACHADA_PROPIEDAD:
                     foto.setFachadaPropiedad(localPath);
                     db.guardaFoto(foto, idInspeccion);
                     imagePreviewFachadaPropiedad.setVisibility(View.VISIBLE);
@@ -281,45 +317,44 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
 
         int id = v.getId();
 
-        if (meterLocationEditText.getText().length() == 0) {
+        if (ubicacionMedidorEditText.getText().length() == 0) {
             ubicacionMedidor = true;
-            meterLocationEditText.setError("Debe especificar la ubicacion del medidor");
+            ubicacionMedidorEditText.setError(getResources().getString(R.string.validacion_ubicacion_medidor));
         } else {
             ubicacionMedidor = false;
         }
 
         if (numeroMedidorEditText.getText().length() == 0) {
             numeroMedidorBool = true;
-            numeroMedidorEditText.setError("Debe especificar el numero de medidor");
+            numeroMedidorEditText.setError(getResources().getString(R.string.validacion_numero_medidor));
         } else {
             numeroMedidorBool = false;
         }
 
         if (diametroMedidorEditText.getText().length() == 0) {
             diametroMedidorBool = true;
-            diametroMedidorEditText.setError("Debe especificar el diametro del medidor");
+            diametroMedidorEditText.setError(getResources().getString(R.string.validacion_diametro_medidor));
         } else {
             diametroMedidorBool = false;
         }
 
         if (lecturaMedidorEditText.getText().length() == 0) {
             lecturaMedidorBool = true;
-            lecturaMedidorEditText.setError("Debe especificar la lectura del medidor");
+            lecturaMedidorEditText.setError(getResources().getString(R.string.validacion_lectura_medidor));
         } else {
             lecturaMedidorBool = false;
         }
 
         if (positiveRadioButton.isChecked()) {
-
-            if (brokenMeterCommentEditText.getText().length() == 0) {
+            if (fallaMedidorEditText.getText().length() == 0) {
                 medidorDescompuesto = true;
-                brokenMeterCommentEditText.setError("Debe especificar la falla del medidor");
+                fallaMedidorEditText.setError(getResources().getString(R.string.validacion_falla_medidor));
             } else {
                 medidorDescompuesto = false;
             }
 
             if (id == R.id.brokenMeterPhoto) {
-                callCamera("medidor_descompuesto");
+                callCamera(MEDIDOR_DESCOMPUESTO);
             }
 
             numeroMedidorBool = false;
@@ -331,32 +366,31 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
             medidorDescompuesto = false;
 
             switch (id) {
-
                 case R.id.photoMeterReading:
-                    photoName = "lectura_medidor";
-                    callCamera(photoName);
+                    nombreFoto = LECTURA_MEDIDOR;
+                    callCamera(nombreFoto);
                     break;
                 case R.id.photoMeterNumber:
-                    photoName = "numero_medidor";
-                    callCamera(photoName);
+                    nombreFoto = NUMERO_MEDIDOR;
+                    callCamera(nombreFoto);
                     break;
                 case R.id.photoMeterPanoramic:
-                    photoName = "panoramica_medidor";
-                    callCamera(photoName);
+                    nombreFoto = PANORAMICA_MEDIDOR;
+                    callCamera(nombreFoto);
                     break;
                 case R.id.photoPropertyNumber:
-                    photoName = "numero_propiedad";
-                    callCamera(photoName);
+                    nombreFoto = NUMERO_PROPIEDAD;
+                    callCamera(nombreFoto);
                     break;
                 case R.id.photoFrontageProperty:
-                    photoName = "fachada_propiedad";
-                    callCamera(photoName);
+                    nombreFoto = FACHADA_PROPIEDAD;
+                    callCamera(nombreFoto);
                     break;
             }
 
         } else {
             medidorDescompuesto = false;
-            Toast.makeText(getContext(), "Debe indicar si el medidor está descompuesto o no", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.validacion_estado_medidor, Toast.LENGTH_SHORT).show();
         }
 
         if (id == R.id.continueTestButton) {
@@ -374,12 +408,12 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                     !medidorDescompuesto &&
                     fotoFalla != null) {
 
-                String failureComment = brokenMeterCommentEditText.getText().toString();
-                String meterLocation = meterLocationEditText.getText().toString();
+                String failureComment = fallaMedidorEditText.getText().toString();
+                String meterLocation = ubicacionMedidorEditText.getText().toString();
 
                 Medidor medidor = new Medidor();
                 medidor.setUbicacion(meterLocation);
-                medidor.setEstado("si");
+                medidor.setEstado(RESPONDE_SI);
                 medidor.setDescripcionFalla(failureComment);
 
                 db.guardaDatosMedidor(medidor, idInspeccion);
@@ -399,7 +433,7 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                     fotoFachada != null
                     ) {
 
-                String ubicacion = meterLocationEditText.getText().toString();
+                String ubicacion = ubicacionMedidorEditText.getText().toString();
                 String numero = numeroMedidorEditText.getText().toString();
                 String diametro = diametroMedidorEditText.getText().toString();
                 String lectura = lecturaMedidorEditText.getText().toString();
@@ -409,7 +443,7 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                 medidor.setNumeroMedidor(numero);
                 medidor.setDiametroMedidor(diametro);
                 medidor.setLecturaMedidor(lectura);
-                medidor.setEstado("si");
+                medidor.setEstado(RESPONDE_NO);
                 medidor.setDescripcionFalla("");
                 db.guardaDatosMedidor(medidor, idInspeccion);
 
@@ -427,10 +461,10 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
         brokenMeterPhoto = view.findViewById(R.id.brokenMeterPhoto);
         positiveRadioButton = view.findViewById(R.id.positiveRadioButton);
         negativeRadioButton = view.findViewById(R.id.negativeRadioButton);
-        brokenMeterLinearLayout = view.findViewById(R.id.brokenMeterLinearLayout);
+        medidorRotoLinearLayout = view.findViewById(R.id.medidorRotoLinearLayout);
         mandatoryPhotosLinearLayout = view.findViewById(R.id.mandatoryPhotosLinearLayout);
-        meterLocationEditText = view.findViewById(R.id.meterLocationEditText);
-        brokenMeterCommentEditText = view.findViewById(R.id.brokenMeterCommentEditText);
+        ubicacionMedidorEditText = view.findViewById(R.id.ubicacionMedidorEditText);
+        fallaMedidorEditText = view.findViewById(R.id.fallaMedidorEditText);
         continueTestButton = view.findViewById(R.id.continueTestButton);
         imagePreviewMedidorRoto = view.findViewById(R.id.imagePreviewMedidorRoto);
         imagePreviewLecturaMedidor = view.findViewById(R.id.imagePreviewLecturaMedidor);
@@ -442,5 +476,10 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
         diametroMedidorEditText = view.findViewById(R.id.diametroMedidorEditText);
         lecturaMedidorEditText = view.findViewById(R.id.lecturaMedidorEditText);
         datosMedidorLinerLayout = view.findViewById(R.id.datosMedidorLinerLayout);
+
+        datosMedidorLinerLayout.setVisibility(View.GONE);
+        medidorRotoLinearLayout.setVisibility(View.GONE);
+        mandatoryPhotosLinearLayout.setVisibility(View.GONE);
+
     }
 }

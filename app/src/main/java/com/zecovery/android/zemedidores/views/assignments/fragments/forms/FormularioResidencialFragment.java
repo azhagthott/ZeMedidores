@@ -75,10 +75,7 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
 
         idInspeccion = getArguments().getInt(ID_INSPECCION, 0);
         db = new LocalDatabase(getContext());
-
         findViews(view);
-
-        Log.d("TAG", "onViewCreated: " + idInspeccion);
 
         saveButton.setOnClickListener(this);
 

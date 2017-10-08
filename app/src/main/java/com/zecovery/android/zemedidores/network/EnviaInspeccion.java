@@ -104,7 +104,6 @@ public class EnviaInspeccion {
         String numero_cliente = String.valueOf(resultado.getResidente().getNumeroCliente());
         String empresa_inspeccion = String.valueOf(resultado.getEmpresaInspeccion());
 
-
         RequestBody id_inspeccion_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(idInspeccion));
         RequestBody lat_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().latitude));
         RequestBody lng_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().longitude));
