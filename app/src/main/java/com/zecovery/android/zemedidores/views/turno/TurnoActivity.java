@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.views.MainActivity;
+import com.zecovery.android.zemedidores.views.assignments.fragments.executetest.ProgressAlertDialogFragment;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
 
 import java.util.List;
@@ -38,7 +39,6 @@ public class TurnoActivity extends AppCompatActivity implements IniciaTurnoCallb
 
     private static final int RC_LOCATION_AND_CAMERA = 124;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +47,8 @@ public class TurnoActivity extends AppCompatActivity implements IniciaTurnoCallb
         setSupportActionBar(toolbar);
 
         locationAndContactsTask();
+
+        new ProgressAlertDialogFragment();
 
         Button button = findViewById(R.id.initShiftButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +96,8 @@ public class TurnoActivity extends AppCompatActivity implements IniciaTurnoCallb
 
     @Override
     public void iniciaTurnoError() {
-        FirebaseCrash.report(new Exception("No se puede iniciar turno"));
+        FirebaseCrash.report(new Exception(getResources().getString(R.string.validacion_falla_iniciar_turno)));
     }
-
 
     private boolean hasLocationAndCameraPermissions() {
         return EasyPermissions.hasPermissions(this, LOCATION_AND_CAMERA);

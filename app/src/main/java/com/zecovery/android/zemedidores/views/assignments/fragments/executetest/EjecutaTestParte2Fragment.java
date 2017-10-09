@@ -19,7 +19,16 @@ import com.zecovery.android.zemedidores.models.TestParte2;
 import com.zecovery.android.zemedidores.views.assignments.fragments.IdInspeccionListener;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION_EJECUTA_TEST_2;
-import static com.zecovery.android.zemedidores.data.Constant.TAG;
+import static com.zecovery.android.zemedidores.data.Constant.NO_ENVIA_RESPUESTA;
+import static com.zecovery.android.zemedidores.data.Constant.OPCION_A;
+import static com.zecovery.android.zemedidores.data.Constant.OPCION_AEREA;
+import static com.zecovery.android.zemedidores.data.Constant.OPCION_B;
+import static com.zecovery.android.zemedidores.data.Constant.OPCION_C;
+import static com.zecovery.android.zemedidores.data.Constant.OPCION_CUVI;
+import static com.zecovery.android.zemedidores.data.Constant.OPCION_PLASTICO;
+import static com.zecovery.android.zemedidores.data.Constant.OPCION_SUBTERRANEA;
+import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_NO;
+import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_SI;
 
 public class EjecutaTestParte2Fragment extends Fragment implements View.OnClickListener {
 
@@ -40,7 +49,6 @@ public class EjecutaTestParte2Fragment extends Fragment implements View.OnClickL
     private RadioButton alternativeNoRadioButton;
     private RadioButton typeYesRadioButton;
     private RadioButton typeNoRadioButton;
-
 
     private EditText yearEditText;
     private EditText modelEditText;
@@ -75,14 +83,119 @@ public class EjecutaTestParte2Fragment extends Fragment implements View.OnClickL
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        idInspeccion = getArguments().getInt(ID_INSPECCION_EJECUTA_TEST_2);
-        findViews(view);
-        Log.d(TAG, "EjecutaTestParte2Fragment");
-        Log.d(TAG, "idInspeccion: " + idInspeccion);
 
+        idInspeccion = getArguments().getInt(ID_INSPECCION_EJECUTA_TEST_2);
+
+        findViews(view);
         db = new LocalDatabase(getContext());
 
+        Log.d("TAG", "EjecutaTestParte2Fragment");
+        Log.d("TAG", "idInspeccion: " + idInspeccion);
+
         saveButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity) {
+
+            try {
+                Activity activity = (Activity) context;
+                callback = (IdInspeccionListener) activity;
+            } catch (Exception e) {
+                Log.d("TAG", e.toString());
+                throw new ClassCastException(context.toString()
+                        + " must implement OnHeadlineSelectedListener");
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        TestParte2 test = new TestParte2();
+
+        if (classARadioButton.isChecked()) {
+            test.setClaseMedidor(OPCION_A);
+        } else if (classBRadioButton.isChecked()) {
+            test.setClaseMedidor(OPCION_B);
+        } else if (classCRadioButton.isChecked()) {
+            test.setClaseMedidor(OPCION_C);
+        } else {
+            test.setClaseMedidor(NO_ENVIA_RESPUESTA);
+        }
+
+        String year = yearEditText.getText().toString();
+        test.setAnoMedidor(year);
+
+        String marca = modelEditText.getText().toString();
+        test.setMarca(marca);
+
+        if (registerType1RadioButton.isChecked()) {
+            test.setRegistrador(OPCION_CUVI);
+        } else if (registerType2RadioButton.isChecked()) {
+            test.setRegistrador(OPCION_PLASTICO);
+        } else {
+            test.setRegistrador(NO_ENVIA_RESPUESTA);
+        }
+
+        if (position1RadioButton.isChecked()) {
+            test.setInstalacion(OPCION_AEREA);
+        } else if (position2RadioButton.isChecked()) {
+            test.setInstalacion(OPCION_SUBTERRANEA);
+        } else {
+            test.setInstalacion(NO_ENVIA_RESPUESTA);
+        }
+
+        if (beforeYesRadioButton.isChecked()) {
+            test.setTramoAntes(RESPONDE_SI);
+        } else if (beforeNoRadioButton.isChecked()) {
+            test.setTramoAntes(RESPONDE_NO);
+        } else {
+            test.setTramoAntes(NO_ENVIA_RESPUESTA);
+        }
+
+        if (afterYesRadioButton.isChecked()) {
+            test.setTramoDespues(RESPONDE_SI);
+        } else if (afterNoRadioButton.isChecked()) {
+            test.setTramoDespues(RESPONDE_NO);
+        } else {
+            test.setTramoDespues(NO_ENVIA_RESPUESTA);
+        }
+
+        String obs1 = obs1EditText.getText().toString();
+        test.setObservaciones(obs1);
+
+        String verticales = verticalStatusEditText.getText().toString();
+        test.setEstadoVerticales(verticales);
+
+        String cortes = cutStatusEditText.getText().toString();
+        test.setEstadoCortes(cortes);
+
+        if (alternativeYesRadioButton.isChecked()) {
+            test.setSuministroAlternativo(RESPONDE_SI);
+        } else if (alternativeNoRadioButton.isChecked()) {
+            test.setSuministroAlternativo(RESPONDE_NO);
+        } else {
+            test.setSuministroAlternativo(NO_ENVIA_RESPUESTA);
+        }
+
+        if (typeYesRadioButton.isChecked()) {
+            test.setCumplePlano(RESPONDE_SI);
+        } else if (typeNoRadioButton.isChecked()) {
+            test.setCumplePlano(RESPONDE_NO);
+        } else {
+            test.setCumplePlano(NO_ENVIA_RESPUESTA);
+        }
+
+        String obs2 = obs2EditText.getText().toString();
+        test.setObservaciones2(obs2);
+
+        db.guardaDatosTestParte2(test, idInspeccion);
+
+        callback.IdInspeccionEjecutaTestParte3(idInspeccion);
     }
 
     private void findViews(View view) {
@@ -115,111 +228,5 @@ public class EjecutaTestParte2Fragment extends Fragment implements View.OnClickL
         verticalStatusEditText = view.findViewById(R.id.verticalStatusEditText);
         cutStatusEditText = view.findViewById(R.id.cutStatusEditText);
 
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof Activity) {
-
-            try {
-                Activity activity = (Activity) context;
-                callback = (IdInspeccionListener) activity;
-            } catch (Exception e) {
-                Log.d("TAG", e.toString());
-                throw new ClassCastException(context.toString()
-                        + " must implement OnHeadlineSelectedListener");
-            }
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        TestParte2 test = new TestParte2();
-
-        if (classARadioButton.isChecked()) {
-            test.setClaseMedidor("A");
-        } else if (classBRadioButton.isChecked()) {
-            test.setClaseMedidor("B");
-        } else if (classCRadioButton.isChecked()) {
-            test.setClaseMedidor("C");
-        } else {
-            test.setClaseMedidor("No envia respuesta");
-        }
-
-        String year = yearEditText.getText().toString();
-        test.setAnoMedidor(year);
-
-        String marca = modelEditText.getText().toString();
-        test.setMarca(marca);
-
-        if (registerType1RadioButton.isChecked()) {
-            test.setRegistrador("CuVi");
-        } else if (registerType2RadioButton.isChecked()) {
-            test.setRegistrador("Plastico");
-        } else {
-            test.setRegistrador("No envia respuesta");
-        }
-
-        if (position1RadioButton.isChecked()) {
-            test.setInstalacion("Aerea");
-        } else if (position2RadioButton.isChecked()) {
-            test.setInstalacion("Subterranea");
-        } else {
-            test.setInstalacion("No envia respuesta");
-        }
-
-        if (beforeYesRadioButton.isChecked()) {
-            test.setTramoAntes("SI");
-        } else if (beforeNoRadioButton.isChecked()) {
-            test.setTramoAntes("NO");
-        } else {
-            test.setTramoAntes("No envia respuesta");
-        }
-
-
-        if (afterYesRadioButton.isChecked()) {
-            test.setTramoDespues("SI");
-        } else if (afterNoRadioButton.isChecked()) {
-            test.setTramoDespues("NO");
-        } else {
-            test.setTramoDespues("No envia respuesta");
-        }
-
-        String obs1 = obs1EditText.getText().toString();
-        test.setObservaciones(obs1);
-
-
-        String verticales = verticalStatusEditText.getText().toString();
-        test.setEstadoVerticales(verticales);
-
-        String cortes = cutStatusEditText.getText().toString();
-        test.setEstadoCortes(cortes);
-
-
-        if (alternativeYesRadioButton.isChecked()) {
-            test.setSuministroAlternativo("SI");
-        } else if (alternativeNoRadioButton.isChecked()) {
-            test.setSuministroAlternativo("NO");
-        } else {
-            test.setSuministroAlternativo("No envia respuesta");
-        }
-
-        if (typeYesRadioButton.isChecked()) {
-            test.setCumplePlano("SI");
-        } else if (typeNoRadioButton.isChecked()) {
-            test.setCumplePlano("NO");
-        } else {
-            test.setCumplePlano("No envia respuesta");
-        }
-
-        String obs2 = obs2EditText.getText().toString();
-        test.setObservaciones2(obs2);
-
-        db.guardaDatosTestParte2(test, idInspeccion);
-
-        callback.IdInspeccionEjecutaTestParte3(idInspeccion);
     }
 }

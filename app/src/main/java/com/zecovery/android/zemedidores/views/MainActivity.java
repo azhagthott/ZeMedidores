@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,15 +32,17 @@ import com.zecovery.android.zemedidores.views.settings.SettingsActivity;
 import java.util.List;
 import java.util.Random;
 
-import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.NUEVA;
+import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mainRecyclerView;
     private LocalDatabase db;
     private FloatingActionButton fab;
+    private SwipeRefreshLayout swiperefresh;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +50,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         mainRecyclerView = findViewById(R.id.mainRecyclerView);
+        swiperefresh = findViewById(R.id.swiperefresh);
+        progressBar = findViewById(R.id.progressBar);
+
+        db = new LocalDatabase(this);
+        swiperefresh.setOnRefreshListener(this);
 
         fab = findViewById(R.id.fab);
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,13 +67,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MainActivity", "idInspeccion: " + idInspeccion);
 
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                intent.putExtra(ASSIGNMENT_TYPE, NUEVA);
+                intent.putExtra(TIPO_INSPECCION, NUEVA);
                 intent.putExtra(ID_INSPECCION, idInspeccion);
                 startActivity(intent);
             }
         });
-
-        db = new LocalDatabase(this);
 
         new GetInspecciones(new InspeccionParams(123, new CurrentUser().email())).execute();
         setSupportActionBar(toolbar);
@@ -105,10 +111,23 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onRefresh() {
+        new GetInspecciones(new InspeccionParams(123, new CurrentUser().email())).execute();
+    }
+
     public class GetInspecciones extends ListaInspecciones {
 
         public GetInspecciones(InspeccionParams params) {
             super(params);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(true);
+            swiperefresh.setRefreshing(false);
         }
 
         @Override
@@ -122,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
             mainRecyclerView.setLayoutManager(linearLayoutManager);
             InspeccionAdapter adapter = new InspeccionAdapter(inspections);
             mainRecyclerView.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
+            swiperefresh.setRefreshing(false);
         }
     }
 }

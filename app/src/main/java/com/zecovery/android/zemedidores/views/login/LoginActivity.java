@@ -24,7 +24,9 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         FirebaseApp.initializeApp(this);
+
         new LoginValidation(this).init();
     }
 

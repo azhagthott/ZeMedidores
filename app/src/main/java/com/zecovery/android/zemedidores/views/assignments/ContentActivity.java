@@ -19,7 +19,7 @@ import com.zecovery.android.zemedidores.views.assignments.fragments.forms.Formul
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioNegociacionFragment;
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioResidencialFragment;
 
-import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
+import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.COMERCIAL;
 import static com.zecovery.android.zemedidores.data.Constant.EMPRESA;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
@@ -43,7 +43,7 @@ public class ContentActivity extends AppCompatActivity implements IdInspeccionLi
             Log.d("ContentActivity", "idInspeccion: " + idInspeccion);
 
 
-            switch (getIntent().getStringExtra(ASSIGNMENT_TYPE)) {
+            switch (getIntent().getStringExtra(TIPO_INSPECCION)) {
 
                 case NUEVA:
                     callFragment(new FormularioInspeccionNuevaFragment().newInstance(idInspeccion));

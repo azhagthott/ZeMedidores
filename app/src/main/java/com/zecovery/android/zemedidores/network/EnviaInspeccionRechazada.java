@@ -37,11 +37,9 @@ public class EnviaInspeccionRechazada {
 
         LocalDatabase db = new LocalDatabase(context);
 
-
         String status = "rechazo";
 
         RequestBody description = RequestBody.create(MediaType.parse("multipart/form-data"), status);
-
         RequestBody lat = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().latitude));
         RequestBody lng = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(db.getCurrentDbLocation().longitude));
 

@@ -187,17 +187,16 @@
     <string name="title_activity_about">Información</string>
     <string name="title_activity_nueva_inspeccion">NuevaInspeccionActivity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_conten_tabs">ContenTabsActivity</string>
-
-
+    <!-- UI Texto validaciones-->
     <string name="validacion_ubicacion_medidor">Debe especificar la ubicación del medidor</string>
     <string name="validacion_numero_medidor">Debe especificar el número de medidor</string>
     <string name="validacion_diametro_medidor">Debe especificar el diametro del medidor</string>
     <string name="validacion_lectura_medidor">Debe especificar la lectura del medidor</string>
     <string name="validacion_falla_medidor">Debe especificar la falla del medidor</string>
     <string name="validacion_estado_medidor">Debe indicar si el medidor está descompuesto o no</string>
+    <string name="validacion_falla_enviar_inspeccion">No se ha podido enviar inspección</string>
+    <string name="validacion_falla_iniciar_turno">No se puede iniciar turno</string>
 
+    <string name="enviando_inspeccion">Enviando inspección</string>
 
 </resources>

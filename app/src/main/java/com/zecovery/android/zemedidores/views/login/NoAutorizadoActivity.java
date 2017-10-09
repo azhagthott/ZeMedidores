@@ -32,7 +32,7 @@ public class NoAutorizadoActivity extends AppCompatActivity {
 
         Bundle params = new Bundle();
         params.putString("UNAUTHORIZED_EMAIL", email);
-        mFirebaseAnalytics.logEvent("UNAUTHORIZED", params);
+        mFirebaseAnalytics.logEvent("NO_AUTORIZADO", params);
     }
 
     @Override

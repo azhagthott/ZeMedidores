@@ -17,13 +17,13 @@ import com.zecovery.android.zemedidores.views.map.MapActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.zecovery.android.zemedidores.data.Constant.ADDRESS;
-import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
+import static com.zecovery.android.zemedidores.data.Constant.DIRECCION;
+import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.COMERCIAL;
 import static com.zecovery.android.zemedidores.data.Constant.EMPRESA;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
-import static com.zecovery.android.zemedidores.data.Constant.LATITUDE;
-import static com.zecovery.android.zemedidores.data.Constant.LONGITUDE;
+import static com.zecovery.android.zemedidores.data.Constant.LATITUD;
+import static com.zecovery.android.zemedidores.data.Constant.LONGITUD;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENCIAL;
 
 /**
@@ -57,8 +57,6 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
             holder.setColor(Color.BLACK);
         }
 
-
-
         holder.setAddress(inspection.getAddress());
 
         holder.inspectionLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -69,26 +67,26 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
 
                 switch (inspection.getAssigment_type()) {
                     case 1:
-                        intent.putExtra(ASSIGNMENT_TYPE, RESIDENCIAL);
-                        intent.putExtra(LATITUDE, inspection.getLat());
-                        intent.putExtra(LONGITUDE, inspection.getLng());
-                        intent.putExtra(ADDRESS, inspection.getAddress());
+                        intent.putExtra(TIPO_INSPECCION, RESIDENCIAL);
+                        intent.putExtra(LATITUD, inspection.getLat());
+                        intent.putExtra(LONGITUD, inspection.getLng());
+                        intent.putExtra(DIRECCION, inspection.getAddress());
                         intent.putExtra(ID_INSPECCION, inspection.getId_inspeccion());
                         context.startActivity(intent);
                         break;
                     case 2:
-                        intent.putExtra(ASSIGNMENT_TYPE, COMERCIAL);
-                        intent.putExtra(LATITUDE, inspection.getLat());
-                        intent.putExtra(LONGITUDE, inspection.getLng());
-                        intent.putExtra(ADDRESS, inspection.getAddress());
+                        intent.putExtra(TIPO_INSPECCION, COMERCIAL);
+                        intent.putExtra(LATITUD, inspection.getLat());
+                        intent.putExtra(LONGITUD, inspection.getLng());
+                        intent.putExtra(DIRECCION, inspection.getAddress());
                         intent.putExtra(ID_INSPECCION, inspection.getId_inspeccion());
                         context.startActivity(intent);
                         break;
                     case 3:
-                        intent.putExtra(ASSIGNMENT_TYPE, EMPRESA);
-                        intent.putExtra(LATITUDE, inspection.getLat());
-                        intent.putExtra(LONGITUDE, inspection.getLng());
-                        intent.putExtra(ADDRESS, inspection.getAddress());
+                        intent.putExtra(TIPO_INSPECCION, EMPRESA);
+                        intent.putExtra(LATITUD, inspection.getLat());
+                        intent.putExtra(LONGITUD, inspection.getLng());
+                        intent.putExtra(DIRECCION, inspection.getAddress());
                         intent.putExtra(ID_INSPECCION, inspection.getId_inspeccion());
                         context.startActivity(intent);
                         break;

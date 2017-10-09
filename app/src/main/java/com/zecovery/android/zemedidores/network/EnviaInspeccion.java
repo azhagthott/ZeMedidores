@@ -34,15 +34,23 @@ public class EnviaInspeccion {
         this.callback = callback;
     }
 
+    /**
+     * Envía inspección al servidor, obtiene los datos desde DB local
+     *
+     * @param context      contexto de ejecución del metodo
+     * @param idInspeccion id de inspeccion que se informará
+     */
     public void enviaInpeccion(Context context, int idInspeccion) {
 
         LocalDatabase db = new LocalDatabase(context);
         ResultadoInspeccion resultado = db.getResultadoInspeccion(idInspeccion);
 
+        /* Obtiene fecha actual */
         Calendar rightNow = Calendar.getInstance();
         int fechaAcutal = (int) (rightNow.getTimeInMillis() / 1000);
-        RequestBody fecha_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fechaAcutal));
+        RequestBody fecha_inspeccion_body = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fechaAcutal));
 
+        /* Obtiene valores desde DB y se definen para enviar */
         String test1 = resultado.getTestParte1().getTest1();
         String test2 = resultado.getTestParte1().getTest2();
         String test3 = resultado.getTestParte1().getTest3();
@@ -168,7 +176,6 @@ public class EnviaInspeccion {
         String email_inspector = new CurrentUser().email();
         RequestBody email_inspector_body = RequestBody.create(MediaType.parse("multipart/form-data"), email_inspector);
 
-
         MultipartBody.Part foto_falla_medidor;
         MultipartBody.Part foto_lectura_medidor;
         MultipartBody.Part foto_numero_medidor;
@@ -206,50 +213,51 @@ public class EnviaInspeccion {
         MultipartBody.Part foto_otros_2_2;
         MultipartBody.Part foto_otros_2_3;
 
+
         if (resultado.getFotos().getFallaMedidor() != null) {
-            File file_foto_falla = new File(resultado.getFotos().getFallaMedidor());
-            RequestBody requestFileFalla = RequestBody.create(MediaType.parse("image/*"), file_foto_falla);
-            foto_falla_medidor = MultipartBody.Part.createFormData("foto_falla_medidor", "foto_falla_medidor", requestFileFalla);
+            File file = new File(resultado.getFotos().getFallaMedidor());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_falla_medidor = MultipartBody.Part.createFormData("foto_falla_medidor", "foto_falla_medidor", requestFile);
         } else {
             foto_falla_medidor = null;
         }
 
         if (resultado.getFotos().getLecturaMedidor() != null) {
-            File file_foto_lectura_medidor = new File(resultado.getFotos().getLecturaMedidor());
-            RequestBody requestFileLectura = RequestBody.create(MediaType.parse("image/*"), file_foto_lectura_medidor);
-            foto_lectura_medidor = MultipartBody.Part.createFormData("foto_lectura_medidor", "foto_lectura_medidor", requestFileLectura);
+            File file = new File(resultado.getFotos().getLecturaMedidor());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_lectura_medidor = MultipartBody.Part.createFormData("foto_lectura_medidor", "foto_lectura_medidor", requestFile);
         } else {
             foto_lectura_medidor = null;
         }
 
         if (resultado.getFotos().getNumeroMedidor() != null) {
-            File file_foto_numero_medidor = new File(resultado.getFotos().getNumeroMedidor());
-            RequestBody requestFileNumeroMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_medidor);
-            foto_numero_medidor = MultipartBody.Part.createFormData("foto_numero_medidor", "foto_numero_medidor", requestFileNumeroMedidor);
+            File file = new File(resultado.getFotos().getNumeroMedidor());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_numero_medidor = MultipartBody.Part.createFormData("foto_numero_medidor", "foto_numero_medidor", requestFile);
         } else {
             foto_numero_medidor = null;
         }
 
         if (resultado.getFotos().getPanoramicaMedidor() != null) {
             File file_foto_panoramica_medidor = new File(resultado.getFotos().getPanoramicaMedidor());
-            RequestBody requestFilePanoMedidor = RequestBody.create(MediaType.parse("image/*"), file_foto_panoramica_medidor);
-            foto_panoramica_medidor = MultipartBody.Part.createFormData("foto_panoramica_medidor", "foto_panoramica_medidor", requestFilePanoMedidor);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file_foto_panoramica_medidor);
+            foto_panoramica_medidor = MultipartBody.Part.createFormData("foto_panoramica_medidor", "foto_panoramica_medidor", requestFile);
         } else {
             foto_panoramica_medidor = null;
         }
 
         if (resultado.getFotos().getNumeroPropiedad() != null) {
-            File file_foto_numero_propiedad = new File(resultado.getFotos().getNumeroPropiedad());
-            RequestBody requestFileNumeroPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_numero_propiedad);
-            foto_numero_propiedad = MultipartBody.Part.createFormData("foto_numero_propiedad", "foto_numero_propiedad", requestFileNumeroPorpiedad);
+            File file = new File(resultado.getFotos().getNumeroPropiedad());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_numero_propiedad = MultipartBody.Part.createFormData("foto_numero_propiedad", "foto_numero_propiedad", requestFile);
         } else {
             foto_numero_propiedad = null;
         }
 
         if (resultado.getFotos().getFachadaPropiedad() != null) {
-            File file_foto_fachada_propiedad = new File(resultado.getFotos().getFachadaPropiedad());
-            RequestBody requestFileFachadaPorpiedad = RequestBody.create(MediaType.parse("image/*"), file_foto_fachada_propiedad);
-            foto_fechada_propiedad = MultipartBody.Part.createFormData("foto_fachada_propiedad", "foto_fachada_propiedad", requestFileFachadaPorpiedad);
+            File file = new File(resultado.getFotos().getFachadaPropiedad());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_fechada_propiedad = MultipartBody.Part.createFormData("foto_fachada_propiedad", "foto_fachada_propiedad", requestFile);
         } else {
             foto_fechada_propiedad = null;
         }
@@ -439,69 +447,67 @@ public class EnviaInspeccion {
         }
 
         if (resultado.getFotos().getInstalacionParalela2() != null) {
-            File file_foto_instalacion_paralela_2 = new File(resultado.getFotos().getInstalacionParalela2());
-            RequestBody requestFileInstParalela2 = RequestBody.create(MediaType.parse("image/*"), file_foto_instalacion_paralela_2);
-            foto_instalacion_paralela_2 = MultipartBody.Part.createFormData("foto_instalacion_paralela_2", "foto_instalacion_paralela_2", requestFileInstParalela2);
+            File file = new File(resultado.getFotos().getInstalacionParalela2());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_instalacion_paralela_2 = MultipartBody.Part.createFormData("foto_instalacion_paralela_2", "foto_instalacion_paralela_2", requestFile);
         } else {
             foto_instalacion_paralela_2 = null;
         }
 
         if (resultado.getFotos().getInstalacionParalela3() != null) {
-            File file_foto_instalacion_paralela_3 = new File(resultado.getFotos().getInstalacionParalela3());
-            RequestBody requestFileInstParalela3 = RequestBody.create(MediaType.parse("image/*"), file_foto_instalacion_paralela_3);
-            foto_instalacion_paralela_3 = MultipartBody.Part.createFormData("foto_instalacion_paralela_3", "foto_instalacion_paralela_3", requestFileInstParalela3);
+            File file = new File(resultado.getFotos().getInstalacionParalela3());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_instalacion_paralela_3 = MultipartBody.Part.createFormData("foto_instalacion_paralela_3", "foto_instalacion_paralela_3", requestFile);
         } else {
             foto_instalacion_paralela_3 = null;
         }
 
         /* Fotos bypass */
         if (resultado.getFotos().getBypass1() != null) {
-            File file_foto_bypass_1 = new File(resultado.getFotos().getBypass1());
-            RequestBody requestFileBypass1 = RequestBody.create(MediaType.parse("image/*"), file_foto_bypass_1);
-            foto_bypass_1 = MultipartBody.Part.createFormData("foto_bypass_1", "foto_bypass_1", requestFileBypass1);
+            File file = new File(resultado.getFotos().getBypass1());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_bypass_1 = MultipartBody.Part.createFormData("foto_bypass_1", "foto_bypass_1", requestFile);
         } else {
             foto_bypass_1 = null;
         }
 
         if (resultado.getFotos().getBypass2() != null) {
-            File file_foto_bypass_2 = new File(resultado.getFotos().getBypass2());
-            RequestBody requestFileBypass2 = RequestBody.create(MediaType.parse("image/*"), file_foto_bypass_2);
-            foto_bypass_2 = MultipartBody.Part.createFormData("foto_bypass_2", "foto_bypass_2", requestFileBypass2);
+            File file = new File(resultado.getFotos().getBypass2());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_bypass_2 = MultipartBody.Part.createFormData("foto_bypass_2", "foto_bypass_2", requestFile);
         } else {
             foto_bypass_2 = null;
         }
 
         if (resultado.getFotos().getBypass3() != null) {
-            File file_foto_bypass_3 = new File(resultado.getFotos().getBypass3());
-            RequestBody requestFileBypass3 = RequestBody.create(MediaType.parse("image/*"), file_foto_bypass_3);
-            foto_bypass_3 = MultipartBody.Part.createFormData("foto_bypass_3", "foto_bypass_3", requestFileBypass3);
+            File file = new File(resultado.getFotos().getBypass3());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_bypass_3 = MultipartBody.Part.createFormData("foto_bypass_3", "foto_bypass_3", requestFile);
         } else {
             foto_bypass_3 = null;
         }
 
-        /*
-            Fotos otros 2
-        */
+        /* Fotos otros 2 */
         if (resultado.getFotos().getOtro21() != null) {
-            File file_foto_otro_2_1 = new File(resultado.getFotos().getOtro21());
-            RequestBody requestFileOtro21 = RequestBody.create(MediaType.parse("image/*"), file_foto_otro_2_1);
-            foto_otros_2_1 = MultipartBody.Part.createFormData("foto_otros_2_1", "foto_otros_2_1", requestFileOtro21);
+            File file = new File(resultado.getFotos().getOtro21());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_otros_2_1 = MultipartBody.Part.createFormData("foto_otros_2_1", "foto_otros_2_1", requestFile);
         } else {
             foto_otros_2_1 = null;
         }
 
         if (resultado.getFotos().getOtro22() != null) {
-            File file_foto_otro_2_2 = new File(resultado.getFotos().getOtro22());
-            RequestBody requestFileOtro22 = RequestBody.create(MediaType.parse("image/*"), file_foto_otro_2_2);
-            foto_otros_2_2 = MultipartBody.Part.createFormData("foto_otros_2_2", "foto_otros_2_2", requestFileOtro22);
+            File file = new File(resultado.getFotos().getOtro22());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_otros_2_2 = MultipartBody.Part.createFormData("foto_otros_2_2", "foto_otros_2_2", requestFile);
         } else {
             foto_otros_2_2 = null;
         }
 
         if (resultado.getFotos().getOtro23() != null) {
-            File file_foto_otro_2_3 = new File(resultado.getFotos().getOtro23());
-            RequestBody requestFileOtro23 = RequestBody.create(MediaType.parse("image/*"), file_foto_otro_2_3);
-            foto_otros_2_3 = MultipartBody.Part.createFormData("foto_otros_2_3", "foto_otros_2_3", requestFileOtro23);
+            File file = new File(resultado.getFotos().getOtro23());
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+            foto_otros_2_3 = MultipartBody.Part.createFormData("foto_otros_2_3", "foto_otros_2_3", requestFile);
         } else {
             foto_otros_2_3 = null;
         }
@@ -514,7 +520,7 @@ public class EnviaInspeccion {
                 lat_body,
                 lng_body,
                 estado_body,
-                fecha_body,
+                fecha_inspeccion_body,
                 test1_body,
                 test2_body,
                 test3_body,

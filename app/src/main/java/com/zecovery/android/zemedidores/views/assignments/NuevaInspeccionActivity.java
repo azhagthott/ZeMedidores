@@ -14,7 +14,7 @@ import com.zecovery.android.zemedidores.models.Residente;
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioResidencialCallback;
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.GuardaDatosResidente;
 
-import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
+import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENCIAL;
 
@@ -77,7 +77,7 @@ public class NuevaInspeccionActivity extends AppCompatActivity implements View.O
 
         Intent intent = new Intent(this, ContentActivity.class);
 
-        intent.putExtra(ASSIGNMENT_TYPE, RESIDENCIAL);
+        intent.putExtra(TIPO_INSPECCION, RESIDENCIAL);
         intent.putExtra(ID_INSPECCION, 10000000);
 
         startActivity(intent);

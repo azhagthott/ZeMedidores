@@ -30,7 +30,7 @@ import static com.zecovery.android.zemedidores.data.Constant.PAYMENT_METHOD_1;
 import static com.zecovery.android.zemedidores.data.Constant.PAYMENT_METHOD_2;
 import static com.zecovery.android.zemedidores.data.Constant.PAYMENT_METHOD_3;
 import static com.zecovery.android.zemedidores.data.Constant.PAYMENT_METHOD_4;
-import static com.zecovery.android.zemedidores.data.Constant.SELECT_OPTION;
+import static com.zecovery.android.zemedidores.data.Constant.SELECCIONAR_OPCION;
 
 public class FormularioNegociacionFragment extends Fragment implements NegociacionCallback, View.OnClickListener {
 
@@ -84,7 +84,7 @@ public class FormularioNegociacionFragment extends Fragment implements Negociaci
 
         List<String> paymentMethod = new ArrayList<>();
 
-        paymentMethod.add(SELECT_OPTION);
+        paymentMethod.add(SELECCIONAR_OPCION);
         paymentMethod.add(PAYMENT_METHOD_1);
         paymentMethod.add(PAYMENT_METHOD_2);
         paymentMethod.add(PAYMENT_METHOD_3);

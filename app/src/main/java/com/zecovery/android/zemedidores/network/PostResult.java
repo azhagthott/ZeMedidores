@@ -36,7 +36,7 @@ public interface PostResult {
             @Part("lat") RequestBody lat_body,
             @Part("lng") RequestBody lng_body,
             @Part("estado") RequestBody estado_body,
-            @Part("fecha") RequestBody fecha_body,
+            @Part("fecha_inspeccion") RequestBody fecha_body,
             @Part("test1") RequestBody test1_body,
             @Part("test2") RequestBody test2_body,
             @Part("test3") RequestBody test3_body,

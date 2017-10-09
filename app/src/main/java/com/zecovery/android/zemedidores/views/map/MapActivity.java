@@ -28,13 +28,13 @@ import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.views.assignments.ContentActivity;
 import com.zecovery.android.zemedidores.views.assignments.InspeccionRechazadaActivity;
 
-import static com.zecovery.android.zemedidores.data.Constant.ADDRESS;
-import static com.zecovery.android.zemedidores.data.Constant.ASSIGNMENT_TYPE;
+import static com.zecovery.android.zemedidores.data.Constant.DIRECCION;
+import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.COMERCIAL;
 import static com.zecovery.android.zemedidores.data.Constant.EMPRESA;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
-import static com.zecovery.android.zemedidores.data.Constant.LATITUDE;
-import static com.zecovery.android.zemedidores.data.Constant.LONGITUDE;
+import static com.zecovery.android.zemedidores.data.Constant.LATITUD;
+import static com.zecovery.android.zemedidores.data.Constant.LONGITUD;
 import static com.zecovery.android.zemedidores.data.Constant.NUEVA;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENCIAL;
 
@@ -80,7 +80,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         super.onResume();
         TextView addressTextView = findViewById(R.id.addressTextView);
         if (getIntent().getExtras() != null && getIntent().getIntExtra(ID_INSPECCION, 0) > 0) {
-            addressTextView.setText(getIntent().getStringExtra(ADDRESS));
+            addressTextView.setText(getIntent().getStringExtra(DIRECCION));
         }
     }
 
@@ -116,28 +116,28 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
             Intent intent = new Intent(MapActivity.this, ContentActivity.class);
 
-            switch (getIntent().getStringExtra(ASSIGNMENT_TYPE)) {
+            switch (getIntent().getStringExtra(TIPO_INSPECCION)) {
 
                 case NUEVA:
-                    intent.putExtra(ASSIGNMENT_TYPE, NUEVA);
+                    intent.putExtra(TIPO_INSPECCION, NUEVA);
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
                     db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
                     break;
                 case RESIDENCIAL:
-                    intent.putExtra(ASSIGNMENT_TYPE, RESIDENCIAL);
+                    intent.putExtra(TIPO_INSPECCION, RESIDENCIAL);
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
                     db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
                     break;
                 case COMERCIAL:
-                    intent.putExtra(ASSIGNMENT_TYPE, RESIDENCIAL); //FIXME: lleva siempre a residencial
+                    intent.putExtra(TIPO_INSPECCION, RESIDENCIAL); //FIXME: lleva siempre a residencial
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
                     db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
                     break;
                 case EMPRESA:
-                    intent.putExtra(ASSIGNMENT_TYPE, RESIDENCIAL);//FIXME: lleva siempre a residencial
+                    intent.putExtra(TIPO_INSPECCION, RESIDENCIAL);//FIXME: lleva siempre a residencial
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
                     db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
@@ -159,7 +159,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
             LatLng assignmentLocation;
 
-            if (getIntent().getDoubleExtra(LATITUDE, 0) == 0 && getIntent().getDoubleExtra(LONGITUDE, 0) == 0) {
+            if (getIntent().getDoubleExtra(LATITUD, 0) == 0 && getIntent().getDoubleExtra(LONGITUD, 0) == 0) {
                 assignmentLocation = new LatLng(0, 0);
             } else {
                 assignmentLocation = mLatLng;

@@ -180,7 +180,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String RESULT_TEST_NUM_CLIENTE_RESIDENTE = "num_cliente_residente";
     private static final String RESULT_TEST_EMPRESA_INSPECTOR = "empresa_inspeccion";
 
-
     public LocalDatabase(Context context) {
         super(context, DB_MANE, null, DB_VERSION);
     }
@@ -345,13 +344,18 @@ public class LocalDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+    /**
+     * Guarda los datos de las inspecciones que descarga desde el servidor
+     *
+     * @param inspections devuelve una lista de inspecciones (objeto inspection)
+     */
     public void guardaInspeccionesDescargadas(List<Inspection> inspections) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         for (Inspection inspection : inspections) {
-
             values.put(ASSIGNMENT_ID_INSPECTION, inspection.getId_inspeccion());
             values.put(ASSIGNMENT_INSPECTOR, inspection.getInspector());
             values.put(ASSIGNMENT_ADDRESS, inspection.getAddress());
@@ -360,13 +364,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
             values.put(ASSIGNMENT_LAT, inspection.getLat());
             values.put(ASSIGNMENT_LNG, inspection.getLng());
             values.put(ASSIGNMENT_NAME, inspection.getName_resident());
-
             values.put(ASSIGNMENT_TELEFONO, inspection.getPhono_resident());
             values.put(ASSIGNMENT_EMAIL, inspection.getMail_resident());
             values.put(ASSIGNMENT_FECHA_INI, inspection.getDateIni_resident());
             values.put(ASSIGNMENT_MARCA_MEDIDOR, inspection.getMarca_medidor());
             values.put(ASSIGNMENT_NUMERO_MEDIDOR, inspection.getNumero_medidor());
-
             values.put(ASSIGNMENT_ORIGIN, inspection.getOrigin());
             values.put(ASSIGNMENT_SOCIAL_RISK, inspection.getPolygon());
             values.put(ASSIGNMENT_RUT, inspection.getRut());
@@ -380,6 +382,86 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Guarda ubicacion actual del inspector
+     *
+     * @param lat latitud (double)
+     * @param lng longitud (double)
+     */
+    public void guardaUbicacionActual(double lat, double lng) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CURRENT_LOCATION_LAT, String.valueOf(lat));
+        values.put(CURRENT_LOCATION_LNG, String.valueOf(lng));
+        db.insert(TABLE_CURRENT_LOCATION, null, values);
+        db.close();
+    }
+
+    /**
+     * Obtiene guardada del inspector
+     */
+    public LatLng getCurrentDbLocation() {
+
+        double lat;
+        double lng;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sqlCommand = SELECT_ALL + TABLE_CURRENT_LOCATION + " ORDER BY " + CURRENT_LOCATION_ID_KEY + " DESC LIMIT 1;";
+        Cursor cursor = db.rawQuery(sqlCommand, null);
+
+        if (cursor.moveToLast()) {
+            lat = Double.valueOf(cursor.getString(1));
+            lng = Double.valueOf(cursor.getString(2));
+            cursor.close();
+            return new LatLng(lat, lng);
+        } else {
+            return new LatLng(0, 0);
+        }
+    }
+
+    /**
+     * Crea la inspeccion en DB
+     *
+     * @param idInspeccion id de la inspecciion
+     * @param empresa      nombre de la empresa que hace la inspeccion
+     */
+    public void creaInspeccion(int idInspeccion, String empresa) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
+        values.put(RESULT_TEST_EMPRESA_INSPECTOR, empresa);
+        db.insert(TABLE_INSPECTION_RESULT, null, values);
+        db.close();
+    }
+
+    /**
+     * Guarda los datos del residente
+     *
+     * @param residente    objeto residente
+     * @param idInspeccion id de la inspeccion
+     */
+    public void guardaDatosResidente(Residente residente, int idInspeccion) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
+        values.put(RESULT_TEST_DIRECCION_RESIDENTE, String.valueOf(residente.getDireccionResidente()));
+        values.put(RESULT_TEST_NUM_CLIENTE_RESIDENTE, String.valueOf(residente.getNumeroCliente()));
+        values.put(RESULT_TEST_NOMBRE_RESIDENTE, String.valueOf(residente.getNombreResidente()));
+        values.put(RESULT_TEST_RUT_RESIDENTE, String.valueOf(residente.getRutResidente()));
+        values.put(RESULT_TEST_TELEFONO_RESIDENTE, String.valueOf(residente.getTelefonoResidente()));
+        values.put(RESULT_TEST_EMAIL_RESIDENTE, String.valueOf(residente.getEmailResidente()));
+
+        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.close();
+    }
+
+    /**
+     * Obtiene los datos del residente
+     *
+     * @param idInspeccion id de la inspeccion
+     */
     public Residente getDatosResidente(int idInspeccion) {
 
         Residente residente = new Residente();
@@ -409,61 +491,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
         return residente;
     }
 
-    /* Current location*/
-    public void guardaUbicacionActual(double lat, double lng) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(CURRENT_LOCATION_LAT, String.valueOf(lat));
-        values.put(CURRENT_LOCATION_LNG, String.valueOf(lng));
-        db.insert(TABLE_CURRENT_LOCATION, null, values);
-        db.close();
-    }
-
-    public LatLng getCurrentDbLocation() {
-
-        double lat;
-        double lng;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sqlCommand = SELECT_ALL + TABLE_CURRENT_LOCATION + " ORDER BY " + CURRENT_LOCATION_ID_KEY + " DESC LIMIT 1;";
-        Cursor cursor = db.rawQuery(sqlCommand, null);
-
-        if (cursor.moveToLast()) {
-            lat = Double.valueOf(cursor.getString(1));
-            lng = Double.valueOf(cursor.getString(2));
-            cursor.close();
-            return new LatLng(lat, lng);
-        } else {
-            return new LatLng(0, 0);
-        }
-    }
-
-    public void creaInspeccion(int idInspeccion, String empresa) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
-        values.put(RESULT_TEST_EMPRESA_INSPECTOR, empresa);
-        db.insert(TABLE_INSPECTION_RESULT, null, values);
-        db.close();
-    }
-
-    public void guardaDatosResidente(Residente residente, int idInspeccion) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
-        values.put(RESULT_TEST_DIRECCION_RESIDENTE, String.valueOf(residente.getDireccionResidente()));
-        values.put(RESULT_TEST_NUM_CLIENTE_RESIDENTE, String.valueOf(residente.getNumeroCliente()));
-        values.put(RESULT_TEST_NOMBRE_RESIDENTE, String.valueOf(residente.getNombreResidente()));
-        values.put(RESULT_TEST_RUT_RESIDENTE, String.valueOf(residente.getRutResidente()));
-        values.put(RESULT_TEST_TELEFONO_RESIDENTE, String.valueOf(residente.getTelefonoResidente()));
-        values.put(RESULT_TEST_EMAIL_RESIDENTE, String.valueOf(residente.getEmailResidente()));
-
-        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
-        db.close();
-    }
-
+    /**
+     * Guarda los datos del medidor
+     *
+     * @param medidor      objeto medidor
+     * @param idInspeccion id de la inspeccion
+     */
     public void guardaDatosMedidor(Medidor medidor, int idInspeccion) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -480,7 +513,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-
+    /**
+     * Obtiene los datos del medidor
+     *
+     * @param idInspeccion id de la inspeccion
+     */
     public Medidor getDatosMedidor(int idInspeccion) {
         Medidor medidor = new Medidor();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -509,6 +546,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
         return medidor;
     }
 
+    /**
+     * Guarda los datos de las pruebas (parte1)
+     *
+     * @param test         objeto TestParte1
+     * @param idInspeccion id de la inspeccion
+     */
     public void guardaDatosTestParte1(TestParte1 test, int idInspeccion) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -536,6 +579,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Obtiene los datos de las pruebas (parte1)
+     *
+     * @param idInspeccion id de la inspeccion
+     */
     public TestParte1 getDatosTestParte1(int idInspeccion) {
 
         TestParte1 testParte1 = new TestParte1();
@@ -585,7 +633,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
         return testParte1;
     }
 
-
+    /**
+     * Guarda los datos de las pruebas (parte2)
+     *
+     * @param test         objeto TestParte2
+     * @param idInspeccion id de la inspeccion
+     */
     public void guardaDatosTestParte2(TestParte2 test, int idInspeccion) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -609,6 +662,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Guarda los datos de las pruebas (parte3)
+     *
+     * @param test         objeto TestParte3
+     * @param idInspeccion id de la inspeccion
+     */
     public void guardaDatosTestParte3(TestParte3 test, int idInspeccion) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -636,6 +695,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Guarda las fotos
+     *
+     * @param idInspeccion id de la inspeccion
+     */
     public void guardaFoto(Foto foto, int idInspeccion) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -791,26 +855,11 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String getFechaResidencia(int idInspeccion) {
-
-        String fecha = "";
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
-                        {
-                                RESULT_TEST_FECHA_RESIDENTE
-                        }
-                , RESULT_ID_INSPECCION + "=?",
-                new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
-
-        if (cursor != null) {
-            cursor.moveToFirst();
-            fecha = cursor.getString(0);
-            cursor.close();
-        }
-        return fecha;
-    }
-
+    /**
+     * Obtiene las fotos
+     *
+     * @param idInspeccion id de la inspeccion
+     */
     public Foto getFotos(int idInspeccion) {
 
         Foto fotos = new Foto();
@@ -903,6 +952,36 @@ public class LocalDatabase extends SQLiteOpenHelper {
         return fotos;
     }
 
+    /**
+     * Obtiene la fecha de residencia
+     *
+     * @param idInspeccion id de la inspeccion
+     */
+    public String getFechaResidencia(int idInspeccion) {
+
+        String fecha = "";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+                        {
+                                RESULT_TEST_FECHA_RESIDENTE
+                        }
+                , RESULT_ID_INSPECCION + "=?",
+                new String[]{String.valueOf(idInspeccion)}, null, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            fecha = cursor.getString(0);
+            cursor.close();
+        }
+        return fecha;
+    }
+
+    /**
+     * Guarda los resultados de la inspeccion
+     *
+     * @param idInspeccion id de la inspeccion
+     */
     public ResultadoInspeccion getResultadoInspeccion(int idInspeccion) {
 
         ResultadoInspeccion resultado = new ResultadoInspeccion();

@@ -16,11 +16,11 @@ public class Constant {
     public static final String COMERCIAL = "2";
     public static final String EMPRESA = "3";
 
-    public static final String UNAUTHORIZED = "No autorizado";
+    public static final String NO_AUTORIZADO = "No autorizado";
 
-    public static final String LATITUDE = "LATITUDE";
-    public static final String LONGITUDE = "LONGITUDE";
-    public static final String ADDRESS = "ADDRESS";
+    public static final String LATITUD = "LATITUD";
+    public static final String LONGITUD = "LONGITUD";
+    public static final String DIRECCION = "DIRECCION";
     public static final String ID_INSPECCION = "ID_INSPECCION";
     public static final String ID_INSPECCION_EJECUTA_TEST_1 = "ID_INSPECCION_EJECUTA_TEST_1";
     public static final String ID_INSPECCION_EJECUTA_TEST_2 = "ID_INSPECCION_EJECUTA_TEST_2";
@@ -28,16 +28,16 @@ public class Constant {
     public static final String ID_INSPECCION_FORMULARIO_NEGOCIACION = "ID_INSPECCION_FORMULARIO_NEGOCIACION";
     public static final String ID_INSPECCION_FORMULARIO_FOTOS = "ID_INSPECCION_FORMULARIO_FOTOS";
 
-    public static final String ASSIGNMENT_TYPE = "assignment_type";
-    public static final int RESIZE_PHOTO_PIXELS_PERCENTAGE = 20;
+    public static final String TIPO_INSPECCION = "tipo_inspeccion";
+    public static final int RESIZE_PHOTO_PIXELS_PERCENTAGE = 10;
     public static final String FOLDER_ZE_MEDIDORES = "ZE_MEDIDORES";
 
     /* rejections reasons */
-    public static final String SELECT_OPTION = "Seleccione una opción";
-    public static final String EMPTY_PLACE = "El lugar se encuentra deshabitado";
-    public static final String UNWELCOME = "No se recibe al personal técnico";
-    public static final String WRONG_DIRECTION = "Dirección errada";
-    public static final String ANOTHER_REASON = "Otro (indique)";
+    public static final String SELECCIONAR_OPCION = "Seleccione una opción";
+    public static final String LUGAR_DESHABITADO = "El lugar se encuentra deshabitado";
+    public static final String NO_SE_RECIBE_AL_INSPECTOR = "No se recibe al personal técnico";
+    public static final String DIRECCION_ERRADA = "Dirección errada";
+    public static final String OTRA_RAZON = "Otro (indique)";
 
     /* property type */
     public static final String TYPE_1 = "Casa";
@@ -57,7 +57,6 @@ public class Constant {
     /* Retrofit */
     public static final String URL_BASE = "http://medidores.desa.zecovery.com";
     //public static final String URL_BASE_DEMO = "http://medidores.demo.zecovery.com";
-
 
     public static final String MEDIDOR_DESCOMPUESTO = "MEDIDOR_DESCOMPUESTO";
     public static final String LECTURA_MEDIDOR = "LECTURA_MEDIDOR";
@@ -110,5 +109,15 @@ public class Constant {
     public static final String RESPONDE_NO = "NO";
     public static final String NO_ENVIA_RESPUESTA = "No envia respuesta";
 
+
+    public static final String OPCION_A = "A";
+    public static final String OPCION_B = "B";
+    public static final String OPCION_C = "C";
+
+    public static final String OPCION_CUVI = "CuVi";
+    public static final String OPCION_PLASTICO = "Plastico";
+
+    public static final String OPCION_AEREA = "Aerea";
+    public static final String OPCION_SUBTERRANEA = "Subterranea";
 
 }

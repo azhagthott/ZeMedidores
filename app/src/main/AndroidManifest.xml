@@ -111,7 +111,7 @@
         </activity>
         <activity
             android:name=".views.assignments.ContentTabsActivity"
-            android:label="@string/title_activity_conten_tabs"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme"></activity>
     </application>
 

@@ -31,7 +31,7 @@ import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION_EJECU
 import static com.zecovery.android.zemedidores.data.Constant.NO_ENVIA_RESPUESTA;
 import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_NO;
 import static com.zecovery.android.zemedidores.data.Constant.RESPONDE_SI;
-import static com.zecovery.android.zemedidores.data.Constant.SELECT_OPTION;
+import static com.zecovery.android.zemedidores.data.Constant.SELECCIONAR_OPCION;
 import static com.zecovery.android.zemedidores.data.Constant.TAG;
 import static com.zecovery.android.zemedidores.data.Constant.TYPE_1;
 import static com.zecovery.android.zemedidores.data.Constant.TYPE_2;
@@ -101,7 +101,7 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
 
         List<String> propertyType = new ArrayList<>();
 
-        propertyType.add(SELECT_OPTION);
+        propertyType.add(SELECCIONAR_OPCION);
         propertyType.add(TYPE_1);
         propertyType.add(TYPE_2);
 
@@ -237,15 +237,18 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
         db.guardaDatosTestParte3(test, idInspeccion);
         new EnviaInspeccion(this).enviaInpeccion(getContext(), idInspeccion);
 
+
+        //TODO: mostrar indicador de envio
     }
 
     @Override
     public void enviaInspeccionOk(int code) {
         startActivity(new Intent(getContext(), MainActivity.class));
+
     }
 
     @Override
     public void enviarInspeccionError(int code) {
-        Toast.makeText(getContext(), "No se ha podido enviar inspeccion", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.validacion_falla_enviar_inspeccion, Toast.LENGTH_SHORT).show();
     }
 }

@@ -28,14 +28,14 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.zecovery.android.zemedidores.data.Constant.ANOTHER_REASON;
-import static com.zecovery.android.zemedidores.data.Constant.EMPTY_PLACE;
+import static com.zecovery.android.zemedidores.data.Constant.OTRA_RAZON;
+import static com.zecovery.android.zemedidores.data.Constant.LUGAR_DESHABITADO;
 import static com.zecovery.android.zemedidores.data.Constant.FOLDER_ZE_MEDIDORES;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.RESIZE_PHOTO_PIXELS_PERCENTAGE;
-import static com.zecovery.android.zemedidores.data.Constant.SELECT_OPTION;
-import static com.zecovery.android.zemedidores.data.Constant.UNWELCOME;
-import static com.zecovery.android.zemedidores.data.Constant.WRONG_DIRECTION;
+import static com.zecovery.android.zemedidores.data.Constant.SELECCIONAR_OPCION;
+import static com.zecovery.android.zemedidores.data.Constant.NO_SE_RECIBE_AL_INSPECTOR;
+import static com.zecovery.android.zemedidores.data.Constant.DIRECCION_ERRADA;
 
 public class InspeccionRechazadaActivity extends AppCompatActivity implements RechazoCallback, View.OnClickListener {
 
@@ -47,7 +47,7 @@ public class InspeccionRechazadaActivity extends AppCompatActivity implements Re
 
     private MagicalCamera magicalCamera;
 
-    private int token;
+    private int idInspeccion;
     private String photoName;
     private String localPath;
 
@@ -71,11 +71,11 @@ public class InspeccionRechazadaActivity extends AppCompatActivity implements Re
         rejectionPhoto.setOnClickListener(this);
 
         List<String> reasons = new ArrayList<>();
-        reasons.add(SELECT_OPTION);
-        reasons.add(EMPTY_PLACE);
-        reasons.add(UNWELCOME);
-        reasons.add(WRONG_DIRECTION);
-        reasons.add(ANOTHER_REASON);
+        reasons.add(SELECCIONAR_OPCION);
+        reasons.add(LUGAR_DESHABITADO);
+        reasons.add(NO_SE_RECIBE_AL_INSPECTOR);
+        reasons.add(DIRECCION_ERRADA);
+        reasons.add(OTRA_RAZON);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, reasons);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -84,14 +84,14 @@ public class InspeccionRechazadaActivity extends AppCompatActivity implements Re
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (reasonsSpinner.getSelectedItem().equals(SELECT_OPTION)) {
+                if (reasonsSpinner.getSelectedItem().equals(SELECCIONAR_OPCION)) {
                     saveButton.setVisibility(View.GONE);
                     anotherReasonEditText.setVisibility(View.GONE);
                     hintTextView.setVisibility(View.GONE);
                     rejectionPhoto.setVisibility(View.GONE);
                 } else {
                     rejectionPhoto.setVisibility(View.VISIBLE);
-                    if (reasonsSpinner.getSelectedItem().equals(ANOTHER_REASON)) {
+                    if (reasonsSpinner.getSelectedItem().equals(OTRA_RAZON)) {
                         anotherReasonEditText.setVisibility(View.VISIBLE);
                         hintTextView.setVisibility(View.VISIBLE);
                         rejectionPhoto.setVisibility(View.VISIBLE);
@@ -110,7 +110,7 @@ public class InspeccionRechazadaActivity extends AppCompatActivity implements Re
         });
 
         if (getIntent().getExtras() != null) {
-            token = getIntent().getIntExtra(ID_INSPECCION, 0);
+            idInspeccion = getIntent().getIntExtra(ID_INSPECCION, 0);
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -143,7 +143,7 @@ public class InspeccionRechazadaActivity extends AppCompatActivity implements Re
         magicalCamera.resultPhoto(requestCode, resultCode, data);
 
         try {
-            localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), "inspeccion_fallida", token + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
+            localPath = magicalCamera.savePhotoInMemoryDevice(magicalCamera.getPhoto(), "inspeccion_fallida", idInspeccion + "/" + FOLDER_ZE_MEDIDORES, MagicalCamera.PNG, true);
             String localPathParts[] = localPath.split("/");
             photoName = localPathParts[7];
             imagePreview.setVisibility(View.VISIBLE);
@@ -163,11 +163,11 @@ public class InspeccionRechazadaActivity extends AppCompatActivity implements Re
 
             case R.id.saveButton:
                 String reason = reasonsSpinner.getSelectedItem().toString();
-                if (reasonsSpinner.getSelectedItem().equals(ANOTHER_REASON)) {
+                if (reasonsSpinner.getSelectedItem().equals(OTRA_RAZON)) {
                     String reasonText = anotherReasonEditText.getText().toString();
-                    new EnviaInspeccionRechazada(this).envia(token, photoName, reason, reasonText, localPath, getApplicationContext());
+                    new EnviaInspeccionRechazada(this).envia(idInspeccion, photoName, reason, reasonText, localPath, getApplicationContext());
                 } else {
-                    new EnviaInspeccionRechazada(this).envia(token, photoName, reason, null, localPath, getApplicationContext());
+                    new EnviaInspeccionRechazada(this).envia(idInspeccion, photoName, reason, null, localPath, getApplicationContext());
                 }
                 break;
         }
