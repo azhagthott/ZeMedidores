@@ -55,7 +55,7 @@ public class Constant {
     public static final int WRITE_TIME_OUT = 60;
 
     /* Retrofit */
-    public static final String URL_BASE = "http://medidores.demo.zecovery.com";
+    public static final String URL_BASE = "http://medidores.desa.zecovery.com";
     //public static final String URL_BASE_DEMO = "http://medidores.demo.zecovery.com";
 
 
