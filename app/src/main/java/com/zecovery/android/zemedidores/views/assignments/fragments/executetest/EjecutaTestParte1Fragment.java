@@ -567,8 +567,9 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
     @Override
     public void onClick(View v) {
 
-        int id = v.getId();
+        /* saca fotos */
 
+        int id = v.getId();
         switch (id) {
             case R.id.usoImanesFoto1:
                 callCamera(USO_IMANES_1);
@@ -663,12 +664,15 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         }
         
         /* Guarda avance de inspeccion */
+
         if (id == R.id.saveButton) {
-            TestParte1 test = new TestParte1();
 
             /*
             Test 1 Parte 1
             */
+
+            TestParte1 test = new TestParte1();
+
             if (test11YesRadioButton.isChecked()) {
                 test.setTest1(RESPONDE_SI);
             } else if (test11NoRadioButton.isChecked()) {
@@ -797,8 +801,171 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
                 test.setOtro2(NO_ENVIA_RESPUESTA);
             }
 
-            db.guardaDatosTestParte1(test, idInspeccion);
-            callback.IdInspeccionEjecutaTestParte2(idInspeccion);
+
+            /* Validaciones */
+
+
+            boolean faltaUsoImanes = false;
+            boolean faltaInvertirTomas = false;
+            boolean faltaPerforaCupula = false;
+            boolean faltaCortaEngranaje = false;
+            boolean faltaUsoAlambre = false;
+            boolean faltaPrensado = false;
+            boolean faltaOtros1 = false;
+            boolean faltaInstalacionParalela = false;
+            boolean faltaBypass = false;
+            boolean faltaOtros2 = false;
+            boolean puedeContinuar = false;
+
+            /* Valida fotos en "Uso de imanes" */
+            if (usoImanesPositivoRb.isChecked()) {
+                if (db.getFotos(idInspeccion).getUsoImanes1() == null || db.getFotos(idInspeccion).getUsoImanes2() == null || db.getFotos(idInspeccion).getUsoImanes3() == null) {
+                    usoImanesPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(usoImanesPreview1);
+                    faltaUsoImanes = true;
+                } else {
+                    faltaUsoImanes = false;
+                }
+            }
+
+            /* Valida fotos en "Invertir tomas" */
+            if (invertirTomasPositivoRb.isChecked()) {
+                if (db.getFotos(idInspeccion).getInvertirTomas1() == null || db.getFotos(idInspeccion).getInvertirTomas2() == null || db.getFotos(idInspeccion).getInvertirTomas3() == null) {
+                    invertirTomasPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(invertirTomasPreview1);
+                    faltaInvertirTomas = true;
+                } else {
+                    faltaInvertirTomas = false;
+                }
+            }
+
+            /* Valida fotos en "Perfora cupula" */
+            if (perforaCupulaPositivoRb.isChecked()) {
+                if (db.getFotos(idInspeccion).getPerforaCupula1() == null || db.getFotos(idInspeccion).getPerforaCupula2() == null || db.getFotos(idInspeccion).getPerforaCupula3() == null) {
+                    perforaCupulaPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(perforaCupulaPreview1);
+                    faltaPerforaCupula = true;
+                } else {
+                    faltaPerforaCupula = false;
+                }
+            }
+
+            /* Valida fotos en "Corta engranaje" */
+            if (cortaEngranajePositivoRb.isChecked()) {
+                if (db.getFotos(idInspeccion).getCortaEngrnaje1() == null || db.getFotos(idInspeccion).getCortaEngrnaje2() == null || db.getFotos(idInspeccion).getCortaEngrnaje3() == null) {
+                    engranajePreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(engranajePreview1);
+                    faltaCortaEngranaje = true;
+                } else {
+                    faltaCortaEngranaje = false;
+                }
+            }
+
+            /* Valida fotos en "Uso alambre" */
+            if (usoAlambrePositivoRb.isChecked()) {
+                if (db.getFotos(idInspeccion).getUsoAlambre1() == null || db.getFotos(idInspeccion).getUsoAlambre2() == null || db.getFotos(idInspeccion).getUsoAlambre3() == null) {
+                    alambresPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(alambresPreview1);
+                    faltaUsoAlambre = true;
+                } else {
+                    faltaUsoAlambre = false;
+                }
+            }
+
+            /* Valida fotos en "Prensado" */
+            if (prensadoPositivoRb.isChecked()) {
+                if (db.getFotos(idInspeccion).getPrensado1() == null || db.getFotos(idInspeccion).getPrensado2() == null || db.getFotos(idInspeccion).getPrensado3() == null) {
+                    prensadoPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(prensadoPreview1);
+                    faltaPrensado = true;
+                } else {
+                    faltaPrensado = false;
+                }
+            }
+
+            /* Valida fotos en "Otros 1" */
+            if (otro12PositivoRb.isChecked()) {
+                if (db.getFotos(idInspeccion).getOtro11() == null || db.getFotos(idInspeccion).getOtro12() == null || db.getFotos(idInspeccion).getOtro13() == null) {
+                    otros1Preview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(otros1Preview1);
+                    faltaOtros1 = true;
+                } else {
+                    faltaOtros1 = false;
+                }
+            }
+
+            /* Valida fotos en "Instalacion paralela" */
+            if (case8PositiveRadioButton.isChecked()) {
+                if (db.getFotos(idInspeccion).getInstalacionParalela1() == null || db.getFotos(idInspeccion).getInstalacionParalela2() == null || db.getFotos(idInspeccion).getInstalacionParalela3() == null) {
+                    instalacionParalelaPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(instalacionParalelaPreview1);
+                    faltaInstalacionParalela = true;
+                } else {
+                    faltaInstalacionParalela = false;
+                }
+            }
+
+            /* Valida fotos en "Bypass" */
+            if (case9PositiveRadioButton.isChecked()) {
+                if (db.getFotos(idInspeccion).getBypass1() == null || db.getFotos(idInspeccion).getBypass2() == null || db.getFotos(idInspeccion).getBypass3() == null) {
+                    bypassPreview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(bypassPreview1);
+                    faltaBypass = true;
+                } else {
+                    faltaBypass = false;
+                }
+            }
+
+            /* Valida fotos en "Otros 2" */
+            if (case10PositiveRadioButton.isChecked()) {
+                if (db.getFotos(idInspeccion).getOtro21() == null || db.getFotos(idInspeccion).getOtro22() == null || db.getFotos(idInspeccion).getOtro23() == null) {
+                    otros2Preview1.setVisibility(View.VISIBLE);
+                    Glide.with(getContext())
+                            .load("").error(R.drawable.ic_error_outline).into(otros2Preview1);
+                    faltaOtros2 = true;
+                } else {
+                    faltaOtros2 = false;
+                }
+            }
+
+            if (!faltaUsoImanes || !faltaInvertirTomas || !faltaPerforaCupula || !faltaCortaEngranaje || !faltaUsoAlambre ||
+                    !faltaPrensado || !faltaOtros1 || !faltaInstalacionParalela || !faltaBypass || !faltaOtros2) {
+                puedeContinuar = true;
+            } else {
+
+                puedeContinuar = false;
+            }
+
+            if (id == R.id.saveButton) {
+                if (puedeContinuar) {
+                    if (otro12PositivoRb.isChecked()) {
+                        if (otro12EditText.getText().toString().trim().length() == 0) {
+                            otro12EditText.setError(getResources().getString(R.string.validacion_tipo_falla_otro));
+
+                        } else {
+                            db.guardaDatosTestParte1(test, idInspeccion);
+                            callback.IdInspeccionEjecutaTestParte2(idInspeccion);
+                        }
+                    }
+                    if (case10PositiveRadioButton.isChecked()) {
+                        if (otroFotoEditText.getText().toString().trim().length() == 0) {
+                            otroFotoEditText.setError(getResources().getString(R.string.validacion_tipo_falla_otro));
+                        } else {
+                            db.guardaDatosTestParte1(test, idInspeccion);
+                            callback.IdInspeccionEjecutaTestParte2(idInspeccion);
+                        }
+                    }
+                }
+            }
         }
     }
 

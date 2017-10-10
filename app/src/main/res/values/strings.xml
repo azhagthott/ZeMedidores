@@ -197,7 +197,13 @@
     <string name="validacion_falla_iniciar_turno">No se puede iniciar turno</string>
     <string name="validacion_falla_enviar_inspeccion">No se ha podido enviar inspección</string>
 
+
+    <string name="validacion_tipo_falla_otro">Debe ingresar la descripcion de la falla</string>
+
     <string name="validacion_falta_foto">Asegúrese de sacar las fotos antes de continuar</string>
+
+
+    <string name="validacion_falta_foto_medidor_descompuesto">Debe sacar la foto del medidor descompuesto</string>
 
     <string name="enviando_inspeccion">Enviando inspección</string>
 

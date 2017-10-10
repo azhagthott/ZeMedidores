@@ -72,11 +72,8 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         findViews(view);
-
         idInspeccion = getArguments().getInt(ID_INSPECCION, 0);
-
         db = new LocalDatabase(getContext());
 
         saveButton.setOnClickListener(this);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,10 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
                         intent.putExtra(TIPO_INSPECCION, RESIDENCIAL);
                         intent.putExtra(LATITUD, inspection.getLat());
                         intent.putExtra(LONGITUD, inspection.getLng());
+
+                        Log.d("TAG", "onClick: " + inspection.getLat());
+                        Log.d("TAG", "onClick: " + inspection.getLng());
+
                         intent.putExtra(DIRECCION, inspection.getAddress());
                         intent.putExtra(ID_INSPECCION, inspection.getId_inspeccion());
                         context.startActivity(intent);

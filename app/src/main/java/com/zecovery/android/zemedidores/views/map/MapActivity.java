@@ -28,15 +28,15 @@ import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.views.assignments.ContentActivity;
 import com.zecovery.android.zemedidores.views.assignments.InspeccionRechazadaActivity;
 
-import static com.zecovery.android.zemedidores.data.Constant.DIRECCION;
-import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.COMERCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.DIRECCION;
 import static com.zecovery.android.zemedidores.data.Constant.EMPRESA;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.LATITUD;
 import static com.zecovery.android.zemedidores.data.Constant.LONGITUD;
 import static com.zecovery.android.zemedidores.data.Constant.NUEVA;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 
 public class MapActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, LocationListener {
 
@@ -164,8 +164,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
             } else {
                 assignmentLocation = mLatLng;
             }
-            map.addMarker(
-                    new MarkerOptions().position(assignmentLocation));
+            map.addMarker(new MarkerOptions().position(assignmentLocation));
             map.moveCamera(CameraUpdateFactory.newLatLng(assignmentLocation));
         }
     }
