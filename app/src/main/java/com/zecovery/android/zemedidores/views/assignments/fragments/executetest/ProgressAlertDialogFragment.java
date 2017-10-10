@@ -14,11 +14,15 @@ import com.zecovery.android.zemedidores.R;
 
 public class ProgressAlertDialogFragment extends DialogFragment {
 
+    public ProgressAlertDialogFragment() {
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.alert_dialog_enviadno_inspeccion, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.setView(view);
         builder.setCancelable(false);
         return builder.create();

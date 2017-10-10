@@ -65,6 +65,8 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
 
     private LinearLayout abastecimientoLayout;
 
+    private ProgressAlertDialogFragment progressDialog;
+
     private int idInspeccion;
 
     private LocalDatabase db;
@@ -237,14 +239,17 @@ public class EjecutaTestParte3Fragment extends Fragment implements View.OnClickL
         db.guardaDatosTestParte3(test, idInspeccion);
         new EnviaInspeccion(this).enviaInpeccion(getContext(), idInspeccion);
 
-
         //TODO: mostrar indicador de envio
+
+        progressDialog = new ProgressAlertDialogFragment();
+        progressDialog.show(getFragmentManager(), "dialog");
+
     }
 
     @Override
     public void enviaInspeccionOk(int code) {
+        progressDialog.dismiss();
         startActivity(new Intent(getContext(), MainActivity.class));
-
     }
 
     @Override

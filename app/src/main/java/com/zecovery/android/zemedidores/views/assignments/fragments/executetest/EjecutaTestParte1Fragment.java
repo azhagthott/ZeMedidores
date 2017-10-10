@@ -216,9 +216,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
 
         findViews(view);
 
-        idInspeccion = getArguments().getInt(ID_INSPECCION_EJECUTA_TEST_1);
         db = new LocalDatabase(getContext());
-
+        idInspeccion = getArguments().getInt(ID_INSPECCION_EJECUTA_TEST_1);
         saveButton.setOnClickListener(this);
 
         usoImanesFoto1.setOnClickListener(this);
@@ -251,6 +250,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         otroFoto21.setOnClickListener(this);
         otroFoto22.setOnClickListener(this);
         otroFoto23.setOnClickListener(this);
+
 
         if (db.getDatosTestParte1(idInspeccion).getTest1() != null) {
             if (db.getDatosTestParte1(idInspeccion).getTest1().equals(RESPONDE_SI)) {
@@ -356,7 +356,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             }
         }
 
-        if (db.getDatosTestParte1(idInspeccion).getOtroText() != null && !db.getDatosTestParte1(idInspeccion).getOtroText().equals("null")) {
+        if (db.getDatosTestParte1(idInspeccion).getOtroText() != null
+                && !db.getDatosTestParte1(idInspeccion).getOtroText().equals("null")) {
             otro12EditText.setText(db.getDatosTestParte1(idInspeccion).getOtroText());
         } else {
             otro12EditText.setText("");
@@ -390,7 +391,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             }
         }
 
-        if (db.getDatosTestParte1(idInspeccion).getOtroText2() != null && !db.getDatosTestParte1(idInspeccion).getOtroText2().equals("null")) {
+        if (db.getDatosTestParte1(idInspeccion).getOtroText2() != null &&
+                !db.getDatosTestParte1(idInspeccion).getOtroText2().equals("null")) {
             otroFotoEditText.setText(db.getDatosTestParte1(idInspeccion).getOtroText2());
         } else {
             otroFotoEditText.setText("");
@@ -541,6 +543,266 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             }
         });
 
+        muestraPreview();
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity) {
+
+            try {
+                Activity activity = (Activity) context;
+                callback = (IdInspeccionListener) activity;
+            } catch (Exception e) {
+                Log.d("TAG", e.toString());
+                throw new ClassCastException(context.toString()
+                        + " must implement OnHeadlineSelectedListener");
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        int id = v.getId();
+
+        switch (id) {
+            case R.id.usoImanesFoto1:
+                callCamera(USO_IMANES_1);
+                break;
+            case R.id.usoImanesFoto2:
+                callCamera(USO_IMANES_2);
+                break;
+            case R.id.usoImanesFoto3:
+                callCamera(USO_IMANES_3);
+                break;
+            case R.id.invertirTomasFoto1:
+                callCamera(INVERTIR_TOMAS_1);
+                break;
+            case R.id.invertirTomasFoto2:
+                callCamera(INVERTIR_TOMAS_2);
+                break;
+            case R.id.invertirTomasFoto3:
+                callCamera(INVERTIR_TOMAS_3);
+                break;
+            case R.id.perforaCupulaFoto1:
+                callCamera(PERFORA_CUPULA_1);
+                break;
+            case R.id.perforaCupulaFoto2:
+                callCamera(PERFORA_CUPULA_2);
+                break;
+            case R.id.perforaCupulaFoto3:
+                callCamera(PERFORA_CUPULA_3);
+                break;
+            case R.id.engranajeFoto1:
+                callCamera(CORTA_ENGRANAJE_1);
+                break;
+            case R.id.engranajeFoto2:
+                callCamera(CORTA_ENGRANAJE_2);
+                break;
+            case R.id.engranajeFoto3:
+                callCamera(CORTA_ENGRANAJE_3);
+                break;
+            case R.id.alambresFoto1:
+                callCamera(USO_ALAMBRE_1);
+                break;
+            case R.id.alambresFoto2:
+                callCamera(USO_ALAMBRE_2);
+                break;
+            case R.id.alambresFoto3:
+                callCamera(USO_ALAMBRE_3);
+                break;
+            case R.id.prensadoFoto1:
+                callCamera(PRENSADO_1);
+                break;
+            case R.id.prensadoFoto2:
+                callCamera(PRENSADO_2);
+                break;
+            case R.id.prensadoFoto3:
+                callCamera(PRENSADO_3);
+                break;
+            case R.id.otrosFoto11:
+                callCamera(OTROS_1_1);
+                break;
+            case R.id.otrosFoto12:
+                callCamera(OTROS_1_2);
+                break;
+            case R.id.otrosFoto13:
+                callCamera(OTROS_1_3);
+                break;
+            case R.id.instalacionParalelaFoto1:
+                callCamera(INSTALACION_PARALELA_1);
+                break;
+            case R.id.instalacionParalelaFoto2:
+                callCamera(INSTALACION_PARALELA_2);
+                break;
+            case R.id.instalacionParalelaFoto3:
+                callCamera(INSTALACION_PARALELA_3);
+                break;
+            case R.id.bypassFoto1:
+                callCamera(BYPASS_1);
+                break;
+            case R.id.bypassFoto2:
+                callCamera(BYPASS_2);
+                break;
+            case R.id.bypassFoto3:
+                callCamera(BYPASS_3);
+                break;
+            case R.id.otroFoto21:
+                callCamera(OTROS_2_1);
+                break;
+            case R.id.otroFoto22:
+                callCamera(OTROS_2_2);
+                break;
+            case R.id.otroFoto23:
+                callCamera(OTROS_2_3);
+                break;
+        }
+        
+        /* Guarda avance de inspeccion */
+        if (id == R.id.saveButton) {
+            TestParte1 test = new TestParte1();
+
+            /*
+            Test 1 Parte 1
+            */
+            if (test11YesRadioButton.isChecked()) {
+                test.setTest1(RESPONDE_SI);
+            } else if (test11NoRadioButton.isChecked()) {
+                test.setTest1(RESPONDE_NO);
+            } else {
+                test.setTest1(NO_ENVIA_RESPUESTA);
+            }
+
+            if (test12YesRadioButton.isChecked()) {
+                test.setTest2(RESPONDE_SI);
+            } else if (test12NoRadioButton.isChecked()) {
+                test.setTest2(RESPONDE_NO);
+            } else {
+                test.setTest2(NO_ENVIA_RESPUESTA);
+            }
+
+            if (test13YesRadioButton.isChecked()) {
+                test.setTest3(RESPONDE_SI);
+            } else if (test13NoRadioButton.isChecked()) {
+                test.setTest3(RESPONDE_NO);
+            } else {
+                test.setTest3(NO_ENVIA_RESPUESTA);
+            }
+
+            if (test14YesRadioButton.isChecked()) {
+                test.setTest4(RESPONDE_SI);
+            } else if (test14NoRadioButton.isChecked()) {
+                test.setTest4(RESPONDE_NO);
+            } else {
+                test.setTest4(NO_ENVIA_RESPUESTA);
+            }
+
+            if (test15YesRadioButton.isChecked()) {
+                test.setTest5(RESPONDE_SI);
+            } else if (test15NoRadioButton.isChecked()) {
+                test.setTest5(RESPONDE_NO);
+            } else {
+                test.setTest5(NO_ENVIA_RESPUESTA);
+            }
+
+            /*
+            Test 1 Parte 2
+            */
+            if (usoImanesPositivoRb.isChecked()) {
+                test.setUsoImanes(RESPONDE_SI);
+            } else if (usoImanesNegativoRb.isChecked()) {
+                test.setUsoImanes(RESPONDE_NO);
+            } else {
+                test.setUsoImanes(NO_ENVIA_RESPUESTA);
+            }
+
+            if (invertirTomasPositivoRb.isChecked()) {
+                test.setInvertirTomas(RESPONDE_SI);
+            } else if (invertirTomasNegativoRb.isChecked()) {
+                test.setInvertirTomas(RESPONDE_NO);
+            } else {
+                test.setInvertirTomas(NO_ENVIA_RESPUESTA);
+            }
+
+            if (perforaCupulaPositivoRb.isChecked()) {
+                test.setPerforaCupula(RESPONDE_SI);
+            } else if (perforaCupulaNegativoRb.isChecked()) {
+                test.setPerforaCupula(RESPONDE_NO);
+            } else {
+                test.setPerforaCupula(NO_ENVIA_RESPUESTA);
+            }
+
+            if (cortaEngranajePositivoRb.isChecked()) {
+                test.setCortaEngranaje(RESPONDE_SI);
+            } else if (cortaEngranajeNegativoRb.isChecked()) {
+                test.setCortaEngranaje(RESPONDE_NO);
+            } else {
+                test.setCortaEngranaje(NO_ENVIA_RESPUESTA);
+            }
+
+            if (usoAlambrePositivoRb.isChecked()) {
+                test.setUsoAlambres(RESPONDE_SI);
+            } else if (usoAlambreNegativoRb.isChecked()) {
+                test.setUsoAlambres(RESPONDE_NO);
+            } else {
+                test.setUsoAlambres(NO_ENVIA_RESPUESTA);
+            }
+
+            if (prensadoPositivoRb.isChecked()) {
+                test.setPrensado(RESPONDE_SI);
+            } else if (prensadoNegativoRb.isChecked()) {
+                test.setPrensado(RESPONDE_NO);
+            } else {
+                test.setPrensado(NO_ENVIA_RESPUESTA);
+            }
+
+            if (otro12PositivoRb.isChecked()) {
+                test.setOtro(RESPONDE_SI);
+                test.setOtroText(otro12EditText.getText().toString());
+            } else if (otro12NegativoRb.isChecked()) {
+                test.setOtro(RESPONDE_NO);
+            } else {
+                test.setOtro(NO_ENVIA_RESPUESTA);
+            }
+
+            /*
+            Test 1 Parte 3
+            */
+            if (case8PositiveRadioButton.isChecked()) {
+                test.setInstalacionParalela(RESPONDE_SI);
+            } else if (case8NegativeRadioButton.isChecked()) {
+                test.setInstalacionParalela(RESPONDE_NO);
+            } else {
+                test.setInstalacionParalela(NO_ENVIA_RESPUESTA);
+            }
+
+            if (case9PositiveRadioButton.isChecked()) {
+                test.setBypass(RESPONDE_SI);
+            } else if (case9NegativeRadioButton.isChecked()) {
+                test.setBypass(RESPONDE_NO);
+            } else {
+                test.setBypass(NO_ENVIA_RESPUESTA);
+            }
+
+            if (case10PositiveRadioButton.isChecked()) {
+                test.setOtro2(RESPONDE_SI);
+                test.setOtroText2(otroFotoEditText.getText().toString());
+            } else if (case10NegativeRadioButton.isChecked()) {
+                test.setOtro2(RESPONDE_NO);
+            } else {
+                test.setOtro2(NO_ENVIA_RESPUESTA);
+            }
+
+            db.guardaDatosTestParte1(test, idInspeccion);
+            callback.IdInspeccionEjecutaTestParte2(idInspeccion);
+        }
+    }
+
+    private void muestraPreview() {
         /* Preview uso de imanes */
         if (db.getFotos(idInspeccion).getUsoImanes1() != null) {
             usoImanesPreview1.setVisibility(View.VISIBLE);
@@ -699,260 +961,6 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         if (db.getFotos(idInspeccion).getOtro23() != null) {
             otros2Preview3.setVisibility(View.VISIBLE);
             Glide.with(getContext()).load(db.getFotos(idInspeccion).getOtro23()).into(otros2Preview3);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof Activity) {
-
-            try {
-                Activity activity = (Activity) context;
-                callback = (IdInspeccionListener) activity;
-            } catch (Exception e) {
-                Log.d("TAG", e.toString());
-                throw new ClassCastException(context.toString()
-                        + " must implement OnHeadlineSelectedListener");
-            }
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        int id = v.getId();
-
-        switch (id) {
-            case R.id.usoImanesFoto1:
-                callCamera(USO_IMANES_1);
-                break;
-            case R.id.usoImanesFoto2:
-                callCamera(USO_IMANES_2);
-                break;
-            case R.id.usoImanesFoto3:
-                callCamera(USO_IMANES_3);
-                break;
-            case R.id.invertirTomasFoto1:
-                callCamera(INVERTIR_TOMAS_1);
-                break;
-            case R.id.invertirTomasFoto2:
-                callCamera(INVERTIR_TOMAS_2);
-                break;
-            case R.id.invertirTomasFoto3:
-                callCamera(INVERTIR_TOMAS_3);
-                break;
-            case R.id.perforaCupulaFoto1:
-                callCamera(PERFORA_CUPULA_1);
-                break;
-            case R.id.perforaCupulaFoto2:
-                callCamera(PERFORA_CUPULA_2);
-                break;
-            case R.id.perforaCupulaFoto3:
-                callCamera(PERFORA_CUPULA_3);
-                break;
-            case R.id.engranajeFoto1:
-                callCamera(CORTA_ENGRANAJE_1);
-                break;
-            case R.id.engranajeFoto2:
-                callCamera(CORTA_ENGRANAJE_2);
-                break;
-            case R.id.engranajeFoto3:
-                callCamera(CORTA_ENGRANAJE_3);
-                break;
-            case R.id.alambresFoto1:
-                callCamera(USO_ALAMBRE_1);
-                break;
-            case R.id.alambresFoto2:
-                callCamera(USO_ALAMBRE_2);
-                break;
-            case R.id.alambresFoto3:
-                callCamera(USO_ALAMBRE_3);
-                break;
-            case R.id.prensadoFoto1:
-                callCamera(PRENSADO_1);
-                break;
-            case R.id.prensadoFoto2:
-                callCamera(PRENSADO_2);
-                break;
-            case R.id.prensadoFoto3:
-                callCamera(PRENSADO_3);
-                break;
-            case R.id.otrosFoto11:
-                callCamera(OTROS_1_1);
-                break;
-            case R.id.otrosFoto12:
-                callCamera(OTROS_1_2);
-                break;
-            case R.id.otrosFoto13:
-                callCamera(OTROS_1_3);
-                break;
-            case R.id.instalacionParalelaFoto1:
-                callCamera(INSTALACION_PARALELA_1);
-                break;
-            case R.id.instalacionParalelaFoto2:
-                callCamera(INSTALACION_PARALELA_2);
-                break;
-            case R.id.instalacionParalelaFoto3:
-                callCamera(INSTALACION_PARALELA_3);
-                break;
-            case R.id.bypassFoto1:
-                callCamera(BYPASS_1);
-                break;
-            case R.id.bypassFoto2:
-                callCamera(BYPASS_2);
-                break;
-            case R.id.bypassFoto3:
-                callCamera(BYPASS_3);
-                break;
-            case R.id.otroFoto21:
-                callCamera(OTROS_2_1);
-                break;
-            case R.id.otroFoto22:
-                callCamera(OTROS_2_2);
-                break;
-            case R.id.otroFoto23:
-                callCamera(OTROS_2_3);
-                break;
-        }
-
-        if (id == R.id.saveButton) {
-            TestParte1 test = new TestParte1();
-
-            /*
-            Test 1 Parte 1
-            */
-            if (test11YesRadioButton.isChecked()) {
-                test.setTest1(RESPONDE_SI);
-            } else if (test11NoRadioButton.isChecked()) {
-                test.setTest1(RESPONDE_NO);
-            } else {
-                test.setTest1(NO_ENVIA_RESPUESTA);
-            }
-
-            if (test12YesRadioButton.isChecked()) {
-                test.setTest2(RESPONDE_SI);
-            } else if (test12NoRadioButton.isChecked()) {
-                test.setTest2(RESPONDE_NO);
-            } else {
-                test.setTest2(NO_ENVIA_RESPUESTA);
-            }
-
-            if (test13YesRadioButton.isChecked()) {
-                test.setTest3(RESPONDE_SI);
-            } else if (test13NoRadioButton.isChecked()) {
-                test.setTest3(RESPONDE_NO);
-            } else {
-                test.setTest3(NO_ENVIA_RESPUESTA);
-            }
-
-            if (test14YesRadioButton.isChecked()) {
-                test.setTest4(RESPONDE_SI);
-            } else if (test14NoRadioButton.isChecked()) {
-                test.setTest4(RESPONDE_NO);
-            } else {
-                test.setTest4(NO_ENVIA_RESPUESTA);
-            }
-
-            if (test15YesRadioButton.isChecked()) {
-                test.setTest5(RESPONDE_SI);
-            } else if (test15NoRadioButton.isChecked()) {
-                test.setTest5(RESPONDE_NO);
-            } else {
-                test.setTest5(NO_ENVIA_RESPUESTA);
-            }
-
-            /*
-            Test 1 Parte 2
-            */
-            if (usoImanesPositivoRb.isChecked()) {
-                test.setUsoImanes(RESPONDE_SI);
-            } else if (usoImanesNegativoRb.isChecked()) {
-                test.setUsoImanes(RESPONDE_NO);
-            } else {
-                test.setUsoImanes(NO_ENVIA_RESPUESTA);
-            }
-
-            if (invertirTomasPositivoRb.isChecked()) {
-                test.setInvertirTomas(RESPONDE_SI);
-            } else if (invertirTomasNegativoRb.isChecked()) {
-                test.setInvertirTomas(RESPONDE_NO);
-            } else {
-                test.setInvertirTomas(NO_ENVIA_RESPUESTA);
-            }
-
-            if (perforaCupulaPositivoRb.isChecked()) {
-                test.setPerforaCupula(RESPONDE_SI);
-            } else if (perforaCupulaNegativoRb.isChecked()) {
-                test.setPerforaCupula(RESPONDE_NO);
-            } else {
-                test.setPerforaCupula(NO_ENVIA_RESPUESTA);
-            }
-
-            if (cortaEngranajePositivoRb.isChecked()) {
-                test.setCortaEngranaje(RESPONDE_SI);
-            } else if (cortaEngranajeNegativoRb.isChecked()) {
-                test.setCortaEngranaje(RESPONDE_NO);
-            } else {
-                test.setCortaEngranaje(NO_ENVIA_RESPUESTA);
-            }
-
-            if (usoAlambrePositivoRb.isChecked()) {
-                test.setUsoAlambres(RESPONDE_SI);
-            } else if (usoAlambreNegativoRb.isChecked()) {
-                test.setUsoAlambres(RESPONDE_NO);
-            } else {
-                test.setUsoAlambres(NO_ENVIA_RESPUESTA);
-            }
-
-            if (prensadoPositivoRb.isChecked()) {
-                test.setPrensado(RESPONDE_SI);
-            } else if (prensadoNegativoRb.isChecked()) {
-                test.setPrensado(RESPONDE_NO);
-            } else {
-                test.setPrensado(NO_ENVIA_RESPUESTA);
-            }
-
-            if (otro12PositivoRb.isChecked()) {
-                test.setOtro(RESPONDE_SI);
-                test.setOtroText(otro12EditText.getText().toString());
-            } else if (otro12NegativoRb.isChecked()) {
-                test.setOtro(RESPONDE_NO);
-            } else {
-                test.setOtro(NO_ENVIA_RESPUESTA);
-            }
-
-            /*
-            Test 1 Parte 3
-            */
-            if (case8PositiveRadioButton.isChecked()) {
-                test.setInstalacionParalela(RESPONDE_SI);
-            } else if (case8NegativeRadioButton.isChecked()) {
-                test.setInstalacionParalela(RESPONDE_NO);
-            } else {
-                test.setInstalacionParalela(NO_ENVIA_RESPUESTA);
-            }
-
-            if (case9PositiveRadioButton.isChecked()) {
-                test.setBypass(RESPONDE_SI);
-            } else if (case9NegativeRadioButton.isChecked()) {
-                test.setBypass(RESPONDE_NO);
-            } else {
-                test.setBypass(NO_ENVIA_RESPUESTA);
-            }
-
-            if (case10PositiveRadioButton.isChecked()) {
-                test.setOtro2(RESPONDE_SI);
-                test.setOtroText2(otroFotoEditText.getText().toString());
-            } else if (case10NegativeRadioButton.isChecked()) {
-                test.setOtro2(RESPONDE_NO);
-            } else {
-                test.setOtro2(NO_ENVIA_RESPUESTA);
-            }
-
-            db.guardaDatosTestParte1(test, idInspeccion);
-            callback.IdInspeccionEjecutaTestParte2(idInspeccion);
         }
     }
 
@@ -1164,7 +1172,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             }
 
         } catch (Exception e) {
-            FirebaseCrash.log("Error: " + e);
+            FirebaseCrash.log("Exception: " + e);
         }
     }
 

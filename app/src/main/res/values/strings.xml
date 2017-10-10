@@ -194,8 +194,10 @@
     <string name="validacion_lectura_medidor">Debe especificar la lectura del medidor</string>
     <string name="validacion_falla_medidor">Debe especificar la falla del medidor</string>
     <string name="validacion_estado_medidor">Debe indicar si el medidor está descompuesto o no</string>
-    <string name="validacion_falla_enviar_inspeccion">No se ha podido enviar inspección</string>
     <string name="validacion_falla_iniciar_turno">No se puede iniciar turno</string>
+    <string name="validacion_falla_enviar_inspeccion">No se ha podido enviar inspección</string>
+
+    <string name="validacion_falta_foto">Asegúrese de sacar las fotos antes de continuar</string>
 
     <string name="enviando_inspeccion">Enviando inspección</string>
 

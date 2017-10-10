@@ -87,8 +87,7 @@
                     android:id="@+id/instalacionParalelaPreview1"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_photo_camera_black_24" />
+                    android:layout_margin="4dp" />
 
             </LinearLayout>
 
@@ -111,8 +110,7 @@
                     android:id="@+id/instalacionParalelaPreview2"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_photo_camera_black_24" />
+                    android:layout_margin="4dp" />
 
             </LinearLayout>
 
@@ -135,8 +133,7 @@
                     android:id="@+id/instalacionParalelaPreview3"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_photo_camera_black_24" />
+                    android:layout_margin="4dp" />
 
             </LinearLayout>
 
@@ -217,8 +214,7 @@
                     android:id="@+id/bypassPreview1"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_photo_camera_black_24" />
+                    android:layout_margin="4dp" />
 
             </LinearLayout>
 
@@ -241,8 +237,7 @@
                     android:id="@+id/bypassPreview2"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_photo_camera_black_24" />
+                    android:layout_margin="4dp" />
 
             </LinearLayout>
 
@@ -265,10 +260,9 @@
                     android:id="@+id/bypassPreview3"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_photo_camera_black_24" />
-            </LinearLayout>
+                    android:layout_margin="4dp" />
 
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -351,8 +345,7 @@
                         android:id="@+id/otros2Preview1"
                         android:layout_width="42dp"
                         android:layout_height="42dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/ic_photo_camera_black_24" />
+                        android:layout_margin="4dp" />
 
                 </LinearLayout>
 
@@ -375,8 +368,7 @@
                         android:id="@+id/otros2Preview2"
                         android:layout_width="42dp"
                         android:layout_height="42dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/ic_photo_camera_black_24" />
+                        android:layout_margin="4dp" />
 
                 </LinearLayout>
 
@@ -399,8 +391,7 @@
                         android:id="@+id/otros2Preview3"
                         android:layout_width="42dp"
                         android:layout_height="42dp"
-                        android:layout_margin="4dp"
-                        android:src="@drawable/ic_photo_camera_black_24" />
+                        android:layout_margin="4dp" />
 
                 </LinearLayout>
 
