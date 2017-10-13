@@ -382,7 +382,6 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                 imagePreviewMedidorDescompuesto.setVisibility(View.VISIBLE);
                 Glide.with(getContext())
                         .load("").error(R.drawable.ic_error_outline).into(imagePreviewMedidorDescompuesto);
-
             }
 
             /* Medidor NO descompuesto*/
@@ -411,6 +410,59 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                 lecturaMedidorBool = false;
             }
 
+
+            int faltaFotoLecturaMedidor = 0;
+            int faltaFotoNumeroMedidor = 0;
+            int faltaFotoPanoramicaMedidor = 0;
+            int faltaFotoNumeroPropiedad = 0;
+            int faltaFotoFachadaPropiedad = 0;
+
+            if (fotoLectura == null) {
+                imagePreviewLecturaMedidor.setVisibility(View.VISIBLE);
+                Glide.with(getContext())
+                        .load("").error(R.drawable.ic_error_outline).into(imagePreviewLecturaMedidor);
+                faltaFotoLecturaMedidor = 1;
+            } else {
+                faltaFotoLecturaMedidor = 0;
+            }
+
+            if (fotoNumeroMedidor == null) {
+                imagePreviewNumeroMedidor.setVisibility(View.VISIBLE);
+                Glide.with(getContext())
+                        .load("").error(R.drawable.ic_error_outline).into(imagePreviewNumeroMedidor);
+                faltaFotoNumeroMedidor = 1;
+            } else {
+                faltaFotoNumeroMedidor = 0;
+            }
+
+            if (fotoPanoramica == null) {
+                imagePreviewPanoMedidor.setVisibility(View.VISIBLE);
+                Glide.with(getContext())
+                        .load("").error(R.drawable.ic_error_outline).into(imagePreviewPanoMedidor);
+                faltaFotoPanoramicaMedidor = 1;
+            } else {
+                faltaFotoPanoramicaMedidor = 0;
+            }
+
+            if (fotoNumeroPropiedad == null) {
+                imagePreviewNumeroPropiedad.setVisibility(View.VISIBLE);
+                Glide.with(getContext())
+                        .load("").error(R.drawable.ic_error_outline).into(imagePreviewNumeroPropiedad);
+                faltaFotoNumeroPropiedad = 1;
+            } else {
+                faltaFotoNumeroPropiedad = 0;
+            }
+
+            if (fotoFachada == null) {
+                imagePreviewFachadaPropiedad.setVisibility(View.VISIBLE);
+                Glide.with(getContext())
+                        .load("").error(R.drawable.ic_error_outline).into(imagePreviewFachadaPropiedad);
+                faltaFotoFachadaPropiedad = 1;
+            } else {
+                faltaFotoFachadaPropiedad = 0;
+            }
+
+
         } else {
             medidorDescompuesto = false;
             Toast.makeText(getContext(), R.string.validacion_estado_medidor, Toast.LENGTH_SHORT).show();
@@ -419,12 +471,10 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
         if (id == R.id.continueTestButton) {
 
             if (positiveRadioButton.isChecked() && !ubicacionMedidor && !medidorDescompuesto && fotoFalla != null) {
-
                 Medidor medidor = new Medidor();
                 medidor.setUbicacion(meterLocation);
                 medidor.setEstado(RESPONDE_SI);
                 medidor.setDescripcionFalla(descripcionFalla);
-
                 db.guardaDatosMedidor(medidor, idInspeccion);
                 callback.IdInspeccionEjecutaTestParte1(idInspeccion);
             }
@@ -432,7 +482,6 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
             if (negativeRadioButton.isChecked() && !ubicacionMedidor && !numeroMedidorBool && !diametroMedidorBool &&
                     !lecturaMedidorBool && fotoLectura != null && fotoNumeroMedidor != null && fotoPanoramica != null &&
                     fotoNumeroPropiedad != null && fotoFachada != null) {
-
                 Medidor medidor = new Medidor();
                 medidor.setUbicacion(ubicacion);
                 medidor.setNumeroMedidor(numero);
@@ -441,7 +490,6 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
                 medidor.setEstado(RESPONDE_NO);
                 medidor.setDescripcionFalla("");
                 db.guardaDatosMedidor(medidor, idInspeccion);
-
                 callback.IdInspeccionEjecutaTestParte1(idInspeccion);
             }
         }

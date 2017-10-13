@@ -163,11 +163,13 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
             Log.d("TAG", "LATITUD: " + getIntent().getDoubleExtra(LATITUD, 0));
             Log.d("TAG", "LONGITUD: " + getIntent().getDoubleExtra(LONGITUD, 0));
 
+            double lat = getIntent().getDoubleExtra(LATITUD, 0);
+            double lng = getIntent().getDoubleExtra(LONGITUD, 0);
 
-            if (getIntent().getDoubleExtra(LATITUD, 0) == 0 || getIntent().getDoubleExtra(LONGITUD, 0) == 0) {
+            if (lat == 0 || lng == 0) {
                 assignmentLocation = new LatLng(0, 0);
             } else {
-                assignmentLocation = mLatLng;
+                assignmentLocation = new LatLng(lng, lat); //FIXME: la coordenadas están al reves
             }
             map.addMarker(new MarkerOptions().position(assignmentLocation));
             map.moveCamera(CameraUpdateFactory.newLatLng(assignmentLocation));

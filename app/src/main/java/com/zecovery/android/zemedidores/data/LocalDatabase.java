@@ -26,7 +26,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    public static final int DB_VERSION = 167;
+    public static final int DB_VERSION = 168;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -626,8 +626,10 @@ public class LocalDatabase extends SQLiteOpenHelper {
             testParte1.setPrensado(cursor.getString(10));
             testParte1.setOtro(cursor.getString(11));
             testParte1.setOtroText(cursor.getString(12));
-            testParte1.setOtro2(cursor.getString(13));
-            testParte1.setOtroText2(cursor.getString(14));
+            testParte1.setInstalacionParalela(cursor.getString(13));
+            testParte1.setBypass(cursor.getString(14));
+            testParte1.setOtro2(cursor.getString(15));
+            testParte1.setOtroText2(cursor.getString(16));
             cursor.close();
         }
         return testParte1;

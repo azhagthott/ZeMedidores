@@ -251,7 +251,7 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
         otroFoto22.setOnClickListener(this);
         otroFoto23.setOnClickListener(this);
 
-
+        /* Recuperacion de datos */
         if (db.getDatosTestParte1(idInspeccion).getTest1() != null) {
             if (db.getDatosTestParte1(idInspeccion).getTest1().equals(RESPONDE_SI)) {
                 test11YesRadioButton.setChecked(true);
@@ -406,10 +406,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     ocultaFotosImanesLl.setVisibility(View.VISIBLE);
-                    Log.d("case 1", "VISIBLE");
                 } else {
                     ocultaFotosImanesLl.setVisibility(View.GONE);
-                    Log.d("case 1", "GONE");
                 }
             }
         });
@@ -420,10 +418,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     ocultaFotosInvertirTomasLl.setVisibility(View.VISIBLE);
-                    Log.d("case 2", "VISIBLE");
                 } else {
                     ocultaFotosInvertirTomasLl.setVisibility(View.GONE);
-                    Log.d("case 2", "GONE");
                 }
             }
         });
@@ -434,10 +430,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     ocultaFotosCupulaLl.setVisibility(View.VISIBLE);
-                    Log.d("case 2", "VISIBLE");
                 } else {
                     ocultaFotosCupulaLl.setVisibility(View.GONE);
-                    Log.d("case 2", "GONE");
                 }
             }
         });
@@ -448,10 +442,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     ocultaFotosEngranajeLl.setVisibility(View.VISIBLE);
-                    Log.d("case 2", "VISIBLE");
                 } else {
                     ocultaFotosEngranajeLl.setVisibility(View.GONE);
-                    Log.d("case 2", "GONE");
                 }
             }
         });
@@ -462,10 +454,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     ocultaFotosAlambresLl.setVisibility(View.VISIBLE);
-                    Log.d("case 2", "VISIBLE");
                 } else {
                     ocultaFotosAlambresLl.setVisibility(View.GONE);
-                    Log.d("case 2", "GONE");
                 }
             }
         });
@@ -476,10 +466,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     ocultaFotosPrensadoLl.setVisibility(View.VISIBLE);
-                    Log.d("case 2", "VISIBLE");
                 } else {
                     ocultaFotosPrensadoLl.setVisibility(View.GONE);
-                    Log.d("case 2", "GONE");
                 }
             }
         });
@@ -491,11 +479,9 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
                 if (isChecked) {
                     ocultaFotosOtros12Ll.setVisibility(View.VISIBLE);
                     otro12EditText.setVisibility(View.VISIBLE);
-                    Log.d("case 7", "VISIBLE");
                 } else {
                     ocultaFotosOtros12Ll.setVisibility(View.GONE);
                     otro12EditText.setVisibility(View.GONE);
-                    Log.d("case 7", "GONE");
                 }
             }
         });
@@ -507,10 +493,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     ocultaFotosInstParalelaLl.setVisibility(View.VISIBLE);
-                    Log.d("case 8", "VISIBLE");
                 } else {
                     ocultaFotosInstParalelaLl.setVisibility(View.GONE);
-                    Log.d("case 8", "INVISIBLE");
                 }
             }
         });
@@ -520,10 +504,8 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     ocultaFotosBypassLl.setVisibility(View.VISIBLE);
-                    Log.d("case 9", "VISIBLE");
                 } else {
                     ocultaFotosBypassLl.setVisibility(View.GONE);
-                    Log.d("case 9", "INVISIBLE");
                 }
             }
         });
@@ -534,17 +516,13 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
                 if (isChecked) {
                     ocultaFotosOtros13Ll.setVisibility(View.VISIBLE);
                     otroFotoEditText.setVisibility(View.VISIBLE);
-                    Log.d("case 10", "VISIBLE");
                 } else {
                     otroFotoEditText.setVisibility(View.GONE);
                     ocultaFotosOtros13Ll.setVisibility(View.GONE);
-                    Log.d("case 10", "INVISIBLE");
                 }
             }
         });
-
         muestraPreview();
-
     }
 
     @Override
@@ -805,169 +783,177 @@ public class EjecutaTestParte1Fragment extends Fragment implements View.OnClickL
             /* Validaciones */
 
 
-            boolean faltaUsoImanes = false;
-            boolean faltaInvertirTomas = false;
-            boolean faltaPerforaCupula = false;
-            boolean faltaCortaEngranaje = false;
-            boolean faltaUsoAlambre = false;
-            boolean faltaPrensado = false;
-            boolean faltaOtros1 = false;
-            boolean faltaInstalacionParalela = false;
-            boolean faltaBypass = false;
-            boolean faltaOtros2 = false;
-            boolean puedeContinuar = false;
+            int faltaUsoImanes = 0;
+            int faltaInvertirTomas = 0;
+            int faltaPerforaCupula = 0;
+            int faltaCortaEngranaje = 0;
+            int faltaUsoAlambre = 0;
+            int faltaPrensado = 0;
+            int faltaOtros1 = 0;
+            int faltaOtrosTexto1 = 0;
+            int faltaInstalacionParalela = 0;
+            int faltaBypass = 0;
+            int faltaOtros2 = 0;
+            int faltaOtrosTexto2 = 0;
+            int puedeContinuar = 0;
 
             /* Valida fotos en "Uso de imanes" */
             if (usoImanesPositivoRb.isChecked()) {
-                if (db.getFotos(idInspeccion).getUsoImanes1() == null || db.getFotos(idInspeccion).getUsoImanes2() == null || db.getFotos(idInspeccion).getUsoImanes3() == null) {
+                if (db.getFotos(idInspeccion).getUsoImanes1() == null) {
                     usoImanesPreview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(usoImanesPreview1);
-                    faltaUsoImanes = true;
+                    faltaUsoImanes = 1;
                 } else {
-                    faltaUsoImanes = false;
+                    faltaUsoImanes = 0;
                 }
             }
 
             /* Valida fotos en "Invertir tomas" */
             if (invertirTomasPositivoRb.isChecked()) {
-                if (db.getFotos(idInspeccion).getInvertirTomas1() == null || db.getFotos(idInspeccion).getInvertirTomas2() == null || db.getFotos(idInspeccion).getInvertirTomas3() == null) {
+                if (db.getFotos(idInspeccion).getInvertirTomas1() == null) {
                     invertirTomasPreview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(invertirTomasPreview1);
-                    faltaInvertirTomas = true;
+                    faltaInvertirTomas = 1;
                 } else {
-                    faltaInvertirTomas = false;
+                    faltaInvertirTomas = 0;
                 }
             }
 
             /* Valida fotos en "Perfora cupula" */
             if (perforaCupulaPositivoRb.isChecked()) {
-                if (db.getFotos(idInspeccion).getPerforaCupula1() == null || db.getFotos(idInspeccion).getPerforaCupula2() == null || db.getFotos(idInspeccion).getPerforaCupula3() == null) {
+                if (db.getFotos(idInspeccion).getPerforaCupula1() == null) {
                     perforaCupulaPreview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(perforaCupulaPreview1);
-                    faltaPerforaCupula = true;
+                    faltaPerforaCupula = 1;
                 } else {
-                    faltaPerforaCupula = false;
+                    faltaPerforaCupula = 0;
                 }
             }
 
             /* Valida fotos en "Corta engranaje" */
             if (cortaEngranajePositivoRb.isChecked()) {
-                if (db.getFotos(idInspeccion).getCortaEngrnaje1() == null || db.getFotos(idInspeccion).getCortaEngrnaje2() == null || db.getFotos(idInspeccion).getCortaEngrnaje3() == null) {
+                if (db.getFotos(idInspeccion).getCortaEngrnaje1() == null) {
                     engranajePreview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(engranajePreview1);
-                    faltaCortaEngranaje = true;
+                    faltaCortaEngranaje = 1;
                 } else {
-                    faltaCortaEngranaje = false;
+                    faltaCortaEngranaje = 0;
                 }
             }
 
             /* Valida fotos en "Uso alambre" */
             if (usoAlambrePositivoRb.isChecked()) {
-                if (db.getFotos(idInspeccion).getUsoAlambre1() == null || db.getFotos(idInspeccion).getUsoAlambre2() == null || db.getFotos(idInspeccion).getUsoAlambre3() == null) {
+                if (db.getFotos(idInspeccion).getUsoAlambre1() == null) {
                     alambresPreview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(alambresPreview1);
-                    faltaUsoAlambre = true;
+                    faltaUsoAlambre = 1;
                 } else {
-                    faltaUsoAlambre = false;
+                    faltaUsoAlambre = 0;
                 }
             }
 
             /* Valida fotos en "Prensado" */
             if (prensadoPositivoRb.isChecked()) {
-                if (db.getFotos(idInspeccion).getPrensado1() == null || db.getFotos(idInspeccion).getPrensado2() == null || db.getFotos(idInspeccion).getPrensado3() == null) {
+                if (db.getFotos(idInspeccion).getPrensado1() == null) {
                     prensadoPreview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(prensadoPreview1);
-                    faltaPrensado = true;
+                    faltaPrensado = 1;
                 } else {
-                    faltaPrensado = false;
+                    faltaPrensado = 0;
                 }
             }
 
             /* Valida fotos en "Otros 1" */
             if (otro12PositivoRb.isChecked()) {
-                if (db.getFotos(idInspeccion).getOtro11() == null || db.getFotos(idInspeccion).getOtro12() == null || db.getFotos(idInspeccion).getOtro13() == null) {
+                if (db.getFotos(idInspeccion).getOtro11() == null) {
                     otros1Preview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(otros1Preview1);
-                    faltaOtros1 = true;
+                    faltaOtros1 = 1;
                 } else {
-                    faltaOtros1 = false;
+                    faltaOtros1 = 0;
                 }
             }
 
             /* Valida fotos en "Instalacion paralela" */
             if (case8PositiveRadioButton.isChecked()) {
-                if (db.getFotos(idInspeccion).getInstalacionParalela1() == null || db.getFotos(idInspeccion).getInstalacionParalela2() == null || db.getFotos(idInspeccion).getInstalacionParalela3() == null) {
+                if (db.getFotos(idInspeccion).getInstalacionParalela1() == null) {
                     instalacionParalelaPreview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(instalacionParalelaPreview1);
-                    faltaInstalacionParalela = true;
+                    faltaInstalacionParalela = 1;
                 } else {
-                    faltaInstalacionParalela = false;
+                    faltaInstalacionParalela = 0;
                 }
             }
 
             /* Valida fotos en "Bypass" */
             if (case9PositiveRadioButton.isChecked()) {
-                if (db.getFotos(idInspeccion).getBypass1() == null || db.getFotos(idInspeccion).getBypass2() == null || db.getFotos(idInspeccion).getBypass3() == null) {
+                if (db.getFotos(idInspeccion).getBypass1() == null) {
                     bypassPreview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(bypassPreview1);
-                    faltaBypass = true;
+                    faltaBypass = 1;
                 } else {
-                    faltaBypass = false;
+                    faltaBypass = 0;
                 }
             }
 
             /* Valida fotos en "Otros 2" */
             if (case10PositiveRadioButton.isChecked()) {
-                if (db.getFotos(idInspeccion).getOtro21() == null || db.getFotos(idInspeccion).getOtro22() == null || db.getFotos(idInspeccion).getOtro23() == null) {
+                if (db.getFotos(idInspeccion).getOtro21() == null) {
                     otros2Preview1.setVisibility(View.VISIBLE);
                     Glide.with(getContext())
                             .load("").error(R.drawable.ic_error_outline).into(otros2Preview1);
-                    faltaOtros2 = true;
+                    faltaOtros2 = 1;
                 } else {
-                    faltaOtros2 = false;
+                    faltaOtros2 = 0;
                 }
             }
 
-            if (!faltaUsoImanes || !faltaInvertirTomas || !faltaPerforaCupula || !faltaCortaEngranaje || !faltaUsoAlambre ||
-                    !faltaPrensado || !faltaOtros1 || !faltaInstalacionParalela || !faltaBypass || !faltaOtros2) {
-                puedeContinuar = true;
-            } else {
 
-                puedeContinuar = false;
+            if (otro12PositivoRb.isChecked()) {
+                if (otro12EditText.getText().toString().trim().length() == 0) {
+                    otro12EditText.setError(getResources().getString(R.string.validacion_tipo_falla_otro));
+                    faltaOtrosTexto1 = 1;
+                } else {
+                    faltaOtrosTexto1 = 0;
+                }
+            }
+
+
+            if (case10PositiveRadioButton.isChecked()) {
+                if (otroFotoEditText.getText().toString().trim().length() == 0) {
+                    otroFotoEditText.setError(getResources().getString(R.string.validacion_tipo_falla_otro));
+                    faltaOtrosTexto2 = 1;
+                } else {
+                    faltaOtrosTexto2 = 0;
+                }
+            }
+
+            if (faltaUsoImanes > 0 || faltaInvertirTomas > 0 || faltaPerforaCupula > 0 || faltaCortaEngranaje > 0 || faltaUsoAlambre > 0 ||
+                    faltaPrensado > 0 || faltaOtros1 > 0 || faltaInstalacionParalela > 0 || faltaBypass > 0 || faltaOtros2 > 0
+                    || faltaOtrosTexto1 > 0 || faltaOtrosTexto2 > 0) {
+                puedeContinuar = 0;
+            } else {
+                puedeContinuar = 1;
             }
 
             if (id == R.id.saveButton) {
-                if (puedeContinuar) {
-                    if (otro12PositivoRb.isChecked()) {
-                        if (otro12EditText.getText().toString().trim().length() == 0) {
-                            otro12EditText.setError(getResources().getString(R.string.validacion_tipo_falla_otro));
-
-                        } else {
-                            db.guardaDatosTestParte1(test, idInspeccion);
-                            callback.IdInspeccionEjecutaTestParte2(idInspeccion);
-                        }
-                    }
-                    if (case10PositiveRadioButton.isChecked()) {
-                        if (otroFotoEditText.getText().toString().trim().length() == 0) {
-                            otroFotoEditText.setError(getResources().getString(R.string.validacion_tipo_falla_otro));
-                        } else {
-                            db.guardaDatosTestParte1(test, idInspeccion);
-                            callback.IdInspeccionEjecutaTestParte2(idInspeccion);
-                        }
-                    }
+                if (puedeContinuar == 1) {
+                    db.guardaDatosTestParte1(test, idInspeccion);
+                    callback.IdInspeccionEjecutaTestParte2(idInspeccion);
                 }
             }
         }
     }
+
 
     private void muestraPreview() {
         /* Preview uso de imanes */
