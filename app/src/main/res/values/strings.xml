@@ -7,6 +7,7 @@
     <string name="action_sign_out">Cerrar sesión</string>
     <string name="action_about">Info</string>
     <string name="action_preference">Preferencias</string>
+    <string name="action_map">Mapa</string>
     <string name="sp_key_empresa">spEmpresa</string>
     <string name="sp_key_ambiente">spAmbiente</string>
     <!-- UI Preference -->
@@ -43,6 +44,7 @@
     <string name="init_inspect_negative">No</string>
 
     <!-- UI Map activity -->
+    <string name="map_inspecciones">Mapa de inspecciones</string>
     <string name="permissions_location">Para poder ocupar la aplicación se requieren permisos de ubicación y uso de camara</string>
     <string name="permissions_result">Puede empezar su turno</string>
     <string name="permissions_check">Revisando permisos</string>
@@ -132,7 +134,7 @@
     <string name="execute_test_option_1">Uso imanes</string>
     <string name="execute_test_option_2">Invertir tomas</string>
     <string name="execute_test_option_3">Perforar cúpula</string>
-    <string name="execute_test_option_4">Cortar engranajes</string>
+    <string name="execute_test_option_4">Aspas cortadas</string>
     <string name="execute_test_option_5">Uso de alambre</string>
     <string name="execute_test_option_6">Prensado</string>
     <string name="execute_test_option_7">Otros (especificar)</string>
@@ -199,6 +201,9 @@
 
 
     <string name="validacion_tipo_falla_otro">Debe ingresar la descripcion de la falla</string>
+
+    <string name="validacion_formato_correo">Formato de correo incorrecto</string>
+    <string name="validacion_formato_rut">Formato de RUT incorrecto</string>
 
     <string name="validacion_falta_foto">Asegúrese de sacar las fotos antes de continuar</string>
 

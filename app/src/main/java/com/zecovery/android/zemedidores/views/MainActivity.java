@@ -26,7 +26,8 @@ import com.zecovery.android.zemedidores.data.CurrentUser;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
 import com.zecovery.android.zemedidores.models.Inspection;
 import com.zecovery.android.zemedidores.views.login.LoginActivity;
-import com.zecovery.android.zemedidores.views.map.MapActivity;
+import com.zecovery.android.zemedidores.views.map.MapaInspeccionesActivity;
+import com.zecovery.android.zemedidores.views.map.UbicacionActivity;
 import com.zecovery.android.zemedidores.views.settings.SettingsActivity;
 
 import java.util.List;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                 Log.d("MainActivity", "idInspeccion: " + idInspeccion);
 
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                Intent intent = new Intent(MainActivity.this, UbicacionActivity.class);
                 intent.putExtra(TIPO_INSPECCION, NUEVA);
                 intent.putExtra(ID_INSPECCION, idInspeccion);
                 startActivity(intent);
@@ -89,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         switch (item.getItemId()) {
             case R.id.action_preference:
                 startActivity(new Intent(this, SettingsActivity.class));
+                break;
+            case R.id.action_map:
+                startActivity(new Intent(this, MapaInspeccionesActivity.class));
                 break;
             case R.id.action_sign_out:
                 signOut();
@@ -135,10 +139,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             super.onPostExecute(inspections);
 
             db.guardaInspeccionesDescargadas(inspections);
-
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             mainRecyclerView.setLayoutManager(linearLayoutManager);
+
             InspeccionAdapter adapter = new InspeccionAdapter(inspections);
             mainRecyclerView.setAdapter(adapter);
             progressBar.setVisibility(View.GONE);

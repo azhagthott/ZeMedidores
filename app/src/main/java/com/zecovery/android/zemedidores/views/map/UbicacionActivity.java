@@ -39,7 +39,7 @@ import static com.zecovery.android.zemedidores.data.Constant.NUEVA;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENCIAL;
 import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 
-public class MapActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, LocationListener {
+public class UbicacionActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, LocationListener {
 
     private static final String[] LOCATION = new String[]{
             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -49,7 +49,6 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
     private LatLng mLatLng;
     private LocationManager mLocationManager;
-
     private LocalDatabase db;
 
     @Override
@@ -69,11 +68,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
         affirmative.setOnClickListener(this);
         negative.setOnClickListener(this);
-
-        gerCurrentLocation();
-
-        db = new LocalDatabase(this);
-
+        getCurrentLocation();
     }
 
     @Override
@@ -86,7 +81,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     @SuppressWarnings({"MissingPermission"})
-    private void gerCurrentLocation() {
+    private void getCurrentLocation() {
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 5, this);
     }
@@ -98,7 +93,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                 assignmentType();
                 break;
             case R.id.negative:
-                Intent intent = new Intent(MapActivity.this, InspeccionRechazadaActivity.class);
+                Intent intent = new Intent(UbicacionActivity.this, InspeccionRechazadaActivity.class);
                 intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
                 startActivity(intent);
                 break;
@@ -114,8 +109,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         if (getIntent().getExtras() != null) {
 
             int idInspeccion = getIntent().getIntExtra(ID_INSPECCION, 0);
-
-            Intent intent = new Intent(MapActivity.this, ContentActivity.class);
+            Intent intent = new Intent(UbicacionActivity.this, ContentActivity.class);
 
             switch (getIntent().getStringExtra(TIPO_INSPECCION)) {
 

@@ -26,6 +26,8 @@ import com.zecovery.android.zemedidores.views.assignments.fragments.IdInspeccion
 import java.util.Calendar;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
+import static com.zecovery.android.zemedidores.utiles.Util.validaFormatoCorreo;
+import static com.zecovery.android.zemedidores.utiles.Util.validaFormatoRut;
 
 public class FormularioInspeccionNuevaFragment extends Fragment implements View.OnClickListener,
         FormularioResidencialCallback {
@@ -40,6 +42,10 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
     private TextView fechaResidente;
     private ImageButton setFechaResidenteButton;
 
+    private IdInspeccionListener idInspeccionCallback;
+    private LocalDatabase db;
+    private int idInspeccion;
+
     private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -47,10 +53,6 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
             fechaResidente.setText(year + "-" + realMonth + "-" + day);
         }
     };
-
-    private IdInspeccionListener idInspeccionCallback;
-    private LocalDatabase db;
-    private int idInspeccion;
 
     public FormularioInspeccionNuevaFragment() {
     }
@@ -123,6 +125,15 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
     public void onClick(View view) {
 
         boolean errorNumCliente;
+
+        // valida formato correo
+        if (!validaFormatoCorreo(nuevoResidenteEmail.getText().toString())) {
+            nuevoResidenteEmail.setError(getResources().getString(R.string.validacion_formato_correo));
+        }
+
+        if (!validaFormatoRut(nuevoResidenteRut.getText().toString())) {
+            nuevoResidenteRut.setError(getResources().getString(R.string.validacion_formato_rut));
+        }
 
         if (nuevaInspeccionNumeroCliente.getText().length() == 0) {
             errorNumCliente = true;

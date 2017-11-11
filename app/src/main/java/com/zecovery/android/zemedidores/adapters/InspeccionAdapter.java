@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.models.Inspection;
-import com.zecovery.android.zemedidores.views.map.MapActivity;
+import com.zecovery.android.zemedidores.views.map.UbicacionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +64,7 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
-                Intent intent = new Intent(context, MapActivity.class);
+                Intent intent = new Intent(context, UbicacionActivity.class);
 
                 switch (inspection.getAssigment_type()) {
                     case 1:

@@ -17,6 +17,7 @@ import com.zecovery.android.zemedidores.models.TestParte1;
 import com.zecovery.android.zemedidores.models.TestParte2;
 import com.zecovery.android.zemedidores.models.TestParte3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    public static final int DB_VERSION = 168;
+    public static final int DB_VERSION = 171;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_ASSIGNMENT = "assignment";
     private static final String TABLE_CURRENT_LOCATION = "location";
@@ -396,6 +397,40 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.insert(TABLE_CURRENT_LOCATION, null, values);
         db.close();
     }
+
+
+    public List<LatLng> getUbicacionInspecciones() {
+
+        List<LatLng> list = new ArrayList<>();
+        double lat;
+        double lng;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sqlCommand = "SELECT " + ASSIGNMENT_LAT + "," + ASSIGNMENT_LNG + " FROM " + TABLE_ASSIGNMENT + ";";
+
+        Log.d("TAG", "sqlCommand: " + sqlCommand);
+
+        Cursor cursor = db.rawQuery(sqlCommand, null);
+
+        if (cursor != null) {
+
+            Log.d("TAG", "cursor cantidad: " + cursor.getCount());
+
+            for (int i = 0; i < cursor.getCount(); i++) {
+
+                lat = Double.valueOf(cursor.getString(0));
+                lng = Double.valueOf(cursor.getString(1));
+
+
+                Log.d("TAG", "lat: " + lat);
+                Log.d("TAG", "lng: " + lng);
+                list.add(new LatLng(lng, lat));
+            }
+        }
+
+        return list;
+    }
+
 
     /**
      * Obtiene guardada del inspector

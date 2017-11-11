@@ -26,6 +26,8 @@ import com.zecovery.android.zemedidores.views.assignments.fragments.IdInspeccion
 import java.util.Calendar;
 
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
+import static com.zecovery.android.zemedidores.utiles.Util.validaFormatoCorreo;
+import static com.zecovery.android.zemedidores.utiles.Util.validaFormatoRut;
 
 public class FormularioResidencialFragment extends Fragment implements View.OnClickListener, FormularioResidencialCallback {
 
@@ -39,8 +41,8 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
     private ImageButton setFechaResidenteButton;
 
     private LocalDatabase db;
-
     private IdInspeccionListener idInspeccionCallback;
+    private int idInspeccion;
 
     private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -49,8 +51,6 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
             fechaResidente.setText(year + "-" + realMonth + "-" + day);
         }
     };
-
-    private int idInspeccion;
 
     public FormularioResidencialFragment() {
     }
@@ -160,6 +160,10 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
             errorRut = false;
         }
 
+        if (!validaFormatoRut(rutResidente.getText().toString())) {
+            rutResidente.setError(getResources().getString(R.string.validacion_formato_rut));
+        }
+
         if (telefonoResidente.getText().length() == 0) {
             errorTelefono = true;
             telefonoResidente.setError("Debe ingresar telefono de contacto del residente");
@@ -173,6 +177,12 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
         } else {
             errorFecha = false;
         }
+
+        // valida formato correo
+        if (!validaFormatoCorreo(emailResidente.getText().toString())) {
+            emailResidente.setError(getResources().getString(R.string.validacion_formato_correo));
+        }
+
 
         if (!errorNombre && !errorRut && !errorTelefono && !errorFecha) {
             Residente resident = new Residente();
