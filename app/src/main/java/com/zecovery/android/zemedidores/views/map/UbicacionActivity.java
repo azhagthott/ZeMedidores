@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,6 +64,9 @@ public class UbicacionActivity extends AppCompatActivity implements View.OnClick
 
         Button affirmative = findViewById(R.id.affirmative);
         Button negative = findViewById(R.id.negative);
+
+
+        db = new LocalDatabase(this);
 
         affirmative.setOnClickListener(this);
         negative.setOnClickListener(this);
@@ -153,9 +155,6 @@ public class UbicacionActivity extends AppCompatActivity implements View.OnClick
         if (getIntent().getExtras() != null) {
 
             LatLng assignmentLocation;
-
-            Log.d("TAG", "LATITUD: " + getIntent().getDoubleExtra(LATITUD, 0));
-            Log.d("TAG", "LONGITUD: " + getIntent().getDoubleExtra(LONGITUD, 0));
 
             double lat = getIntent().getDoubleExtra(LATITUD, 0);
             double lng = getIntent().getDoubleExtra(LONGITUD, 0);

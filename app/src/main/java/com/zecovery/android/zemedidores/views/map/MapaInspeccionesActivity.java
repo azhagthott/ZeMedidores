@@ -21,6 +21,7 @@ import com.zecovery.android.zemedidores.data.LocalDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by moe on 19-10-17.
@@ -94,9 +95,9 @@ public class MapaInspeccionesActivity extends AppCompatActivity implements OnMap
         this.map = map;
         map.setMyLocationEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
-
-        for (LatLng latLng : db.getUbicacionInspecciones()) {
-            map.addMarker(new MarkerOptions().position(latLng));
+        Map<String, LatLng> list = db.getUbicacionInspecciones();
+        for (Map.Entry<String, LatLng> e : list.entrySet()) {
+            map.addMarker(new MarkerOptions().position(e.getValue()).title("ID INSPECCION: " + e.getKey()));
         }
     }
 }

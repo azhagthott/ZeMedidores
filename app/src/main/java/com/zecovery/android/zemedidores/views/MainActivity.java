@@ -138,7 +138,18 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         protected void onPostExecute(List<Inspection> inspections) {
             super.onPostExecute(inspections);
 
+            db.borraUbicaciones();
+
+            for (int i = 0; i < inspections.size(); i++) {
+
+                int idInspeccion = inspections.get(i).getId_inspeccion();
+                double lat = inspections.get(i).getLat();
+                double lng = inspections.get(i).getLng();
+                db.guardaUbicacioneInspecciones(idInspeccion, lat, lng);
+            }
+
             db.guardaInspeccionesDescargadas(inspections);
+
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             mainRecyclerView.setLayoutManager(linearLayoutManager);

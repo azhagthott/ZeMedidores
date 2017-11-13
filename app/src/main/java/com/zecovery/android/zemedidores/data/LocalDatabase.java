@@ -17,8 +17,9 @@ import com.zecovery.android.zemedidores.models.TestParte1;
 import com.zecovery.android.zemedidores.models.TestParte2;
 import com.zecovery.android.zemedidores.models.TestParte3;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by fbarrios80 on 15-08-17.
@@ -27,11 +28,12 @@ import java.util.List;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    public static final int DB_VERSION = 171;
+    public static final int DB_VERSION = 179;
     private static final String DB_MANE = "zemedidores.db";
-    private static final String TABLE_ASSIGNMENT = "assignment";
-    private static final String TABLE_CURRENT_LOCATION = "location";
-    private static final String TABLE_INSPECTION_RESULT = "result";
+    private static final String TABLE_INSPECCIONES = "inspecciones";
+    private static final String TABLE_CURRENT_LOCATION = "ubicacion";
+    private static final String TABLE_UBICACION_INSPECCIONES = "ubicacion_inspecciones";
+    private static final String TABLE_INSPECCION_RESULTADOS = "result";
 
     //SQL comandos
     private static final String DB_CREATE_TABLE = "CREATE TABLE ";
@@ -66,6 +68,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
     private static final String CURRENT_LOCATION_ID_KEY = "id";
     private static final String CURRENT_LOCATION_LAT = "lat";
     private static final String CURRENT_LOCATION_LNG = "lng";
+
+    /* ubicacion inspecciones table */
+    private static final String UBICACION_INSPECCION_ID_KEY = "id";
+    private static final String UBICACION_INSPECCION_ID = "id_inspeccion";
+    private static final String UBICACION_INSPECCION_LAT = "lat";
+    private static final String UBICACION_INSPECCION_LNG = "lng";
 
     /* meter, resident, tests table */
     private static final String RESULT_ID_KEY = "id";
@@ -188,7 +196,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String CREATE_TABLE_ASSIGNMENT = DB_CREATE_TABLE + TABLE_ASSIGNMENT + "("
+        String CREATE_TABLE_ASSIGNMENT = DB_CREATE_TABLE + TABLE_INSPECCIONES + "("
                 + ASSIGNMENT_ID_KEY + " INTEGER PRIMARY_KEY, "
                 + ASSIGNMENT_INSPECTOR + " TEXT, "
                 + ASSIGNMENT_ID_INSPECTION + " TEXT, "
@@ -219,7 +227,14 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + CURRENT_LOCATION_LNG + " TEXT)"
                 + ";";
 
-        String CREATE_TABLE_INSPECTION_RESULT = DB_CREATE_TABLE + TABLE_INSPECTION_RESULT + "("
+        String CREATE_TABLE_UBICACION_INSPECCIONES = DB_CREATE_TABLE + TABLE_UBICACION_INSPECCIONES + "("
+                + UBICACION_INSPECCION_ID_KEY + " INTEGER PRIMARY_KEY, "
+                + UBICACION_INSPECCION_ID + " TEXT, "
+                + UBICACION_INSPECCION_LAT + " TEXT, "
+                + UBICACION_INSPECCION_LNG + " TEXT)"
+                + ";";
+
+        String CREATE_TABLE_INSPECTION_RESULT = DB_CREATE_TABLE + TABLE_INSPECCION_RESULTADOS + "("
                 + RESULT_ID_KEY + " INTEGER PRIMARY_KEY, "
                 + RESULT_ID_INSPECCION + " TEXT, "
                 + RESULT_MEDIDOR_UBICACION + " TEXT, "
@@ -330,21 +345,23 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
         Log.d("TAG", "CREATE_TABLE_ASSIGNMENT: " + CREATE_TABLE_ASSIGNMENT);
         Log.d("TAG", "CREATE_TABLE_CURRENT_LOCATION: " + CREATE_TABLE_CURRENT_LOCATION);
+        Log.d("TAG", "CREATE_TABLE_UBICACION_INSPECCIONES: " + CREATE_TABLE_UBICACION_INSPECCIONES);
         Log.d("TAG", "CREATE_TABLE_INSPECTION_RESULT: " + CREATE_TABLE_INSPECTION_RESULT);
 
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
         db.execSQL(CREATE_TABLE_CURRENT_LOCATION);
+        db.execSQL(CREATE_TABLE_UBICACION_INSPECCIONES);
         db.execSQL(CREATE_TABLE_INSPECTION_RESULT);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL(DB_DROP_TABLE + TABLE_ASSIGNMENT);
+        db.execSQL(DB_DROP_TABLE + TABLE_INSPECCIONES);
         db.execSQL(DB_DROP_TABLE + TABLE_CURRENT_LOCATION);
-        db.execSQL(DB_DROP_TABLE + TABLE_INSPECTION_RESULT);
+        db.execSQL(DB_DROP_TABLE + TABLE_UBICACION_INSPECCIONES);
+        db.execSQL(DB_DROP_TABLE + TABLE_INSPECCION_RESULTADOS);
         onCreate(db);
     }
-
 
     /**
      * Guarda los datos de las inspecciones que descarga desde el servidor
@@ -378,7 +395,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
             values.put(ASSIGNMENT_ORDEN, inspection.getOrden());
             values.put(ASSIGNMENT_COMUNA, inspection.getComuna());
             values.put(ASSIGNMENT_MEDIDOR, inspection.getMedidor());
-            db.insert(TABLE_ASSIGNMENT, null, values);
+            db.insert(TABLE_INSPECCIONES, null, values);
         }
         db.close();
     }
@@ -390,51 +407,69 @@ public class LocalDatabase extends SQLiteOpenHelper {
      * @param lng longitud (double)
      */
     public void guardaUbicacionActual(double lat, double lng) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
         values.put(CURRENT_LOCATION_LAT, String.valueOf(lat));
         values.put(CURRENT_LOCATION_LNG, String.valueOf(lng));
         db.insert(TABLE_CURRENT_LOCATION, null, values);
+
         db.close();
     }
 
+    public void guardaUbicacioneInspecciones(int idInspeccion, double lat, double lng) {
 
-    public List<LatLng> getUbicacionInspecciones() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
 
-        List<LatLng> list = new ArrayList<>();
+        values.put(UBICACION_INSPECCION_ID, String.valueOf(idInspeccion));
+        values.put(UBICACION_INSPECCION_LAT, String.valueOf(lat));
+        values.put(UBICACION_INSPECCION_LNG, String.valueOf(lng));
+
+        db.insert(TABLE_UBICACION_INSPECCIONES, null, values);
+
+        db.close();
+    }
+
+    public Map<String, LatLng> getUbicacionInspecciones() {
+
+        Map<String, LatLng> list = new HashMap<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sqlCommand = SELECT_ALL + TABLE_UBICACION_INSPECCIONES + ";";
+
         double lat;
         double lng;
 
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sqlCommand = "SELECT " + ASSIGNMENT_LAT + "," + ASSIGNMENT_LNG + " FROM " + TABLE_ASSIGNMENT + ";";
-
-        Log.d("TAG", "sqlCommand: " + sqlCommand);
-
         Cursor cursor = db.rawQuery(sqlCommand, null);
 
-        if (cursor != null) {
-
-            Log.d("TAG", "cursor cantidad: " + cursor.getCount());
+        if (cursor != null && cursor.moveToFirst()) {
 
             for (int i = 0; i < cursor.getCount(); i++) {
-
-                lat = Double.valueOf(cursor.getString(0));
-                lng = Double.valueOf(cursor.getString(1));
-
-
-                Log.d("TAG", "lat: " + lat);
-                Log.d("TAG", "lng: " + lng);
-                list.add(new LatLng(lng, lat));
+                String id = cursor.getString(1);
+                lat = Double.valueOf(cursor.getString(3));
+                lng = Double.valueOf(cursor.getString(2));
+                list.put(id, new LatLng(lat, lng));
+                cursor.moveToNext();
             }
+            cursor.close();
         }
 
         return list;
+    }
+
+    public void borraUbicaciones(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_UBICACION_INSPECCIONES, null, null);
+        db.close();
     }
 
 
     /**
      * Obtiene guardada del inspector
      */
+
     public LatLng getCurrentDbLocation() {
 
         double lat;
@@ -448,7 +483,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
             lat = Double.valueOf(cursor.getString(1));
             lng = Double.valueOf(cursor.getString(2));
             cursor.close();
-            return new LatLng(lat, lng);
+            return new LatLng(lng, lat);
         } else {
             return new LatLng(0, 0);
         }
@@ -465,7 +500,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(RESULT_ID_INSPECCION, String.valueOf(idInspeccion));
         values.put(RESULT_TEST_EMPRESA_INSPECTOR, empresa);
-        db.insert(TABLE_INSPECTION_RESULT, null, values);
+        db.insert(TABLE_INSPECCION_RESULTADOS, null, values);
         db.close();
     }
 
@@ -488,7 +523,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_TEST_TELEFONO_RESIDENTE, String.valueOf(residente.getTelefonoResidente()));
         values.put(RESULT_TEST_EMAIL_RESIDENTE, String.valueOf(residente.getEmailResidente()));
 
-        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.update(TABLE_INSPECCION_RESULTADOS, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
 
@@ -501,7 +536,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
         Residente residente = new Residente();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_ASSIGNMENT, new String[]
+        Cursor cursor = db.query(TABLE_INSPECCIONES, new String[]
                         {
                                 ASSIGNMENT_NAME,
                                 ASSIGNMENT_RUT,
@@ -544,7 +579,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_DIAMETRO_MEDIDOR, String.valueOf(medidor.getDiametroMedidor()));
         values.put(RESULT_LECTURA_MEDIDOR, String.valueOf(medidor.getLecturaMedidor()));
 
-        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.update(TABLE_INSPECCION_RESULTADOS, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
 
@@ -556,7 +591,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
     public Medidor getDatosMedidor(int idInspeccion) {
         Medidor medidor = new Medidor();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+        Cursor cursor = db.query(TABLE_INSPECCION_RESULTADOS, new String[]
                         {
                                 RESULT_MEDIDOR_UBICACION,
                                 RESULT_MEDIDOR_ESTADO,
@@ -610,7 +645,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_TEST_OTRO_2, String.valueOf(test.getOtro2()));
         values.put(RESULT_TEST_OTRO_2_TEXT, String.valueOf(test.getOtroText2()));
 
-        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.update(TABLE_INSPECCION_RESULTADOS, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
 
@@ -623,7 +658,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
         TestParte1 testParte1 = new TestParte1();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+        Cursor cursor = db.query(TABLE_INSPECCION_RESULTADOS, new String[]
                         {
                                 RESULT_TEST_1,
                                 RESULT_TEST_2,
@@ -695,7 +730,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_TEST_TIPO, String.valueOf(test.getCumplePlano()));
         values.put(RESULT_TEST_OBS_2, String.valueOf(test.getObservaciones2()));
 
-        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.update(TABLE_INSPECCION_RESULTADOS, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
 
@@ -728,7 +763,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         values.put(RESULT_TEST_CAUDAL, String.valueOf(test.getCaudal()));
         values.put(RESULT_TEST_OBS_4, String.valueOf(test.getObservaciones2()));
 
-        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.update(TABLE_INSPECCION_RESULTADOS, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
 
@@ -888,7 +923,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
             values.put(RESULT_TEST_FOTO_OTRO_2_3, String.valueOf(foto.getOtro23()));
         }
 
-        db.update(TABLE_INSPECTION_RESULT, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
+        db.update(TABLE_INSPECCION_RESULTADOS, values, RESULT_ID_INSPECCION + " = ?", new String[]{String.valueOf(idInspeccion)});
         db.close();
     }
 
@@ -902,7 +937,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         Foto fotos = new Foto();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+        Cursor cursor = db.query(TABLE_INSPECCION_RESULTADOS, new String[]
                         {
                                 RESULT_TEST_FOTO_RECHAZO,
                                 RESULT_TEST_FOTO_FALLA_MEDIDOR,
@@ -999,7 +1034,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
         String fecha = "";
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+        Cursor cursor = db.query(TABLE_INSPECCION_RESULTADOS, new String[]
                         {
                                 RESULT_TEST_FECHA_RESIDENTE
                         }
@@ -1032,7 +1067,7 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_INSPECTION_RESULT, new String[]
+        Cursor cursor = db.query(TABLE_INSPECCION_RESULTADOS, new String[]
                         {
                                 RESULT_TEST_NOMBRE_RESIDENTE,
                                 RESULT_TEST_RUT_RESIDENTE,
