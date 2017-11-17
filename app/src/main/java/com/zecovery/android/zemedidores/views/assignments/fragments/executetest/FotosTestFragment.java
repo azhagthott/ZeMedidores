@@ -86,8 +86,6 @@ public class FotosTestFragment extends Fragment implements View.OnClickListener 
 
     public FotosTestFragment newInstance(int idInspeccion) {
 
-        Log.d("TAG", "idInspeccion: " + idInspeccion);
-
         FotosTestFragment photosTestFragment = new FotosTestFragment();
         Bundle args = new Bundle();
         args.putInt(ID_INSPECCION_FORMULARIO_FOTOS, idInspeccion);

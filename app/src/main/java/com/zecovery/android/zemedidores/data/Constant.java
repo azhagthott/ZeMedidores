@@ -7,8 +7,8 @@ package com.zecovery.android.zemedidores.data;
 public class Constant {
 
     /* Retrofit */
-    public static final String URL_BASE = "http://zemedidores.zecovery.com";
-    //public static final String URL_BASE = "http://medidores.demo.zecovery.com";
+    //public static final String URL_BASE = "http://zemedidores.zecovery.com";
+    public static final String URL_BASE = "http://medidores.desa.zecovery.com";
     //public static final String URL_BASE_DEMO = "http://medidores.demo.zecovery.com";
 
     public static final String ZE = "1";

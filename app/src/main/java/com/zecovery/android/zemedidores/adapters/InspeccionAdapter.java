@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,14 @@ import com.zecovery.android.zemedidores.views.map.UbicacionActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.zecovery.android.zemedidores.data.Constant.DIRECCION;
-import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.COMERCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.DIRECCION;
 import static com.zecovery.android.zemedidores.data.Constant.EMPRESA;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.LATITUD;
 import static com.zecovery.android.zemedidores.data.Constant.LONGITUD;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 
 /**
  * Created by fbarrios80 on 08-05-17.
@@ -71,10 +70,6 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
                         intent.putExtra(TIPO_INSPECCION, RESIDENCIAL);
                         intent.putExtra(LATITUD, inspection.getLat());
                         intent.putExtra(LONGITUD, inspection.getLng());
-
-                        Log.d("TAG", "onClick: " + inspection.getLat());
-                        Log.d("TAG", "onClick: " + inspection.getLng());
-
                         intent.putExtra(DIRECCION, inspection.getAddress());
                         intent.putExtra(ID_INSPECCION, inspection.getId_inspeccion());
                         context.startActivity(intent);

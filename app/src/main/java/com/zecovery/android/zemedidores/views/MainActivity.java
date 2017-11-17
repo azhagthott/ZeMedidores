@@ -1,7 +1,9 @@
 package com.zecovery.android.zemedidores.views;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,6 +79,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         new GetInspecciones(new InspeccionParams(123, new CurrentUser().email())).execute();
         setSupportActionBar(toolbar);
+
+        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String empresaInspeccion = mSharedPreferences.getString(getString(R.string.sp_key_empresa), "VACIO");
+
+        if (empresaInspeccion.equals("VACIO")) {
+            //FIXME: mostrar alert indicando que no a seteado empresa|
+            Toast.makeText(this, "Recuerde seleccionar su empresa", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -143,9 +154,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             for (int i = 0; i < inspections.size(); i++) {
 
                 int idInspeccion = inspections.get(i).getId_inspeccion();
+                String direccion = inspections.get(i).getAddress();
                 double lat = inspections.get(i).getLat();
                 double lng = inspections.get(i).getLng();
-                db.guardaUbicacioneInspecciones(idInspeccion, lat, lng);
+                db.guardaUbicacioneInspecciones(idInspeccion, direccion, lat, lng);
             }
 
             db.guardaInspeccionesDescargadas(inspections);

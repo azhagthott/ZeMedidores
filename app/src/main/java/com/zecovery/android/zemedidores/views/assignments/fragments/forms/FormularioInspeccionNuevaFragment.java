@@ -75,11 +75,11 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findViews(view);
+
         idInspeccion = getArguments().getInt(ID_INSPECCION, 0);
         db = new LocalDatabase(getContext());
 
         saveButton.setOnClickListener(this);
-
         setFechaResidenteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,6 +125,7 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
     public void onClick(View view) {
 
         boolean errorNumCliente;
+        boolean errorSinDireccion;
 
         // valida formato correo
         if (!validaFormatoCorreo(nuevoResidenteEmail.getText().toString())) {
@@ -142,7 +143,14 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
             errorNumCliente = false;
         }
 
-        if (!errorNumCliente) {
+        if (nuevaInspeccionDireccion.getText().length() == 0) {
+            errorSinDireccion = true;
+            nuevaInspeccionDireccion.setError("Debe ingresar dirección");
+        } else {
+            errorSinDireccion = false;
+        }
+
+        if (!errorNumCliente && !errorSinDireccion) {
 
             Residente resident = new Residente();
 
@@ -157,7 +165,7 @@ public class FormularioInspeccionNuevaFragment extends Fragment implements View.
             new GuardaDatosResidente(this, getContext()).guardaDatos(resident, idInspeccion);
 
         } else {
-            Toast.makeText(getContext(), "El numero de cliente es obligatorio", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "El numero de cliente y la dirección son obligatorios", Toast.LENGTH_SHORT).show();
         }
     }
 

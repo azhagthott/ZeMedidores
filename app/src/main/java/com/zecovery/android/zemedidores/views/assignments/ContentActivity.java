@@ -19,12 +19,13 @@ import com.zecovery.android.zemedidores.views.assignments.fragments.forms.Formul
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioNegociacionFragment;
 import com.zecovery.android.zemedidores.views.assignments.fragments.forms.FormularioResidencialFragment;
 
-import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.COMERCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.DIRECCION;
 import static com.zecovery.android.zemedidores.data.Constant.EMPRESA;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.NUEVA;
 import static com.zecovery.android.zemedidores.data.Constant.RESIDENCIAL;
+import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
 
 public class ContentActivity extends AppCompatActivity implements IdInspeccionListener {
 
@@ -40,6 +41,11 @@ public class ContentActivity extends AppCompatActivity implements IdInspeccionLi
         if (extra != null) {
 
             int idInspeccion = getIntent().getIntExtra(ID_INSPECCION, 0);
+            String direccion = getIntent().getStringExtra(DIRECCION);
+
+            Log.d("TAG", "onCreate: " + direccion);
+
+
             Log.d("ContentActivity", "idInspeccion: " + idInspeccion);
 
 
@@ -49,7 +55,7 @@ public class ContentActivity extends AppCompatActivity implements IdInspeccionLi
                     callFragment(new FormularioInspeccionNuevaFragment().newInstance(idInspeccion));
                     break;
                 case RESIDENCIAL:
-                    callFragment(new FormularioResidencialFragment().newInstance(idInspeccion));
+                    callFragment(new FormularioResidencialFragment().newInstance(idInspeccion, direccion));
                     break;
                 case COMERCIAL:
                     callFragment(new FormularioComercialFragment());

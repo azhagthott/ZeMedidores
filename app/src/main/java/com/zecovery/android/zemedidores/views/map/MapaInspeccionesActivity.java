@@ -2,6 +2,7 @@ package com.zecovery.android.zemedidores.views.map;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.R;
@@ -23,16 +25,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.zecovery.android.zemedidores.data.Constant.DIRECCION;
+import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
+import static com.zecovery.android.zemedidores.data.Constant.LATITUD;
+import static com.zecovery.android.zemedidores.data.Constant.LONGITUD;
+
 /**
  * Created by moe on 19-10-17.
  */
 
-public class MapaInspeccionesActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
+public class MapaInspeccionesActivity extends AppCompatActivity implements OnMapReadyCallback,
+        LocationListener, GoogleMap.OnInfoWindowClickListener {
 
     private static final String[] LOCATION = new String[]{
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION};
-    private GoogleMap map;
+
     private LatLng mLatLng;
     private LocationManager mLocationManager;
     private LocalDatabase db;
@@ -53,7 +61,6 @@ public class MapaInspeccionesActivity extends AppCompatActivity implements OnMap
         getCurrentLocation();
 
         db = new LocalDatabase(this);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -92,12 +99,39 @@ public class MapaInspeccionesActivity extends AppCompatActivity implements OnMap
     @Override
     @SuppressWarnings({"MissingPermission"})
     public void onMapReady(GoogleMap map) {
-        this.map = map;
         map.setMyLocationEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
+
         Map<String, LatLng> list = db.getUbicacionInspecciones();
+
+
         for (Map.Entry<String, LatLng> e : list.entrySet()) {
-            map.addMarker(new MarkerOptions().position(e.getValue()).title("ID INSPECCION: " + e.getKey()));
+            map.addMarker(
+                    new MarkerOptions()
+                            .position(e.getValue())
+                            .title("ID INSPECCION:")
+                            .snippet(e.getKey())
+            );
+
+
         }
+
+        map.setOnInfoWindowClickListener(this);
+
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        String idInspeccion = marker.getSnippet();
+        List<String> datos = db.getDatosInspeccion(idInspeccion);
+
+        Intent intent = new Intent(MapaInspeccionesActivity.this, UbicacionActivity.class);
+
+        intent.putExtra(ID_INSPECCION, Integer.valueOf(idInspeccion));
+        intent.putExtra(DIRECCION, datos.get(0));
+        intent.putExtra(LONGITUD, Double.valueOf(datos.get(1)));
+        intent.putExtra(LATITUD, Double.valueOf(datos.get(2)));
+
+        startActivity(intent);
     }
 }

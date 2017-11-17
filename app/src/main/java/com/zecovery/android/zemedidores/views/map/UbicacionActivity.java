@@ -65,7 +65,6 @@ public class UbicacionActivity extends AppCompatActivity implements View.OnClick
         Button affirmative = findViewById(R.id.affirmative);
         Button negative = findViewById(R.id.negative);
 
-
         db = new LocalDatabase(this);
 
         affirmative.setOnClickListener(this);
@@ -105,7 +104,6 @@ public class UbicacionActivity extends AppCompatActivity implements View.OnClick
     private void assignmentType() {
 
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         String empresaInspeccion = mSharedPreferences.getString(getString(R.string.sp_key_empresa), "VACIO");
 
         if (getIntent().getExtras() != null) {
@@ -118,12 +116,14 @@ public class UbicacionActivity extends AppCompatActivity implements View.OnClick
                 case NUEVA:
                     intent.putExtra(TIPO_INSPECCION, NUEVA);
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
+                    intent.putExtra(DIRECCION, getIntent().getStringExtra(DIRECCION));
                     db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
                     break;
                 case RESIDENCIAL:
                     intent.putExtra(TIPO_INSPECCION, RESIDENCIAL);
                     intent.putExtra(ID_INSPECCION, getIntent().getIntExtra(ID_INSPECCION, 0));
+                    intent.putExtra(DIRECCION, getIntent().getStringExtra(DIRECCION));
                     db.creaInspeccion(idInspeccion, empresaInspeccion);
                     startActivity(intent);
                     break;

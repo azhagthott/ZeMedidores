@@ -83,6 +83,7 @@ public interface PostResult {
             @Part("caudal") RequestBody caudal_body,
             @Part("observacion_4") RequestBody observacion_4_body,
             @Part("nombre_residente") RequestBody nombre_residente_body,
+            @Part("direccion") RequestBody direccion_residente_body,
             @Part("rut_residente") RequestBody rut_residente_body,
             @Part("telefono_residente") RequestBody telefono_residente_body,
             @Part("email_residente") RequestBody email_residente_body,

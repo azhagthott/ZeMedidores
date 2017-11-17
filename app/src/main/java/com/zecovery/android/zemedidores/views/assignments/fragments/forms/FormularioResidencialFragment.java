@@ -25,6 +25,7 @@ import com.zecovery.android.zemedidores.views.assignments.fragments.IdInspeccion
 
 import java.util.Calendar;
 
+import static com.zecovery.android.zemedidores.data.Constant.DIRECCION;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.utiles.Util.validaFormatoCorreo;
 import static com.zecovery.android.zemedidores.utiles.Util.validaFormatoRut;
@@ -43,6 +44,7 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
     private LocalDatabase db;
     private IdInspeccionListener idInspeccionCallback;
     private int idInspeccion;
+    private String direccion;
 
     private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -55,9 +57,10 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
     public FormularioResidencialFragment() {
     }
 
-    public FormularioResidencialFragment newInstance(int idInspeccion) {
+    public FormularioResidencialFragment newInstance(int idInspeccion, String direccion) {
         FormularioResidencialFragment residentialFormFragment = new FormularioResidencialFragment();
         Bundle args = new Bundle();
+        args.putString(DIRECCION, direccion);
         args.putInt(ID_INSPECCION, idInspeccion);
         residentialFormFragment.setArguments(args);
         return residentialFormFragment;
@@ -74,6 +77,8 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
         super.onViewCreated(view, savedInstanceState);
 
         idInspeccion = getArguments().getInt(ID_INSPECCION, 0);
+        direccion = getArguments().getString(DIRECCION);
+
         db = new LocalDatabase(getContext());
         findViews(view);
 
@@ -187,6 +192,7 @@ public class FormularioResidencialFragment extends Fragment implements View.OnCl
         if (!errorNombre && !errorRut && !errorTelefono && !errorFecha) {
             Residente resident = new Residente();
             resident.setNombreResidente(nombreResidente.getText().toString());
+            resident.setDireccionResidente(direccion);
             resident.setRutResidente(rutResidente.getText().toString());
             resident.setTelefonoResidente(telefonoResidente.getText().toString());
             resident.setEmailResidente(emailResidente.getText().toString());

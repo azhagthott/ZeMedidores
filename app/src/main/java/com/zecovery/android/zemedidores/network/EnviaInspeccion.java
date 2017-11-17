@@ -100,6 +100,7 @@ public class EnviaInspeccion {
         String observacion_4 = resultado.getTestParte3().getObservaciones2();
 
         String nombre_residente = String.valueOf(resultado.getResidente().getNombreResidente());
+        String direccion_residente = String.valueOf(resultado.getResidente().getDireccionResidente());
         String rut_residente = String.valueOf(resultado.getResidente().getRutResidente());
         String telefono_residente = String.valueOf(resultado.getResidente().getTelefonoResidente());
         String email_residente = String.valueOf(resultado.getResidente().getEmailResidente());
@@ -165,6 +166,7 @@ public class EnviaInspeccion {
         RequestBody diametro_medidor_body = RequestBody.create(MediaType.parse("multipart/form-data"), diametro_medidor);
         RequestBody lectura_medidor_body = RequestBody.create(MediaType.parse("multipart/form-data"), lectura_medidor);
         RequestBody nombre_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), nombre_residente);
+        RequestBody direccion_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), direccion_residente);
         RequestBody rut_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), rut_residente);
         RequestBody telefono_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), telefono_residente);
         RequestBody email_residente_body = RequestBody.create(MediaType.parse("multipart/form-data"), email_residente);
@@ -567,6 +569,7 @@ public class EnviaInspeccion {
                 caudal_body,
                 observacion_4_body,
                 nombre_residente_body,
+                direccion_residente_body,
                 rut_residente_body,
                 telefono_residente_body,
                 email_residente_body,

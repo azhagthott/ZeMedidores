@@ -17,6 +17,7 @@ import com.zecovery.android.zemedidores.models.TestParte1;
 import com.zecovery.android.zemedidores.models.TestParte2;
 import com.zecovery.android.zemedidores.models.TestParte3;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ import java.util.Map;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    public static final int DB_VERSION = 179;
+    public static final int DB_VERSION = 184;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_INSPECCIONES = "inspecciones";
     private static final String TABLE_CURRENT_LOCATION = "ubicacion";
@@ -72,8 +73,9 @@ public class LocalDatabase extends SQLiteOpenHelper {
     /* ubicacion inspecciones table */
     private static final String UBICACION_INSPECCION_ID_KEY = "id";
     private static final String UBICACION_INSPECCION_ID = "id_inspeccion";
-    private static final String UBICACION_INSPECCION_LAT = "lat";
-    private static final String UBICACION_INSPECCION_LNG = "lng";
+    private static final String DIRECCION_INSPECCION = "direccion_inspeccion";
+    private static final String UBICACION_INSPECCION_LAT = "lat_inspeccion";
+    private static final String UBICACION_INSPECCION_LNG = "lng_inspeccion";
 
     /* meter, resident, tests table */
     private static final String RESULT_ID_KEY = "id";
@@ -230,9 +232,12 @@ public class LocalDatabase extends SQLiteOpenHelper {
         String CREATE_TABLE_UBICACION_INSPECCIONES = DB_CREATE_TABLE + TABLE_UBICACION_INSPECCIONES + "("
                 + UBICACION_INSPECCION_ID_KEY + " INTEGER PRIMARY_KEY, "
                 + UBICACION_INSPECCION_ID + " TEXT, "
+                + DIRECCION_INSPECCION + " TEXT, "
                 + UBICACION_INSPECCION_LAT + " TEXT, "
                 + UBICACION_INSPECCION_LNG + " TEXT)"
                 + ";";
+
+        Log.d("TAG", "onCreate: " + CREATE_TABLE_UBICACION_INSPECCIONES);
 
         String CREATE_TABLE_INSPECTION_RESULT = DB_CREATE_TABLE + TABLE_INSPECCION_RESULTADOS + "("
                 + RESULT_ID_KEY + " INTEGER PRIMARY_KEY, "
@@ -343,10 +348,10 @@ public class LocalDatabase extends SQLiteOpenHelper {
                 + RESULT_TEST_EMPRESA_INSPECTOR + " TEXT)"
                 + ";";
 
-        Log.d("TAG", "CREATE_TABLE_ASSIGNMENT: " + CREATE_TABLE_ASSIGNMENT);
-        Log.d("TAG", "CREATE_TABLE_CURRENT_LOCATION: " + CREATE_TABLE_CURRENT_LOCATION);
-        Log.d("TAG", "CREATE_TABLE_UBICACION_INSPECCIONES: " + CREATE_TABLE_UBICACION_INSPECCIONES);
-        Log.d("TAG", "CREATE_TABLE_INSPECTION_RESULT: " + CREATE_TABLE_INSPECTION_RESULT);
+        Log.d("TAG", "CREATE_TABLE: " + CREATE_TABLE_ASSIGNMENT);
+        Log.d("TAG", "CREATE_TABLE: " + CREATE_TABLE_CURRENT_LOCATION);
+        Log.d("TAG", "CREATE_TABLE: " + CREATE_TABLE_UBICACION_INSPECCIONES);
+        Log.d("TAG", "CREATE_TABLE: " + CREATE_TABLE_INSPECTION_RESULT);
 
         db.execSQL(CREATE_TABLE_ASSIGNMENT);
         db.execSQL(CREATE_TABLE_CURRENT_LOCATION);
@@ -418,17 +423,17 @@ public class LocalDatabase extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void guardaUbicacioneInspecciones(int idInspeccion, double lat, double lng) {
+    public void guardaUbicacioneInspecciones(int idInspeccion, String direccion, double lat, double lng) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(UBICACION_INSPECCION_ID, String.valueOf(idInspeccion));
+        values.put(DIRECCION_INSPECCION, direccion);
         values.put(UBICACION_INSPECCION_LAT, String.valueOf(lat));
         values.put(UBICACION_INSPECCION_LNG, String.valueOf(lng));
 
         db.insert(TABLE_UBICACION_INSPECCIONES, null, values);
-
         db.close();
     }
 
@@ -448,23 +453,41 @@ public class LocalDatabase extends SQLiteOpenHelper {
 
             for (int i = 0; i < cursor.getCount(); i++) {
                 String id = cursor.getString(1);
-                lat = Double.valueOf(cursor.getString(3));
-                lng = Double.valueOf(cursor.getString(2));
+                lat = Double.valueOf(cursor.getString(4));
+                lng = Double.valueOf(cursor.getString(3));
                 list.put(id, new LatLng(lat, lng));
                 cursor.moveToNext();
             }
             cursor.close();
         }
-
         return list;
     }
 
-    public void borraUbicaciones(){
+
+    public List<String> getDatosInspeccion(String idInspeccion) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_UBICACION_INSPECCIONES, new String[]{
+                DIRECCION_INSPECCION,
+                UBICACION_INSPECCION_LNG,
+                UBICACION_INSPECCION_LAT
+        }, UBICACION_INSPECCION_ID + "=?", new String[]{idInspeccion}, null, null, null, "1");
+
+        List<String> datos = new ArrayList<>();
+
+        if (cursor != null && cursor.moveToFirst()) {
+            datos.add(cursor.getString(0));
+            datos.add(cursor.getString(1));
+            datos.add(cursor.getString(2));
+        }
+        return datos;
+    }
+
+    public void borraUbicaciones() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_UBICACION_INSPECCIONES, null, null);
         db.close();
     }
-
 
     /**
      * Obtiene guardada del inspector
