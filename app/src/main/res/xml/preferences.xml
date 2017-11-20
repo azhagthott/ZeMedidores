@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Ambiente">
+    <!-- <PreferenceCategory android:title="Ambiente">
 
         <ListPreference
             android:defaultValue="0"
@@ -11,7 +11,7 @@
             android:summary="Seleccione ambiente (DESA/DEMO)"
             android:title="Seleccionar ambiente" />
 
-    </PreferenceCategory>
+    </PreferenceCategory> -->
 
     <PreferenceCategory android:title="Empresa">
 
@@ -19,8 +19,20 @@
             android:entries="@array/nombre_empresa_array"
             android:entryValues="@array/valor_empresa_array"
             android:key="@string/sp_key_empresa"
-            android:summary="Seleccione su empresa"
+            android:summary="Para poder enviar inspecciones, primero debe seleccionar la empresa"
             android:title="Seleccionar empresa" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="Inspecciones">
+
+        <ListPreference
+            android:entries="@array/nombre_mostrar_inspecciones_array"
+            android:entryValues="@array/valor_mostrar_inspecciones_array"
+            android:key="@string/sp_key_inspecciones"
+            android:summary="Indique si quiere mostrar todas las inspecciones o solo las asignada del día"
+            android:title="Mostrar inspecciones" />
 
     </PreferenceCategory>
 

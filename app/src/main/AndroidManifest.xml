@@ -80,7 +80,7 @@
 
         <activity
             android:name=".views.map.MapaInspeccionesActivity"
-            android:label="@string/app_name"
+            android:label="@string/map_inspecciones"
             android:parentActivityName=".views.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
@@ -89,21 +89,11 @@
                 android:value="com.zecovery.android.zemedidores.views.MainActivity" />
         </activity>
 
-        <activity
-            android:name=".views.AboutActivity"
-            android:label="@string/title_activity_about"
-            android:parentActivityName=".views.MainActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.zecovery.android.zemedidores.views.MainActivity" />
-        </activity>
         <activity
             android:name=".views.settings.SettingsActivity"
             android:label="@string/title_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
 
         <meta-data
             android:name="com.google.android.gms.version"

@@ -17,7 +17,9 @@ import com.zecovery.android.zemedidores.models.TestParte1;
 import com.zecovery.android.zemedidores.models.TestParte2;
 import com.zecovery.android.zemedidores.models.TestParte3;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +31,7 @@ import java.util.Map;
 public class LocalDatabase extends SQLiteOpenHelper {
 
     /* local db */
-    public static final int DB_VERSION = 184;
+    public static final int DB_VERSION = 188;
     private static final String DB_MANE = "zemedidores.db";
     private static final String TABLE_INSPECCIONES = "inspecciones";
     private static final String TABLE_CURRENT_LOCATION = "ubicacion";
@@ -368,10 +370,18 @@ public class LocalDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+    public void borraInspecciones() {
+        Log.i("TAG", "borraInspecciones");
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_INSPECCIONES, null, null);
+        db.close();
+    }
+
     /**
      * Guarda los datos de las inspecciones que descarga desde el servidor
      *
-     * @param inspections devuelve una lista de inspecciones (objeto inspection)
+     * @param inspections guarda una lista de inspecciones (objeto inspection)
      */
     public void guardaInspeccionesDescargadas(List<Inspection> inspections) {
 
@@ -403,6 +413,86 @@ public class LocalDatabase extends SQLiteOpenHelper {
             db.insert(TABLE_INSPECCIONES, null, values);
         }
         db.close();
+    }
+
+    public List<Inspection> getInspeccionesDescargadas(boolean conFecha) {
+
+        List<Inspection> inspections = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sqlCommand = SELECT_ALL + TABLE_INSPECCIONES + ";";
+
+        Cursor cursor = db.rawQuery(sqlCommand, null);
+
+        if (conFecha) {
+            if (cursor != null && cursor.moveToFirst()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+                String currentDateandTime = sdf.format(new Date());
+                String fechaActual = currentDateandTime.replace(".", "");
+
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    String fechaCarga = cursor.getString(5);
+                    if (fechaActual.equals(fechaCarga)) {
+                        Inspection inspection = new Inspection();
+                        inspection.setInspector(cursor.getString(1));
+                        inspection.setId_inspeccion(Integer.valueOf(cursor.getString(2)));
+                        inspection.setAddress(cursor.getString(3));
+                        inspection.setAssigment_type(Integer.valueOf(cursor.getString(4)));
+                        inspection.setDate(cursor.getString(5));
+                        inspection.setLat(Double.valueOf(cursor.getString(6)));
+                        inspection.setLng(Double.valueOf(cursor.getString(7)));
+                        inspection.setName_resident(cursor.getString(8));
+                        inspection.setPhono_resident(cursor.getString(9));
+                        inspection.setMail_resident(cursor.getString(10));
+                        inspection.setDateIni_resident(cursor.getString(11));
+                        inspection.setMarca_medidor(cursor.getString(12));
+                        inspection.setNumero_medidor(cursor.getString(13));
+                        inspection.setOrigin(Integer.valueOf(cursor.getString(14)));
+                        inspection.setPolygon(cursor.getString(15));
+                        inspection.setRut(cursor.getString(16));
+                        inspection.setSector(cursor.getString(17));
+                        inspection.setZone(cursor.getString(18));
+                        inspection.setOrden(cursor.getString(19));
+                        inspection.setComuna(cursor.getString(20));
+                        inspection.setMedidor(cursor.getString(21));
+                        inspections.add(inspection);
+                        cursor.moveToNext();
+                    }
+                }
+                cursor.close();
+            }
+        } else {
+            if (cursor != null && cursor.moveToFirst()) {
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    Inspection inspection = new Inspection();
+                    inspection.setInspector(cursor.getString(1));
+                    inspection.setId_inspeccion(Integer.valueOf(cursor.getString(2)));
+                    inspection.setAddress(cursor.getString(3));
+                    inspection.setAssigment_type(Integer.valueOf(cursor.getString(4)));
+                    inspection.setDate(cursor.getString(5));
+                    inspection.setLat(Double.valueOf(cursor.getString(6)));
+                    inspection.setLng(Double.valueOf(cursor.getString(7)));
+                    inspection.setName_resident(cursor.getString(8));
+                    inspection.setPhono_resident(cursor.getString(9));
+                    inspection.setMail_resident(cursor.getString(10));
+                    inspection.setDateIni_resident(cursor.getString(11));
+                    inspection.setMarca_medidor(cursor.getString(12));
+                    inspection.setNumero_medidor(cursor.getString(13));
+                    inspection.setOrigin(Integer.valueOf(cursor.getString(14)));
+                    inspection.setPolygon(cursor.getString(15));
+                    inspection.setRut(cursor.getString(16));
+                    inspection.setSector(cursor.getString(17));
+                    inspection.setZone(cursor.getString(18));
+                    inspection.setOrden(cursor.getString(19));
+                    inspection.setComuna(cursor.getString(20));
+                    inspection.setMedidor(cursor.getString(21));
+                    inspections.add(inspection);
+                    cursor.moveToNext();
+                }
+                cursor.close();
+            }
+        }
+        return inspections;
     }
 
     /**
@@ -448,7 +538,6 @@ public class LocalDatabase extends SQLiteOpenHelper {
         double lng;
 
         Cursor cursor = db.rawQuery(sqlCommand, null);
-
         if (cursor != null && cursor.moveToFirst()) {
 
             for (int i = 0; i < cursor.getCount(); i++) {

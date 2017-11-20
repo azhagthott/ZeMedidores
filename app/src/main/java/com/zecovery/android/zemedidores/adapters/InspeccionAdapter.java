@@ -2,7 +2,6 @@ package com.zecovery.android.zemedidores.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,45 +48,31 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
 
         final Inspection inspection = inspections.get(position);
 
-        if (inspection.getOrigin() == 1) {
-            holder.setColor(Color.RED);
-        } else if (inspection.getOrigin() == 2) {
-            holder.setColor(Color.BLUE);
-        } else {
-            holder.setColor(Color.BLACK);
-        }
-
-        holder.setAddress(inspection.getAddress());
+        holder.setDireccion(inspection.getAddress());
+        holder.setFecha(inspection.getDate());
 
         holder.inspectionLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
+
                 Intent intent = new Intent(context, UbicacionActivity.class);
+                intent.putExtra(LATITUD, inspection.getLat());
+                intent.putExtra(LONGITUD, inspection.getLng());
+                intent.putExtra(DIRECCION, inspection.getAddress());
+                intent.putExtra(ID_INSPECCION, inspection.getId_inspeccion());
 
                 switch (inspection.getAssigment_type()) {
                     case 1:
                         intent.putExtra(TIPO_INSPECCION, RESIDENCIAL);
-                        intent.putExtra(LATITUD, inspection.getLat());
-                        intent.putExtra(LONGITUD, inspection.getLng());
-                        intent.putExtra(DIRECCION, inspection.getAddress());
-                        intent.putExtra(ID_INSPECCION, inspection.getId_inspeccion());
                         context.startActivity(intent);
                         break;
                     case 2:
                         intent.putExtra(TIPO_INSPECCION, COMERCIAL);
-                        intent.putExtra(LATITUD, inspection.getLat());
-                        intent.putExtra(LONGITUD, inspection.getLng());
-                        intent.putExtra(DIRECCION, inspection.getAddress());
-                        intent.putExtra(ID_INSPECCION, inspection.getId_inspeccion());
                         context.startActivity(intent);
                         break;
                     case 3:
                         intent.putExtra(TIPO_INSPECCION, EMPRESA);
-                        intent.putExtra(LATITUD, inspection.getLat());
-                        intent.putExtra(LONGITUD, inspection.getLng());
-                        intent.putExtra(DIRECCION, inspection.getAddress());
-                        intent.putExtra(ID_INSPECCION, inspection.getId_inspeccion());
                         context.startActivity(intent);
                         break;
                 }
@@ -103,22 +88,22 @@ public class InspeccionAdapter extends RecyclerView.Adapter<InspeccionAdapter.In
     static class InspeccionViewHolder extends RecyclerView.ViewHolder {
 
         private LinearLayout inspectionLinearLayout;
-        private TextView inspectionAddressTextView;
-        private View inpseccionColor;
+        private TextView inspectionDireccionTextView;
+        private TextView inspectionFechaTextView;
 
         public InspeccionViewHolder(View view) {
             super(view);
             inspectionLinearLayout = view.findViewById(R.id.inspectionLinearLayout);
-            inspectionAddressTextView = view.findViewById(R.id.inspectionAddressTextView);
-            inpseccionColor = view.findViewById(R.id.inpseccionColor);
+            inspectionDireccionTextView = view.findViewById(R.id.inspectionDireccionTextView);
+            inspectionFechaTextView = view.findViewById(R.id.inspectionFechaTextView);
         }
 
-        private void setAddress(String address) {
-            inspectionAddressTextView.setText(address);
+        private void setDireccion(String direccion) {
+            inspectionDireccionTextView.setText(direccion);
         }
 
-        private void setColor(int color) {
-            inpseccionColor.setBackgroundColor(color);
+        private void setFecha(String fecha) {
+            inspectionFechaTextView.setText(fecha);
         }
     }
 }

@@ -24,6 +24,16 @@
         <item>86</item>
     </string-array>
 
+    <!-- Mostrar inspecciones -->
+    <string-array name="nombre_mostrar_inspecciones_array">
+        <item>Solo las del día</item>
+        <item>Mostrar todas</item>
+    </string-array>
+
+    <string-array name="valor_mostrar_inspecciones_array">
+        <item>SI</item>
+        <item>NO</item>
+    </string-array>
 
     <!-- Ambiente -->
     <string-array name="nombre_ambiente_array">

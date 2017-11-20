@@ -8,7 +8,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +23,6 @@ import com.google.firebase.crash.FirebaseCrash;
 import com.zecovery.android.zemedidores.R;
 import com.zecovery.android.zemedidores.data.LocalDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,11 +42,13 @@ public class MapaInspeccionesActivity extends AppCompatActivity implements OnMap
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION};
 
+    private CardView infoCardView;
+    private TextView idInspeccionTextView;
+    private TextView direccionInspeccionTextView;
+
     private LatLng mLatLng;
     private LocationManager mLocationManager;
     private LocalDatabase db;
-
-    private List<LatLng> inspeccionesLatLng = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,38 +103,34 @@ public class MapaInspeccionesActivity extends AppCompatActivity implements OnMap
     @SuppressWarnings({"MissingPermission"})
     public void onMapReady(GoogleMap map) {
         map.setMyLocationEnabled(true);
-        map.getUiSettings().setZoomControlsEnabled(true);
+
+        map.getUiSettings().setZoomControlsEnabled(false);
+        map.getUiSettings().setCompassEnabled(false);
+        map.getUiSettings().setTiltGesturesEnabled(false);
+        map.getUiSettings().setMapToolbarEnabled(false);
 
         Map<String, LatLng> list = db.getUbicacionInspecciones();
 
-
-        for (Map.Entry<String, LatLng> e : list.entrySet()) {
+        for (Map.Entry<String, LatLng> entry : list.entrySet()) {
             map.addMarker(
                     new MarkerOptions()
-                            .position(e.getValue())
-                            .title("ID INSPECCION:")
-                            .snippet(e.getKey())
+                            .position(entry.getValue())
+                            .title("INSPECCION:")
+                            .snippet(entry.getKey())
             );
-
-
         }
-
         map.setOnInfoWindowClickListener(this);
-
     }
+
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        String idInspeccion = marker.getSnippet();
-        List<String> datos = db.getDatosInspeccion(idInspeccion);
-
+        List<String> datos = db.getDatosInspeccion(marker.getSnippet());
         Intent intent = new Intent(MapaInspeccionesActivity.this, UbicacionActivity.class);
-
-        intent.putExtra(ID_INSPECCION, Integer.valueOf(idInspeccion));
+        intent.putExtra(ID_INSPECCION, Integer.valueOf(marker.getSnippet()));
         intent.putExtra(DIRECCION, datos.get(0));
         intent.putExtra(LONGITUD, Double.valueOf(datos.get(1)));
         intent.putExtra(LATITUD, Double.valueOf(datos.get(2)));
-
         startActivity(intent);
     }
 }

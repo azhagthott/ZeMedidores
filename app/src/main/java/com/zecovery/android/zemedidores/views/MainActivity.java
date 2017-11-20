@@ -36,6 +36,8 @@ import com.zecovery.android.zemedidores.views.settings.SettingsActivity;
 import java.util.List;
 import java.util.Random;
 
+import static com.zecovery.android.zemedidores.data.Constant.FILTRAR_FECHA_NO;
+import static com.zecovery.android.zemedidores.data.Constant.FILTRAR_FECHA_SI;
 import static com.zecovery.android.zemedidores.data.Constant.ID_INSPECCION;
 import static com.zecovery.android.zemedidores.data.Constant.NUEVA;
 import static com.zecovery.android.zemedidores.data.Constant.TIPO_INSPECCION;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private FloatingActionButton fab;
     private SwipeRefreshLayout swiperefresh;
     private ProgressBar progressBar;
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         mainRecyclerView = findViewById(R.id.mainRecyclerView);
         swiperefresh = findViewById(R.id.swiperefresh);
         progressBar = findViewById(R.id.progressBar);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         db = new LocalDatabase(this);
         swiperefresh.setOnRefreshListener(this);
@@ -80,11 +85,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         new GetInspecciones(new InspeccionParams(123, new CurrentUser().email())).execute();
         setSupportActionBar(toolbar);
 
-        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String empresaInspeccion = mSharedPreferences.getString(getString(R.string.sp_key_empresa), "VACIO");
-
         if (empresaInspeccion.equals("VACIO")) {
-            //FIXME: mostrar alert indicando que no a seteado empresa|
             Toast.makeText(this, "Recuerde seleccionar su empresa", Toast.LENGTH_SHORT).show();
         }
     }
@@ -108,11 +110,13 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             case R.id.action_sign_out:
                 signOut();
                 break;
-            case R.id.action_about:
-                startActivity(new Intent(this, AboutActivity.class));
-                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        new GetInspecciones(new InspeccionParams(123, new CurrentUser().email())).execute();
     }
 
     private void signOut() {
@@ -124,11 +128,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                         finish();
                     }
                 });
-    }
-
-    @Override
-    public void onRefresh() {
-        new GetInspecciones(new InspeccionParams(123, new CurrentUser().email())).execute();
     }
 
     public class GetInspecciones extends ListaInspecciones {
@@ -149,27 +148,46 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         protected void onPostExecute(List<Inspection> inspections) {
             super.onPostExecute(inspections);
 
+            // Limpio la db, quito las ubicaciones de las inspecciones
             db.borraUbicaciones();
 
             for (int i = 0; i < inspections.size(); i++) {
-
                 int idInspeccion = inspections.get(i).getId_inspeccion();
                 String direccion = inspections.get(i).getAddress();
                 double lat = inspections.get(i).getLat();
                 double lng = inspections.get(i).getLng();
+                //guardo la ubicacion de cada inspeccion (se ocupan en el mapa)
                 db.guardaUbicacioneInspecciones(idInspeccion, direccion, lat, lng);
             }
 
+            // Borro las inspecciones descargadas
+            db.borraInspecciones();
+            // Guardo todas las inspecciones
             db.guardaInspeccionesDescargadas(inspections);
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             mainRecyclerView.setLayoutManager(linearLayoutManager);
 
-            InspeccionAdapter adapter = new InspeccionAdapter(inspections);
-            mainRecyclerView.setAdapter(adapter);
-            progressBar.setVisibility(View.GONE);
-            swiperefresh.setRefreshing(false);
+            // Obtengo las inspecciones descargadas
+            String filtrarPorFecha = mSharedPreferences.getString(getString(R.string.sp_key_inspecciones), FILTRAR_FECHA_SI);
+
+            if (filtrarPorFecha.equals(FILTRAR_FECHA_SI)) {
+                List<Inspection> list = db.getInspeccionesDescargadas(true);
+                InspeccionAdapter adapter = new InspeccionAdapter(list);
+                mainRecyclerView.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
+                swiperefresh.setRefreshing(false);
+
+            } else if (filtrarPorFecha.equals(FILTRAR_FECHA_NO)) {
+                List<Inspection> list = db.getInspeccionesDescargadas(false);
+                InspeccionAdapter adapter = new InspeccionAdapter(list);
+                mainRecyclerView.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
+                swiperefresh.setRefreshing(false);
+            } else {
+                Toast.makeText(MainActivity.this, "Seleccione como quiere que se muestren las inspecciones", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

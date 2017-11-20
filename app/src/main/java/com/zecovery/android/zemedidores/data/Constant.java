@@ -7,14 +7,18 @@ package com.zecovery.android.zemedidores.data;
 public class Constant {
 
     /* Retrofit */
-    //public static final String URL_BASE = "http://zemedidores.zecovery.com";
-    public static final String URL_BASE = "http://medidores.desa.zecovery.com";
+    public static final String URL_BASE = "http://zemedidores.zecovery.com";
+    //public static final String URL_BASE = "http://medidores.desa.zecovery.com";
     //public static final String URL_BASE_DEMO = "http://medidores.demo.zecovery.com";
 
     public static final String ZE = "1";
     public static final String AA = "2";
 
     public static final String TAG = "LOG:::";
+
+
+    public static final String FILTRAR_FECHA_SI = "SI";
+    public static final String FILTRAR_FECHA_NO = "NO";
 
     public static final String NUEVA = "-1";
     public static final String RESIDENCIAL = "1";

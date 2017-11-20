@@ -10,6 +10,7 @@
     <string name="action_map">Mapa</string>
     <string name="sp_key_empresa">spEmpresa</string>
     <string name="sp_key_ambiente">spAmbiente</string>
+    <string name="sp_key_inspecciones">spInspecciones</string>
     <!-- UI Preference -->
 
 
